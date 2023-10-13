@@ -1,0 +1,41 @@
+@import "vars";
+@import "mixins";
+
+.header {
+  position: fixed;
+  width: 100%;
+  background-color: $colorSecondary400;
+  z-index: 20;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+
+  &-left {
+    display: flex;
+  }
+
+  &-right {
+    display: flex;
+  }
+
+  &-item {
+    padding: 20px 10px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    margin: 4px;
+    transition: all 0.3s ease-out;
+
+    &:hover {
+      color: $colorPrimary800;
+      background-color: $colorSecondary100;
+      box-shadow: 4px 4px 8px $colorPrimary800;
+    }
+  }
+}
+
+.active {
+  font-weight: 900;
+}

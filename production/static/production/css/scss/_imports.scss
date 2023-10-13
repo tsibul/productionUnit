@@ -1,0 +1,100 @@
+@import "vars";
+@import "mixins";
+
+.imports {
+  display: flex;
+  border: 1px solid $colorPrimary900;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  max-height: 160px;
+  transition: scale 2s ease, max-height 0.3s ease-in-out;
+  box-shadow: 6px 6px 12px $colorPrimary800;
+
+  & .dict-block__header {
+    transition: padding 0.2s ease-in-out;
+  }
+
+  &[open] .dict-block__header {
+    padding: 20px;
+  }
+
+  &[open] {
+    max-height: 800px;
+    overflow: hidden;
+    &:hover{
+      transform: scale(1);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &__block {
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 20px;
+  }
+}
+
+.import-file-modal {
+  position: absolute;
+  top: 25%;
+  left: 30%;
+  padding: 6px;
+  background-color: $colorSecondary200;
+  border-radius: 12px;
+  display: none;
+  box-shadow: 6px 6px 12px $colorPrimary800;
+  transition: max-height .4s ease;
+  max-height: 0;
+  overflow: hidden;
+
+  &_open{
+    max-height: 100%;
+  }
+
+
+  &__body {
+    position: relative;
+    border: 1px solid $colorPrimary900;
+    border-radius: 10px;
+    margin: 6px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+  }
+
+  &__header {
+    background-color: $colorSecondary200;
+  }
+
+  &__input {
+    border: 1px solid $colorPrimary900;
+    border-radius: 10px;
+    padding: 6px 8px;
+    font-size: 16px;
+    color: $colorPrimary800;
+    margin: 20px 0 10px 0;
+    width: 100%;
+  }
+
+  &__buttons {
+    align-self: flex-end;
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.form-row__import{
+  @include brd-standard;
+  padding: 20px 30px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  position: relative;
+}

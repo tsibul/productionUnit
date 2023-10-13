@@ -1,0 +1,15 @@
+@import "vars";
+@import "mixins";
+
+.form-row__export{
+  //margin-top: -16px;
+  @include brd-standard;
+  padding: 20px 30px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  width: 600px;
+  align-items: center;
+  position: relative;
+}
+

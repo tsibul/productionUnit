@@ -1,9 +1,10 @@
 from django.db import models
-from production.models import MasterBatch, Goods, MaterialType
+from production.models import MasterBatch, Goods, MaterialType, Color
 
 
 class Recipe(models.Model):
     goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
     main_material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE)
     add_material_doze = models.DecimalField(max_digits=4, decimal_places=2)
     main_master = models.ForeignKey(MasterBatch, on_delete=models.CASCADE, null=True, related_name='main')

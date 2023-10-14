@@ -5,15 +5,14 @@ from . import views
 app_name = 'production'
 
 urlpatterns = [
-    # path('', views.index, name='main'),
-    #
-    #
-    # path('dictionary/', views.dictionary, name='dictionary'),
-    # path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),
-    # path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
-    # path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
-    # path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>', views.dictionary_json,
-    #      name='dictionary_json'),
+    path('', views.index, name='main'),
+
+    path('dictionary/', views.dictionary, name='dictionary'),
+    path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),
+    path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
+    path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
+    path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>', views.dictionary_json,
+         name='dictionary_json'),
     #
     # path('imports/', views.imports, name='imports'),
     # path('import_file/', views.import_file, name='import_file'),

@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Производство</title>
-     <link rel="icon" type="image/x-icon" href="{% static 'production/icon/plant.svg' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'production/icon/plant.svg' %}">
 
     <script src="{% static 'production/js/main.js' %}" defer></script>
+    <script src="{% static 'production/js/login.js' %}" defer></script>
     <script src="https://kit.fontawesome.com/e2a5b405b2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'production/css/style.css' %}">
 
@@ -38,10 +39,13 @@
             </div>
             <nav class="menu-right">
                 {% if request.user.is_authenticated %}
-                    <a href="#" class="menu-item"><i class="fa fa-regular fa-user"></i>&nbsp;{{ request.user.username }}
-                    </a>
+                    <p class="menu-item">{{ request.user.username }} </p>
+                    <div type="button" class="menu-item" id="logout-button"> выход</div>
+                    <div type="button" class="menu-item" id="login-button" hidden> вход</div>
                 {% else %}
-                    <a href="#" class="menu-item"><i class="fa fa-solid fa-power-off"></i>&nbsp;Войти</a>
+                    <p class="menu-item active">Неизвестный</p>
+                    <div type="button" class="menu-button" id="logout-button" hidden> выход</div>
+                    <div type="button" class="menu-button" id="login-button"> вход</div>
                 {% endif %}
             </nav>
         </menu>
@@ -67,6 +71,39 @@
         </div>
     </div>
 {% endif %}
+
+<!-- Модальное окно для входа и выхода -->
+<div id="authModal" class="login">
+    <div class="login__content">
+        <!-- Форма для входа -->
+        <form method="post" id="login-form" action="{% url 'production:custom_login' %}">
+            {% csrf_token %}
+            <div class="login__header">
+                <p class="active">Вход</p>
+                <span class="login__close">&times;</span>
+            </div>
+
+            <input type="text" name="username" placeholder="Имя пользователя" required class="login__input">
+            <input type="password" name="password" placeholder="Пароль" required class="login__input">
+            <div class="login__buttons">
+                <button type="submit" class="btn btn-save">Войти</button>
+            </div>
+        </form>
+
+        <!-- Форма для выхода -->
+        <form method="post" id="logout-form" action="{% url 'production:custom_logout' %}">
+            {% csrf_token %}
+            <div class="login__header">
+                <p class="active">Выход</p>
+                <span class="login__close">&times;</span>
+            </div>
+            <p class="login__text">Вы уверены, что хотите выйти?</p>
+            <div class="login__buttons">
+                <button type="submit" class="btn btn-save">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

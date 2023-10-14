@@ -5,6 +5,9 @@ from . import views
 app_name = 'production'
 
 urlpatterns = [
+    path('accounts/login/', views.custom_login, name='custom_login'),
+    path('accounts/logout/', views.custom_logout, name='custom_logout'),
+
     path('', views.index, name='main'),
 
     path('dictionary/', views.dictionary, name='dictionary'),

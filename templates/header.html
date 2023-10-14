@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Маркетинг</title>
-     <link rel="icon" type="image/x-icon" href="{% static 'marketing_report/icon/people-robbery-solid.svg' %}">
+    <title>Производство</title>
+     <link rel="icon" type="image/x-icon" href="{% static 'production/icon/plant.svg' %}">
 
-    <script src="{% static 'marketing_report/js/main.js' %}" defer></script>
+    <script src="{% static 'production/js/main.js' %}" defer></script>
     <script src="https://kit.fontawesome.com/e2a5b405b2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'marketing_report/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'production/css/style.css' %}">
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
@@ -23,21 +23,17 @@
         <menu class="menu">
             <div class="menu-left">
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'marketing_report:main' %}"
+                    <a href="http://10.0.1.17/wcenter/"
+                       class="menu-item">Центр управления</a>
+                    <a href="{% url 'production:main' %}"
                        class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
-                    <a href="{% url 'marketing_report:reports' %}"
-                       class="menu-item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
-                    <a href="{% url 'marketing_report:customer' %}"
-                       class="menu-item {% if navi == 'customer' %}active{% endif %}">Клиенты</a>
-                    <a href="{% url 'marketing_report:dictionary' %}"
+                    <a href="{% url 'production:dictionary' %}"
                        class="menu-item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
-                    <a href="{% url 'marketing_report:imports' %}"
-                       class="menu-item {% if navi == 'imports' %}active{% endif %}">Импорт</a>
                 {% else %}
-                    <p class="menu-item">Макетинг V2.0. <strong>Авторизуйтесь</strong></p>
+                    <div class="menu-item">Производство V1.0. <strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="{%  url 'marketing_report:admin_site' %}" class="menu-item">Админ</a>
+                    <a href="#" class="menu-item">Админ</a>
                 {% endif %}
             </div>
             <nav class="menu-right">

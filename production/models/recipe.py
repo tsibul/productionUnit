@@ -11,6 +11,8 @@ class Recipe(models.Model):
     main_master_doze = models.DecimalField(max_digits=4, decimal_places=2)
     add_master = models.ForeignKey(MasterBatch, on_delete=models.CASCADE, null=True, related_name='additional')
     add_master_doze = models.DecimalField(max_digits=4, decimal_places=2)
+    comment = models.CharField(max_length=140, blank=True, null=True, default='')
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return (f"{self.main_material_type}  дробленка {self.add_material_doze}% краситель1 {self.main_master} "
@@ -20,3 +22,6 @@ class Recipe(models.Model):
         return (f"{self.main_material_type}  дробленка {self.add_material_doze}% краситель1 {self.main_master} "
                 f"доза {self.main_master_doze}% краситель 2 {self.add_master} доза {self.add_material_doze}%")
 
+    @staticmethod
+    def order_default():
+        return ['goods__article']

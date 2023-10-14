@@ -30,7 +30,7 @@ function fetchJsonData(jsonUrl) {
 function filterList(input) {
     let filter, ul, li, a, i;
     filter = input.value.toUpperCase();
-    const div = input.parentElement.parentElement;
+    const div = input.closest('.dropdown');
     a = div.getElementsByTagName("li");
     for (i = 0; i < a.length; i++) {
         let txtValue = a[i].textContent || a[i].innerText;

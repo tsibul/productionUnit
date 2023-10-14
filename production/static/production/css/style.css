@@ -124,6 +124,10 @@
   display: none;
 }
 
+.visible {
+  display: block;
+}
+
 .form-row {
   display: grid;
   grid-column: 1/-1;

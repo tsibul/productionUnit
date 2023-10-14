@@ -1,12 +1,15 @@
 const dictList = {
-    matrix: 'GoodMatrixType',
-    crm: 'GoodCrmType',
-    printType: 'PrintType',
+    country: 'Country',
+    producer: 'Producer',
+    materialType: 'MaterialType',
     colorScheme: 'ColorScheme',
     color: 'Color',
-    customer: 'Customer',
-    customerType: 'CustomerTypes',
-    customerGroup: 'CustomerGroups',
+    detailName: 'DetailName',
+    detailInGoods: 'DetailInGoods',
+    mainMaterial: 'MainMaterial',
+    addMaterial: 'AddMaterial',
+    masterBatch: 'MasterBatch',
+    recipe: 'Recipe',
     goods: 'Goods',
 };
 const addButtons = document.querySelectorAll('.btn_add');
@@ -137,7 +140,7 @@ function saveDictionaryRecord(obj) {
     event.preventDefault();
     const updateForm = obj.closest('.form-row');
     const dictionaryType = updateForm.parentElement.id.split('-')[0];
-    const fetchPath = '/marketing/dict_update/' + dictList[dictionaryType];
+    const fetchPath = '/production/dict_update/' + dictList[dictionaryType];
     const formData = new FormData(updateForm);
     fetch(fetchPath, {
         method: 'POST',
@@ -163,7 +166,7 @@ function saveDictionaryRecord(obj) {
             parentRow.querySelector('.id-hidden').setAttribute('form', '');
             if (parentRow.dataset.id === 'e') {
                 const dictType = typeDict(parentRow);
-                const jsonUrl = `/marketing/dictionary_last_id/${dictType}`;
+                const jsonUrl = `/production/dictionary_last_id/${dictType}`;
                 const jsonData = await fetchJsonData(jsonUrl);
                 const idRecord = JSON.parse(jsonData)['id__max'];
                 parentRow.dataset.id = idRecord;
@@ -179,7 +182,7 @@ async function appendNewRows(rowCurrent, blockContent, searchString) {
     let newRow;
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     const dictType = typeDict(rowCurrent);
-    const jsonUrl = `/marketing/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}`;
+    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}`;
     const jsonData = await fetchJsonData(jsonUrl);
     const nextRecords = JSON.parse(jsonData);
     let i = 0;
@@ -206,7 +209,7 @@ async function fillNewRow(record, i, newRow) {
             rowElement.dataset.id = record.fields[fieldName];
             if (fieldName === 'customer_group') {
                 if (record.fields[fieldName] !== null) {
-                    let groupUrl = `/marketing/customer_group_json`;
+                    let groupUrl = `/production/customer_group_json`;
                     let groupData = await fetchJsonData(groupUrl);
                     let customerGroups = JSON.parse(groupData);
                     let groupElement = customerGroups.filter((el) => {
@@ -257,23 +260,6 @@ addEventListener('mouseover', async (event) => {
     for (const el of lastRecords) {
         if (el.contains(rowCurrent)) {
             await appendNewRows(rowCurrent, blockContent, searchString);
-            // const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
-            // const dictType = typeDict(rowCurrent);
-            // const jsonUrl = `/marketing/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}`;
-            // const jsonData = await fetchJsonData(jsonUrl);
-            // const nextRecords = JSON.parse(jsonData);
-            // let i = 0;
-            // nextRecords.forEach((record) => {
-            //     i++;
-            //     newRow = rowCopy.cloneNode(true);
-            //     fillNewRow(record, i, newRow);
-            //     newRow.classList.remove('dict-block__row_hidden');
-            //     if (i === 20) {
-            //         newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
-            //     }
-            //     blockContent.appendChild(newRow);
-            // });
-            // rowCurrent.dataset.last = '';
         }
     }
 });
@@ -301,7 +287,7 @@ addEventListener('mousedown', async event => {
             const idNo = row.dataset.id;
             const dictType = typeDict(row);
             row.remove();
-            const url = `/marketing/dict_delete/${dictType}/${idNo}`;
+            const url = `/production/dict_delete/${dictType}/${idNo}`;
             await fetch(url);
         }
     }

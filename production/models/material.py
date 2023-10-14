@@ -4,6 +4,7 @@ from production.models import Producer
 
 class MaterialType(models.Model):
     name = models.CharField(max_length=40)
+    deleted = models.BooleanField(default=False)
 
 
 class Material(models.Model):
@@ -27,6 +28,10 @@ class MainMaterial(Material):
     def __str__(self):
         return f"{self.material_type.name} {self.producer.name} {self.brand} {self.code}"
 
+    @staticmethod
+    def order_default():
+        return ['brand']
+
 
 class AddMaterial(Material):
 
@@ -35,6 +40,11 @@ class AddMaterial(Material):
 
     def __str__(self):
         return f"дробленка {self.material_type.name} {self.color}"
+
+
+    @staticmethod
+    def order_default():
+        return ['material_type__name']
 
 
 class MasterBatch(Material):
@@ -48,3 +58,7 @@ class MasterBatch(Material):
 
     def __str__(self):
         return f"суперконцентрат {self.color} {self.producer.name} {self.brand} {self.code}"
+
+    @staticmethod
+    def order_default():
+        return ['brand']

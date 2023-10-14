@@ -24,3 +24,7 @@ class DetailInGoods(models.Model):
 
     def __str__(self):
         return f"{self.goods.article}.{self.position} {self.detail_name.name}"
+
+    @staticmethod
+    def order_default():
+        return ['goods__article', 'position']

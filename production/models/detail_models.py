@@ -15,7 +15,7 @@ class DetailName(models.Model):
 
 class DetailInGoods(models.Model):
     goods = models.ForeignKey(Goods, models.SET_NULL, null=True)
-    detail_name = models.ForeignKey(DetailName, models.SET_NULL, null=True)
+    detail_name = models.ForeignKey(DetailName, models.SET_NULL, null=True, blank=True)
     position = models.SmallIntegerField(default=1)
     deleted = models.BooleanField(default=False)
 

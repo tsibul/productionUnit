@@ -775,7 +775,7 @@
                        value="{{ goods.0.id }}">
                 <div class="dropdown__input-block">
                     <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="filterList(this)"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
                            value="{{ goods.0.article }}"
                            data-value="{{ goods.0.article }}">
                     <i class="fa fa-solid fa-angle-down"></i>
@@ -794,7 +794,7 @@
                        value="{{ detail.0.id }}">
                 <div class="dropdown__input-block">
                     <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="filterList(this)"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
                            value="{{ detail.0.name }}"
                            data-value="{{ detail.0.name }}">
                     <i class="fa fa-solid fa-angle-down"></i>

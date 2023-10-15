@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
-                               MaterialType, MasterBatch, Country, Producer, Recipe)
+                               MaterialType, MasterBatch, Country, Producer, Recipe, IMM)
 
 
 def dictionary(request):
@@ -31,13 +31,14 @@ def dictionary(request):
     goods = Goods.objects.filter(deleted=False).order_by('article')
     recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
+    imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
                'main_material': main_material,
                'main_material_end': main_material_end,
                'goods': goods, 'add_material': add_material,
-               'add_material_end': add_material_end,
+               'add_material_end': add_material_end, 'imm': imm,
                'recipe': recipe, 'recipe_end': recipe_end}
     return render(request, 'dictionary.html', context)
 

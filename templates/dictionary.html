@@ -614,6 +614,70 @@
                         {% endfor %}
                     </div>
                 </details><!-- производитель -->
+                <details class="dict-block dict-block__3">
+                    <summary class="dict-block__header dict-block__header_block-space">
+                        <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;ТПА</div>
+                        <div class="dict-block__search">
+                            <i class="fa fa-solid fa-magnifying-glass"></i>
+                            <input type="search" class="form-input dict-block__form-input"
+                                   placeholder="искать...">
+                            <button class="btn btn-save search_submit" type="button">поиск</button>
+                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        </div>
+                    </summary>
+                    <div class="dict-block__row dict-block__active imm">
+                        <div>Номер</div>
+                        <div>Производитель</div>
+                        <div>Название</div>
+                        <div>Модель</div>
+                        <div>Зав. Номер</div>
+                        <div>Инв. Номер</div>
+                        <button class="btn btn-save btn_add">добавить</button>
+                    </div>
+                    <div class="dict-block__content">
+                        <div class="dict-block__row imm dict-block__row_hidden" data-id="0"
+                             id="imm-0" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="0">
+                            <div class="dict-block__text"
+                                 data-name="plant_code" data-field="plant_code"></div>
+                            <div class="dict-block__text foreign-key"
+                                 data-name="producer" data-field="producer" data-id=""></div>
+                            <div class="dict-block__text"
+                                 data-name="name" data-field="name"></div>
+                            <div class="dict-block__text"
+                                 data-name="imm_model" data-field="imm_model"></div>
+                            <div class="dict-block__text"
+                                 data-name="producer_code" data-field="producer_code"></div>
+                            <div class="dict-block__text"
+                                 data-name="account_code" data-field="account_code"></div>
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
+                        {% for item in imm %}
+                            <div class="dict-block__row imm" data-id="{{ item.id }}"
+                                 id="imm-{{ item.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-block__text"
+                                     data-name="plant_code">{{ item.plant_code }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ item.producer.id }}"
+                                     data-name="producer">{{ item.producer.name }}</div>
+                                <div class="dict-block__text"
+                                     data-name="name">{{ item.name }}</div>
+                                <div class="dict-block__text"
+                                     data-name="imm_model">{{ item.imm_model }}</div>
+                                <div class="dict-block__text"
+                                     data-name="producer_code">{{ item.producer_code }}</div>
+                                <div class="dict-block__text"
+                                     data-name="accountCode">{{ item.account_code }}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </details><!-- ТПА -->
                 <details class="dict-block dict-block__5">
                     <summary class="dict-block__header dict-block__header_block-space">
                         <div class="dict-block__active"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы</div>
@@ -729,6 +793,25 @@
     </div>
 
     <div id="technical-data" hidden>
+        <div id="producer">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="producer" type="text" class="dropdown__hidden"
+                       value="{{ producer.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ producer.0.name }}"
+                           data-value="{{ producer.0.name }}">
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in producer %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
         <div id="main_material_type">
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="main_material_type" type="text" class="dropdown__hidden"

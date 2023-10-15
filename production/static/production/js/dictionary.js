@@ -11,6 +11,7 @@ const dictList = {
     masterBatch: 'MasterBatch',
     recipe: 'Recipe',
     goods: 'Goods',
+    imm: 'IMM',
 };
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');

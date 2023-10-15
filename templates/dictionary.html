@@ -9,7 +9,7 @@
                     <summary class="dict-block__header">
                         <div class="dict-block__active"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Страна</div>
                     </summary>
-                    <div class="dict-block__row dict-block__active service-dict dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active service-dict ">
                         <div>Страна</div>
                         <button class="btn btn-save btn_add">добавить</button>
                     </div>
@@ -41,7 +41,7 @@
                     <summary class="dict-block__header">
                         <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип материала</div>
                     </summary>
-                    <div class="dict-block__row dict-block__active service-dict">
+                    <div class="dict-block__row dict-block__active service-dict ">
                         <div>Тип материала</div>
                         <button class="btn btn-save btn_add">добавить</button>
                     </div>
@@ -144,7 +144,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active color dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active color">
                         <div>Код</div>
                         <div>Название</div>
                         <div>Pantone</div>
@@ -227,7 +227,7 @@
                         </div>
 
                     </summary>
-                    <div class="dict-block__row dict-block__active detail-in-goods dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active detail-in-goods ">
                         <div>Продукция</div>
                         <div>Поз.</div>
                         <div>Название</div>
@@ -292,7 +292,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active goods dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active goods ">
                         <div>Название</div>
                         <div>Артикул</div>
                         <div>Цветовая группа</div>
@@ -348,7 +348,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active main-material dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active main-material ">
                         <div>Тип</div>
                         <div>Цвет</div>
                         <div>Производитель</div>
@@ -430,7 +430,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active add-material dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active add-material ">
                         <div>Тип</div>
                         <div>Цвет</div>
                         <button class="btn btn-save btn_add">добавить</button>
@@ -488,7 +488,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active masterbatch dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active masterbatch">
                         <div>Тип</div>
                         <div>Цвет</div>
                         <div>Производитель</div>
@@ -541,29 +541,6 @@
                                 </button>
                             </div>
                         {% endfor %}
-                        {% for item in masterbatch_end %}
-                            <div class="dict-block__row masrerbatch" data-id="{{ item.id }}"
-                                 id="masterBatch-{{ item.id }}" data-last="20"  onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                     data-name="material_type">{{ item.material_type }}</div>
-                                <div class="dict-block__text"
-                                     data-name="color">{{ item.color }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="producer"
-                                     data-id="{{ item.producer.id }}">{{ item.producer.name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="brand">{{ item.brand }}</div>
-                                <div class="dict-block__text"
-                                     data-name="code">{{ item.code }}</div>
-                                <div class="dict-block__text"
-                                     data-name="doze">{{ item.doze }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
                     </div>
                 </details><!-- суперконцентрат -->
                 <details class="dict-block dict-block__5">
@@ -577,7 +554,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active producer dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active producer ">
                         <div>Название</div>
                         <div>Адрес склада</div>
                         <div>Телефон</div>
@@ -611,7 +588,7 @@
                             </button>
                         </div>
                         {% for item in producer %}
-                            <div class="dict-block__row masterbatch" data-id="{{ item.id }}"
+                            <div class="dict-block__row producer" data-id="{{ item.id }}"
                                  id="producer-{{ item.id }}" onclick="editDictionary(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
@@ -648,7 +625,7 @@
                             <button class="btn btn-close search_clear" type="button">очистить</button>
                         </div>
                     </summary>
-                    <div class="dict-block__row dict-block__active recipe dict-block__row_right-margin">
+                    <div class="dict-block__row dict-block__active recipe ">
                         <div>Продукция</div>
                         <div>Цвет</div>
                         <div>Материал</div>
@@ -661,7 +638,7 @@
                         <button class="btn btn-save btn_add">добавить</button>
                     </div>
                     <div class="dict-block__content">
-                        <div class="dict-block__row producer dict-block__row_hidden" data-id="0"
+                        <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
                              id="recipe-0" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
@@ -680,6 +657,8 @@
                                  data-name="add_master" data-field="add_master"></div>
                             <div class="dict-block__text"
                                  data-name="add_master_doze" data-field="add_master_doze"></div>
+                            <div class="dict-block__text"
+                                 data-name="comment" data-field="comment"></div>
                             <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
@@ -750,13 +729,89 @@
     </div>
 
     <div id="technical-data" hidden>
+        <div id="main_material_type">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="main_material_type" type="text" class="dropdown__hidden"
+                       value="{{ material_type.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ material_type.0.name }}"
+                           data-value="{{ material_type.0.name }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in material_type %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="main_master">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="main_master" type="text" class="dropdown__hidden"
+                       value="{{ masterbatch.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ masterbatch.0 }}"
+                           data-value="{{ masterbatch.0 }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in masterbatch %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="add_master">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="add_master" type="text" class="dropdown__hidden"
+                       value="{{ masterbatch.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ masterbatch.0 }}"
+                           data-value="{{ masterbatch.0 }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in masterbatch %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="color">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="color" type="text" class="dropdown__hidden"
+                       value="{{ color.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ color.0 }}"
+                           data-value="{{ color.0 }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in color %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
         <div id="color_scheme">
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="color_scheme" type="text" class="dropdown__hidden"
                        value="{{ color_group.0.id }}">
                 <div class="dropdown__input-block">
                     <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
                            value="{{ color_group.0.scheme_name }}"
                            data-value="{{ color_group.0.scheme_name }}" readonly>
                     <i class="fa fa-solid fa-angle-down"></i>
@@ -807,13 +862,32 @@
                 </ul>
             </div>
         </div>
+        <div id="country">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="country" type="text" class="dropdown__hidden"
+                       value="{{ country.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value="{{ country.0.name }}"
+                           data-value="{{ country.0.name }}">
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in country %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
         <div id="boolean">
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="bool" type="text" class="dropdown__hidden"
                        value="1">
                 <div class="dropdown__input-block">
                     <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           placeholder="Поиск.."
                            value="Да"
                            data-value="Да" readonly>
                     <i class="fa fa-solid fa-angle-down"></i>

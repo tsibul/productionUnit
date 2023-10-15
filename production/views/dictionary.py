@@ -27,15 +27,14 @@ def dictionary(request):
     main_material_end = MainMaterial.objects.filter(deleted=False).order_by('brand')[19:20]
     add_material = AddMaterial.objects.filter(deleted=False).order_by('material_type__name')[0:19]
     add_material_end = AddMaterial.objects.filter(deleted=False).order_by('material_type__name')[19:20]
-    masterbatch = MasterBatch.objects.filter(deleted=False).order_by('brand')[0:19]
-    masterbatch_end = MasterBatch.objects.filter(deleted=False).order_by('brand')[19:20]
+    masterbatch = MasterBatch.objects.filter(deleted=False).order_by('brand')
     goods = Goods.objects.filter(deleted=False).order_by('article')
     recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
-               'masterbatch_end': masterbatch_end, 'main_material': main_material,
+               'main_material': main_material,
                'main_material_end': main_material_end,
                'goods': goods, 'add_material': add_material,
                'add_material_end': add_material_end,

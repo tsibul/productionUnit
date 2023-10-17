@@ -22,30 +22,40 @@
 <header class="header">
     <div class="container">
         <menu class="menu">
-            <div class="menu-left">
+            <div class="menu__mobile menu__item"><i class="fa fa-solid fa-bars"></i></div>
+            <div class="menu__left">
+                <a href="http://10.0.1.17/wcenter/"
+                   class="menu__item"><i class="fa fa-solid fa-arrows-to-circle"></i>
+                    <span class="header__mobile">&nbsp;Главная</span>
+                </a>
                 {% if request.user.is_authenticated %}
-                    <a href="http://10.0.1.17/wcenter/"
-                       class="menu-item">Центр управления</a>
                     <a href="{% url 'production:main' %}"
-                       class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
+                       class="menu__item {% if navi == 'main' %}active{% endif %}">Производство</a>
+                    <a href="#"
+                       class="menu__item {% if navi == 'request' %}active{% endif %}">Заявки</a>
+                    <a href="#"
+                       class="menu__item {% if navi == 'quality' %}active{% endif %}">Качество</a>
                     <a href="{% url 'production:dictionary' %}"
-                       class="menu-item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
+                       class="menu__item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                 {% else %}
-                    <div class="menu-item">Производство V1.0. <strong>Авторизуйтесь</strong></div>
+                    <div class="menu__item">Производство V1.0.&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="#" class="menu-item">Админ</a>
+                    <a href="#" class="menu__item">Админ</a>
                 {% endif %}
             </div>
-            <nav class="menu-right">
+            <nav class="menu__right">
                 {% if request.user.is_authenticated %}
-                    <p class="menu-item">{{ request.user.username }} </p>
-                    <div type="button" class="menu-item" id="logout-button"> выход</div>
-                    <div type="button" class="menu-item" id="login-button" hidden> вход</div>
+                    <div class="menu__item active" id="logout-button">{{ request.user.username }}&nbsp;<i
+                            class="fa fa-solid fa-arrow-right-from-bracket"></i></div>
+                    {#                    <div class="menu-item" id="logout-button"> выход</div>#}
+                    <div class="menu__item" id="login-button" hidden> вход</div>
                 {% else %}
-                    <p class="menu-item active">Неизвестный</p>
-                    <div type="button" class="menu-button" id="logout-button" hidden> выход</div>
-                    <div type="button" class="menu-button" id="login-button"> вход</div>
+                    <div class="menu__item active" id="login-button"><i
+                            class="fa fa-solid fa-arrow-right-to-bracket"></i>&nbsp;вход
+                    </div>
+                    <div class="menu__item" hidden> выход</div>
+                    {#                    <div type="button" class="menu-button" id="login-button"> вход</div>#}
                 {% endif %}
             </nav>
         </menu>

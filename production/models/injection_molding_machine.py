@@ -9,14 +9,13 @@ class IMM (models.Model):
     account_code = models.CharField(max_length=11)
     name = models.CharField(max_length=140)
     imm_model = models.CharField(max_length=140)
-    in_work = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_id})"
+        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_code})"
 
     def __str__(self):
-        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_id})"
+        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_code})"
 
     @staticmethod
     def order_default():

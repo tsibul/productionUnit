@@ -94,16 +94,22 @@
   cursor: pointer;
 }
 
-.header__mobile {
+.mobile__show {
   display: none;
+}
+.mobile__hide {
+  display: inline;
 }
 
 @media (max-width: 767px) {
-  .header__mobile {
+  .mobile__show {
     display: inline;
   }
+  .mobile__hide {
+    display: none;
+  }
   .menu {
-    padding: 0 30px;
+    padding: 0 10px;
     position: relative;
   }
   .menu__item {

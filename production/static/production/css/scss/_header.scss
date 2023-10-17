@@ -109,21 +109,31 @@
   }
 }
 
-.header__mobile{
+.mobile {
+  &__show {
     display: none;
   }
+  &__hide{
+    display: inline;
+  }
+}
 
 
 @media (max-width: 767px) {
-  .header__mobile{
+.mobile {
+  &__show {
     display: inline;
   }
+  &__hide{
+    display: none;
+  }
+}
 
   .menu {
-    padding: 0 30px;
+    padding: 0 10px;
     position: relative;
 
-    &__item{
+    &__item {
       padding: 10px 10px;
     }
 

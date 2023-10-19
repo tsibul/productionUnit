@@ -6,13 +6,12 @@
         <div class="container">
             <section class="dict-block dict-block_open dict-block__4 dict-block_long">
                 <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                    <div class="dict-block__active"><i class="fa fa-solid fa-paintbrush"></i>&nbsp;Производственное
-                        задание
+                    <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки на производство
                     </div>
                     <div class="dict-block__search dict-block__search_open">
                         <i class="fa fa-solid fa-magnifying-glass"></i>
                         <input type="search" class="form-input dict-block__form-input"
-                               placeholder="искать...">
+                               placeholder="искать..." disabled>
                         <button class="btn btn-save search_submit" type="button">поиск</button>
                         <button class="btn btn-close search_clear" type="button">очистить</button>
                     </div>
@@ -74,9 +73,9 @@
                             </button>
                         </div>
                     {% endfor %}
-                    {% for item in color_end %}
-                        <div class="dict-block__row product-request" data-id="{{ item.id }}"
-                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
+                    {% for item in product_request_end %}
+                        <div class="dict-block__row production-request" data-id="{{ item.id }}"
+                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);" data-last="12">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
                             <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"

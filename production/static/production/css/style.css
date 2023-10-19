@@ -405,7 +405,7 @@
   transform: scale(1);
 }
 .dict-block_open {
-  max-height: 632px;
+  max-height: calc(100vh - 120px);
   grid-row: span 4;
   max-width: 1600px;
   grid-column: 1/5;

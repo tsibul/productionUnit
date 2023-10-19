@@ -12,10 +12,10 @@ class IMM (models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_code})"
+        return f"{self.producer.name} {self.name} {self.imm_model}"
 
     def __str__(self):
-        return f"{self.producer} {self.name} {self.imm_model} ({self.plant_code})"
+        return f"{self.producer.name} {self.name} {self.imm_model}"
 
     @staticmethod
     def order_default():

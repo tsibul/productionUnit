@@ -404,7 +404,7 @@
 .dict-block[open]:hover {
   transform: scale(1);
 }
-.dict-block_open {
+.dict-block__open {
   max-height: calc(100vh - 120px);
   grid-row: span 4;
   max-width: 1600px;
@@ -413,8 +413,11 @@
   box-shadow: none;
   overflow: auto;
 }
-.dict-block_open:hover {
+.dict-block__open:hover {
   transform: scale(1);
+}
+.dict-block__open_production {
+  max-height: 100%;
 }
 .dict-block[open] .dict-block__search {
   display: flex;
@@ -485,6 +488,14 @@
 
 .production-request {
   grid-template-columns: 1fr 2fr 2fr repeat(6, 1fr);
+}
+
+.production {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.in_production {
+  grid-template-columns: 1fr 4fr repeat(7, 2fr) repeat(2, 1fr);
 }
 
 .dropdown_dict {

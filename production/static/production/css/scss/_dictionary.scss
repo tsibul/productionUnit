@@ -105,17 +105,19 @@
     }
   }
 
-  &_open {
+  &__open {
     max-height: calc(100vh - 120px);
     grid-row: span 4;
     max-width: 1600px;
     grid-column: 1 / 5;
     border: none;
-    //transform: none;
     box-shadow: none;
     overflow: auto;
     &:hover{
       transform: scale(1);
+    }
+    &_production{
+      max-height: 100%;
     }
   }
 
@@ -192,6 +194,14 @@
 
 .production-request {
   grid-template-columns: 1fr 2fr 2fr repeat(6, 1fr);
+}
+
+.production {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.in_production {
+  grid-template-columns: 1fr 4fr repeat(7, 2fr) repeat(2, 1fr);
 }
 
 .dropdown_dict {

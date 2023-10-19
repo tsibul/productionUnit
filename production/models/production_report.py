@@ -1,7 +1,7 @@
-import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from production.models import ProductionRequest, IMM, DetailInGoods, Color
 
@@ -9,7 +9,7 @@ from production.models import ProductionRequest, IMM, DetailInGoods, Color
 class ProductionReport(models.Model):
     detail = models.ForeignKey(DetailInGoods, models.SET_NULL, null=True)
     color = models.ForeignKey(Color, models.SET_NULL, null=True)
-    date = models.DateTimeField(default=datetime.datetime.now())
+    date = models.DateTimeField(default=timezone.now)
     imm = models.ForeignKey(IMM, models.SET_NULL, null=True)
     user = models.ForeignKey(User, models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1000)
@@ -23,4 +23,4 @@ class ProductionReport(models.Model):
 
     @staticmethod
     def order_default():
-        return ['date', 'imm']
+        return ['-date', 'imm']

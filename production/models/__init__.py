@@ -8,4 +8,6 @@ from production.models.recipe import *
 from production.models.injection_molding_machine import *
 from production.models.production_request import *
 from production.models.production_report import *
+from production.models.quality_report import *
+
 

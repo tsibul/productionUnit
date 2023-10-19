@@ -16,6 +16,9 @@ urlpatterns = [
     path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
     path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>', views.dictionary_json,
          name='dictionary_json'),
+    path('user_name/<int:user_id>', views.fetch_user_by_id, name='views.fetch_user_by_id'),
+
+    path('production_request/', views.production_request, name='production_request'),
     #
     # path('imports/', views.imports, name='imports'),
     # path('import_file/', views.import_file, name='import_file'),

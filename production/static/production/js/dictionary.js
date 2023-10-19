@@ -12,11 +12,12 @@ const dictList = {
     recipe: 'Recipe',
     goods: 'Goods',
     imm: 'IMM',
+    productRequest: 'ProductionRequest',
 };
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');
-const deleteButtons = document.getElementsByClassName('.btn_delete');
+const deleteButtons = document.getElementsByClassName('btn_delete');
 
 window.onload = function () {
     const summary = document.querySelectorAll('.dict-block__header_block-space');
@@ -29,9 +30,11 @@ window.onload = function () {
         el.onkeyup = fn;
     });
 };
+
 function typeDict(row) {
     return dictList[row.id.split('-')[0]];
 }
+
 function editDictionary(obj) {
     const nodeElements = obj.childNodes;
     const objClasses = obj.classList;
@@ -71,6 +74,12 @@ function editDictionary(obj) {
             childNode = document.createElement('input'); // block for input
             childNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
             childNode.type = 'text';
+            // if (node.classList.contains('dict-block__user')) {
+            //     childNode.name = node.dataset.name;
+            //     childNode.value = node.dataset.id;
+            //     childNode.readOnly = true;
+            //     childNode.classList.add('form-input__inactive');
+            // } else
             if (node.dataset.name != null) {
                 childNode.name = node.dataset.name;
             } else {
@@ -102,6 +111,7 @@ function editDictionary(obj) {
         }
     }
 }
+
 function cancelEditDictionary(obj) {
     const parentObj = obj.closest('.form-row');
     const row = obj.closest('.dict-block__row');
@@ -118,6 +128,7 @@ function cancelEditDictionary(obj) {
     });
     row.querySelector('.id-hidden').setAttribute('form', '');
 }
+
 function createButtonBlock() {
     /* create button block for buttons submit & cancel */
     let childNode;
@@ -137,6 +148,7 @@ function createButtonBlock() {
     buttonBlock.appendChild(childNode);
     return buttonBlock;
 }
+
 function saveDictionaryRecord(obj) {
     event.preventDefault();
     const updateForm = obj.closest('.form-row');
@@ -179,6 +191,7 @@ function saveDictionaryRecord(obj) {
             console.error(error);
         });
 }
+
 async function appendNewRows(rowCurrent, blockContent, searchString) {
     let newRow;
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
@@ -199,24 +212,25 @@ async function appendNewRows(rowCurrent, blockContent, searchString) {
     });
     rowCurrent.dataset.last = '';
 }
+
 async function fillNewRow(record, i, newRow) {
     const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
-    newRow.dataset.id = record['pk'];
-    newRow.id = newRow.id.slice(0, -1) + record['pk'];
-    newRow.querySelector('.id-hidden').value = record['pk'];
+    newRow.dataset.id = record['id'];
+    newRow.id = newRow.id.slice(0, -1) + record['id'];
+    newRow.querySelector('.id-hidden').value = record['id'];
     for (const rowElement of newRowElements) {
         let fieldName = rowElement.dataset.field;
         if (rowElement.classList.contains('foreign-key')) {
-            rowElement.dataset.id = record.fields[fieldName];
+            rowElement.dataset.id = record[fieldName + '_id'];
             if (fieldName === 'customer_group') {
-                if (record.fields[fieldName] !== null) {
+                if (record[fieldName] !== null) {
                     let groupUrl = `/production/customer_group_json`;
                     let groupData = await fetchJsonData(groupUrl);
                     let customerGroups = JSON.parse(groupData);
                     let groupElement = customerGroups.filter((el) => {
-                        return el['pk'] === record.fields[fieldName]
+                        return el['id'] === record[fieldName]
                     });
-                    rowElement.textContent = groupElement[0].fields['group_name'];
+                    rowElement.textContent = groupElement[0]['group_name'];
                 }
             } else {
                 let foreignKeyElement;
@@ -226,17 +240,20 @@ async function fillNewRow(record, i, newRow) {
                     foreignKeyElement = document.getElementById('group_type');
                 }
                 let foreignKeyLi = foreignKeyElement
-                    .querySelector(`[data-value = "${record.fields[fieldName]}"]`);
+                    .querySelector(`[data-value = "${record[fieldName + '_id']}"]`);
                 rowElement.textContent = foreignKeyLi.textContent;
             }
         } else if (rowElement.classList.contains('bool-field')) {
-            rowElement.textContent = record.fields[fieldName] ? 'Да' : 'Нет';
-            rowElement.dataset.id = record.fields[fieldName] ? '1' : '0';
+            rowElement.textContent = record[fieldName] ? 'Да' : 'Нет';
+            rowElement.dataset.id = record[fieldName] ? '1' : '0';
+        } else if (fieldName === 'user') {
+            rowElement.textContent = await fetchJsonData(`/production/user_name/${record['user_id']}`);
         } else {
-            rowElement.textContent = record.fields[fieldName];
+            rowElement.textContent = record[fieldName];
         }
     }
 }
+
 // Cancel Edit Dictionary
 addEventListener('mousedown', function (element) {
     try {
@@ -280,42 +297,61 @@ addEventListener('mousedown', (event) => {
         }
     });
 });
-// new Record
-addEventListener('mousedown', async event => {
-    for (const btn of deleteButtons) {
-        if (event.target === btn) {
-            const row = event.target.closest('.dict-block__row');
-            const idNo = row.dataset.id;
-            const dictType = typeDict(row);
-            row.remove();
-            const url = `/production/dict_delete/${dictType}/${idNo}`;
-            await fetch(url);
-        }
-    }
+// delete dict
+[...deleteButtons].forEach((btn) => {
+    btn.addEventListener('mousedown', async event => {
+        const row = event.target.closest('.dict-block__row');
+        const idNo = row.dataset.id;
+        const dictType = typeDict(row);
+        row.remove();
+        const url = `/production/dict_delete/${dictType}/${idNo}`;
+        await fetch(url);
+    });
 });
 // Search
-addEventListener('mousedown', async (search) => {
-    for (const btn of searchButtons) {
-        if (search.target === btn) {
-            const dictBlock = search.target.closest('.dict-block');
-            const searchString = dictBlock.querySelector('.dict-block__form-input').value;
-            let searchValue;
-            if (searchString === '') {
-                searchValue = 'default';
-            } else {
-                searchValue = searchString.replaceAll(/  +/g, ' ').replaceAll(' ', '_')
-            }
-            const dictBlockContent = dictBlock.querySelector('.dict-block__content');
-            const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
-            // const dictType = typeDict(hiddenRow);
-            const temporaryRow = hiddenRow.cloneNode(true)
-            temporaryRow.setAttribute('data-last', '0');
-            dictBlockContent.appendChild(temporaryRow);
-            dictBlockContent.innerHTML = '';
-            dictBlockContent.appendChild(hiddenRow);
-            await appendNewRows(temporaryRow, dictBlockContent, searchValue);
-            temporaryRow.remove();
+searchButtons.forEach((btn) => {
+    btn.addEventListener('mousedown', async (search) => {
+        const dictBlock = search.target.closest('.dict-block');
+        const searchString = dictBlock.querySelector('.dict-block__form-input').value;
+        let searchValue;
+        if (searchString === '') {
+            searchValue = 'default';
+        } else {
+            searchValue = searchString.replaceAll(/  +/g, ' ').replaceAll(' ', '_')
         }
-    }
+        const dictBlockContent = dictBlock.querySelector('.dict-block__content');
+        const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
+        const temporaryRow = hiddenRow.cloneNode(true)
+        temporaryRow.setAttribute('data-last', '0');
+        dictBlockContent.appendChild(temporaryRow);
+        dictBlockContent.innerHTML = '';
+        dictBlockContent.appendChild(hiddenRow);
+        await appendNewRows(temporaryRow, dictBlockContent, searchValue);
+        temporaryRow.remove();
+    });
 });
+// addEventListener('mousedown', async (search) => {
+//     for (const btn of searchButtons) {
+//         if (search.target === btn) {
+//             const dictBlock = search.target.closest('.dict-block');
+//             const searchString = dictBlock.querySelector('.dict-block__form-input').value;
+//             let searchValue;
+//             if (searchString === '') {
+//                 searchValue = 'default';
+//             } else {
+//                 searchValue = searchString.replaceAll(/  +/g, ' ').replaceAll(' ', '_')
+//             }
+//             const dictBlockContent = dictBlock.querySelector('.dict-block__content');
+//             const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
+//             // const dictType = typeDict(hiddenRow);
+//             const temporaryRow = hiddenRow.cloneNode(true)
+//             temporaryRow.setAttribute('data-last', '0');
+//             dictBlockContent.appendChild(temporaryRow);
+//             dictBlockContent.innerHTML = '';
+//             dictBlockContent.appendChild(hiddenRow);
+//             await appendNewRows(temporaryRow, dictBlockContent, searchValue);
+//             temporaryRow.remove();
+//         }
+//     }
+// });
 

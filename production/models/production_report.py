@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -24,3 +23,9 @@ class ProductionReport(models.Model):
     @staticmethod
     def order_default():
         return ['-date', 'imm']
+
+
+class ProductionForRequest(models.Model):
+    production = models.ForeignKey(ProductionReport, on_delete=models.CASCADE)
+    production_request = models.ForeignKey(ProductionRequest, models.SET_NULL, null=True)
+    quantity = models.IntegerField()

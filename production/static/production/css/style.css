@@ -335,6 +335,9 @@
   box-shadow: 6px 6px 12px #293D32;
   cursor: pointer;
 }
+.dict-block_long {
+  max-width: 600px;
+}
 .dict-block:hover {
   transform: scale(1.03);
 }
@@ -349,8 +352,15 @@
   align-items: center;
   justify-content: center;
 }
+.dict-block__header_open {
+  padding: 20px;
+  justify-content: space-between;
+}
 .dict-block__search {
   display: none;
+}
+.dict-block__search_open {
+  display: block;
 }
 .dict-block__form-input {
   min-width: 390px;
@@ -381,6 +391,7 @@
 .dict-block__content {
   overflow: auto;
   height: calc(100% - 130px);
+  min-height: 160px;
 }
 .dict-block__text {
   width: 100%;
@@ -391,6 +402,18 @@
   grid-row: span 4;
 }
 .dict-block[open]:hover {
+  transform: scale(1);
+}
+.dict-block_open {
+  max-height: 632px;
+  grid-row: span 4;
+  max-width: 1600px;
+  grid-column: 1/5;
+  border: none;
+  box-shadow: none;
+  overflow: auto;
+}
+.dict-block_open:hover {
   transform: scale(1);
 }
 .dict-block[open] .dict-block__search {
@@ -458,6 +481,10 @@
 
 .imm {
   grid-template-columns: 1fr repeat(6, 2fr);
+}
+
+.production-request {
+  grid-template-columns: 1fr 2fr 2fr repeat(6, 1fr);
 }
 
 .dropdown_dict {

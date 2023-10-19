@@ -1,7 +1,8 @@
 import json
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 
-from django.core.serializers import serialize
+from django.contrib.auth.models import User
+
 from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -48,6 +49,7 @@ def dictionary_update(request, dict_type):
     dict_id = request.POST['id']
     dict_model = getattr(models, dict_type)
     field_list = [f.name for f in dict_model._meta.get_fields()]
+    current_user = request.user
     if dict_id != '0':
         dict_element = dict_model.objects.get(id=dict_id)
     else:
@@ -63,19 +65,30 @@ def dictionary_update(request, dict_type):
                     setattr(dict_element, field, True)
             else:
                 setattr(dict_element, field, request.POST[field])
+    if 'user' in field_list:
+        setattr(dict_element, 'user', current_user)
     dict_element.save()
     return HttpResponse()
 
 
 def dictionary_json(request, dict_type, id_no, order, search_string):
     dict_items = dict_additional_filter(dict_type, order, id_no, search_string)
-    json_dict = serialize('python', dict_items)
-    json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
+    formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
+    json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 
 
+def format_datetime_fields(item):
+    formatted_item = {}
+    for field_name, field_value in item.items():
+        if isinstance(field_value, datetime):
+            formatted_item[field_name] = field_value.strftime('%d.%m.%y %H:%M')
+        else:
+            formatted_item[field_name] = field_value
+    return formatted_item
+
+
 def dict_additional_filter(dict_type, order, id_no, search_string):  # костыль
-    border_date = date.today() - timedelta(days=1100)
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
@@ -86,7 +99,7 @@ def dict_additional_filter(dict_type, order, id_no, search_string):  # кост�
         filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
         dict_items = filter_items.filter(id=0)
         for field in dict_model._meta.get_fields():
-            if field.get_internal_type() == 'CharField':
+            if field.get_internal_type() == 'CharField' or field.get_internal_type() == 'DateTimeField':
                 field_name = field.name + '__icontains'
                 dict_items = dict_items | filter_items.filter(**{field_name: search_string})
             elif field.get_internal_type() == 'ForeignKey':
@@ -97,13 +110,6 @@ def dict_additional_filter(dict_type, order, id_no, search_string):  # кост�
                         dict_items = dict_items | filter_items.filter(**{field_name: search_string})
     dict_items = dict_items.distinct()[id_no: id_no + 20]
     return dict_items
-
-
-# def customer_group_json(request):
-#     customer_groups = CustomerGroups.objects.filter(deleted=False).order_by('group_name')
-#     json_dict = serialize('python', customer_groups)
-#     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
-#     return JsonResponse(json_dict, safe=False)
 
 
 def dictionary_delete(request, dict_type, id_no):
@@ -119,3 +125,9 @@ def dictionary_last_id(request, dict_type):
     last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
+
+
+def fetch_user_by_id(request, user_id):
+    user_name = User.objects.get(id=user_id).username
+    return JsonResponse(user_name, safe=False)
+

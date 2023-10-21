@@ -113,10 +113,12 @@
     border: none;
     box-shadow: none;
     overflow: auto;
-    &:hover{
+
+    &:hover {
       transform: scale(1);
     }
-    &_production{
+
+    &_production {
       max-height: 100%;
     }
   }
@@ -197,10 +199,10 @@
 }
 
 .production {
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: 1fr 2fr repeat(6, 1fr) 2fr 1fr;
 }
 
-.in_production {
+.in-production {
   grid-template-columns: 1fr 4fr repeat(7, 2fr) repeat(2, 1fr);
 }
 

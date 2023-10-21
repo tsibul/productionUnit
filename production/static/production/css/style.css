@@ -191,6 +191,9 @@
   padding: 8px 4px;
   background-color: #EFE7DC;
 }
+.form-input_stop {
+  width: 100%;
+}
 .form-input__inactive {
   opacity: 0.5;
 }
@@ -260,6 +263,9 @@
   border-radius: 10px;
   background-color: #EFE7DC;
 }
+.dropdown__input-block_start {
+  margin-top: 20px;
+}
 .dropdown__input {
   background-color: transparent;
   width: 100%;
@@ -313,6 +319,14 @@
 
 .alert {
   color: #86A0AC;
+}
+
+.digit {
+  text-align: end;
+}
+
+.table-center {
+  text-align: center;
 }
 
 .dict {
@@ -491,10 +505,10 @@
 }
 
 .production {
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: 1fr 2fr repeat(6, 1fr) 2fr 1fr;
 }
 
-.in_production {
+.in-production {
   grid-template-columns: 1fr 4fr repeat(7, 2fr) repeat(2, 1fr);
 }
 

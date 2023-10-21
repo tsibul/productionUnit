@@ -9,11 +9,6 @@
                     <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;В работе
                     </div>
                     <div class="dict-block__search dict-block__search_open">
-                        {#                        <i class="fa fa-solid fa-magnifying-glass"></i>#}
-                        {#                        <input type="search" class="form-input dict-block__form-input"#}
-                        {#                               placeholder="искать..." disabled>#}
-                        {#                        <button class="btn btn-save search_submit" type="button">поиск</button>#}
-                        {#                        <button class="btn btn-close search_clear" type="button">очистить</button>#}
                     </div>
                 </div>
                 <div class="dict-block__row dict-block__active in-production">
@@ -42,10 +37,10 @@
                             <div class="dict-block__text work__approved digit"></div>
                             <div class="dict-block__text work__left digit"></div>
                             <div class="dict-block__text work__if_order table-center"></div>
-                            <button class="btn btn-save" type="button">
+                            <button class="btn btn-save form-input__inactive" type="button" disabled>
                                 выпуск
                             </button>
-                            <button class="btn btn-close" type="button">
+                            <button class="btn btn-close form-input__inactive" type="button" disabled>
                                 стоп
                             </button>
                         </div>
@@ -169,7 +164,7 @@
     <!-- Модальное окно для выпуска продукции -->
     <div id="productionModal" class="login">
         <div class="login__content">
-            <form method="post" id="production-form" action="#">
+            <form method="post" id="production-form" action="{% url 'production:production_report' %}">
                 {% csrf_token %}
                 <div class="login__header">
                     <p class="active">Выпущено штук</p>

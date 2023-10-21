@@ -12,6 +12,7 @@ class ProductionReport(models.Model):
     imm = models.ForeignKey(IMM, models.SET_NULL, null=True)
     user = models.ForeignKey(User, models.SET_NULL, null=True)
     quantity = models.IntegerField(default=1000)
+    defect = models.IntegerField(default=0)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

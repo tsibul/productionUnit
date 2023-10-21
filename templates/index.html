@@ -132,7 +132,7 @@
                           required>
                     <div class="dropdown__input-block dropdown__input-block_start">
                         <input type="text" class="dropdown__input dropdown__input_dict"
-                               placeholder="Поиск.." onkeyup="filterList(this)">
+                               placeholder="Поиск.." onkeyup="filterList(this)" required>
                         <i class="fa fa-solid fa-angle-down"></i>
                     </div>
                     <ul class="dropdown__content">
@@ -162,6 +162,26 @@
                           class="form-input dropdown__input-block_start form-input_stop" required></textarea>
                 <div class="login__buttons dropdown__input-block_start">
                     <button type="submit" class="btn btn-save">Остановить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Модальное окно для выпуска продукции -->
+    <div id="productionModal" class="login">
+        <div class="login__content">
+            <form method="post" id="production-form" action="#">
+                {% csrf_token %}
+                <div class="login__header">
+                    <p class="active">Выпущено штук</p>
+                    <span class="login__close">&times;</span>
+                </div>
+                <input type="text" name="color" hidden>
+                <input type="text" name="detail" hidden>
+                <input type="text" name="imm" hidden>
+                <input type="number" name="quantity" step="1"
+                          class="form-input dropdown__input-block_start form-input_stop" required>
+                <div class="login__buttons dropdown__input-block_start">
+                    <button type="submit" class="btn btn-save">Подтвердить</button>
                 </div>
             </form>
         </div>

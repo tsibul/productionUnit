@@ -269,15 +269,20 @@ addEventListener('mousedown', function (element) {
 addEventListener('mouseover', async (event) => {
     const lastRecords = document.querySelectorAll('div[data-last]:not([data-last = ""])')
     const rowCurrent = event.target;
-    const blockContent = rowCurrent.closest('.dict-block__content');
-    let searchString = rowCurrent.closest('.dict-block').querySelector('.dict-block__form-input').value;
-    if (searchString === '') {
-        searchString = 'default';
-    }
-    // let newRow;
-    for (const el of lastRecords) {
-        if (el.contains(rowCurrent)) {
-            await appendNewRows(rowCurrent, blockContent, searchString);
+    if (rowCurrent.classList.contains('dict-block__row')) {
+        const blockContent = rowCurrent.closest('.dict-block__content');
+        let searchString = '';
+        if (rowCurrent.closest('.dict-block').querySelector('.dict-block__form-input')) {
+            searchString = rowCurrent.closest('.dict-block').querySelector('.dict-block__form-input').value;
+        }
+        if (searchString === '') {
+            searchString = 'default';
+        }
+        // let newRow;
+        for (const el of lastRecords) {
+            if (el.contains(rowCurrent)) {
+                await appendNewRows(rowCurrent, blockContent, searchString);
+            }
         }
     }
 });

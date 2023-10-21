@@ -16,6 +16,7 @@ class ProductionRequest(models.Model):
     if_order = models.BooleanField(default=True)
     closed = models.BooleanField(default=False)
     date_close = models.DateTimeField(null=True, blank=True)
+    technical = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):

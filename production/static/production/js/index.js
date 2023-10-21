@@ -7,31 +7,41 @@ const inProductionContent = sectionInProduction.querySelector('.dict-block__cont
 const productionRow = document.querySelector('#technical-data').querySelector('.production');
 const startModal = document.getElementById('startModal');
 const stopModal = document.getElementById('stopModal');
-const stopButtons = sectionInProduction.querySelectorAll('.btn-close')
+const stopButtons = sectionInProduction.querySelectorAll('.btn-close');
+const productionModal = document.getElementById('productionModal');
+const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 
-
-fillImmRows().then(r => {});
-addRequestRows().then(r => {});
+fillImmRows().then(r => {
+});
+addRequestRows().then(r => {
+});
 console.log('');
 
-[...stopButtons].forEach(btn =>{
-    btn.addEventListener('click', () =>{
+[...produceButtons].forEach(btn => {
+    btn.addEventListener('click', () => {
+        fillProductionModal(btn);
+        openModal(productionModal);
+    });
+});
+
+[...stopButtons].forEach(btn => {
+    btn.addEventListener('click', () => {
         fillStopModal(btn);
         openModal(stopModal);
     });
 });
 
-productionContent.addEventListener('click', e =>{
+productionContent.addEventListener('click', e => {
     const startButtons = productionContent.querySelectorAll('.btn-close');
     startButtons.forEach(btn => {
-        if(btn === e.target){
+        if (btn === e.target) {
             fillStartModal(btn);
             openModal(startModal);
         }
     });
 })
 
-async function fillImmRows(){
+async function fillImmRows() {
     const prefix = 'work__';
     const prodData = await fetch('/production/production_state/1')
         .then(response => response.json());
@@ -81,4 +91,11 @@ function fillStartModal(btn) {
 function fillStopModal(btn) {
     const row = btn.closest('.dict-block__row');
     stopModal.querySelector('[name="imm"]').value = row.dataset.id;
+}
+
+function fillProductionModal(btn) {
+    const row = btn.closest('.dict-block__row');
+    productionModal.querySelector('[name="imm"]').value = row.dataset.id;
+    productionModal.querySelector('[name="detail"]').value = row.dataset.detail;
+    productionModal.querySelector('[name="color"]').value = row.dataset.color;
 }

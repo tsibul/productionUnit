@@ -62,6 +62,9 @@
     @include brd-standard;
     padding: 8px 4px;
     background-color: $colorSecondary100;
+    &_stop{
+      width: 100%;
+    }
 
     &__inactive {
       opacity: 0.5;
@@ -144,6 +147,9 @@
     border: 1px solid $colorPrimary800;
     border-radius: 10px;
     background-color: $colorSecondary100;
+    &_start{
+     margin-top: 20px;
+    }
   }
 
   &__input {
@@ -202,4 +208,12 @@
 
 .alert{
   color: $colorNeutral400;
+}
+
+.digit{
+  text-align: end;
+}
+
+.table-center{
+  text-align: center;
 }

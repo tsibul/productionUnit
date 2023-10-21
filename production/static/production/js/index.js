@@ -11,11 +11,10 @@ const stopButtons = sectionInProduction.querySelectorAll('.btn-close');
 const productionModal = document.getElementById('productionModal');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 
-fillImmRows().then(r => {
-});
+const detailsOnImm = fillImmRows();
+
 addRequestRows().then(r => {
 });
-console.log('');
 
 [...produceButtons].forEach(btn => {
     btn.addEventListener('click', () => {
@@ -46,10 +45,17 @@ async function fillImmRows() {
     const prodData = await fetch('/production/production_state/1')
         .then(response => response.json());
     const productionData = JSON.parse(prodData);
+    const detailsImm = {};
     productionData.forEach(element => {
         let newRow = inProductionContent.querySelector('[data-id="' + element['imm_id'] + '"]');
+        detailsImm[element['detail'].split(' ')[0]] = newRow.querySelector('.work__name').textContent;
         fillProductionData(newRow, element, prefix);
+        [...newRow.querySelectorAll('.btn')].forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('form-input__inactive');
+        });
     });
+    return detailsImm;
 }
 
 async function addRequestRows() {
@@ -66,8 +72,15 @@ async function addRequestRows() {
     });
 }
 
-function fillProductionData(row, element, prefix) {
-    Object.keys(element).forEach((key) => {
+async function fillProductionData(row, element, prefix) {
+    if (row.querySelector('.req__queue')) {
+        let detailName = element['detail'].split(' ')[0];
+        const detOnImm = await detailsOnImm;
+        if ([...Object.keys(detOnImm)].includes(detailName)) {
+            row.querySelector('.req__queue').textContent = detOnImm[detailName];
+        }
+    }
+    for (const key of Object.keys(element)) {
         let keyClass = '.' + prefix + key;
         let rowField = row.querySelector(keyClass);
         if (rowField) {
@@ -77,7 +90,7 @@ function fillProductionData(row, element, prefix) {
                 rowField.textContent = element[key]
             }
         }
-    });
+    }
     row.dataset.detail = element['detail_id'];
     row.dataset.color = element['color_id'];
 }

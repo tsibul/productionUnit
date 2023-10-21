@@ -19,6 +19,11 @@ urlpatterns = [
     path('user_name/<int:user_id>', views.fetch_user_by_id, name='views.fetch_user_by_id'),
 
     path('production_request/', views.production_request, name='production_request'),
+
+    path('production_state/<int:in_work>', views.production_state, name='production_state'),
+    path('production_start/', views.production_start, name='production_start'),
+    path('production_stop/', views.production_stop, name='production_stop'),
+
     #
     # path('imports/', views.imports, name='imports'),
     # path('import_file/', views.import_file, name='import_file'),

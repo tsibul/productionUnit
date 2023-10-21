@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, QualityReport, \
-    ProductionRequestStartStop
+    ProductionRequestStartStop, ProductionReport
 
 
 class TotalRequests:
@@ -73,7 +73,8 @@ class TotalRequests:
 def index(request):
     navi = 'main'
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
-    imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True)
+    imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
+                           productionrequeststartstop__date_start__isnull=False)
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free}
     return render(request, 'index.html', context)
 
@@ -118,4 +119,57 @@ def production_stop(request):
     production_start_stop.user_stop = current_user
     production_start_stop.stop_reason = stop_reason
     production_start_stop.save()
+    return HttpResponseRedirect(reverse('production:main'))
+
+
+def production_report(request):
+    color = Color.objects.get(id=request.POST['color'])
+    detail = DetailInGoods.objects.get(id=request.POST['detail'])
+    imm = IMM.objects.get(id=request.POST['imm'])
+    current_user = request.user
+    date_now = timezone.now()
+    quantity = int(request.POST['quantity'])
+    production = ProductionReport(detail=detail, color=color, date=date_now, imm=imm, user=current_user,
+                                  quantity=quantity)
+    production.save()
+    production_request = (ProductionRequest.objects.filter(deleted=False, closed=False, color=color, detail=detail)
+                          .order_by('date_create'))
+    for i, pr_request in enumerate(production_request):
+        production_for_request = ProductionForRequest.objects.filter(production_request=pr_request)
+        quantity_produced = production_for_request.aggregate(quantity_produced=Sum('quantity'))['quantity_produced']
+        if not quantity_produced:
+            quantity_produced = 0
+        if pr_request.quantity - quantity_produced - quantity > 0:
+            production_for_request_new = ProductionForRequest(production=production, production_request=pr_request,
+                                                              quantity=quantity)
+            production_for_request_new.save()
+            pr_request.quantity_left = pr_request.quantity_left - quantity
+            pr_request.save()
+            break
+        else:
+            production_for_request_new = ProductionForRequest(production=production, production_request=pr_request,
+                                                              quantity=(pr_request.quantity - quantity_produced))
+            production_for_request_new.save()
+            # pr_request.closed = True
+            # pr_request.date_close = date_now
+            pr_request.quantity_left = 0
+            pr_request.save()
+            quantity = quantity - pr_request.quantity + quantity_produced
+            if quantity == 0:
+                break
+            production_start_stop = ProductionRequestStartStop.objects.get(production_request=pr_request, imm=imm,
+                                                                           date_stop=None)
+            production_start_stop.date_stop = date_now
+            production_start_stop.user_stop = current_user
+            production_start_stop.stop_reason = 'заказ выполнен'
+            production_start_stop.save()
+            if i + 1 == production_request.count():
+                break
+            pr_request_next = production_request[i + 1]
+            production_start_stop_new = ProductionRequestStartStop(production_request=pr_request_next,
+                                                                   date_start=date_now, user_start=current_user,
+                                                                   imm=imm)
+            production_start_stop_new.save()
+    if quantity > 0:
+        pass
     return HttpResponseRedirect(reverse('production:main'))

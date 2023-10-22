@@ -38,10 +38,10 @@ class TotalRequests:
         except:
             self.imm_id = 0
         requests_initial = requests.aggregate(
-            total_quantity=Sum('quantity'),
             total_if_order=Sum('if_order'),
             min_date=Min('date_create')
         )
+        requests_initial.update(requests.filter(technical=False).aggregate(total_quantity=Sum('quantity')))
         produced = 0
         production_list = []
         for production_request in requests:
@@ -171,5 +171,15 @@ def production_report(request):
                                                                    imm=imm)
             production_start_stop_new.save()
     if quantity > 0:
-        pass
+        technical_request = ProductionRequest(detail=detail, color=color, quantity=quantity, quantity_left=0,
+                                              date_create=date_now, user=current_user, if_order=False, technical=True)
+        technical_request.save()
+        technical_request_start_stop = ProductionRequestStartStop(production_request=technical_request,
+                                                                  date_start=date_now, user_start=current_user, imm=imm,
+                                                                  date_stop=date_now, user_stop=current_user,
+                                                                  stop_reason='технический заказ выполнен')
+        technical_request_start_stop.save()
+        technical_request_production_for_request = ProductionForRequest(production=production, quantity=quantity,
+                                                                        production_request=technical_request)
+        technical_request_production_for_request.save()
     return HttpResponseRedirect(reverse('production:main'))

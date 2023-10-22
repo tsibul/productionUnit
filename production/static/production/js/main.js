@@ -48,3 +48,17 @@ function selectFromList(obj) {
     obj.parentElement.parentElement.querySelector('.dropdown__hidden').value = obj.dataset.value;
     obj.parentElement.classList.remove('visible');
 }
+
+function fillFields(row,element,prefix){
+    for (const key of Object.keys(element)) {
+        let keyClass = '.' + prefix + key;
+        let rowField = row.querySelector(keyClass);
+        if (rowField) {
+            if (typeof element[key] === 'number') {
+                rowField.textContent = element[key].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+            } else {
+                rowField.textContent = element[key]
+            }
+        }
+    }
+}

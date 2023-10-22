@@ -80,17 +80,7 @@ async function fillProductionData(row, element, prefix) {
             row.querySelector('.req__queue').textContent = detOnImm[detailName];
         }
     }
-    for (const key of Object.keys(element)) {
-        let keyClass = '.' + prefix + key;
-        let rowField = row.querySelector(keyClass);
-        if (rowField) {
-            if (typeof element[key] === 'number') {
-                rowField.textContent = element[key].toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-            } else {
-                rowField.textContent = element[key]
-            }
-        }
-    }
+    fillFields(row,element,prefix);
     row.dataset.detail = element['detail_id'];
     row.dataset.color = element['color_id'];
 }

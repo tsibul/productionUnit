@@ -25,6 +25,8 @@ urlpatterns = [
     path('production_stop/', views.production_stop, name='production_stop'),
     path('production_report/', views.production_report, name='production_report'),
 
+    path('production/', views.production, name='production'),
+
     #
     # path('imports/', views.imports, name='imports'),
     # path('import_file/', views.import_file, name='import_file'),

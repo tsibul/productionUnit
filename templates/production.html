@@ -1,0 +1,60 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="full-content">
+        <div class="container">
+            <section class="dict-block dict-block__open  dict-block__open_production dict-block__4 dict-block_long">
+                <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                    <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;Производство
+                    </div>
+                    <div class="dict-block__search dict-block__search_open">
+                        <i class="fa fa-solid fa-magnifying-glass"></i>
+                        <input type="search" class="form-input dict-block__form-input"
+                               placeholder="искать..." disabled>
+                        <button class="btn btn-save search_submit" type="button">поиск</button>
+                        <button class="btn btn-close search_clear" type="button">очистить</button>
+                    </div>
+                </div>
+                <div class="dict-block__row dict-block__active production-list">
+                    <div class="table-center">Дата</div>
+                    <div class="">Деталь</div>
+                    <div class="">Цвет</div>
+                    <div class="table-center">ТПА</div>
+                    <div class="">Название</div>
+                    <div class="digit">Произведено</div>
+                    <div class="digit">Проверено</div>
+                    <div class="digit">Принято</div>
+                    <div class="digit">Брак</div>
+                    <div class="table-center">% брака</div>
+                    <div></div>
+                </div>
+                <div class="dict-block__content">
+                </div>
+            </section><!-- производство -->
+
+        </div>
+    </div>
+    <div id="technical-data" hidden>
+        <div class="dict-block__row production-list">
+            <div class="dict-block__text req__production_date table-center"></div>
+            <div class="dict-block__text req__detail"></div>
+            <div class="dict-block__text req__color"></div>
+            <div class="dict-block__text req__imm_id table-center"></div>
+            <div class="dict-block__text req__imm"></div>
+            <div class="dict-block__text req__quantity digit"></div>
+            <div class="dict-block__text req__quantity_checked digit"></div>
+            <div class="dict-block__text req__quantity_approved digit"></div>
+            <div class="dict-block__text req__defect digit"></div>
+            <div class="dict-block__text req__defect_percent table-center"></div>
+            <button class="btn btn-close" type="button">
+                приемка
+            </button>
+        </div>
+    </div>
+
+
+    <script src="{% static 'production/js/production.js' %}"></script>
+    <script src="{% static 'production/js/dictionary.js' %}"></script>
+
+{% endblock %}

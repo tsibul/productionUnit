@@ -9,23 +9,25 @@ class QualityCheck:
     production_id: int
     production_date: str
     produce_user: str
-    produce_user_id: int
+    imm: str
+    imm_code: str
     detail: str
     color: str
-    quality_report_id: int
     quantity: int
     quantity_checked: int
     quantity_approved: int
     defect: int
+    defect_percent: float
 
     def __init__(self, production_id):
         self.production_id = production_id
         production = ProductionReport.objects.get(id=production_id)
         self.production_date = datetime.strftime(production.date, '%d.%m.%y %H:%M')
         self.produce_user = production.user
-        self.produce_user_id = production.user.id
         self.detail = production.detail
         self.color = production.color
+        self.imm = production.imm
+        self.imm_code = production.imm.plant_code
         self.quantity = production.quantity
         quality_reports = QualityReport.objects.filter(production=production)
         quality_quantities = quality_reports.aggregate(
@@ -35,3 +37,4 @@ class QualityCheck:
         self.quantity_checked = quality_quantities['total_checked']
         self.quantity_approved = quality_quantities['total_approved']
         self.defect = self.quantity_checked - self.quantity_approved
+        self.defect_percent = round(self.defect / self.quantity * 100, 2)

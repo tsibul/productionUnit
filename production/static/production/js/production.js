@@ -20,6 +20,14 @@ async function addProducedRows(first_record, order) {
 
     async function fillProductionListData(row, element, prefix) {
         fillFields(row, element, prefix);
+        const quantity = Number.parseInt(row.querySelector('.req__quantity').textContent.replace(' ', ''));
+        const quantityChecked = Number.parseInt(row.querySelector('.req__quantity_checked')
+                                                                                    .textContent.replace(' ', ''));
+        if(quantity === quantityChecked){
+            const btn = row.querySelector('.btn');
+            btn.disabled = true;
+            btn.classList.add('form-input__inactive')
+        }
         row.dataset.id = element['production_id'];
     }
 }

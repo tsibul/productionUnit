@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-from production.models import ProductionReport, Defects
+from production.models import ProductionReport, Defects, DefectEvent
 
 
 class QualityReport(models.Model):
@@ -11,6 +11,7 @@ class QualityReport(models.Model):
     quantity_approved = models.IntegerField(default=0)
     date_check = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, models.SET_NULL, null=True)
+    defect_event = models.ForeignKey(DefectEvent, models.SET_NULL, null=True)
     comment = models.CharField(max_length=255, default='')
     deleted = models.BooleanField(default=False)
 

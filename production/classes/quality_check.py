@@ -23,10 +23,10 @@ class QualityCheck:
         self.production_id = production_id
         production = ProductionReport.objects.get(id=production_id)
         self.production_date = datetime.strftime(production.date, '%d.%m.%y %H:%M')
-        self.produce_user = production.user
-        self.detail = production.detail
-        self.color = production.color
-        self.imm = production.imm
+        self.produce_user = production.user.username
+        self.detail = str(production.detail)
+        self.color = str(production.color)
+        self.imm = str(production.imm)
         self.imm_code = production.imm.plant_code
         self.quantity = production.quantity
         quality_reports = QualityReport.objects.filter(production=production)
@@ -34,7 +34,13 @@ class QualityCheck:
             total_checked=Sum('quantity_checked'),
             total_approved=Sum('quantity_approved')
         )
-        self.quantity_checked = quality_quantities['total_checked']
-        self.quantity_approved = quality_quantities['total_approved']
+        quantity_checked = quality_quantities['total_checked']
+        if not quantity_checked:
+            quantity_checked = 0
+        quantity_approved = quality_quantities['total_approved']
+        if not quantity_approved:
+            quantity_approved = 0
+        self.quantity_checked = quantity_checked
+        self.quantity_approved = quantity_approved
         self.defect = self.quantity_checked - self.quantity_approved
         self.defect_percent = round(self.defect / self.quantity * 100, 2)

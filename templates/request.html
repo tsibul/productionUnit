@@ -25,6 +25,7 @@
                     <div class="table-center">Заказ</div>
                     <div class="table-center">Выполнено</div>
                     <div class="table-center">Создал</div>
+                    <div class="table-center">Тех.</div>
                     <button class="btn btn-save btn_add">добавить</button>
                 </div>
                 <div class="dict-block__content">
@@ -45,6 +46,8 @@
                         <div class="dict-block__text table-center" data-field="date_close"></div>
                         <div class="dict-block__text table-center"
                              data-field="user">{{ request.user.username }}</div>
+                        <div class="dict-block__text bool-field table-center" data-id=""
+                             data-name="technical" data-field="technical"></div>
                         <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                             удалить
                         </button>
@@ -67,6 +70,9 @@
                                 {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:M' }}</div>
                             <div class="dict-block__text table-center" data-id="{{ item.user.id }}">{{ item.user.username }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
+                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
                             <button class="btn btn-close btn_delete" type="button"
                                     onclick="event.stopPropagation();">
                                 удалить
@@ -91,6 +97,9 @@
                                 {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:M' }}</div>
                             <div class="dict-block__text table-center" data-id="{{ item.user.id }}">{{ item.user.username }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
+                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
                             <button class="btn btn-close btn_delete" type="button"
                                     onclick="event.stopPropagation();">
                                 удалить

@@ -6,15 +6,16 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
-    ProductionRequestStartStop, ProductionReport
+from production.models import  ProductionReport, Defects, DefectEvent
 from production.classes import QualityCheck
 
 
 def production(request):
     navi = 'production'
     user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
-    context = {'navi': navi, 'user_groups': user_groups}
+    defects = Defects.objects.filter(deleted=False).order_by('name')
+    defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
+    context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event}
     return render(request, 'production.html', context)
 
 

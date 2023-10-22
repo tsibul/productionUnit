@@ -270,7 +270,7 @@
   background-color: transparent;
   width: 100%;
   font-size: 16px;
-  padding: 8px 10px;
+  padding: 7px 10px;
   border: 1px solid transparent;
 }
 .dropdown__input:focus {
@@ -517,7 +517,7 @@
 }
 
 .dropdown_dict {
-  height: 29px;
+  height: 33px;
   font-size: 13px;
 }
 
@@ -549,6 +549,37 @@
   width: 600px;
   align-items: center;
   position: relative;
+}
+
+.modal__content {
+  margin: 15% auto;
+  padding: 16px;
+  border: 1px solid #293D32;
+  width: 760px;
+  border-radius: 10px;
+  background-color: #DFCFB9;
+  box-shadow: 6px 6px 12px #293D32;
+}
+.modal__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 18px;
+}
+.modal__block {
+  padding-top: 8px;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+}
+.modal__check {
+  font-size: 15px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  accent-color: #293D32;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,39 @@
+@import "vars";
+@import "mixins";
+
+.modal {
+  &__content {
+    margin: 15% auto;
+    padding: 16px;
+    border: 1px solid $colorPrimary800;
+    width: 760px;
+    border-radius: 10px;
+    background-color: $colorSecondary200;
+    box-shadow: 6px 6px 12px $colorPrimary800;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+  }
+
+  &__block {
+    padding-top: 8px;
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+  }
+
+  &__check {
+    font-size: 15px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    accent-color: $colorPrimary800;
+  }
+
+}

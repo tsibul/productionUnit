@@ -1,10 +1,21 @@
+'use strict'
+
 const sectionProduction = document.querySelector('.production-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
 const productionRow = document.querySelector('#technical-data').querySelector('.production-list');
+const qualityModal = document.getElementById('qualityModal');
 
 
 addProducedRows(0, 'default').then(r => {
 });
+
+productionContent.addEventListener('click', (event) => {
+    if (event.target.classList.contains('btn')) {
+        openModal(qualityModal);
+        console.log('....');
+    }
+});
+
 
 async function addProducedRows(first_record, order) {
     const prefix = 'req__';

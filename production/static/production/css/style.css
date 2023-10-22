@@ -581,5 +581,22 @@
   justify-content: flex-start;
   accent-color: #293D32;
 }
+.modal__textarea {
+  width: 100%;
+  border: 1px solid #151E19;
+  border-radius: 10px;
+  min-height: 60px;
+  font-size: 16px;
+  padding: 6px;
+  background-color: #EFE7DC;
+}
+.modal__input {
+  width: 100%;
+  border: none;
+  text-align: start;
+  font-weight: 900;
+  font-size: 16px;
+  background-color: #DFCFB9;
+}
 
 /*# sourceMappingURL=style.css.map */

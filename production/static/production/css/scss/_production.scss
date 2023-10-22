@@ -35,5 +35,22 @@
     justify-content: flex-start;
     accent-color: $colorPrimary800;
   }
+  &__textarea{
+    width: 100%;
+    border: 1px solid $colorPrimary900;
+    border-radius: 10px;
+    min-height: 60px;
+    font-size: 16px;
+    padding: 6px;
+    background-color: $colorSecondary100;
+  }
+  &__input{
+    width: 100%;
+    border: none;
+    text-align: start;
+    font-weight: 900;
+    font-size: 16px;
+    background-color: $colorSecondary200;
+  }
 
 }

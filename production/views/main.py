@@ -86,6 +86,7 @@ def production_report(request):
             production_for_request_new.save()
             pr_request.quantity_left = pr_request.quantity_left - quantity
             pr_request.save()
+            quantity = 0
             break
         else:
             production_for_request_new = ProductionForRequest(production=production, production_request=pr_request,

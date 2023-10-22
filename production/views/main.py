@@ -16,7 +16,8 @@ def index(request):
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
-    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free}
+    user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups}
     return render(request, 'index.html', context)
 
 

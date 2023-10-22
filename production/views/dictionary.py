@@ -33,6 +33,7 @@ def dictionary(request):
     recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
+    user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
@@ -40,7 +41,7 @@ def dictionary(request):
                'main_material_end': main_material_end,
                'goods': goods, 'add_material': add_material,
                'add_material_end': add_material_end, 'imm': imm,
-               'recipe': recipe, 'recipe_end': recipe_end}
+               'recipe': recipe, 'recipe_end': recipe_end, 'user_groups': user_groups}
     return render(request, 'dictionary.html', context)
 
 

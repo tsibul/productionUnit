@@ -17,9 +17,10 @@ async function addProducedRows(first_record, order) {
         fillProductionListData(newRow, element, prefix);
         productionContent.appendChild(newRow);
     });
+
+    async function fillProductionListData(row, element, prefix) {
+        fillFields(row, element, prefix);
+        row.dataset.id = element['production_id'];
+    }
 }
 
-async function fillProductionListData(row, element, prefix) {
-    fillFields(row, element, prefix);
-    row.dataset.id = element['production_id'];
-}

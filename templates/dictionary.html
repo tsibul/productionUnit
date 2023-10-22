@@ -39,7 +39,8 @@
                 </details><!-- страна -->
                 <details class="dict-block">
                     <summary class="dict-block__header">
-                        <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип материала</div>
+                        <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип материала
+                        </div>
                     </summary>
                     <div class="dict-block__row dict-block__active service-dict ">
                         <div>Тип материала</div>
@@ -71,7 +72,8 @@
                 </details><!-- тип материала -->
                 <details class="dict-block">
                     <summary class="dict-block__header">
-                        <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Названия деталей</div>
+                        <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Названия деталей
+                        </div>
                     </summary>
                     <div class="dict-block__row dict-block__active service-dict">
                         <div>Названия деталей</div>
@@ -103,7 +105,74 @@
                 </details><!-- названия деталей -->
                 <details class="dict-block">
                     <summary class="dict-block__header">
-                        <div class="dict-block__active"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цветовая группа</div>
+                        <div class="dict-block__active"><i class="fs fa-solid fa-skull"></i></i>&nbsp;Дефекты
+                        </div>
+                    </summary>
+                    <div class="dict-block__row dict-block__active service-dict">
+                        <div>Дефекты</div>
+                        <button class="btn btn-save btn_add">добавить</button>
+                    </div>
+                    <div class="dict-block__content ">
+                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                             id="defects-0" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="0">
+                            <div class="dict-block__text"
+                                 data-name="name"></div>
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
+                        {% for item in defects %}
+                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                 id="defects-{{ item.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-block__text"
+                                     data-name="name">{{ item.name }}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </details><!-- брак -->
+                <details class="dict-block">
+                    <summary class="dict-block__header">
+                        <div class="dict-block__active"><i class="fs fa-solid fa-skull"></i></i>&nbsp;Устранение брака
+                        </div>
+                    </summary>
+                    <div class="dict-block__row dict-block__active service-dict">
+                        <div>Устранение брака</div>
+                        <button class="btn btn-save btn_add">добавить</button>
+                    </div>
+                    <div class="dict-block__content ">
+                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                             id="defectEvent-0" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="0">
+                            <div class="dict-block__text"
+                                 data-name="name"></div>
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
+                        {% for item in defect_event %}
+                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                 id="defectEvent-{{ item.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-block__text"
+                                     data-name="name">{{ item.name }}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </details><!-- устранение брака -->
+                <details class="dict-block">
+                    <summary class="dict-block__header">
+                        <div class="dict-block__active"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цветовая группа
+                        </div>
                     </summary>
                     <div class="dict-block__row dict-block__active service-dict">
                         <div>Цветовая группа</div>
@@ -240,7 +309,8 @@
                             <div class="dict-block__text foreign-key" data-field="goods"
                                  data-name="goods" data-id=""></div>
                             <div class="dict-block__text" data-field="position"
-                                 data-name="position">1</div>
+                                 data-name="position">1
+                            </div>
                             <div class="dict-block__text foreign-key" data-field="detail_name"
                                  data-name="detail_name" data-id=""></div>
                             <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
@@ -283,7 +353,8 @@
                 </details><!-- деталь в продукции -->
                 <details class="dict-block dict-block__3">
                     <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Продукция</div>
+                        <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Продукция
+                        </div>
                         <div class="dict-block__search">
                             <i class="fa fa-solid fa-magnifying-glass"></i>
                             <input type="search" class="form-input dict-block__form-input"
@@ -398,7 +469,7 @@
                         {% endfor %}
                         {% for item in main_material_end %}
                             <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                 id="mainMaterial-{{ item.id }}" data-last="20"  onclick="editDictionary(this);">
+                                 id="mainMaterial-{{ item.id }}" data-last="20" onclick="editDictionary(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -443,7 +514,7 @@
                                  data-name="material_type" data-field="material_type"></div>
                             <div class="dict-block__text"
                                  data-name="color" data-field="color"></div>
-                           <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -479,7 +550,8 @@
                 </details><!-- дополнительный материал -->
                 <details class="dict-block dict-block__3">
                     <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active"><i class="fa fa-solid fa-sack-xmark"></i>&nbsp;Суперконцентрат</div>
+                        <div class="dict-block__active"><i class="fa fa-solid fa-sack-xmark"></i>&nbsp;Суперконцентрат
+                        </div>
                         <div class="dict-block__search">
                             <i class="fa fa-solid fa-magnifying-glass"></i>
                             <input type="search" class="form-input dict-block__form-input"
@@ -785,7 +857,6 @@
                         {% endfor %}
                     </div>
                 </details><!-- дозы -->
-
 
 
             </div>

@@ -13,7 +13,10 @@ const dictList = {
     goods: 'Goods',
     imm: 'IMM',
     productRequest: 'ProductionRequest',
+    defects: 'Defects',
+    defectEvent: 'DefectEvent',
 };
+
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');

@@ -19,4 +19,4 @@ class IMM (models.Model):
 
     @staticmethod
     def order_default():
-        return ['plant_id']
+        return ['plant_code']

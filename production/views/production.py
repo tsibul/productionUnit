@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from production.models import  ProductionReport, Defects, DefectEvent
+from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects
 from production.classes import QualityCheck
 
 
@@ -32,4 +32,23 @@ def production_list(request, first_record, order):
     return JsonResponse(json_response, safe=False)
 
 
+def production_acceptance(request):
+    production_item = ProductionReport.objects.get(id=request.POST['production'])
+    quantity_checked = request.POST['quantity_checked']
+    quantity_approved = request.POST['quantity_approved']
+    date_check = timezone.now()
+    user = request.user
+    comment = request.POST['comment']
+    defect_event = request.POST['defect_event']
+    quality_report = QualityReport(production=production_item, quantity_checked=quantity_checked,
+                                   quantity_approved=quantity_approved, date_check=date_check, user=user,
+                                   defect_event_id=defect_event, comment=comment)
+    quality_report.save()
+    defects = Defects.objects.filter(deleted=False)
+    for defect in defects:
+        key = str(defect.id)
+        if key in request.POST:
+            defect_item = QualityReportDefects(quality_report=quality_report, defect_id=key)
+            defect_item.save()
 
+    return HttpResponseRedirect(reverse('production:production'))

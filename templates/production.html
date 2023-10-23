@@ -57,7 +57,7 @@
     <!-- Модальное окно для приемки -->
     <div id="qualityModal" class="login">
         <div class="modal__content">
-            <form method="post" id="production-form" action="#">
+            <form method="post" id="production-form" action="{%  url 'production:production_acceptance' %}">
                 {% csrf_token %}
                 <div class="login__header">
                     <p class="active">Приемка продукции</p>

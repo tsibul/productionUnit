@@ -45,15 +45,15 @@ class TotalRequests:
             production_list = production_list + list(production_for_request.values_list('production', flat=True))
         checked = 0
         approved = 0
-        for production in production_list:
-            quality_report = QualityReport.objects.filter(production=production).aggregate(
-                checked=Sum('quantity_checked'),
-                approved=Sum('quantity_approved')
-            )
-            if quality_report['checked']:
-                checked += quality_report['checked']
-            if quality_report['approved']:
-                approved += quality_report['approved']
+        quality_report = QualityReport.objects.filter(production__in=production_list).aggregate(
+            checked=Sum('quantity_checked'),
+            approved=Sum('quantity_approved')
+        )
+        if quality_report['checked']:
+            checked = quality_report['checked']
+        if quality_report['approved']:
+            approved = quality_report['approved']
+
         self.approved = approved
         self.checking = produced - checked
         self.quantity = requests_initial['total_quantity']

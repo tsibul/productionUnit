@@ -5,6 +5,8 @@ const productionContent = sectionProduction.querySelector('.dict-block__content'
 const productionRow = document.querySelector('#technical-data').querySelector('.production-list');
 const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
+const quantityApproved = qualityModal.querySelector('#quantity_approved')
+const quantityChecked = qualityModal.querySelector('#quantity_checked')
 
 
 addProducedRows(0, 'default').then(r => {
@@ -14,6 +16,19 @@ productionContent.addEventListener('click', (event) => {
     if (event.target.classList.contains('btn')) {
         fillQualityModal(event.target);
         openModal(qualityModal);
+    }
+});
+
+quantityChecked.addEventListener('change', () => {
+    if (Number.parseInt(quantityChecked.value) > Number.parseInt(quantityChecked.max)) {
+        quantityChecked.value = quantityChecked.max;
+    }
+    quantityApproved.max = quantityChecked.value;
+});
+
+quantityApproved.addEventListener('change', () =>{
+    if(Number.parseInt(quantityApproved.value) > Number.parseInt(quantityApproved.max)){
+        quantityApproved.value = quantityApproved.max;
     }
 });
 
@@ -33,6 +48,7 @@ function fillQualityModal(btn) {
         .textContent.replace(' ', ''));
     qualityModal.querySelector('#to_check').value = quantity - quantity_checked;
     qualityModal.querySelector('#quantity_checked').max = quantity - quantity_checked;
+    qualityModal.querySelector('#quantity_approved').max = quantity - quantity_checked;
     qualityModal.querySelector('#user').value = row.querySelector('.req__produce_user').textContent;
     qualityModal.querySelector('#date').value = row.querySelector('.req__production_date').textContent;
 }

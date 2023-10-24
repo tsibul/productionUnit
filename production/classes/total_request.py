@@ -11,6 +11,7 @@ class TotalRequests:
     color_id: int
     quantity: int
     approved: int
+    checked: int
     checking: int
     left: int
     if_order: str
@@ -53,6 +54,7 @@ class TotalRequests:
             checked = quality_report['checked']
         if quality_report['approved']:
             approved = quality_report['approved']
+        self.checked = checked
         self.approved = approved
         self.checking = produced - checked
         self.quantity = requests_initial['total_quantity']

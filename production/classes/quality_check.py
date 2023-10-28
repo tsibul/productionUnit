@@ -41,6 +41,7 @@ class QualityCheck:
         if not quantity_approved:
             quantity_approved = 0
         self.quantity_checked = quantity_checked
+        self.quantity_checking = self.quantity - self.quantity_checked
         self.quantity_approved = quantity_approved
         self.defect = self.quantity_checked - self.quantity_approved
         self.defect_percent = round(self.defect / self.quantity * 100, 2)

@@ -1,10 +1,10 @@
 from django.db.models import Sum, Min
 
 from production.models import DetailInGoods, Color, ProductionRequest, ProductionForRequest, QualityReport, \
-    ProductionRequestStartStop
+    ProductionRequestStartStop, QualityForRequest
 
 
-class TotalRequests:
+class TotalRequest:
     detail: str
     detail_id: int
     color: str
@@ -31,34 +31,39 @@ class TotalRequests:
             self.imm_id = start_stop.imm.id
         except:
             self.imm_id = 0
+
         requests_initial = requests.aggregate(
             total_if_order=Sum('if_order'),
             min_date=Min('date_create')
         )
         requests_initial.update(requests.filter(technical=False).aggregate(total_quantity=Sum('quantity')))
         produced = 0
-        production_list = []
+        checked = 0
+        approved = 0
         for production_request in requests:
             production_for_request = ProductionForRequest.objects.filter(production_request=production_request)
             quantity_produced = production_for_request.aggregate(quantity_produced=Sum('quantity'))['quantity_produced']
+            quality_for_request = QualityForRequest.objects.filter(production_request=production_request)
+            quality_report = quality_for_request.aggregate(
+                checked=Sum('quantity_checked'),
+                approved=Sum('quantity_approved')
+            )
             if quantity_produced:
                 produced += quantity_produced
-            production_list = production_list + list(production_for_request.values_list('production', flat=True))
-        checked = 0
-        approved = 0
-        quality_report = QualityReport.objects.filter(production__in=production_list).aggregate(
-            checked=Sum('quantity_checked'),
-            approved=Sum('quantity_approved')
-        )
-        if quality_report['checked']:
-            checked = quality_report['checked']
-        if quality_report['approved']:
-            approved = quality_report['approved']
+            if quality_report['checked']:
+                checked = quality_report['checked']
+            if quality_report['approved']:
+                approved = quality_report['approved']
+
         self.checked = checked
         self.approved = approved
         self.checking = produced - checked
         self.quantity = requests_initial['total_quantity']
-
+        if not self.quantity:
+            self.quantity = 0
         self.if_order = 'да' if requests_initial['total_if_order'] else 'нет'
         self.first_date = requests_initial['min_date'].strftime('%Y-%m-%d')
         self.left = self.quantity - self.approved - self.checking
+
+    def __repr__(self):
+        return f"{self.detail} {self.color} {self.quantity}"

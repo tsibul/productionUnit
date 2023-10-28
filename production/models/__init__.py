@@ -9,6 +9,6 @@ from production.models.injection_molding_machine import IMM
 from production.models.defects import Defects, DefectEvent
 from production.models.production_request import ProductionRequest, ProductionRequestStartStop
 from production.models.production_report import ProductionReport, ProductionForRequest
-from production.models.quality_report import QualityReport, QualityReportDefects
+from production.models.quality_report import QualityReport, QualityReportDefects, QualityForRequest
 
 

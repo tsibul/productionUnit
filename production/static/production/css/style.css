@@ -113,21 +113,32 @@
     position: relative;
   }
   .menu__item {
-    padding: 10px 10px;
+    padding: 10px 10px 10px 10px;
   }
   .menu__left {
+    display: none;
+  }
+  .menu__left:hover {
+    display: flex;
     flex-direction: column;
     position: absolute;
-    top: 48px;
+    top: 43px;
     border: 1px transparent solid;
     border-radius: 10px;
     background-color: #BF9F73;
   }
   .menu__mobile {
     display: block;
+    padding-right: 108px;
   }
-  .menu__mobile:hover .menu__left {
-    display: block;
+  .menu__mobile:hover + .menu__left {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 44px;
+    border: 1px transparent solid;
+    border-radius: 10px;
+    background-color: #BF9F73;
   }
 }
 * {
@@ -329,6 +340,11 @@
   text-align: center;
 }
 
+@media (max-width: 767px) {
+  .full-content {
+    padding-top: 60px;
+  }
+}
 .dict {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

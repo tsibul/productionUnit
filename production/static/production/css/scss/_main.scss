@@ -217,3 +217,9 @@
 .table-center{
   text-align: center;
 }
+
+@media (max-width: 767px) {
+  .full-content {
+    padding-top: 60px;
+  }
+}

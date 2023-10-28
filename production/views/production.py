@@ -47,10 +47,8 @@ def production_acceptance(request):
     quality_report.save()
 
     quality_for_request_create(production_item, quality_report, int(quantity_checked), int(quantity_approved))
+    review_requests(production_item, int(quantity_checked), int(quantity_approved))
     defects_create(request, quality_report)
-
-    # review_requests(production_item)
-
     return HttpResponseRedirect(reverse('production:production'))
 
 
@@ -82,13 +80,6 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
                                                     quantity_approved=quantity_approved_current)
             quality_for_request.save()
             break
-        # elif quantity_approved_current < request_approved_left:
-        #     quality_for_request = QualityForRequest(production_request=production_request,
-        #                                             quality_report=quality_report,
-        #                                             quantity_checked=production_request.quantity,
-        #                                             quantity_approved=quantity_approved_current)
-        #     quantity_approved_current = 0
-        #     quantity_checked_current = quantity_checked_current - request_checked_left
         else:
             quality_for_request = QualityForRequest(production_request=production_request,
                                                     quality_report=quality_report,
@@ -105,25 +96,39 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
         quality_for_request.save()
 
 
-def review_requests(production_item: ProductionReport):
-    # detail = production_item.detail.id
-    # color = production_item.color.id
-    # total_requests = TotalRequest((detail, color))
-    # quantity_checked = total_requests.checked
-    # quantity_approved = total_requests.approved
-    # quantity_rejected = quantity_checked - quantity_approved
-    # production_for_requests = ProductionForRequest.objects.filter(production=production_item)
-    # production_requests = ProductionRequest.objects.filter(
-    #     id__in=production_for_requests.values_list('production_request', flat=True), date_close=None)
-    # if quantity_approved:
-    #     for production_request in production_requests.order_by('date_create'):
-    #         quantity_approved = quantity_approved - production_request.quantity
-    #         if quantity_approved <= 0:
-    #             break
-    #         production_request.closed = True
-    #         production_request.date_close = timezone.now()
-    #         production_request.save()
-    # if quantity_rejected:
-    #     for production_request in production_requests.order_by('-date_create'):
-    #         pass
+def review_requests(production_item: ProductionReport, quantity_checked_current: int, quantity_approved_current: int):
+    production_requests = ProductionRequest.objects.filter(deleted=False, closed=False, detail=production_item.detail,
+                                                           color=production_item.color).order_by('-date_create')
+    quantity_defect = quantity_checked_current - quantity_approved_current
+    quantity_defect = review_technical_requests(production_requests, quantity_defect)
+    if quantity_defect:
+        review_nontechnical_requests(production_requests, quantity_defect)
     return
+
+
+def review_technical_requests(production_requests, quantity_defect: int):
+    for tech_request in production_requests.filter(technical=True):
+        if quantity_defect < tech_request.quantity:
+            tech_request.quantity = tech_request.quantity - quantity_defect
+            tech_request.save()
+            quantity_defect = 0
+            break
+        else:
+            quantity_defect = quantity_defect - tech_request.quantity
+            tech_request.quantity = 0
+            tech_request.deleted = True
+    return quantity_defect
+
+
+def review_nontechnical_requests(production_requests, quantity_defect: int):
+    for production_request in production_requests.filter(technical=False):
+        if quantity_defect < production_request.quantity - production_request.quantity_left:
+            production_request.quantity_left = production_request.quantity_left + quantity_defect
+            production_request.save()
+            break
+        else:
+            production_request.quantity_left = 0
+            quantity_defect = quantity_defect - production_request.quantity + production_request.quantity_left
+            production_request.save()
+            if not quantity_defect:
+                break

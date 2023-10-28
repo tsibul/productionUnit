@@ -251,6 +251,8 @@ async function fillNewRow(record, i, newRow) {
             rowElement.dataset.id = record[fieldName] ? '1' : '0';
         } else if (fieldName === 'user') {
             rowElement.textContent = await fetchJsonData(`/production/user_name/${record['user_id']}`);
+        // } else if (fieldName.includes('date-')){
+        //
         } else {
             rowElement.textContent = record[fieldName];
         }

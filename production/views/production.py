@@ -80,7 +80,7 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
             request_quantity_approved = 0
         request_approved_left = production_request.quantity - request_quantity_approved
 
-        if quantity_approved_current < request_approved_left:
+        if quantity_approved_current <= request_approved_left:
             quality_for_request = QualityForRequest(production_request=production_request,
                                                     quality_report=quality_report,
                                                     quantity_checked=quantity_checked_current,

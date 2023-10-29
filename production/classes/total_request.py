@@ -12,7 +12,7 @@ class TotalRequest:
     quantity: int
     approved: int
     checked: int
-    checking: int
+    produced: int
     left: int
     if_order: str
     first_date: str
@@ -40,9 +40,11 @@ class TotalRequest:
         produced = 0
         checked = 0
         approved = 0
+        left = 0
         for production_request in requests:
             production_for_request = ProductionForRequest.objects.filter(production_request=production_request)
             quantity_produced = production_for_request.aggregate(quantity_produced=Sum('quantity'))['quantity_produced']
+            quantity_left = production_request.quantity_left
             quality_for_request = QualityForRequest.objects.filter(production_request=production_request)
             quality_report = quality_for_request.aggregate(
                 checked=Sum('quantity_checked'),
@@ -54,16 +56,18 @@ class TotalRequest:
                 checked = quality_report['checked']
             if quality_report['approved']:
                 approved = quality_report['approved']
+            left += quantity_left
 
         self.checked = checked
         self.approved = approved
-        self.checking = produced - checked
+        self.produced = produced
+        # self.checking = produced - checked
         self.quantity = requests_initial['total_quantity']
         if not self.quantity:
             self.quantity = 0
         self.if_order = 'да' if requests_initial['total_if_order'] else 'нет'
         self.first_date = requests_initial['min_date'].strftime('%Y-%m-%d')
-        self.left = self.quantity - self.approved - self.checking
+        self.left = left
 
     def __repr__(self):
         return f"{self.detail} {self.color} {self.quantity}"

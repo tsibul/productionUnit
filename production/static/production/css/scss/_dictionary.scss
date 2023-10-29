@@ -210,6 +210,12 @@
   grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
 }
 
+.quality-list {
+  grid-template-columns: repeat(3, 1fr)  repeat(2, 1fr)  repeat(6, 1fr) repeat(3, 2fr) 1fr;
+  font-size: 14px;
+}
+
+
 .dropdown_dict {
   height: 33px;
   font-size: 13px;

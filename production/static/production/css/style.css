@@ -344,6 +344,10 @@
   .full-content {
     padding-top: 60px;
   }
+  .btn {
+    padding: 8px 2px;
+    font-size: 14px;
+  }
 }
 .dict {
   display: grid;
@@ -529,7 +533,7 @@
 }
 
 .production-list {
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(7, 1fr);
+  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
 }
 
 .dropdown_dict {
@@ -553,6 +557,28 @@
 @media (max-width: 1600px) and (max-width: 767px) {
   .dict__header {
     padding: 30px;
+  }
+  .dict-block__header {
+    padding: 20px;
+    font-size: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .dict-block__form-input {
+    min-width: 200px;
+  }
+  .production {
+    grid-template-columns: repeat(6, 1fr);
+    font-size: 14px;
+  }
+  .in-production {
+    grid-template-columns: repeat(8, 1fr);
+    font-size: 14px;
+  }
+  .production-list {
+    grid-template-columns: repeat(9, 1fr);
+    font-size: 14px;
   }
 }
 .form-row__export {
@@ -613,6 +639,21 @@
   font-weight: 900;
   font-size: 16px;
   background-color: #DFCFB9;
+}
+
+@media (max-width: 767px) {
+  .modal__content {
+    width: calc(100% - 60px);
+    font-size: 14px;
+  }
+  .modal__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .modal__block {
+    grid-template-columns: 1fr;
+    font-size: 12px;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

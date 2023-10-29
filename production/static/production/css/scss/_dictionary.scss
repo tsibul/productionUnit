@@ -207,7 +207,7 @@
 }
 
 .production-list {
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(7, 1fr);
+  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
 }
 
 .dropdown_dict {
@@ -236,5 +236,32 @@
         padding: 30px;
       }
     }
+    .dict-block {
+      &__header {
+        padding: 20px;
+        font-size: 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      &__form-input {
+        min-width: 200px;
+      }
+    }
+    .production {
+      grid-template-columns: repeat(6, 1fr);
+      font-size: 14px;
+    }
+
+    .in-production {
+      grid-template-columns: repeat(8, 1fr);
+      font-size: 14px;
+    }
+    .production-list {
+      grid-template-columns: repeat(9, 1fr);
+      font-size: 14px;
+    }
+
   }
 }

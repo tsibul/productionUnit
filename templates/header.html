@@ -34,16 +34,16 @@
                     <a href="{% url 'production:production' %}"
                        class="menu__item {% if navi == 'production' %}active{% endif %}">Производство</a>
                     <a href="{% url 'production:production_request' %}"
-                       class="menu__item {% if navi == 'request' %}active{% endif %}">Заявки</a>
+                       class="menu__item mobile__hide {% if navi == 'request' %}active{% endif %}">Заявки</a>
                     <a href="#"
-                       class="menu__item {% if navi == 'quality' %}active{% endif %}">Качество</a>
+                       class="menu__item mobile__hide {% if navi == 'quality' %}active{% endif %}">Качество</a>
                     <a href="{% url 'production:dictionary' %}"
                        class="menu__item mobile__hide {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                 {% else %}
                     <div class="menu__item">Производство V1.0.&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="#" class="menu__item">Админ</a>
+                    <a href="#" class="menu__item mobile__hide">Админ</a>
                 {% endif %}
             </div>
             <nav class="menu__right">

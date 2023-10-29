@@ -28,10 +28,6 @@
                     <div class="digit">Брак</div>
                     <div class="digit">Проверить</div>
                     <div class="table-center">% Брака</div>
-                    <div class="">Виды брака</div>
-                    <div class="">Решение</div>
-                    <div class="">Комментарий</div>
-                    <div></div>
                 </div>
                 <div class="dict-block__content">
                 </div>
@@ -40,30 +36,54 @@
         </div>
     </div>
     <div id="technical-data" hidden>
-        <div class="dict-block__row quality-list">
-            <div class="dict-block__text req__production_date table-center"></div>
-            <div class="dict-block__text req__produce_user table-center"></div>
-            <div class="dict-block__text req__imm_code table-center"></div>
-            <div class="dict-block__text req__detail"></div>
-            <div class="dict-block__text req__color"></div>
-            <div class="dict-block__text req__quantity digit"></div>
-            <div class="dict-block__text req__quantity_checked digit"></div>
-            <div class="dict-block__text req__quantity_approved digit"></div>
-            <div class="dict-block__text req__defect digit"></div>
-            <div class="dict-block__text req__quantity_checking digit"></div>
-            <div class="dict-block__text req__defect_percent table-center"></div>
-            <div class="dict-block__text req__defect_types"></div>
-            <div class="dict-block__text req__defect_event"></div>
-            <div class="dict-block__text req__comment"></div>
-            <button class="btn btn-close" type="button">
-                править
-            </button>
-        </div>
+        <details class=" quality-list">
+            <summary class="dict-block__row quality-list">
+                <div class="dict-block__text req__production_date table-center"></div>
+                <div class="dict-block__text req__produce_user table-center"></div>
+                <div class="dict-block__text req__imm_code table-center"></div>
+                <div class="dict-block__text req__detail"></div>
+                <div class="dict-block__text req__color"></div>
+                <div class="dict-block__text req__quantity digit"></div>
+                <div class="dict-block__text req__quantity_checked digit"></div>
+                <div class="dict-block__text req__quantity_approved digit"></div>
+                <div class="dict-block__text req__defect digit"></div>
+                <div class="dict-block__text req__quantity_checking digit"></div>
+                <div class="dict-block__text req__defect_percent table-center"></div>
+            </summary>
+            <div class="quality-content">
+            <div class="quality-content__row dict-block__row dict-block__active">
+                <div class="">Дата</div>
+                <div class="">Проверил</div>
+                <div class="digit">Проверено</div>
+                <div class="digit">Принято</div>
+                <div class="digit">Брак</div>
+                <div class="table-center">% брака</div>
+                <div class="table-center">виды брака</div>
+                <div class="table-center">комментарий</div>
+                <div class="table-center">по браку</div>
+                <div></div>
+            </div>
+            <div class="quality-content__row dict-block__row">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <button class="btn btn-close" type="button">
+                    править
+                </button>
+            </div>
+            </div>
+        </details>
     </div>
     <!-- Модальное окно для правки -->
     <div id="qualityModal" class="login">
         <div class="modal__content">
-            <form method="post" id="production-form" action="{%  url 'production:production_acceptance' %}">
+            <form method="post" id="production-form" action="{% url 'production:production_acceptance' %}">
                 {% csrf_token %}
                 <div class="login__header">
                     <p class="active">Приемка продукции</p>
@@ -105,9 +125,10 @@
                         </div>
                     {% endfor %}
                 </div>
-            <div class="modal__row">
-                <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий" required></textarea>
-            </div>
+                <div class="modal__row">
+                    <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий"
+                              required></textarea>
+                </div>
                 <div class="modal__row">
                     <div class="active">решение</div>
                     <div class="dropdown report_dropdown dropdown_dict">

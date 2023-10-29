@@ -537,8 +537,17 @@
 }
 
 .quality-list {
-  grid-template-columns: repeat(3, 1fr) repeat(2, 1fr) repeat(6, 1fr) repeat(3, 2fr) 1fr;
-  font-size: 14px;
+  grid-template-columns: repeat(11, 1fr);
+}
+
+.quality-content {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: #C2D6CB;
+  font-size: 15px;
+}
+.quality-content__row {
+  grid-template-columns: repeat(6, 1fr) repeat(2, 2fr) 1fr 1fr;
 }
 
 .dropdown_dict {

@@ -10,6 +10,12 @@ const quantityChecked = qualityModal.querySelector('#quantity_checked')
 
 
 addProducedRows(0, 'default').then(r => {
+    productionContent.querySelectorAll('.btn').forEach(btn => {
+        if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
+            btn.disabled = true;
+            btn.classList.add('form-input__inactive')
+        }
+    });
 });
 
 productionContent.addEventListener('click', (event) => {
@@ -26,8 +32,8 @@ quantityChecked.addEventListener('change', () => {
     quantityApproved.max = quantityChecked.value;
 });
 
-quantityApproved.addEventListener('change', () =>{
-    if(Number.parseInt(quantityApproved.value) > Number.parseInt(quantityApproved.max)){
+quantityApproved.addEventListener('change', () => {
+    if (Number.parseInt(quantityApproved.value) > Number.parseInt(quantityApproved.max)) {
         quantityApproved.value = quantityApproved.max;
     }
 });
@@ -79,4 +85,3 @@ async function addProducedRows(first_record, order) {
         row.dataset.id = element['production_id'];
     }
 }
-

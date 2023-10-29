@@ -29,6 +29,9 @@ urlpatterns = [
     path('production_list/<int:first_record>/<str:order>', views.production_list, name='production_list'),
     path('production_acceptance/', views.production_acceptance, name='production_acceptance'),
 
+    path('quality_report/', views.quality_report, name='quality_report'),
+    path('quality_list/<str:date_start>/<str:date_end>', views.quality_list, name='quality_list'),
+
     #
     # path('imports/', views.imports, name='imports'),
     # path('import_file/', views.import_file, name='import_file'),

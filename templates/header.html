@@ -35,7 +35,7 @@
                        class="menu__item {% if navi == 'production' %}active{% endif %}">Производство</a>
                     <a href="{% url 'production:production_request' %}"
                        class="menu__item mobile__hide {% if navi == 'request' %}active{% endif %}">Заявки</a>
-                    <a href="#"
+                    <a href="{% url 'production:quality_report' %}"
                        class="menu__item mobile__hide {% if navi == 'quality' %}active{% endif %}">Качество</a>
                     <a href="{% url 'production:dictionary' %}"
                        class="menu__item mobile__hide {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>

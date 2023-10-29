@@ -1,0 +1,143 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block title %}Главная{% endblock %}
+{% block content %}
+    <div class="full-content">
+        <div class="container">
+            <section class="dict-block dict-block__open  dict-block__open_production dict-block__4 dict-block_long">
+                <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                    <div class="dict-block__active"><i class="fa fa-solid fa-microscope"></i>&nbsp;Отчет ОТК
+                    </div>
+                    <form action="#" class="dict-block__search dict-block__search_open">
+                        <label for="date-start">с&nbsp;</label>
+                        <input type="date" class="form-input" id="date-start" required>
+                        <label for="date-start">по&nbsp;</label>
+                        <input type="date" class="form-input" id="date-end" required>
+                        <button class="btn btn-save" type="submit">показать</button>
+                    </form>
+                </div>
+                <div class="dict-block__row dict-block__active quality-list">
+                    <div class="table-center">Дата</div>
+                    <div class="table-center">Смена</div>
+                    <div class="table-center">ТПА</div>
+                    <div class="">Деталь</div>
+                    <div class="">Цвет</div>
+                    <div class="digit">Выпуск</div>
+                    <div class="digit">ОТК</div>
+                    <div class="digit">Принято</div>
+                    <div class="digit">Брак</div>
+                    <div class="digit">Проверить</div>
+                    <div class="table-center">% Брака</div>
+                    <div class="">Виды брака</div>
+                    <div class="">Решение</div>
+                    <div class="">Комментарий</div>
+                    <div></div>
+                </div>
+                <div class="dict-block__content">
+                </div>
+            </section><!-- производство -->
+
+        </div>
+    </div>
+    <div id="technical-data" hidden>
+        <div class="dict-block__row quality-list">
+            <div class="dict-block__text req__production_date table-center"></div>
+            <div class="dict-block__text req__produce_user table-center"></div>
+            <div class="dict-block__text req__imm_code table-center"></div>
+            <div class="dict-block__text req__detail"></div>
+            <div class="dict-block__text req__color"></div>
+            <div class="dict-block__text req__quantity digit"></div>
+            <div class="dict-block__text req__quantity_checked digit"></div>
+            <div class="dict-block__text req__quantity_approved digit"></div>
+            <div class="dict-block__text req__defect digit"></div>
+            <div class="dict-block__text req__quantity_checking digit"></div>
+            <div class="dict-block__text req__defect_percent table-center"></div>
+            <div class="dict-block__text req__defect_types"></div>
+            <div class="dict-block__text req__defect_event"></div>
+            <div class="dict-block__text req__comment"></div>
+            <button class="btn btn-close" type="button">
+                править
+            </button>
+        </div>
+    </div>
+    <!-- Модальное окно для правки -->
+    <div id="qualityModal" class="login">
+        <div class="modal__content">
+            <form method="post" id="production-form" action="{%  url 'production:production_acceptance' %}">
+                {% csrf_token %}
+                <div class="login__header">
+                    <p class="active">Приемка продукции</p>
+                    <span class="login__close">&times;</span>
+                </div>
+                <input type="text" name="production" hidden>
+                <div class="modal__row">
+                    <input class="form-input modal__input" id="detail">
+                    <input class="form-input modal__input" id="color">
+                    <input class="form-input modal__input" id="imm">
+                </div>
+                <div class="modal__row">
+                    <label for="to_check" class="">к проверке</label>
+                    <input type="number" id="to_check"
+                           class="form-input form-input__inactive active" disabled>
+                    <label for="user" class="">наладчик</label>
+                    <input type="text" id="user"
+                           class="form-input form-input__inactive active" disabled>
+                    <label for="date" class="">дата</label>
+                    <input type="text" id="date"
+                           class="form-input form-input__inactive active" disabled>
+                </div>
+                <div class="modal__row">
+                    <label for="quantity_checked" class="">проверено</label>
+                    <input type="number" name="quantity_checked" step="1" id="quantity_checked"
+                           class="form-input" required>
+                    <label for="quantity_approved" class="">принято</label>
+                    <input type="number" name="quantity_approved" step="1" id="quantity_approved"
+                           class="form-input" required>
+                </div>
+                <div class="modal__row">
+                    <p class="active">вид брака</p>
+                </div>
+                <div class="modal__block">
+                    {% for item in defects %}
+                        <div class="modal__check">
+                            <input type="checkbox" name="{{ item.id }}" id="chck-{{ item.id }}">
+                            <label for="chck-{{ item.id }}">{{ item.name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            <div class="modal__row">
+                <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий" required></textarea>
+            </div>
+                <div class="modal__row">
+                    <div class="active">решение</div>
+                    <div class="dropdown report_dropdown dropdown_dict">
+                        <input name="defect_event" type="text" class="dropdown__hidden"
+                               value="{{ defect_event.0.id }}">
+                        <div class="dropdown__input-block">
+                            <input type="text" class="dropdown__input dropdown__input_dict"
+                                   placeholder="Поиск.." readonly
+                                   value="{{ defect_event.0.name }}"
+                                   data-value="{{ defect_event.0.name }}">
+                            <i class="fa fa-solid fa-angle-down"></i>
+                        </div>
+                        <ul class="dropdown__content">
+                            {% for report in defect_event %}
+                                <li data-value="{{ report.id }}"
+                                    onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="button-block">
+                        <button type="button" class="btn btn-close">Отменить</button>
+                        <button type="submit" class="btn btn-save">Записать</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'production/js/quality.js' %}"></script>
+    <script src="{% static 'production/js/dictionary.js' %}"></script>
+
+{% endblock %}

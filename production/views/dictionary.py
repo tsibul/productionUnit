@@ -135,6 +135,6 @@ def dictionary_last_id(request, dict_type):
 
 
 def fetch_user_by_id(request, user_id):
-    user_name = User.objects.get(id=user_id).username
+    user_name = User.objects.get(id=user_id).last_name
     return JsonResponse(user_name, safe=False)
 

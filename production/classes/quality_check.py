@@ -26,7 +26,7 @@ class QualityCheck:
         self.production_id = production_id
         production = ProductionReport.objects.get(id=production_id)
         self.production_date = datetime.strftime(production.date, '%d.%m.%y %H:%M')
-        self.produce_user = production.user.username
+        self.produce_user = production.user.last_name
         self.detail = str(production.detail)
         self.color = str(production.color)
         self.imm = str(production.imm)

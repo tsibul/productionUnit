@@ -21,6 +21,7 @@ const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');
 const deleteButtons = document.getElementsByClassName('btn_delete');
+const userGroups = document.getElementById('user-group')
 
 window.onload = function () {
     const summary = document.querySelectorAll('.dict-block__header_block-space');
@@ -33,6 +34,119 @@ window.onload = function () {
         el.onkeyup = fn;
     });
 };
+
+userRights();
+
+function userRights() {
+    document.querySelectorAll('.color').forEach(row => {
+        if (userGroups.value.includes('production')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.detail-in-goods').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.goods').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.main-material').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.add-material').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.masterbatch').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.producer').forEach(row => {
+        if (userGroups.value.includes('production')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.recipe').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.imm').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.main-material').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.production-request').forEach(row => {
+        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.production').forEach(row => {
+        if (!userGroups.value.includes('admin') && !userGroups.value.includes('production')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+    document.querySelectorAll('.in-production').forEach(row => {
+        if (!userGroups.value.includes('admin') && !userGroups.value.includes('production')) {
+            row.onclick = '';
+            row.querySelectorAll('.btn').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('form-input__inactive');
+            });
+        }
+    });
+    // document.querySelectorAll('.production-list').forEach(row => {
+    //     if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
+    //         row.onclick = '';
+    //         row.querySelector('.btn').disabled = true;
+    //         row.querySelector('.btn').classList.add('form-input__inactive');
+    //     }
+    // });
+    document.querySelectorAll('.quality-list').forEach(row => {
+        if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
+            row.onclick = '';
+            row.querySelector('.btn').disabled = true;
+            row.querySelector('.btn').classList.add('form-input__inactive');
+        }
+    });
+}
+
 
 function typeDict(row) {
     return dictList[row.id.split('-')[0]];
@@ -251,8 +365,8 @@ async function fillNewRow(record, i, newRow) {
             rowElement.dataset.id = record[fieldName] ? '1' : '0';
         } else if (fieldName === 'user') {
             rowElement.textContent = await fetchJsonData(`/production/user_name/${record['user_id']}`);
-        // } else if (fieldName.includes('date-')){
-        //
+            // } else if (fieldName.includes('date-')){
+            //
         } else {
             rowElement.textContent = record[fieldName];
         }

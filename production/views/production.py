@@ -45,9 +45,8 @@ def production_acceptance(request):
                                    quantity_approved=quantity_approved, date_check=date_check, user=user,
                                    defect_event_id=defect_event, comment=comment)
     quality_report.save()
-
-    quality_for_request_create(production_item, quality_report, int(quantity_checked), int(quantity_approved))
     review_requests(production_item, int(quantity_checked), int(quantity_approved))
+    quality_for_request_create(production_item, quality_report, int(quantity_checked), int(quantity_approved))
     defects_create(request, quality_report)
     return HttpResponseRedirect(reverse('production:production'))
 
@@ -91,9 +90,9 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
             production_request.closed = True
             production_request.date_close = timezone.now()
             production_request.save()
-            if not quantity_approved_current:
+            if not quantity_approved_current and not quantity_checked_current:
                 break
-        quality_for_request.save()
+        # quality_for_request.save()
 
 
 def review_requests(production_item: ProductionReport, quantity_checked_current: int, quantity_approved_current: int):
@@ -117,6 +116,7 @@ def review_technical_requests(production_requests, quantity_defect: int):
             quantity_defect = quantity_defect - tech_request.quantity
             tech_request.quantity = 0
             tech_request.deleted = True
+            tech_request.save()
     return quantity_defect
 
 
@@ -127,8 +127,8 @@ def review_nontechnical_requests(production_requests, quantity_defect: int):
             production_request.save()
             break
         else:
-            production_request.quantity_left = 0
             quantity_defect = quantity_defect - production_request.quantity + production_request.quantity_left
+            production_request.quantity_left = production_request.quantity
             production_request.save()
             if not quantity_defect:
                 break

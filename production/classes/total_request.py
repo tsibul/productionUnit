@@ -9,6 +9,7 @@ class TotalRequest:
     detail_id: int
     color: str
     color_id: int
+    hex: str
     quantity: int
     approved: int
     checked: int
@@ -23,6 +24,7 @@ class TotalRequest:
         color = Color.objects.get(id=detail_color[1])
         self.detail = str(detail)
         self.color = str(color)
+        self.hex = color.color_code
         self.detail_id = detail.id
         self.color_id = color.id
         requests = ProductionRequest.objects.filter(deleted=False, detail=detail, color=color, closed=False)

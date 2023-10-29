@@ -45,6 +45,14 @@ def production_acceptance(request):
                                    quantity_approved=quantity_approved, date_check=date_check, user=user,
                                    defect_event_id=defect_event, comment=comment)
     quality_report.save()
+
+    production_item.defect = production_item.defect + int(quantity_checked) - int(quantity_approved)
+    if production_item.quantity == QualityCheck(production_item.id).quantity_checked:
+        production_item.closed = True
+        production_item.date_close = timezone.now()
+        production_item.user_close = user
+    production_item.save()
+
     review_requests(production_item, int(quantity_checked), int(quantity_approved))
     quality_for_request_create(production_item, quality_report, int(quantity_checked), int(quantity_approved))
     defects_create(request, quality_report)

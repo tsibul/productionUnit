@@ -35,7 +35,10 @@ def dictionary(request):
     recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
-    user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    try:
+        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    except:
+        user_groups = ''
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,

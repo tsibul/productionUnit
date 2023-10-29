@@ -13,7 +13,10 @@ def production_request(request):
                                                                                    'detail__goods__name')[11:12]
     color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')
     detail = DetailInGoods.objects.filter(deleted=False).order_by('goods', 'position')
-    user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    try:
+        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    except:
+        user_groups = ''
     context = {'navi': navi, 'product_request': product_request, 'product_request_end': product_request_end,
                'color': color, 'detail': detail, 'date_now': datetime.datetime.now(), 'user_groups': user_groups}
     return render(request, 'request.html', context)

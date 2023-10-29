@@ -13,7 +13,10 @@ from production.classes import QualityCheck, TotalRequest
 
 def production(request):
     navi = 'production'
-    user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    try:
+        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
+    except:
+        user_groups = ''
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
     context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event}

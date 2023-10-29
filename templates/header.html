@@ -48,7 +48,7 @@
             </div>
             <nav class="menu__right">
                 {% if request.user.is_authenticated %}
-                    <div class="menu__item active" id="logout-button">{{ request.user.username }}&nbsp;<i
+                    <div class="menu__item active" id="logout-button">{{ request.user.first_name }}&nbsp;{{ request.user.last_name }}<i
                             class="fa fa-solid fa-arrow-right-from-bracket"></i></div>
                     {#                    <div class="menu-item" id="logout-button"> выход</div>#}
                     <div class="menu__item" id="login-button" hidden> вход</div>

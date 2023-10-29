@@ -10,9 +10,12 @@ class ProductionReport(models.Model):
     color = models.ForeignKey(Color, models.SET_NULL, null=True)
     date = models.DateTimeField(default=timezone.now)
     imm = models.ForeignKey(IMM, models.SET_NULL, null=True)
-    user = models.ForeignKey(User, models.SET_NULL, null=True)
+    user = models.ForeignKey(User, models.SET_NULL, null=True, related_name='user_produced')
     quantity = models.IntegerField(default=1000)
     defect = models.IntegerField(default=0)
+    closed = models.BooleanField(default=False)
+    date_close = models.DateTimeField(default=None, null=True)
+    user_close = models.ForeignKey(User, models.SET_NULL, null=True, related_name='user_checked')
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

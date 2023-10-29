@@ -80,12 +80,22 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
             request_quantity_approved = 0
         request_approved_left = production_request.quantity - request_quantity_approved
 
-        if quantity_approved_current <= request_approved_left:
+        if quantity_approved_current < request_approved_left:
             quality_for_request = QualityForRequest(production_request=production_request,
                                                     quality_report=quality_report,
                                                     quantity_checked=quantity_checked_current,
                                                     quantity_approved=quantity_approved_current)
             quality_for_request.save()
+            break
+        elif quantity_approved_current == request_approved_left:
+            quality_for_request = QualityForRequest(production_request=production_request,
+                                                    quality_report=quality_report,
+                                                    quantity_checked=quantity_checked_current,
+                                                    quantity_approved=quantity_approved_current)
+            quality_for_request.save()
+            production_request.closed = True
+            production_request.date_close = timezone.now()
+            production_request.save()
             break
         else:
             quality_for_request = QualityForRequest(production_request=production_request,
@@ -98,9 +108,8 @@ def quality_for_request_create(production_item: ProductionReport, quality_report
             production_request.closed = True
             production_request.date_close = timezone.now()
             production_request.save()
-            if not quantity_approved_current and not quantity_checked_current:
+            if not quantity_checked_current:
                 break
-        # quality_for_request.save()
 
 
 def review_requests(production_item: ProductionReport, quantity_checked_current: int, quantity_approved_current: int):

@@ -49,7 +49,11 @@ function selectFromList(obj) {
     obj.parentElement.classList.remove('visible');
 }
 
-function fillFields(row,element,prefix){
+function fillFields(row, element, prefix) {
+    const square = row.querySelector('.hex');
+    if (square) {
+        square.querySelector('i').style.color = element['hex'];
+    }
     for (const key of Object.keys(element)) {
         let keyClass = '.' + prefix + key;
         let rowField = row.querySelector(keyClass);

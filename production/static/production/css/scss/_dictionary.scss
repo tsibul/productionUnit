@@ -199,11 +199,11 @@
 }
 
 .production {
-  grid-template-columns: 1fr 2fr repeat(6, 1fr) 2fr 1fr;
+  grid-template-columns: 0.2fr 1fr 2fr repeat(6, 1fr) 2fr 1fr;
 }
 
 .in-production {
-  grid-template-columns: 1fr 4fr repeat(7, 2fr) repeat(2, 1fr);
+  grid-template-columns: 0.6fr 3fr repeat(6, 2fr)  repeat(3, 1fr);
 }
 
 .production-list {

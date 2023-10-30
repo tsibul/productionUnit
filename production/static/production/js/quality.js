@@ -3,6 +3,7 @@
 const sectionProduction = document.querySelector('.quality-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
 const productionRow = document.querySelector('#technical-data').querySelector('.quality-list');
+const qualityDetailsRow = document.querySelector('#technical-data').querySelector('.qual__row');
 const reportButton = sectionProduction.querySelector('.dict-block__search').querySelector('.btn');
 const startDate = document.getElementById('date-start');
 const endDate = document.getElementById('date-end');
@@ -71,6 +72,12 @@ async function addProducedRows(dateBegin, dateEnd) {
     productionData.forEach(element => {
         newRow = productionRow.cloneNode(true);
         fillProductionListData(newRow, element, prefix);
+        let detRow;
+        element['quality_reports'].forEach(el => {
+            detRow = qualityDetailsRow.cloneNode(true);
+            fillProductionListData(detRow, el, 'qual__');
+            newRow.querySelector('.quality-content').appendChild(detRow);
+        });
         productionContent.appendChild(newRow);
     });
 

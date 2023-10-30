@@ -9,6 +9,7 @@ class QualityReport(models.Model):
     production = models.ForeignKey(ProductionReport, models.SET_NULL, null=True)
     quantity_checked = models.IntegerField(default=0)
     quantity_approved = models.IntegerField(default=0)
+    quantity_approved_defect = models.IntegerField(default=0)  # approved with defect
     date_check = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(User, models.SET_NULL, null=True)
     defect_event = models.ForeignKey(DefectEvent, models.SET_NULL, null=True)

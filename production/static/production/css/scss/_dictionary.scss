@@ -195,7 +195,7 @@
 }
 
 .production-request {
-  grid-template-columns: 0.2fr 1fr 2fr 2fr repeat(7, 1fr);
+  grid-template-columns: 0.25fr 1fr 2fr 2fr repeat(7, 1fr);
 }
 
 .production {
@@ -207,7 +207,7 @@
 }
 
 .production-list {
-  grid-template-columns: 0.2fr 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
+  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(6, 1fr);
 }
 
 .quality-list {
@@ -217,7 +217,7 @@
 .quality-content {
   border: 1px solid transparent;
   border-radius: 10px;
-  background-color: $colorPrimary200;
+  background-color: $colorPrimary50;
   font-size: 15px;
   &__row {
     grid-template-columns: repeat(6, 1fr) repeat(2, 2fr) 1fr 1fr;
@@ -265,7 +265,7 @@
       }
     }
     .production {
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: 0.2fr repeat(6, 1fr);
       font-size: 14px;
     }
 
@@ -274,7 +274,7 @@
       font-size: 14px;
     }
     .production-list {
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: 0.2fr repeat(9, 1fr);
       font-size: 14px;
     }
 

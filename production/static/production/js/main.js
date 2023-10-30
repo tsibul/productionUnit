@@ -52,7 +52,7 @@ function selectFromList(obj) {
 function fillFields(row, element, prefix) {
     const square = row.querySelector('.hex');
     if (square) {
-        square.querySelector('i').style.color = element['hex'];
+        square.style.backgroundColor = element['hex'];
     }
     for (const key of Object.keys(element)) {
         let keyClass = '.' + prefix + key;

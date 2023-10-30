@@ -13,6 +13,7 @@ class QualityCheck:
     imm_code: str
     detail: str
     color: str
+    hex: str
     quantity: int
     quantity_checked: int
     quantity_approved: int
@@ -29,6 +30,7 @@ class QualityCheck:
         self.produce_user = production.user.last_name
         self.detail = str(production.detail)
         self.color = str(production.color)
+        self.hex = production.color.color_code
         self.imm = str(production.imm)
         self.imm_code = production.imm.plant_code
         self.quantity = production.quantity

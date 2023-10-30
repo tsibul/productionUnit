@@ -335,6 +335,11 @@ async function fillNewRow(record, i, newRow) {
     newRow.dataset.id = record['id'];
     newRow.id = newRow.id.slice(0, -1) + record['id'];
     newRow.querySelector('.id-hidden').value = record['id'];
+    const square = newRow.querySelector('.hex');
+    if (square) {
+        square.style.backgroundColor = record['hex'];
+    }
+
     for (const rowElement of newRowElements) {
         let fieldName = rowElement.dataset.field;
         if (rowElement.classList.contains('foreign-key')) {

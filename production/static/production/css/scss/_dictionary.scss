@@ -195,7 +195,7 @@
 }
 
 .production-request {
-  grid-template-columns: 1fr 2fr 2fr repeat(7, 1fr);
+  grid-template-columns: 0.2fr 1fr 2fr 2fr repeat(7, 1fr);
 }
 
 .production {
@@ -207,11 +207,11 @@
 }
 
 .production-list {
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
+  grid-template-columns: 0.2fr 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
 }
 
 .quality-list {
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: 0.2fr repeat(11, 1fr);
 }
 
 .quality-content {

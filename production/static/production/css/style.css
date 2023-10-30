@@ -342,6 +342,10 @@
 
 .hex {
   font-size: 1.8rem;
+  border: 0.2px solid #A4C1B1;
+  border-radius: 6px;
+  height: 28px;
+  width: 28px;
 }
 
 @media (max-width: 767px) {
@@ -525,7 +529,7 @@
 }
 
 .production-request {
-  grid-template-columns: 1fr 2fr 2fr repeat(7, 1fr);
+  grid-template-columns: 0.2fr 1fr 2fr 2fr repeat(7, 1fr);
 }
 
 .production {
@@ -537,11 +541,11 @@
 }
 
 .production-list {
-  grid-template-columns: 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
+  grid-template-columns: 0.2fr 1fr 1fr 2fr 2fr 1fr 2fr repeat(6, 1fr);
 }
 
 .quality-list {
-  grid-template-columns: repeat(11, 1fr);
+  grid-template-columns: 0.2fr repeat(11, 1fr);
 }
 
 .quality-content {

@@ -86,6 +86,7 @@ def dictionary_json(request, dict_type, id_no, order, search_string):
 
 
 def format_datetime_fields(item):
+    item['hex'] = Color.objects.get(id=item['color_id']).color_code
     formatted_item = {}
     for field_name, field_value in item.items():
         if isinstance(field_value, datetime):

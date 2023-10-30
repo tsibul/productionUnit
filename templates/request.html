@@ -17,6 +17,7 @@
                     </div>
                 </div>
                 <div class="dict-block__row dict-block__active production-request">
+                    <div></div>
                     <div>Дата</div>
                     <div>Деталь</div>
                     <div>Цвет</div>
@@ -32,6 +33,7 @@
                     <div class="dict-block__row production-request dict-block__row_hidden" data-id="0"
                          id="productRequest-0" onclick="editDictionary(this);">
                         <input class="id-hidden" name="id" value="0">
+                        <div class="dict-block__text hex"></div>
                         <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
                         <div class="dict-block__text foreign-key" data-id=""
                              data-name="detail" data-field="detail"></div>
@@ -56,6 +58,7 @@
                         <div class="dict-block__row production-request" data-id="{{ item.id }}" data-last=""
                              id="productRequest-{{ item.id }}" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
+                            <div class="dict-block__text hex" style="background-color: {{ item.color.color_code }};"></div>
                             <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>
@@ -83,6 +86,7 @@
                         <div class="dict-block__row production-request data-last" data-id="{{ item.id }}"
                              id="productRequest-{{ item.id }}" onclick="editDictionary(this);" data-last="12">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
+                            <div class="dict-block__text hex" style="background-color: {{ item.color.color_code }};"></div>
                             <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>

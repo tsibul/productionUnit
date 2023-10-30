@@ -7,6 +7,7 @@ const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
 const quantityApproved = qualityModal.querySelector('#quantity_approved')
 const quantityChecked = qualityModal.querySelector('#quantity_checked')
+const quantityApprovedDefect = qualityModal.querySelector('#quantity_approved_defect')
 
 
 addProducedRows(0, 'default').then(r => {
@@ -37,6 +38,13 @@ quantityApproved.addEventListener('change', () => {
         quantityApproved.value = quantityApproved.max;
     }
 });
+
+quantityApprovedDefect.addEventListener('change', () => {
+    if (Number.parseInt(quantityApprovedDefect.value) > Number.parseInt(quantityApproved.value)) {
+        quantityApprovedDefect.value = quantityApproved.value;
+    }
+});
+
 
 modalCloseButton.addEventListener('click', () => {
     closeModal(modalCloseButton);

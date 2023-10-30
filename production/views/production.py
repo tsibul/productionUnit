@@ -40,13 +40,15 @@ def production_acceptance(request):
     production_item = ProductionReport.objects.get(id=request.POST['production'])
     quantity_checked = request.POST['quantity_checked']
     quantity_approved = request.POST['quantity_approved']
+    quantity_approved_defect = request.POST['quantity_approved_defect']
     date_check = timezone.now()
     user = request.user
     comment = request.POST['comment']
     defect_event = request.POST['defect_event']
     quality_report = QualityReport(production=production_item, quantity_checked=quantity_checked,
                                    quantity_approved=quantity_approved, date_check=date_check, user=user,
-                                   defect_event_id=defect_event, comment=comment)
+                                   defect_event_id=defect_event, comment=comment,
+                                   quantity_approved_defect=quantity_approved_defect)
     quality_report.save()
 
     production_item.defect = production_item.defect + int(quantity_checked) - int(quantity_approved)

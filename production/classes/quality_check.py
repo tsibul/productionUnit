@@ -1,8 +1,10 @@
 from datetime import datetime
 
 from django.db.models import Sum
+from django.core import serializers
 
 from production.models import ProductionReport, QualityReport, QualityReportDefects
+from production.classes import QualityDetail
 
 
 class QualityCheck:
@@ -22,6 +24,7 @@ class QualityCheck:
     defect_event: str
     defect_types: str
     comment: str
+    quality_reports: []
 
     def __init__(self, production_id):
         self.production_id = production_id
@@ -39,6 +42,7 @@ class QualityCheck:
             total_checked=Sum('quantity_checked'),
             total_approved=Sum('quantity_approved')
         )
+        self.quality_reports = [QualityDetail(report.id).__dict__ for report in quality_reports]
         quantity_checked = quality_quantities['total_checked']
         if not quantity_checked:
             quantity_checked = 0
@@ -57,3 +61,16 @@ class QualityCheck:
         self.defect_event = ', '.join(map(str, defect_event))
         self.defect_types = ', '.join(map(str, defect_names))
         self.comment = ', '.join(map(str, comments))
+
+
+# def serialize_quality_report(quality_report):
+#     data = serializers.serialize('python', [quality_report])
+#     quality_report_data = data[0]['fields']
+#
+#     # Форматируем поле 'date_check' как строку в формате "d.m.Y H:i"
+#     quality_report_data['date_check'] = quality_report_data['date_check'].strftime("%d.%m.%Y %H:%M")
+#
+#     # Удаляем поле '_state'
+#     quality_report_data.pop('_state', None)
+#
+#     return quality_report_data

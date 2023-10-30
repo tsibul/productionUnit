@@ -228,12 +228,6 @@
   border-radius: 6px;
   height: 28px;
   width: 28px;
-
-  //& i{
-  //  border: 0.2px solid $colorPrimary300;
-  //  border-radius: 6px;
-  //  padding: 2.5px 2px 0 2.5px;
-  //}
 }
 
 @media (max-width: 767px) {
@@ -243,5 +237,9 @@
   .btn {
     padding: 8px 2px;
     font-size: 14px;
+  }
+  .hex{
+    width: 21px;
+    height: 21px;
   }
 }

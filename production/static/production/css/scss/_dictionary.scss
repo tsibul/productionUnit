@@ -207,7 +207,7 @@
 }
 
 .production-list {
-  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(6, 1fr);
+  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
 }
 
 .quality-list {
@@ -220,7 +220,7 @@
   background-color: $colorPrimary50;
   font-size: 15px;
   &__row {
-    grid-template-columns: repeat(6, 1fr) repeat(2, 2fr) 1fr 1fr;
+    grid-template-columns: 0.5fr repeat(7, 1fr)  2fr repeat(2, 1fr);
   }
 }
 

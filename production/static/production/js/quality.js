@@ -47,7 +47,7 @@ modalSaveButton.addEventListener('click', e => {
     } else {
         defects.textContent = checkedLabelsString;
     }
-    const updateForm = qualityModal.querySelector('.production-form')
+    const updateForm = qualityModal.querySelector('#production-form')
     const fetchPath = '/production/quality_report_update/';
     const formData = new FormData(updateForm);
     fetch(fetchPath, {

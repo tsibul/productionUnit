@@ -10,9 +10,9 @@
                     </div>
                     <form action="#" class="dict-block__search dict-block__search_open">
                         <label for="date-start">с&nbsp;</label>
-                        <input type="date" class="form-input" id="date-start" required>
+                        <input type="date" class="form-input" id="date-start" value="{{ start_date|date:'Y-m-d' }}" required>
                         <label for="date-start">по&nbsp;</label>
-                        <input type="date" class="form-input" id="date-end" required>
+                        <input type="date" class="form-input" id="date-end" value="{{ now|date:'Y-m-d' }}" required>
                         <button class="btn btn-save" type="submit">показать</button>
                     </form>
                 </div>

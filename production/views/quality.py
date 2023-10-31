@@ -21,7 +21,14 @@ def quality_report(request):
         user_groups = ''
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
-    context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event}
+    now = timezone.now().date()
+    first_day_of_current_month = datetime(now.year, now.month, 1)
+    if first_day_of_current_month.month == 1:
+        start_date = datetime(now.year - 1, 12, 1)
+    else:
+        start_date = first_day_of_current_month.replace(month=first_day_of_current_month.month - 1).date()
+    context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event, 'now': now,
+               'start_date': start_date}
     return render(request, 'quality.html', context)
 
 
@@ -54,4 +61,3 @@ def quality_report_update(request):
     report.save()
     defects_create(request, report)
     return HttpResponse()
-

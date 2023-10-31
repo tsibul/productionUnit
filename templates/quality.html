@@ -87,72 +87,43 @@
     <!-- Модальное окно для правки -->
     <div id="qualityModal" class="login">
         <div class="modal__content">
-            <form method="post" id="production-form" action="{% url 'production:production_acceptance' %}">
+            <form method="post" id="production-form" action="#">
                 {% csrf_token %}
                 <div class="login__header">
-                    <p class="active">Приемка продукции</p>
+                    <p class="active">Редактирование приемки</p>
                     <span class="login__close">&times;</span>
                 </div>
                 <input type="text" name="production" hidden>
-                <div class="modal__row">
-                    <input class="form-input modal__input" id="detail">
-                    <input class="form-input modal__input" id="color">
-                    <input class="form-input modal__input" id="imm">
+                <div class="modal__row modal__row_quality">
+                    <div>производство</div>
+                    <div id="date" class=""></div>
+                    <div id="user" class=""></div>
+                    <div class="" id="detail"></div>
+                    <div class="" id="color"></div>
+                    <div class="" id="quantity"></div>
                 </div>
                 <div class="modal__row">
-                    <label for="to_check" class="">к проверке</label>
-                    <input type="number" id="to_check"
-                           class="form-input form-input__inactive active" disabled>
-                    <label for="user" class="">наладчик</label>
-                    <input type="text" id="user"
-                           class="form-input form-input__inactive active" disabled>
-                    <label for="date" class="">дата</label>
-                    <input type="text" id="date"
-                           class="form-input form-input__inactive active" disabled>
+                    <div class="">проверено</div>
+                    <div id="quantity_checked" class=""></div>
+                    <div class="">принято</div>
+                    <div id="quantity_approved" class=""></div>
+                    <div class="">с&nbsp;браком</div>
+                    <div id="quantity_approved_defect" class=""></div>
+                    <div id="defect_event" class="active"></div>
                 </div>
                 <div class="modal__row">
-                    <label for="quantity_checked" class="">проверено</label>
-                    <input type="number" name="quantity_checked" step="1" id="quantity_checked"
-                           class="form-input" required>
-                    <label for="quantity_approved" class="">принято</label>
-                    <input type="number" name="quantity_approved" step="1" id="quantity_approved"
-                           class="form-input" required>
-                </div>
-                <div class="modal__row">
-                    <p class="active">вид брака</p>
+                    <p class="active">дополнительные виды брака</p>
                 </div>
                 <div class="modal__block">
-                    {% for item in defects %}
                         <div class="modal__check">
-                            <input type="checkbox" name="{{ item.id }}" id="chck-{{ item.id }}">
-                            <label for="chck-{{ item.id }}">{{ item.name }}</label>
                         </div>
-                    {% endfor %}
                 </div>
                 <div class="modal__row">
                     <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий"
                               required></textarea>
                 </div>
                 <div class="modal__row">
-                    <div class="active">решение</div>
-                    <div class="dropdown report_dropdown dropdown_dict">
-                        <input name="defect_event" type="text" class="dropdown__hidden"
-                               value="{{ defect_event.0.id }}">
-                        <div class="dropdown__input-block">
-                            <input type="text" class="dropdown__input dropdown__input_dict"
-                                   placeholder="Поиск.." readonly
-                                   value="{{ defect_event.0.name }}"
-                                   data-value="{{ defect_event.0.name }}">
-                            <i class="fa fa-solid fa-angle-down"></i>
-                        </div>
-                        <ul class="dropdown__content">
-                            {% for report in defect_event %}
-                                <li data-value="{{ report.id }}"
-                                    onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-
+                    <div></div>
                     <div class="button-block">
                         <button type="button" class="btn btn-close">Отменить</button>
                         <button type="submit" class="btn btn-save">Записать</button>

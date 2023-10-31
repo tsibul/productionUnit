@@ -5,6 +5,7 @@ from django.shortcuts import render
 from datetime import datetime
 from django.urls import reverse
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects, \
     ProductionForRequest, ProductionRequest, QualityForRequest
@@ -44,6 +45,7 @@ def rest_defects_list(request, quality_report_id):
     return JsonResponse(json_response, safe=False)
 
 
+@csrf_exempt
 def quality_report_update(request):
     report_id = request.POST['production']
     report = QualityReport.objects.get(id=report_id)
@@ -52,3 +54,4 @@ def quality_report_update(request):
     report.save()
     defects_create(request, report)
     return HttpResponse()
+

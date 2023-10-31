@@ -47,7 +47,13 @@ modalSaveButton.addEventListener('click', e => {
     } else {
         defects.textContent = checkedLabelsString;
     }
-    closeModal(modalCloseButton);
+    const updateForm = qualityModal.querySelector('.production-form')
+    const fetchPath = '/production/quality_report_update/';
+    const formData = new FormData(updateForm);
+    fetch(fetchPath, {
+        method: 'POST',
+        body: formData,
+    }).then(r =>   closeModal(modalCloseButton));
 });
 
 modalCloseButton.addEventListener('click', () => {

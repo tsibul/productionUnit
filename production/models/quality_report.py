@@ -24,6 +24,8 @@ class QualityReport(models.Model):
 class QualityReportDefects(models.Model):
     quality_report = models.ForeignKey(QualityReport, on_delete=models.CASCADE)
     defect = models.ForeignKey(Defects, models.SET_NULL, null=True)
+    date_create = models.DateTimeField(default=None, null=True)
+    user = models.ForeignKey(User, models.SET_NULL, null=True)
     deleted = models.BooleanField(default=False)
 
     @staticmethod

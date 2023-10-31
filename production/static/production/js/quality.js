@@ -2,6 +2,7 @@
 
 const sectionProduction = document.querySelector('.quality-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
+// const qualityDetails = sectionProduction.querySelectorAll('.qual__row');
 const productionRow = document.querySelector('#technical-data').querySelector('.quality-list');
 const qualityDetailsRow = document.querySelector('#technical-data').querySelector('.qual__row');
 const reportButton = sectionProduction.querySelector('.dict-block__search').querySelector('.btn');
@@ -9,57 +10,83 @@ const startDate = document.getElementById('date-start');
 const endDate = document.getElementById('date-end');
 const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
-const quantityApproved = qualityModal.querySelector('#quantity_approved')
-const quantityChecked = qualityModal.querySelector('#quantity_checked')
+const modalSaveButton = qualityModal.querySelector('.btn-save');
 
 
 reportButton.addEventListener('click', e => {
     e.preventDefault();
     productionContent.innerHTML = '';
     addProducedRows(startDate.value, endDate.value).then(r => {
+        sectionProduction.querySelectorAll('.qual__row').forEach(row => {
+            row.addEventListener('click', (event) => {
+                if (event.target.classList.contains('btn')) {
+                    fillQualityModal(event.target);
+                    openModal(qualityModal);
+                }
+            });
+        });
     });
 })
 
-
-productionContent.addEventListener('click', (event) => {
-    if (event.target.classList.contains('btn')) {
-        fillQualityModal(event.target);
-        openModal(qualityModal);
+modalSaveButton.addEventListener('click', e => {
+    e.preventDefault();
+    const rowSourceId = qualityModal.querySelector('[name = "production"]').value;
+    const rowSource = document.querySelector(`[data-id = "${rowSourceId}"]`);
+    rowSource.querySelector('.qual__comment').textContent = qualityModal.querySelector('#comment').value
+    const checks = qualityModal.querySelector('.modal__block').querySelectorAll('input');
+    const defects = rowSource.querySelector('.qual__defects');
+    const checkedLabels = Array.from(checks)
+        .filter(checkbox => checkbox.checked)
+        .map(checkbox => {
+            const label = document.querySelector(`label[for="${checkbox.id}"]`);
+            return label.textContent;
+        });
+    const checkedLabelsString = checkedLabels.join(', ');
+    if (defects.textContent) {
+        defects.textContent = defects.textContent + ", " + checkedLabelsString;
+    } else {
+        defects.textContent = checkedLabelsString;
     }
-});
-
-quantityChecked.addEventListener('change', () => {
-    if (Number.parseInt(quantityChecked.value) > Number.parseInt(quantityChecked.max)) {
-        quantityChecked.value = quantityChecked.max;
-    }
-    quantityApproved.max = quantityChecked.value;
-});
-
-quantityApproved.addEventListener('change', () => {
-    if (Number.parseInt(quantityApproved.value) > Number.parseInt(quantityApproved.max)) {
-        quantityApproved.value = quantityApproved.max;
-    }
+    closeModal(modalCloseButton);
 });
 
 modalCloseButton.addEventListener('click', () => {
     closeModal(modalCloseButton);
 });
 
-function fillQualityModal(btn) {
-    const row = btn.closest('.dict-block__row');
-    qualityModal.querySelector('[name = "production"]').value = row.dataset.id;
-    qualityModal.querySelector('#detail').value = row.querySelector('.req__detail').textContent;
-    qualityModal.querySelector('#color').value = row.querySelector('.req__color').textContent;
-    qualityModal.querySelector('#imm').value = row.querySelector('.req__imm').textContent;
-    const quantity = Number.parseInt(row.querySelector('.req__quantity')
-        .textContent.replace(' ', ''));
-    const quantity_checked = Number.parseInt(row.querySelector('.req__quantity_checked')
-        .textContent.replace(' ', ''));
-    qualityModal.querySelector('#to_check').value = quantity - quantity_checked;
-    qualityModal.querySelector('#quantity_checked').max = quantity - quantity_checked;
-    qualityModal.querySelector('#quantity_approved').max = quantity - quantity_checked;
-    qualityModal.querySelector('#user').value = row.querySelector('.req__produce_user').textContent;
-    qualityModal.querySelector('#date').value = row.querySelector('.req__production_date').textContent;
+async function fillQualityModal(btn) {
+    const row = btn.closest('details').querySelector('summary');
+    const rowCur = btn.closest('.dict-block__row');
+    qualityModal.querySelector('[name = "production"]').value = rowCur.dataset.id;
+    qualityModal.querySelector('#detail').textContent = row.querySelector('.req__detail').textContent;
+    qualityModal.querySelector('#color').textContent = row.querySelector('.req__color').textContent;
+    qualityModal.querySelector('#quantity').textContent = row.querySelector('.req__quantity').textContent + ' шт';
+    qualityModal.querySelector('#user').textContent = row.querySelector('.req__produce_user').textContent;
+    qualityModal.querySelector('#date').textContent = row.querySelector('.req__production_date').textContent;
+
+    qualityModal.querySelector('#quantity_checked').textContent =
+        rowCur.querySelector('.qual__quantity_checked').textContent;
+    qualityModal.querySelector('#quantity_approved').textContent =
+        rowCur.querySelector('.qual__quantity_approved').textContent;
+    qualityModal.querySelector('#quantity_approved_defect').textContent =
+        rowCur.querySelector('.qual__quantity_approved_defect').textContent;
+    qualityModal.querySelector('#defect_event').textContent =
+        rowCur.querySelector('.qual__defect_event').textContent;
+    qualityModal.querySelector('#comment').textContent =
+        rowCur.querySelector('.qual__comment').textContent;
+    const defectBlock = qualityModal.querySelector('.modal__block');
+    defectBlock.innerHTML = '';
+    const defectData = await fetch(`/production/defects_left/${rowCur.dataset.id}`)
+        .then(response => response.json());
+    ;
+    const defectList = JSON.parse(defectData);
+    defectList.forEach(defect => {
+        defectBlock.insertAdjacentHTML("afterbegin",
+            `<div class="modal__check">
+                  <input type="checkbox" name="${defect['id']}" id="chck-${defect['id']}">
+                  <label for="chck-${defect['id']}">${defect['name']}</label>
+                  </div>`);
+    });
 }
 
 
@@ -83,14 +110,6 @@ async function addProducedRows(dateBegin, dateEnd) {
 
     async function fillProductionListData(row, element, prefix) {
         fillFields(row, element, prefix);
-        // const quantity = Number.parseInt(row.querySelector('.req__quantity').textContent.replace(' ', ''));
-        // const quantityChecked = Number.parseInt(row.querySelector('.req__quantity_checked')
-        //     .textContent.replace(' ', ''));
-        // if (quantity === quantityChecked) {
-        //     const btn = row.querySelector('.btn');
-        //     btn.disabled = true;
-        //     btn.classList.add('form-input__inactive')
-        // }
         row.dataset.id = element['production_id'];
     }
 }

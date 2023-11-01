@@ -13,6 +13,7 @@ class TotalRequest:
     quantity: int
     approved: int
     checked: int
+    checking: int
     produced: int
     left: int
     if_order: str
@@ -63,7 +64,7 @@ class TotalRequest:
         self.checked = checked
         self.approved = approved
         self.produced = produced
-        # self.checking = produced - checked
+        self.checking = produced - checked
         self.quantity = requests_initial['total_quantity']
         if not self.quantity:
             self.quantity = 0

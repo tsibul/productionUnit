@@ -35,7 +35,7 @@ def production_state(request, in_work):
         elif not in_work and not total_request.imm_id:
             requests.append(TotalRequest(item))
     serialized_requests = [request.__dict__ for request in requests]
-    serialized_requests = sorted(serialized_requests, key=lambda order: (order['detail'], order['first_date']))
+    serialized_requests = sorted(serialized_requests, key=lambda order: (order['first_date'], order['detail']))
     json_response = json.dumps(serialized_requests, ensure_ascii=False)
     return JsonResponse(json_response, safe=False)
 

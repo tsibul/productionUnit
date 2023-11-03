@@ -33,10 +33,10 @@ class Color(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.color_id} {self.color_name} {self.color_scheme.scheme_name}"
+        return f"{self.color_id} {self.color_name}"
 
     def __str__(self):
-        return f"{self.color_id} {self.color_name} {self.color_scheme.scheme_name}"
+        return f"{self.color_id} {self.color_name}"
 
     class Meta:
         ordering = ['color_scheme', 'color_id']

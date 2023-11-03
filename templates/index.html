@@ -82,7 +82,7 @@
     <div id="technical-data" hidden>
         <div class="dict-block__row production">
             <div class="hex">
-{#                <i class="fa fa-solid fa-square"></i>#}
+                {#                <i class="fa fa-solid fa-square"></i>#}
             </div>
             <div class="dict-block__text req__detail"></div>
             <div class="dict-block__text req__color"></div>
@@ -97,23 +97,23 @@
                 начать
             </button>
         </div>
-{#        <div id="imm">#}
-{#            <div class="dropdown report_dropdown dropdown_dict">#}
-{#                <input name="imm" type="text" class="dropdown__hidden">#}
-{#                <div class="dropdown__input-block">#}
-{#                    <input type="text" class="dropdown__input dropdown__input_dict"#}
-{#                           placeholder="Поиск.." onkeyup="filterList(this)"#}
-{#                           readonly>#}
-{#                    <i class="fa fa-solid fa-angle-down"></i>#}
-{#                </div>#}
-{#                <ul class="dropdown__content">#}
-{#                    {% for report in imm_free %}#}
-{#                        <li data-value="{{ report.id }}"#}
-{#                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>#}
-{#                    {% endfor %}#}
-{#                </ul>#}
-{#            </div>#}
-{#        </div>#}
+        {#        <div id="imm">#}
+        {#            <div class="dropdown report_dropdown dropdown_dict">#}
+        {#                <input name="imm" type="text" class="dropdown__hidden">#}
+        {#                <div class="dropdown__input-block">#}
+        {#                    <input type="text" class="dropdown__input dropdown__input_dict"#}
+        {#                           placeholder="Поиск.." onkeyup="filterList(this)"#}
+        {#                           readonly>#}
+        {#                    <i class="fa fa-solid fa-angle-down"></i>#}
+        {#                </div>#}
+        {#                <ul class="dropdown__content">#}
+        {#                    {% for report in imm_free %}#}
+        {#                        <li data-value="{{ report.id }}"#}
+        {#                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>#}
+        {#                    {% endfor %}#}
+        {#                </ul>#}
+        {#            </div>#}
+        {#        </div>#}
     </div>
     <!-- Модальное окно для старта -->
     <div id="startModal" class="login">
@@ -128,7 +128,7 @@
                 <input type="text" name="detail" hidden>
                 <div class="dropdown report_dropdown dropdown_dict">
                     <input name="imm" type="text" class="dropdown__hidden"
-                          required>
+                           required>
                     <div class="dropdown__input-block dropdown__input-block_start">
                         <input type="text" class="dropdown__input dropdown__input_dict"
                                placeholder="Поиск.." onkeyup="filterList(this)" required>
@@ -137,7 +137,8 @@
                     <ul class="dropdown__content">
                         {% for report in imm_free %}
                             <li data-value="{{ report.id }}"
-                                onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
+                                onclick="event.stopPropagation(); selectFromList(this);">
+                                <span class="active font-normal">{{ report.plant_code }}</span>&nbsp;{{ report }} </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -150,7 +151,7 @@
     <!-- Модальное окно для остановки -->
     <div id="stopModal" class="login">
         <div class="login__content">
-            <form method="post" id="production-stop-form" action="{%  url 'production:production_stop' %}">
+            <form method="post" id="production-stop-form" action="{% url 'production:production_stop' %}">
                 {% csrf_token %}
                 <div class="login__header">
                     <p class="active">Причина остановки</p>
@@ -178,7 +179,7 @@
                 <input type="text" name="detail" hidden>
                 <input type="text" name="imm" hidden>
                 <input type="number" name="quantity" step="1"
-                          class="form-input dropdown__input-block_start form-input_stop" required>
+                       class="form-input dropdown__input-block_start form-input_stop" required>
                 <div class="login__buttons dropdown__input-block_start">
                     <button type="submit" class="btn btn-save">Подтвердить</button>
                 </div>

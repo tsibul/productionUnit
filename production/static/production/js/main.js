@@ -1,3 +1,43 @@
+const booleanDropdown = `<div class="dropdown report_dropdown dropdown_dict">
+                <input name="bool" type="text" class="dropdown__hidden"
+                       value="1">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.."
+                           value="Да"
+                           data-value="Да" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    <li data-value="1"
+                        onclick="event.stopPropagation(); selectFromList(this);">Да
+                    </li>
+                    <li data-value="0"
+                        onclick="event.stopPropagation(); selectFromList(this);">Нет
+                    </li>
+                </ul>
+            </div>
+`;
+const dropdownCode = `<div id="">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="" type="text" class="dropdown__hidden"
+                       value="">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onkeyup="filterList(this)"
+                           value=""
+                           data-value="">
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                        <li data-value=""
+                            onclick="event.stopPropagation(); selectFromList(this);"></li>
+                </ul>
+            </div>
+        </div>
+`;
+
+
 document.addEventListener('click', element => {
     const dropdown = document.querySelectorAll('.dropdown');
     let obj;

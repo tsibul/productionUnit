@@ -38,7 +38,7 @@
                         <div class="dict-block__text foreign-key" data-id=""
                              data-name="detail" data-field="detail"></div>
                         <div class="dict-block__text foreign-key" data-id=""
-                             data-name="color" data-field="color"></div>
+                             data-name="color" data-field="color" data-filter="detail"></div>
                         <div class="dict-block__text digit"
                              data-name="quantity" data-field="quantity"></div>
                         <div class="dict-block__text digit"
@@ -63,7 +63,7 @@
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                 data-name="color">{{ item.color }}</div>
+                                 data-name="color"data-filter="detail">{{ item.color }}</div>
                             <div class="dict-block__text digit"
                                  data-name="quantity">{{ item.quantity }}</div>
                             <div class="dict-block__text digit">{{ item.quantity_left }}</div>
@@ -90,7 +90,7 @@
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                 data-name="color">{{ item.color }}</div>
+                                 data-name="color" data-filter="detail">{{ item.color }}</div>
                             <div class="dict-block__text digit"
                                  data-name="quantity">{{ item.quantity }}</div>
                             <div class="dict-block__text digit">{{ item.quantity_left }}</div>
@@ -133,43 +133,20 @@
                 </ul>
             </div>
         </div>
-        <div id="color">
+        <div id="color" class="filter" data-filter="detail">
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="color" type="text" class="dropdown__hidden"
-                       value="{{ color.0.id }}">
+                       value="">
                 <div class="dropdown__input-block">
                     <input type="text" class="dropdown__input dropdown__input_dict"
                            placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ color.0 }}"
-                           data-value="{{ color.0 }}">
+                           value=""
+                           data-value="">
                     <i class="fa fa-solid fa-angle-down"></i>
                 </div>
                 <ul class="dropdown__content">
-                    {% for report in color %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="boolean">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="bool" type="text" class="dropdown__hidden"
-                       value="1">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.."
-                           value="Да"
-                           data-value="Да" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    <li data-value="1"
-                        onclick="event.stopPropagation(); selectFromList(this);">Да
-                    </li>
-                    <li data-value="0"
-                        onclick="event.stopPropagation(); selectFromList(this);">Нет
-                    </li>
+                        <li data-value=""
+                            onclick="event.stopPropagation(); selectFromList(this);"></li>
                 </ul>
             </div>
         </div>

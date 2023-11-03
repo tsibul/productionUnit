@@ -12,6 +12,13 @@ class DetailName(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
+    @staticmethod
+    def order_default():
+        return ['name']
+
 
 class DetailInGoods(models.Model):
     goods = models.ForeignKey(Goods, models.SET_NULL, null=True)
@@ -24,6 +31,9 @@ class DetailInGoods(models.Model):
 
     def __str__(self):
         return f"{self.goods.article}.{self.position} {self.detail_name.name}"
+
+    class Meta:
+        ordering = ['goods__article', 'position']
 
     @staticmethod
     def order_default():

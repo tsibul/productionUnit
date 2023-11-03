@@ -17,6 +17,9 @@ class IMM (models.Model):
     def __str__(self):
         return f"{self.producer.name} {self.name} {self.imm_model}"
 
+    class Meta:
+        ordering = ['plant_code']
+
     @staticmethod
     def order_default():
         return ['plant_code']

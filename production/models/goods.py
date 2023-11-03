@@ -21,6 +21,9 @@ class Goods(models.Model):
     def __str__(self):
         return str(self.name)
 
+    class Meta:
+        ordering = ['article']
+
     @staticmethod
     def order_default():
         return ['article']

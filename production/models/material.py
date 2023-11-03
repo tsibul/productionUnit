@@ -6,6 +6,19 @@ class MaterialType(models.Model):
     name = models.CharField(max_length=40)
     deleted = models.BooleanField(default=False)
 
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+    @staticmethod
+    def order_default():
+        return ['name']
+
 
 class Material(models.Model):
 
@@ -28,6 +41,9 @@ class MainMaterial(Material):
     def __str__(self):
         return f"{self.material_type.name} {self.producer.name} {self.brand} {self.code}"
 
+    class Meta:
+        ordering = ['brand']
+
     @staticmethod
     def order_default():
         return ['brand']
@@ -41,6 +57,8 @@ class AddMaterial(Material):
     def __str__(self):
         return f"дробленка {self.material_type.name} {self.color}"
 
+    class Meta:
+        ordering = ['material_type__name']
 
     @staticmethod
     def order_default():
@@ -58,6 +76,9 @@ class MasterBatch(Material):
 
     def __str__(self):
         return f"суперконцентрат {self.color} {self.producer.name} {self.brand} {self.code}"
+
+    class Meta:
+        ordering = ['brand']
 
     @staticmethod
     def order_default():

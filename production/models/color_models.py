@@ -12,6 +12,13 @@ class ColorScheme(models.Model):
     def __str__(self):
         return str(self.scheme_name)
 
+    class Meta:
+        ordering = ['scheme_name']
+
+    @staticmethod
+    def order_default():
+        return ['scheme_name']
+
 
 class Color(models.Model):
     """ id - (07)
@@ -30,6 +37,9 @@ class Color(models.Model):
 
     def __str__(self):
         return f"{self.color_id} {self.color_name} {self.color_scheme.scheme_name}"
+
+    class Meta:
+        ordering = ['color_scheme', 'color_id']
 
     @staticmethod
     def order_default():

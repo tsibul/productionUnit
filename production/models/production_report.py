@@ -33,3 +33,7 @@ class ProductionForRequest(models.Model):
     production = models.ForeignKey(ProductionReport, on_delete=models.CASCADE)
     production_request = models.ForeignKey(ProductionRequest, models.SET_NULL, null=True)
     quantity = models.IntegerField()
+
+    @staticmethod
+    def order_default():
+        return ['date']

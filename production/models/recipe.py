@@ -22,6 +22,9 @@ class Recipe(models.Model):
         return (f"{self.main_material_type}  дробленка {self.add_material_doze}% краситель1 {self.main_master} "
                 f"доза {self.main_master_doze}% краситель 2 {self.add_master} доза {self.add_material_doze}%")
 
+    class Meta:
+        ordering = ['goods__article']
+
     @staticmethod
     def order_default():
         return ['goods__article']

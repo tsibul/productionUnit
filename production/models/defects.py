@@ -11,6 +11,9 @@ class Defects(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
     @staticmethod
     def order_default():
         return ['name']
@@ -26,8 +29,10 @@ class DefectEvent(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
     @staticmethod
     def order_default():
         return ['name']
-
 

@@ -18,3 +18,9 @@ class Producer(models.Model):
     def __str__(self):
         return f"{self.name} {self.country.name}"
 
+    class Meta:
+        ordering = ['name']
+
+    @staticmethod
+    def order_default():
+        return ['name']

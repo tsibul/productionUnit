@@ -53,8 +53,6 @@ def dictionary(request):
     return render(request, 'dictionary.html', context)
 
 
-
-
 @csrf_exempt
 def dictionary_update(request, dict_type):
     dict_id = request.POST['id']

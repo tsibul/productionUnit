@@ -113,44 +113,8 @@
 
         </div>
     </div>
-    <div id="technical-data" hidden>
-        <div id="detail">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="detail" type="text" class="dropdown__hidden"
-                       value="{{ detail.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ detail.0 }}"
-                           data-value="{{ detail.0 }}">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in detail %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="color" class="filter" data-filter="detail">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="color" type="text" class="dropdown__hidden"
-                       value="">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value=""
-                           data-value="">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                        <li data-value=""
-                            onclick="event.stopPropagation(); selectFromList(this);"></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+{#    <div id="technical-data" hidden>#}
+{#    </div>#}
 
     <script src="{% static 'production/js/dictionary.js' %}"></script>
 

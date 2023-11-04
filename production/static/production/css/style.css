@@ -440,7 +440,7 @@
   display: none;
 }
 .dict-block__content {
-  overflow: scroll;
+  overflow-Y: scroll;
   height: calc(100% - 130px);
   min-height: 160px;
 }

@@ -15,6 +15,21 @@ const dictList = {
     productRequest: 'ProductionRequest',
     defects: 'Defects',
     defectEvent: 'DefectEvent',
+
+    detail: 'DetailInGoods',
+    material_type: 'MaterialType',
+    main_material_type: 'MaterialType',
+    color_scheme: 'ColorScheme',
+    detail_in_goods: 'DetailInGoods',
+    detail_name: 'DetailName',
+    main_material: 'MainMaterial',
+    add_material: 'AddMaterial',
+    masterbatch: 'MasterBatch',
+    main_master: 'MasterBatch',
+    add_master: 'MasterBatch',
+    product_request: 'ProductionRequest',
+    defect_event: 'DefectEvent',
+
 };
 
 const addButtons = document.querySelectorAll('.btn_add');
@@ -165,21 +180,21 @@ function editDictionary(obj) {
     newNode.id = 'form-dict';
     fillFormNode();
 
-    function fillFormNode() {
-        let childNode;
+    async function fillFormNode() {
+        // let childNode;
         let changes = 0;
-        nodeElements.forEach(function (node) {
+        for (const node of nodeElements) {
             if (node.tagName === 'DIV' && !node.hidden) {
                 if (node.classList.contains('foreign-key')) {
-                    createDropdown(node);
+                    await createDropdown(node);
                 } else if (node.classList.contains('bool-field')) {
-                    createBoolean(node);
+                    await createBoolean(node);
                 } else {
-                    createInput(node);
+                    await createInput(node);
                 }
             }
             node.hidden = true;
-        });
+        }
         if (changes === 0) {
             return
         }
@@ -187,43 +202,66 @@ function editDictionary(obj) {
         newNode.appendChild(createButtonBlock());
         obj.appendChild(newNode);
 
-        function createInput(node) {
-            childNode = document.createElement('input'); // block for input
-            childNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
-            childNode.type = 'text';
-            // if (node.classList.contains('dict-block__user')) {
-            //     childNode.name = node.dataset.name;
-            //     childNode.value = node.dataset.id;
-            //     childNode.readOnly = true;
-            //     childNode.classList.add('form-input__inactive');
-            // } else
+        async function createInput(node) {
+            let childInputNode;
+            childInputNode = document.createElement('input'); // block for input
+            childInputNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
+            childInputNode.type = 'text';
             if (node.dataset.name != null) {
-                childNode.name = node.dataset.name;
+                childInputNode.name = node.dataset.name;
             } else {
-                childNode.readOnly = true;
-                childNode.classList.add('form-input__inactive');
+                childInputNode.readOnly = true;
+                childInputNode.classList.add('form-input__inactive');
             }
-            childNode.setAttribute('value', node.textContent);
-            newNode.appendChild(childNode)
+            childInputNode.setAttribute('value', node.textContent);
+            newNode.appendChild(childInputNode)
             changes += 1;
         }
 
-        function createDropdown(node) {
-            childNode = document.getElementById(node.dataset.name).querySelector('div').cloneNode(true);
-            fillFields(node, childNode);
+        async function createDropdown(node) {
+            let childDropdownNode;
+            const parentRow = node.closest('.dict-block__row');
+            const dictType = dictList[node.dataset.name];
+            childDropdownNode = document.createElement('div');
+            childDropdownNode.innerHTML = dropdownCode;
+            childDropdownNode = childDropdownNode.firstElementChild;
+            childDropdownNode.querySelector('.dropdown__hidden').name = node.dataset.name;
+            const filterModel = dictList[node.dataset.filter];
+            const ulContent = childDropdownNode.querySelector('.dropdown__content');
+            let jsonUrl;
+            if (!filterModel) {
+                jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
+            } else if (!parentRow.dataset.id) {
+                const filterNo = parentRow.querySelector(`[name = "${node.dataset.name}"]`).dataset.id;
+                jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
+            } else {
+                jsonUrl = `/production/dictionary_json_filter/default/default/0`;
+            }
+            const jsonData = await fetchJsonData(jsonUrl);
+            const dictionaryList = JSON.parse(jsonData);
+            if (!dictionaryList) {
+                childDropdownNode.querySelector('.dropdown__hidden').value = Object.keys(dictionaryList[0])[0];
+                childDropdownNode.querySelector('.dropdown__input_dict').value = Object.values(dictionaryList[0])[0];
+                childDropdownNode.querySelector('.dropdown__input_dict').dataset.value = Object.values(dictionaryList[0])[0];
+            }
+            fillLines(ulContent, dictionaryList);
+            fillFields(node, childDropdownNode);
         }
 
-        function createBoolean(node) {
-            childNode = document.getElementById('boolean').querySelector('div').cloneNode(true);
-            childNode.querySelector('.dropdown__hidden').name = node.dataset.name;
-            fillFields(node, childNode);
+        async function createBoolean(node) {
+            let childBooleanNode
+            childBooleanNode = document.createElement('div');
+            childBooleanNode.innerHTML = booleanDropdown;
+            childBooleanNode = childBooleanNode.firstElementChild;
+            childBooleanNode.querySelector('.dropdown__hidden').name = node.dataset.name;
+            fillFields(node, childBooleanNode);
         }
 
-        function fillFields(node, childNode) {
-            childNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g, ' ');
-            childNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g, ' ');
-            childNode.querySelector('.dropdown__hidden').value = node.dataset.id;
-            newNode.appendChild(childNode);
+        function fillFields(node, childResNode) {
+            childResNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g, ' ');
+            childResNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g, ' ');
+            childResNode.querySelector('.dropdown__hidden').value = node.dataset.id;
+            newNode.appendChild(childResNode);
             changes += 1;
         }
     }
@@ -361,9 +399,11 @@ async function fillNewRow(record, i, newRow) {
                 } else {
                     foreignKeyElement = document.getElementById('group_type');
                 }
-                let foreignKeyLi = foreignKeyElement
-                    .querySelector(`[data-value = "${record[fieldName + '_id']}"]`);
-                rowElement.textContent = foreignKeyLi.textContent;
+                // let foreignKeyLi = foreignKeyElement
+                //     .querySelector(`[data-value = "${record[fieldName + '_id']}"]`);
+                // rowElement.textContent = foreignKeyLi.textContent;
+                rowElement.textContent = await fetchJsonData(
+                    `/production/dict_name/${dictList[fieldName]}/${record[fieldName + '_id']}`);
             }
         } else if (rowElement.classList.contains('bool-field')) {
             rowElement.textContent = record[fieldName] ? 'Да' : 'Нет';
@@ -459,28 +499,3 @@ searchButtons.forEach((btn) => {
         temporaryRow.remove();
     });
 });
-// addEventListener('mousedown', async (search) => {
-//     for (const btn of searchButtons) {
-//         if (search.target === btn) {
-//             const dictBlock = search.target.closest('.dict-block');
-//             const searchString = dictBlock.querySelector('.dict-block__form-input').value;
-//             let searchValue;
-//             if (searchString === '') {
-//                 searchValue = 'default';
-//             } else {
-//                 searchValue = searchString.replaceAll(/  +/g, ' ').replaceAll(' ', '_')
-//             }
-//             const dictBlockContent = dictBlock.querySelector('.dict-block__content');
-//             const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
-//             // const dictType = typeDict(hiddenRow);
-//             const temporaryRow = hiddenRow.cloneNode(true)
-//             temporaryRow.setAttribute('data-last', '0');
-//             dictBlockContent.appendChild(temporaryRow);
-//             dictBlockContent.innerHTML = '';
-//             dictBlockContent.appendChild(hiddenRow);
-//             await appendNewRows(temporaryRow, dictBlockContent, searchValue);
-//             temporaryRow.remove();
-//         }
-//     }
-// });
-

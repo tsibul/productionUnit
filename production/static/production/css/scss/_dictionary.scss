@@ -30,6 +30,7 @@
 
   &__active {
     font-weight: 800;
+    margin-right: 16px;
   }
 
   &__header {
@@ -86,7 +87,7 @@
   }
 
   &__content {
-    overflow: auto;
+    overflow: scroll;
     height: calc(100% - 130px);
     min-height: 160px;
   }
@@ -187,7 +188,7 @@
 }
 
 .recipe {
-  grid-template-columns: 1fr 3fr 2fr 1fr repeat(2, 3fr 1fr)  4fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 1fr repeat(2, 3fr 1fr)  4fr 1fr;
 }
 
 .imm {

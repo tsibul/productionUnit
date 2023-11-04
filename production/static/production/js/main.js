@@ -18,7 +18,7 @@ const booleanDropdown = `<div class="dropdown report_dropdown dropdown_dict">
                 </ul>
             </div>
 `;
-const dropdownCode = `<div id="">
+const dropdownCode = `
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="" type="text" class="dropdown__hidden"
                        value="">
@@ -30,11 +30,8 @@ const dropdownCode = `<div id="">
                     <i class="fa fa-solid fa-angle-down"></i>
                 </div>
                 <ul class="dropdown__content">
-                        <li data-value=""
-                            onclick="event.stopPropagation(); selectFromList(this);"></li>
                 </ul>
             </div>
-        </div>
 `;
 
 
@@ -51,6 +48,7 @@ document.addEventListener('click', element => {
         obj.querySelector('.dropdown__input').value = obj.querySelector('.dropdown__input').dataset.value;
     }
 });
+
 
 document.addEventListener('click', element => {
     const dropdown = document.querySelectorAll('.dropdown');
@@ -83,9 +81,9 @@ function filterList(input) {
 }
 
 function selectFromList(obj) {
-    obj.parentElement.parentElement.querySelector('.dropdown__input').value = obj.textContent;
-    obj.parentElement.parentElement.querySelector('.dropdown__input').dataset.value = obj.textContent;
-    obj.parentElement.parentElement.querySelector('.dropdown__hidden').value = obj.dataset.value;
+    obj.closest('.dropdown').querySelector('.dropdown__input').value = obj.textContent;
+    obj.closest('.dropdown').querySelector('.dropdown__input').dataset.value = obj.textContent;
+    obj.closest('.dropdown').querySelector('.dropdown__hidden').value = obj.dataset.value;
     obj.parentElement.classList.remove('visible');
 }
 
@@ -105,4 +103,18 @@ function fillFields(row, element, prefix) {
             }
         }
     }
+}
+
+function fillLines(ulContent, dictionaryList) {
+    let newLine;
+    dictionaryList.forEach(elem => {
+        newLine = document.createElement('li');
+        newLine.onclick = function (event) {
+            event.stopPropagation();
+            selectFromList(this);
+        };
+        newLine.dataset.value = Object.keys(elem)[0];
+        newLine.textContent = Object.values(elem)[0];
+        ulContent.appendChild(newLine);
+    });
 }

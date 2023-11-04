@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 
-
 app_name = 'production'
 
 urlpatterns = [
@@ -16,6 +15,10 @@ urlpatterns = [
     path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
     path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>', views.dictionary_json,
          name='dictionary_json'),
+    path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
+         views.dictionary_json_filter, name='dictionary_json_filter'),
+    path('dict_name/<str:dict_type>/<int:dict_id>', views.fetch_dict_str_by_id, name='fetch_dict_str_by_id'),
+
     path('user_name/<int:user_id>', views.fetch_user_by_id, name='views.fetch_user_by_id'),
 
     path('production_request/', views.production_request, name='production_request'),
@@ -33,18 +36,5 @@ urlpatterns = [
     path('quality_list/<str:date_start>/<str:date_end>', views.quality_list, name='quality_list'),
     path('defects_left/<int:quality_report_id>', views.rest_defects_list, name='rest_defects_list'),
     path('quality_report_update/', views.quality_report_update, name='quality_report_update'),
-
-    #
-    # path('imports/', views.imports, name='imports'),
-    # path('import_file/', views.import_file, name='import_file'),
-    # path('edit_temporary_base/', views.edit_temporary_base, name='edit_temporary_base'),
-    # path('import_new_customers/', views.customers_new_to_main_db, name='import_new_customers'),
-    # path('import_changed_customers/', views.customer_change_to_customer, name='import_changed_customers'),
-    # path('reassign_periods/', views.reassign_report_periods, name='reassign_periods'),
-    #
-    # path('admin/', views.admin, name='admin_site'),
-    # path('customer_export/', views.customer_export, name='customer_export'),
-    # path('goods_export/', views.goods_export, name='goods_export'),
-    # path('customer_group_json/', views.customer_group_json, name='customer_group_json'),
 
 ]

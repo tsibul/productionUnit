@@ -54,29 +54,9 @@ class QualityCheck:
         quantity_approved_defect = quality_quantities['total_approved_defect']
         if not quantity_approved_defect:
             quantity_approved_defect = 0
-        # defect_event = quality_reports.values_list('defect_event__name', flat=True).distinct()
-        # defect_names = QualityReportDefects.objects.filter(quality_report__in=quality_reports).values_list(
-        #     'defect__name', flat=True).distinct()
-        # comments = quality_reports.values_list('comment', flat=True).distinct()
         self.quantity_checked = quantity_checked
         self.quantity_checking = self.quantity - self.quantity_checked
         self.quantity_approved = quantity_approved
         self.quantity_approved_defect = quantity_approved_defect
         self.defect = self.quantity_checked - self.quantity_approved
         self.defect_percent = round((self.defect + self.quantity_approved_defect) / self.quantity * 100, 2)
-        # self.defect_event = ', '.join(map(str, defect_event))
-        # self.defect_types = ', '.join(map(str, defect_names))
-        # self.comment = ', '.join(map(str, comments))
-
-
-# def serialize_quality_report(quality_report):
-#     data = serializers.serialize('python', [quality_report])
-#     quality_report_data = data[0]['fields']
-#
-#     # Форматируем поле 'date_check' как строку в формате "d.m.Y H:i"
-#     quality_report_data['date_check'] = quality_report_data['date_check'].strftime("%d.%m.%Y %H:%M")
-#
-#     # Удаляем поле '_state'
-#     quality_report_data.pop('_state', None)
-#
-#     return quality_report_data

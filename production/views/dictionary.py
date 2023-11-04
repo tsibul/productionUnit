@@ -182,7 +182,8 @@ def linking_filter(model1, model2, model2_id):
     return item1
 
 
-def find_linking_model(model1, model2, field_name1=None, field_name2=None, visited1=None, visited2=None, path1=None, path2=None):
+def find_linking_model(model1, model2, field_name1=None, field_name2=None, visited1=None, visited2=None, path1=None,
+                       path2=None):
     if visited1 is None:
         visited1 = set()
     if visited2 is None:
@@ -208,7 +209,8 @@ def find_linking_model(model1, model2, field_name1=None, field_name2=None, visit
         if isinstance(field1, models_rec.ForeignKey):
             related_model = field1.related_model
             if related_model not in visited1:
-                linking_path1, linking_path2 = find_linking_model(related_model, model2, field1.name, field_name2, visited1, visited2, path1, path2)
+                linking_path1, linking_path2 = find_linking_model(related_model, model2, field1.name, field_name2,
+                                                                  visited1, visited2, path1, path2)
                 if linking_path1:
                     return linking_path1, linking_path2
 
@@ -216,7 +218,8 @@ def find_linking_model(model1, model2, field_name1=None, field_name2=None, visit
         if isinstance(field2, models_rec.ForeignKey):
             related_model = field2.related_model
             if related_model not in visited2:
-                linking_path1, linking_path2 = find_linking_model(model1, related_model, field_name1, field2.name, visited1, visited2, path1, path2)
+                linking_path1, linking_path2 = find_linking_model(model1, related_model, field_name1, field2.name,
+                                                                  visited1, visited2, path1, path2)
                 if linking_path2:
                     return linking_path1, linking_path2
 

@@ -84,7 +84,7 @@ async function fillQualityModal(btn) {
     defectBlock.innerHTML = '';
     const defectData = await fetch(`/production/defects_left/${rowCur.dataset.id}`)
         .then(response => response.json());
-    ;
+
     const defectList = JSON.parse(defectData);
     defectList.forEach(defect => {
         defectBlock.insertAdjacentHTML("afterbegin",

@@ -29,7 +29,6 @@ const dictList = {
     add_master: 'MasterBatch',
     product_request: 'ProductionRequest',
     defect_event: 'DefectEvent',
-
 };
 
 const addButtons = document.querySelectorAll('.btn_add');
@@ -399,9 +398,6 @@ async function fillNewRow(record, i, newRow) {
                 } else {
                     foreignKeyElement = document.getElementById('group_type');
                 }
-                // let foreignKeyLi = foreignKeyElement
-                //     .querySelector(`[data-value = "${record[fieldName + '_id']}"]`);
-                // rowElement.textContent = foreignKeyLi.textContent;
                 rowElement.textContent = await fetchJsonData(
                     `/production/dict_name/${dictList[fieldName]}/${record[fieldName + '_id']}`);
             }
@@ -410,8 +406,6 @@ async function fillNewRow(record, i, newRow) {
             rowElement.dataset.id = record[fieldName] ? '1' : '0';
         } else if (fieldName === 'user') {
             rowElement.textContent = await fetchJsonData(`/production/user_name/${record['user_id']}`);
-            // } else if (fieldName.includes('date-')){
-            //
         } else {
             rowElement.textContent = record[fieldName];
         }

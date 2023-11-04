@@ -16,10 +16,10 @@ class Goods(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return self.name
+        return f"{self.article} {self.name}"
 
     def __str__(self):
-        return str(self.name)
+        return f"{self.article} {self.name}"
 
     class Meta:
         ordering = ['article']

@@ -88,12 +88,7 @@ def spread_production_for_requests(production, quantity):
         ProductionRequest.objects.filter(deleted=False, closed=False, color=production.color,
                                          detail=production.detail).exclude(quantity_left=0).order_by('date_create'))
     for i, pr_request in enumerate(production_request):
-        # production_for_request = ProductionForRequest.objects.filter(production_request=pr_request)
-        # quantity_produced = production_for_request.aggregate(quantity_produced=Sum('quantity'))['quantity_produced']
         quantity_left = pr_request.quantity_left
-        # if not quantity_produced:
-        #     quantity_produced = 0
-        # if pr_request.quantity - quantity_produced - quantity > 0:
         if quantity_left - quantity > 0:
             production_for_request_new = ProductionForRequest(production=production, production_request=pr_request,
                                                               quantity=quantity)
@@ -106,8 +101,6 @@ def spread_production_for_requests(production, quantity):
             production_for_request_new = ProductionForRequest(production=production, production_request=pr_request,
                                                               quantity=quantity_left)
             production_for_request_new.save()
-            # pr_request.closed = True
-            # pr_request.date_close = date_now
             pr_request.quantity_left = 0
             pr_request.save()
             quantity = quantity - quantity_left

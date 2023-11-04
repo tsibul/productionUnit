@@ -228,12 +228,13 @@ function editDictionary(obj) {
             const filterModel = dictList[node.dataset.filter];
             const ulContent = childDropdownNode.querySelector('.dropdown__content');
             let jsonUrl;
-            if (!filterModel) {
-                jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
-            } else if (!parentRow.dataset.id) {
-                const filterNo = parentRow.querySelector(`[name = "${node.dataset.name}"]`).dataset.id;
+            if (filterModel && parentRow.dataset.id !== 'e') {
+                const filterNo = parentRow.querySelector(`[data-name = "${node.dataset.filter}"]`).dataset.id;
                 jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
+            } else if (!filterModel) {
+                jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
             } else {
+                childDropdownNode.querySelector('.dropdown__hidden').dataset.filter = node.dataset.filter;
                 jsonUrl = `/production/dictionary_json_filter/default/default/0`;
             }
             const jsonData = await fetchJsonData(jsonUrl);

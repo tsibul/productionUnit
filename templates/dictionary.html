@@ -780,7 +780,7 @@
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="goods" data-field="goods"></div>
                             <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="color" data-field="color"></div>
+                                 data-name="color" data-field="color" data-filter="goods"></div>
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="main_material_type" data-field="main_material_type"></div>
                             <div class="dict-block__text"
@@ -806,7 +806,7 @@
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                     data-name="color">{{ item.color.color_id }}</div>
+                                     data-name="color" data-filter="goods">{{ item.color.color_id }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                      data-name="main_material_type">{{ item.main_material_type.name }}</div>
                                 <div class="dict-block__text"
@@ -834,7 +834,7 @@
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                     data-name="color">{{ item.color.color_id }}</div>
+                                     data-name="color" data-filter="goods">{{ item.color.color_id }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                      data-name="main_material_type">{{ item.main_material_type.name }}</div>
                                 <div class="dict-block__text"
@@ -863,178 +863,5 @@
         </div>
     </div>
 
-    <div id="technical-data" hidden>
-        <div id="producer">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="producer" type="text" class="dropdown__hidden"
-                       value="{{ producer.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ producer.0.name }}"
-                           data-value="{{ producer.0.name }}">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in producer %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="main_material_type">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="main_material_type" type="text" class="dropdown__hidden"
-                       value="{{ material_type.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ material_type.0.name }}"
-                           data-value="{{ material_type.0.name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in material_type %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="main_master">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="main_master" type="text" class="dropdown__hidden"
-                       value="{{ masterbatch.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ masterbatch.0 }}"
-                           data-value="{{ masterbatch.0 }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in masterbatch %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="add_master">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="add_master" type="text" class="dropdown__hidden"
-                       value="{{ masterbatch.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ masterbatch.0 }}"
-                           data-value="{{ masterbatch.0 }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in masterbatch %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="color">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="color" type="text" class="dropdown__hidden"
-                       value="{{ color.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ color.0 }}"
-                           data-value="{{ color.0 }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in color %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="color_scheme">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="color_scheme" type="text" class="dropdown__hidden"
-                       value="{{ color_group.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ color_group.0.scheme_name }}"
-                           data-value="{{ color_group.0.scheme_name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in color_group %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.scheme_name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="goods">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="goods" type="text" class="dropdown__hidden"
-                       value="{{ goods.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ goods.0.article }}"
-                           data-value="{{ goods.0.article }}">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in goods %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.article }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="detail_name">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="detail_name" type="text" class="dropdown__hidden"
-                       value="{{ detail.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ detail.0.name }}"
-                           data-value="{{ detail.0.name }}">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in detail %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="country">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="country" type="text" class="dropdown__hidden"
-                       value="{{ country.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onkeyup="filterList(this)"
-                           value="{{ country.0.name }}"
-                           data-value="{{ country.0.name }}">
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in country %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
     <script src="{% static 'production/js/dictionary.js' %}"></script>
 {% endblock %}

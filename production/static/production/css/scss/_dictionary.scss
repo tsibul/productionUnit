@@ -96,7 +96,7 @@
     min-height: 160px;
 
     &_adm {
-      height: calc(100vh - 200px);
+      //height: calc(100vh - 200px);
       overflow-y: scroll;
       min-height: 220px;
     }
@@ -168,11 +168,11 @@
     max-width: 100%;
 
     &_full {
-    grid-column: 1 / 5;
+      grid-column: 1 / 5;
     }
 
     &_half {
-    grid-column: 1 / 3;
+      grid-column: 1 / 3;
     }
 
 
@@ -234,7 +234,8 @@
 
 .production {
   grid-template-columns: 0.2fr 0.8fr 0.8fr repeat(6, 0.6fr) 1.5fr 1fr 0.6fr;
-  &_adm{
+
+  &_adm {
     font-size: 14px;
     grid-template-columns: 0.3fr repeat(12, 1fr);
   }
@@ -250,6 +251,13 @@
 
 .quality-list {
   grid-template-columns: 0.8fr 1fr 0.4fr repeat(2, 1fr) repeat(7, 0.6fr);
+}
+
+.request-start-stop {
+  &_adm {
+    font-size: 14px;
+    grid-template-columns: 0.2fr repeat(7, 1fr) 0.5fr 1fr;
+  }
 }
 
 .quality-content {

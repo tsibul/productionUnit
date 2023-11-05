@@ -27,6 +27,7 @@
                     <div class="table-center">Заказ</div>
                     <div class="table-center">Закр.</div>
                     <div class="table-center">Дата закр.</div>
+                    <div class="table-center">Комментарий</div>
                     <div class="table-center">Тех.</div>
                     <div class="table-center">Удалено</div>
                     <button class="btn btn-save btn_add">добавить</button>
@@ -52,6 +53,8 @@
                         <div class="dict-block__text bool-field table-center" data-id=""
                              data-name="closed" data-field="closed"></div>
                         <div class="dict-block__text table-center" data-field="date_close"></div>
+                        <div class="dict-block__text table-center" data-name="comment"
+                             data-field="comment"></div>
                         <div class="dict-block__text bool-field table-center" data-id=""
                              data-name="technical" data-field="technical"></div>
                         <div class="dict-block__text bool-field table-center" data-id=""
@@ -83,6 +86,8 @@
                                  data-name="closed" data-id="{% if item.closed %}1{% else %}0{% endif %}">
                                 {% if item.closed %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
+                            <div class="dict-block__text table-center"
+                                 data-name="comment">{{ item.comment }}</div>
                             <div class="dict-block__text bool-field table-center"
                                  data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
                                 {% if item.technical %}Да{% else %}Нет{% endif %}</div>
@@ -118,6 +123,8 @@
                                  data-name="closed" data-id="{% if item.closed %}1{% else %}0{% endif %}">
                                 {% if item.closed %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
+                            <div class="dict-block__text table-center"
+                                 data-name="comment">{{ item.comment }}</div>
                             <div class="dict-block__text bool-field table-center"
                                  data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
                                 {% if item.technical %}Да{% else %}Нет{% endif %}</div>

@@ -15,6 +15,7 @@ const dictList = {
     productRequest: 'ProductionRequest',
     productReport: 'ProductionReport',
     requestStartStop: 'ProductionRequestStartStop',
+    productionForRequest: 'ProductionForRequest',
     defects: 'Defects',
     defectEvent: 'DefectEvent',
 
@@ -32,6 +33,8 @@ const dictList = {
     product_request: 'ProductionRequest',
     production_request: 'ProductionRequest',
     defect_event: 'DefectEvent',
+    production_for_request: 'ProductionForRequest',
+    production: 'ProductionReport',
 };
 
 const addButtons = document.querySelectorAll('.btn_add');

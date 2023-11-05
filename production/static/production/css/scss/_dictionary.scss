@@ -260,6 +260,13 @@
   }
 }
 
+.production-for-request{
+  &_adm{
+    font-size: 14px;
+    grid-template-columns: 0.3fr repeat(2, 3fr) 1fr 1fr 0.5fr;
+  }
+}
+
 .quality-content {
   border: 1px solid transparent;
   border-radius: 10px;

@@ -37,4 +37,4 @@ class ProductionForRequest(models.Model):
 
     @staticmethod
     def order_default():
-        return ['date']
+        return ['-production_request__date_create']

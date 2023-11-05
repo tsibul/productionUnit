@@ -507,10 +507,10 @@
   max-width: 100%;
 }
 .dict-block__adm_full {
-  grid-column: 1/5;
+  grid-column: span 4;
 }
 .dict-block__adm_half {
-  grid-column: 1/3;
+  grid-column: span 2;
 }
 .dict-block__adm[open] {
   max-height: calc(100vh - 120px);
@@ -557,7 +557,7 @@
 }
 
 .production-request {
-  grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 1.5fr 0.4fr 1fr;
+  grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 1.7fr 0.4fr 0.8fr;
 }
 .production-request_adm {
   font-size: 14px;
@@ -583,6 +583,10 @@
 .quality-list {
   grid-template-columns: 0.8fr 1fr 0.4fr repeat(2, 1fr) repeat(7, 0.6fr);
 }
+.quality-list_adm {
+  font-size: 14px;
+  grid-template-columns: 0.4fr 2.5fr repeat(3, 0.6fr) repeat(3, 1fr) 1.5fr 0.6fr 0.8fr;
+}
 
 .request-start-stop_adm {
   font-size: 14px;
@@ -592,6 +596,16 @@
 .production-for-request_adm {
   font-size: 14px;
   grid-template-columns: 0.3fr repeat(2, 3fr) 1fr 1fr 0.5fr;
+}
+
+.quality-for-request_adm {
+  font-size: 14px;
+  grid-template-columns: 0.3fr repeat(2, 3fr) repeat(3, 1fr) 0.5fr;
+}
+
+.quality-report-defect_adm {
+  font-size: 14px;
+  grid-template-columns: 0.3fr 2fr repeat(3, 1fr) 0.5fr 1fr;
 }
 
 .quality-content {

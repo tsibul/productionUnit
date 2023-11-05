@@ -16,9 +16,17 @@ class QualityReport(models.Model):
     comment = models.CharField(max_length=255, default='')
     deleted = models.BooleanField(default=False)
 
+    def __repr__(self):
+        return (f"{self.date_check.strftime('%d.%m.%y %H:%M')} {self.production.detail}|{self.production.color} "
+                f"проверено {self.quantity_checked} принято {self.quantity_approved}")
+
+    def __str__(self):
+        return (f"{self.date_check.strftime('%d.%m.%y %H:%M')} {self.production.detail}|{self.production.color} "
+                f"проверено {self.quantity_checked} принято {self.quantity_approved}")
+
     @staticmethod
     def order_default():
-        return ['-date', 'production']
+        return ['-date_check', '-production__date']
 
 
 class QualityReportDefects(models.Model):

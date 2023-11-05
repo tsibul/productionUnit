@@ -16,8 +16,11 @@ const dictList = {
     productReport: 'ProductionReport',
     requestStartStop: 'ProductionRequestStartStop',
     productionForRequest: 'ProductionForRequest',
+    qualityForRequest: 'QualityForRequest',
     defects: 'Defects',
     defectEvent: 'DefectEvent',
+    qualityReport: 'QualityReport',
+    qualityReportDefect: 'QualityReportDefects',
 
     detail: 'DetailInGoods',
     material_type: 'MaterialType',
@@ -35,6 +38,8 @@ const dictList = {
     defect_event: 'DefectEvent',
     production_for_request: 'ProductionForRequest',
     production: 'ProductionReport',
+    quality_report: 'QualityReport',
+    defect: 'Defects',
 };
 
 const addButtons = document.querySelectorAll('.btn_add');

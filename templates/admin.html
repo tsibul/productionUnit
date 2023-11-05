@@ -2,347 +2,578 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-    <div hidden id="showDeleted">showDeleted</div>
-    <div class="full-content">
-        <div class="container">
-            <div class="admin-report">
-                <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
-                    <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                        <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки
-                            на
-                            производство
+    {% if request.user.is_superuser %}
+
+        <div hidden id="showDeleted">showDeleted</div>
+        <div class="full-content">
+            <div class="container">
+                <div class="admin-report">
+                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки
+                                на
+                                производство
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active production-request_adm">
+                            <div class="table-center">Id</div>
+                            <div>Деталь</div>
+                            <div>Цвет</div>
+                            <div class="digit">Кол-во</div>
+                            <div class="digit">Осталось</div>
+                            <div class="table-center">Создано</div>
+                            <div class="table-center">Создал</div>
+                            <div class="table-center">Заказ</div>
+                            <div class="table-center">Закр.</div>
+                            <div class="table-center">Дата закр.</div>
+                            <div class="table-center">Комментарий</div>
+                            <div class="table-center">Тех.</div>
+                            <div class="table-center">Удалено</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__search dict-block__search_open">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row production-request_adm dict-block__row_hidden" data-id="0"
+                                 id="productRequest-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="detail" data-field="detail"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="color" data-field="color" data-filter="detail"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity" data-field="quantity"></div>
+                                <div class="dict-block__text digit" data-name="quantity_left"
+                                     data-field="quantity_left"></div>
+                                <div class="dict-block__text"
+                                     data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user">{{ request.user.username }}</div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="if_order" data-field="if_order"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="closed" data-field="closed"></div>
+                                <div class="dict-block__text table-center" data-field="date_close"></div>
+                                <div class="dict-block__text table-center" data-name="comment"
+                                     data-field="comment"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="technical" data-field="technical"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row production-request_adm" data-id="{{ product_request.id }}"
+                                 data-last="1"
+                                 id="productRequest-{{ product_request.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ product_request.id }}">
+                                <div class="dict-block__text table-center">{{ product_request.id }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ product_request.detail.id }}"
+                                     data-name="detail">{{ product_request.detail }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ product_request.color.id }}"
+                                     data-name="color" data-filter="detail">{{ product_request.color }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity">{{ product_request.quantity }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_left">{{ product_request.quantity_left }}</div>
+                                <div class="dict-block__text">{{ product_request.date_create|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text table-center" data-name="user"
+                                     data-id="{{ product_request.user.id }}">{{ product_request.user.last_name }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="if_order"
+                                     data-id="{% if product_request.if_order %}1{% else %}0{% endif %}">
+                                    {% if product_request.if_order %}Да{% else %}Нет{% endif %}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="closed"
+                                     data-id="{% if product_request.closed %}1{% else %}0{% endif %}">
+                                    {% if product_request.closed %}Да{% else %}Нет{% endif %}</div>
+                                <div class="dict-block__text table-center">{{ product_request.date_close|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-name="comment">{{ product_request.comment }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="technical"
+                                     data-id="{% if product_request.technical %}1{% else %}0{% endif %}">
+                                    {% if product_request.technical %}Да{% else %}Нет{% endif %}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_request.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active production-request_adm">
-                        <div class="table-center">Id</div>
-                        <div>Деталь</div>
-                        <div>Цвет</div>
-                        <div class="digit">Кол-во</div>
-                        <div class="digit">Осталось</div>
-                        <div class="table-center">Создано</div>
-                        <div class="table-center">Создал</div>
-                        <div class="table-center">Заказ</div>
-                        <div class="table-center">Закр.</div>
-                        <div class="table-center">Дата закр.</div>
-                        <div class="table-center">Комментарий</div>
-                        <div class="table-center">Тех.</div>
-                        <div class="table-center">Удалено</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content dict-block__content_adm">
-                        <div class="dict-block__row production-request_adm dict-block__row_hidden" data-id="0"
-                             id="productRequest-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text table-center" data-field="id"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="detail" data-field="detail"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="color" data-field="color" data-filter="detail"></div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity" data-field="quantity"></div>
-                            <div class="dict-block__text digit" data-name="quantity_left"
-                                 data-field="quantity_left"></div>
-                            <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-field="user">{{ request.user.username }}</div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="if_order" data-field="if_order"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="closed" data-field="closed"></div>
-                            <div class="dict-block__text table-center" data-field="date_close"></div>
-                            <div class="dict-block__text table-center" data-name="comment"
-                                 data-field="comment"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="technical" data-field="technical"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="deleted" data-field="deleted"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details><!-- заявки на производство -->
+                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки&nbsp;старт/стоп
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active request-start-stop_adm">
+                            <div class="table-center">Id</div>
+                            <div class="table-center">Запрос</div>
+                            <div class="table-center">Старт</div>
+                            <div class="table-center">Начал</div>
+                            <div class="table-center">ТПА</div>
+                            <div class="table-center">Стоп</div>
+                            <div class="table-center">Законч.</div>
+                            <div class="table-center">Коммент.</div>
+                            <div class="table-center">Уд.</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__row production-request_adm" data-id="{{ product_request.id }}"
-                             data-last="1"
-                             id="productRequest-{{ product_request.id }}" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="{{ product_request.id }}">
-                            <div class="dict-block__text table-center">{{ product_request.id }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ product_request.detail.id }}"
-                                 data-name="detail">{{ product_request.detail }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ product_request.color.id }}"
-                                 data-name="color" data-filter="detail">{{ product_request.color }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity">{{ product_request.quantity }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity_left">{{ product_request.quantity_left }}</div>
-                            <div class="dict-block__text">{{ product_request.date_create|date:'d.m.y H:i' }}</div>
-                            <div class="dict-block__text table-center" data-name="user"
-                                 data-id="{{ product_request.user.id }}">{{ product_request.user.last_name }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="if_order"
-                                 data-id="{% if product_request.if_order %}1{% else %}0{% endif %}">
-                                {% if product_request.if_order %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="closed" data-id="{% if product_request.closed %}1{% else %}0{% endif %}">
-                                {% if product_request.closed %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text table-center">{{ product_request.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-name="comment">{{ product_request.comment }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="technical"
-                                 data-id="{% if product_request.technical %}1{% else %}0{% endif %}">
-                                {% if product_request.technical %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="deleted" data-id="{% if product_request.deleted %}1{% else %}0{% endif %}">
-                                {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-close btn_delete" type="button"
-                                    onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row request-start-stop_adm dict-block__row_hidden" data-id="0"
+                                 id="requestStartStop-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key table-center" data-id=""
+                                     data-name="production_request" data-field="production_request"></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="date_start">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user_start">{{ request.user.username }}</div>
+                                <div class="dict-block__text foreign-key table-center" data-id=""
+                                     data-name="imm" data-field="imm"></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="date_stop">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user_stop"></div>
+                                <div class="dict-block__text table-center" data-name="stop_reason"
+                                     data-field="stop_reason"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row request-start-stop_adm" data-id="{{ request_start_stop.id }}"
+                                 data-last="1"
+                                 id="requestStartStop-{{ request_start_stop.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ request_start_stop.id }}">
+                                <div class="dict-block__text table-center">{{ request_start_stop.id }}</div>
+                                <div class="dict-block__text foreign-key table-center"
+                                     data-id="{{ request_start_stop.production_request.id }}"
+                                     data-name="production_request">{{ request_start_stop.production_request }}</div>
+                                <div class="dict-block__text table-center">{{ request_start_stop.date_start|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-id="{{ request_start_stop.user_start.id }}">{{ request_start_stop.user_start.last_name }}</div>
+                                <div class="dict-block__text foreign-key table-center"
+                                     data-id="{{ request_start_stop.imm.id }}"
+                                     data-name="imm">{{ request_start_stop.imm }}</div>
+                                <div class="dict-block__text table-center">{{ request_start_stop.date_stop|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-id="{{ request_start_stop.user_stop.id }}">{{ request_start_stop.user_stop.last_name }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-name="stop_reason">{{ request_start_stop.stop_reason }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if request_start_stop.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </details><!-- заявки на производство -->
-                <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
-                    <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                        <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки&nbsp;старт/стоп
+                    </details><!-- заявки на производство start/stop-->
+                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;Производство
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active production_adm">
+                            <div class="table-center">Id</div>
+                            <div>Деталь</div>
+                            <div>Цвет</div>
+                            <div class="table-center">Дата</div>
+                            <div class="table-center">ТПА</div>
+                            <div class="table-center">Делал</div>
+                            <div class="digit">Кол-во</div>
+                            <div class="digit">Брак</div>
+                            <div class="table-center">Закр.</div>
+                            <div class="table-center">Дата закр.</div>
+                            <div class="table-center">Принял</div>
+                            <div class="table-center">Удалено</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__search dict-block__search_open">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row production_adm dict-block__row_hidden" data-id="0"
+                                 id="productReport-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="detail" data-field="detail"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="color" data-field="color" data-filter="detail"></div>
+                                <div class="dict-block__text" data-field="date">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="imm" data-field="imm" data-filter=""></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user">{{ request.user.username }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity" data-field="quantity"></div>
+                                <div class="dict-block__text digit" data-name="defect"
+                                     data-field="defect"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="closed" data-field="closed"></div>
+                                <div class="dict-block__text table-center" data-field="date_close"></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user_close">{{ request.user.username }}</div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row production_adm" data-id="{{ product_report.id }}"
+                                 data-last="1"
+                                 id="productReport-{{ product_report.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ product_report.id }}">
+                                <div class="dict-block__text table-center">{{ product_report.id }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ product_report.detail.id }}"
+                                     data-name="detail">{{ product_report.detail }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ product_report.color.id }}"
+                                     data-name="color" data-filter="detail">{{ product_report.color }}</div>
+                                <div class="dict-block__text">{{ product_report.date|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ product_report.imm.id }}"
+                                     data-name="imm">{{ product_report.imm }}</div>
+                                <div class="dict-block__text table-center" data-name="user"
+                                     data-id="{{ product_report.user.id }}">{{ product_report.user.last_name }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity">{{ product_report.quantity }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="defect">{{ product_report.defect }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="closed" data-id="{% if product_report.closed %}1{% else %}0{% endif %}">
+                                    {% if product_report.closed %}Да{% else %}Нет{% endif %}</div>
+                                <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center" data-name="user_close"
+                                     data-id="{{ product_report.user_close.id }}">{{ product_report.user_close.last_name }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active request-start-stop_adm">
-                        <div class="table-center">Id</div>
-                        <div class="table-center">Запрос</div>
-                        <div class="table-center">Старт</div>
-                        <div class="table-center">Начал</div>
-                        <div class="table-center">ТПА</div>
-                        <div class="table-center">Стоп</div>
-                        <div class="table-center">Законч.</div>
-                        <div class="table-center">Коммент.</div>
-                        <div class="table-center">Уд.</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content dict-block__content_adm">
-                        <div class="dict-block__row request-start-stop_adm dict-block__row_hidden" data-id="0"
-                             id="requestStartStop-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text table-center" data-field="id"></div>
-                            <div class="dict-block__text foreign-key table-center" data-id=""
-                                 data-name="production_request" data-field="production_request"></div>
-                            <div class="dict-block__text table-center"
-                                 data-field="date_start">{{ date_now|date:"d.m.y H:i" }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-field="user_start">{{ request.user.username }}</div>
-                            <div class="dict-block__text foreign-key table-center" data-id=""
-                                 data-name="imm" data-field="imm"></div>
-                            <div class="dict-block__text table-center"
-                                 data-field="date_stop">{{ date_now|date:"d.m.y H:i" }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-field="user_stop"></div>
-                            <div class="dict-block__text table-center" data-name="stop_reason"
-                                 data-field="stop_reason"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="deleted" data-field="deleted"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details><!-- отчеты производства -->
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-left-right"></i>&nbsp;Производство&nbsp;<>&nbsp;Запрос
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active production-for-request_adm">
+                            <div class="table-center">Id</div>
+                            <div class="table-center">Пр-во</div>
+                            <div class="table-center">Запрос</div>
+                            <div class="digit">Кол-во</div>
+                            <div class="table-center">Уд.</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__row request-start-stop_adm" data-id="{{ request_start_stop.id }}"
-                             data-last="1"
-                             id="requestStartStop-{{ request_start_stop.id }}" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="{{ request_start_stop.id }}">
-                            <div class="dict-block__text table-center">{{ request_start_stop.id }}</div>
-                            <div class="dict-block__text foreign-key table-center"
-                                 data-id="{{ request_start_stop.production_request.id }}"
-                                 data-name="production_request">{{ request_start_stop.production_request }}</div>
-                            <div class="dict-block__text table-center">{{ request_start_stop.date_start|date:'d.m.y H:i' }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-id="{{ request_start_stop.user_start.id }}">{{ request_start_stop.user_start.last_name }}</div>
-                            <div class="dict-block__text foreign-key table-center"
-                                 data-id="{{ request_start_stop.imm.id }}"
-                                 data-name="imm">{{ request_start_stop.imm }}</div>
-                            <div class="dict-block__text table-center">{{ request_start_stop.date_stop|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-id="{{ request_start_stop.user_stop.id }}">{{ request_start_stop.user_stop.last_name }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-name="stop_reason">{{ request_start_stop.stop_reason }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="deleted"
-                                 data-id="{% if request_start_stop.deleted %}1{% else %}0{% endif %}">
-                                {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-close btn_delete" type="button"
-                                    onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row production-for-request_adm dict-block__row_hidden" data-id="0"
+                                 id="productForRequest-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="production" data-field="production"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="production_request" data-field="production_request"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity" data-field="quantity"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row production-for-request_adm"
+                                 data-id="{{ production_for_request.id }}"
+                                 data-last="1"
+                                 id="productionForRequest-{{ production_for_request.id }}"
+                                 onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ production_for_request.id }}">
+                                <div class="dict-block__text table-center">{{ production_for_request.id }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ production_for_request.production.id }}"
+                                     data-name="production">{{ production_for_request.production }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ production_for_request.production_request.id }}"
+                                     data-name="production_request">{{ production_for_request.production_request }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity">{{ product_report.quantity }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </details><!-- заявки на производство start/stop-->
-                <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full">
-                    <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                        <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;Производство
+                    </details><!-- производство <=>  запрос-->
+                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-microscope"></i>&nbsp;Качество
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active quality-list_adm">
+                            <div class="table-center">Id</div>
+                            <div class="table-center">Пр-во</div>
+                            <div class="digit">Кол-во</div>
+                            <div class="digit">Принято</div>
+                            <div class="digit">С браком</div>
+                            <div class="table-center">Дата</div>
+                            <div class="table-center">Принял</div>
+                            <div class="table-center">Решение</div>
+                            <div class="table-center">Коммент.</div>
+                            <div class="table-center">Уд.</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__search dict-block__search_open">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row quality-list_adm dict-block__row_hidden" data-id="0"
+                                 id="qualityReport-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="production" data-field="production"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_checked" data-field="quantity_checked"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved" data-field="quantity_approved"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved_defect" data-field="quantity_approved_defect"></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="date_check">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user">{{ request.user.username }}</div>
+                                <div class="dict-block__text foreign-key table-center" data-id=""
+                                     data-name="defect_event" data-field="defect_event"></div>
+                                <div class="dict-block__text table-center" data-name="comment"
+                                     data-field="comment"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row quality-list_adm" data-id="{{ quality_report.id }}"
+                                 data-last="1"
+                                 id="qualityReport-{{ quality_report.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ quality_report.id }}">
+                                <div class="dict-block__text table-center">{{ quality_report.id }}</div>
+                                <div class="dict-block__text foreign-key" data-id="{{ quality_report.production.id }}"
+                                     data-name="production">{{ quality_report.production }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_checked">{{ quality_report.quantity_checked }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved">{{ quality_report.quantity_approved }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved_defect">{{ quality_report.quantity_approved_defect }}</div>
+                                <div class="dict-block__text table-center">{{ quality_report.date_check|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text table-center" data-name="user"
+                                     data-id="{{ quality_report.user.id }}">{{ quality_report.user.last_name }}</div>
+                                <div class="dict-block__text foreign-key table-center"
+                                     data-id="{{ quality_report.defect_event.id }}"
+                                     data-name="defect_event">{{ quality_report.defect_event }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-name="comment">{{ quality_report.comment }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active production_adm">
-                        <div class="table-center">Id</div>
-                        <div>Деталь</div>
-                        <div>Цвет</div>
-                        <div class="table-center">Дата</div>
-                        <div class="table-center">ТПА</div>
-                        <div class="table-center">Делал</div>
-                        <div class="digit">Кол-во</div>
-                        <div class="digit">Брак</div>
-                        <div class="table-center">Закр.</div>
-                        <div class="table-center">Дата закр.</div>
-                        <div class="table-center">Принял</div>
-                        <div class="table-center">Удалено</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content dict-block__content_adm">
-                        <div class="dict-block__row production_adm dict-block__row_hidden" data-id="0"
-                             id="productReport-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text table-center" data-field="id"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="detail" data-field="detail"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="color" data-field="color" data-filter="detail"></div>
-                            <div class="dict-block__text" data-field="date">{{ date_now|date:"d.m.y H:i" }}</div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="imm" data-field="imm" data-filter=""></div>
-                            <div class="dict-block__text table-center"
-                                 data-field="user">{{ request.user.username }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity" data-field="quantity"></div>
-                            <div class="dict-block__text digit" data-name="defect"
-                                 data-field="defect"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="closed" data-field="closed"></div>
-                            <div class="dict-block__text table-center" data-field="date_close"></div>
-                            <div class="dict-block__text table-center"
-                                 data-field="user_close">{{ request.user.username }}</div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="deleted" data-field="deleted"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details><!-- отчеты качества -->
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-people-arrows"></i>&nbsp;Качество&nbsp;<>&nbsp;Запрос
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active quality-for-request_adm">
+                            <div class="table-center">Id</div>
+                            <div class="table-center">Качество</div>
+                            <div class="table-center">Запрос</div>
+                            <div class="digit">Кол-во</div>
+                            <div class="digit">Принято</div>
+                            <div class="table-center">Уд.</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__row production_adm" data-id="{{ product_report.id }}"
-                             data-last="1"
-                             id="productReport-{{ product_report.id }}" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="{{ product_report.id }}">
-                            <div class="dict-block__text table-center">{{ product_report.id }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ product_report.detail.id }}"
-                                 data-name="detail">{{ product_report.detail }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ product_report.color.id }}"
-                                 data-name="color" data-filter="detail">{{ product_report.color }}</div>
-                            <div class="dict-block__text">{{ product_report.date|date:'d.m.y H:i' }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ product_report.imm.id }}"
-                                 data-name="imm">{{ product_report.imm }}</div>
-                            <div class="dict-block__text table-center" data-name="user"
-                                 data-id="{{ product_report.user.id }}">{{ product_report.user.last_name }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity">{{ product_report.quantity }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="defect">{{ product_report.defect }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="closed" data-id="{% if product_report.closed %}1{% else %}0{% endif %}">
-                                {% if product_report.closed %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center" data-name="user_close"
-                                 data-id="{{ product_report.user_close.id }}">{{ product_report.user_close.last_name }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="deleted" data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-close btn_delete" type="button"
-                                    onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row quality-for-request_adm dict-block__row_hidden" data-id="0"
+                                 id="qualityForRequest-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="quality_report" data-field="quality_report"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="production_request" data-field="production_request"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_checked" data-field="quantity_checked"></div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved" data-field="quantity_approved"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row quality-for-request_adm"
+                                 data-id="{{ quality_for_request.id }}"
+                                 data-last="1"
+                                 id="qualityForRequest-{{ quality_for_request.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ quality_for_request.id }}">
+                                <div class="dict-block__text table-center">{{ quality_for_request.id }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ quality_for_request.quality_report.id }}"
+                                     data-name="quality_report">{{ quality_for_request.quality_report }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ quality_for_request.production_request.id }}"
+                                     data-name="production_request">{{ quality_for_request.production_request }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_checked">{{ quality_for_request.quantity_checked }}</div>
+                                <div class="dict-block__text digit"
+                                     data-name="quantity_approved">{{ product_report.quantity_approved }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </details><!-- отчеты производства -->
-                <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
-                    <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                        <div class="dict-block__active"><i class="fa fa-solid fa-left-right"></i>&nbsp;Производство&nbsp;<>&nbsp;Запрос
+                    </details><!-- качество <=>  запрос-->
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-magnifying-glass"></i>&nbsp;Качество&nbsp;<>&nbsp;Дефекты
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active quality-report-defect_adm">
+                            <div class="table-center">Id</div>
+                            <div class="table-center">Отчет</div>
+                            <div class="table-center">Дефект</div>
+                            <div class="table-center">Дата</div>
+                            <div class="table-center">Проверил</div>
+                            <div class="table-center">Уд.</div>
+                            <button class="btn btn-save btn_add">добавить</button>
                         </div>
-                        <div class="dict-block__search dict-block__search_open">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row quality-report-defect_adm dict-block__row_hidden" data-id="0"
+                                 id="qualityReportDefect-0" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text table-center" data-field="id"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="quality_report" data-field="quality_report"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="defect" data-field="defect"></div>
+                                <div class="dict-block__text table-center"
+                                     data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
+                                <div class="dict-block__text table-center"
+                                     data-field="user">{{ request.user.username }}</div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row quality-report-defect_adm"
+                                 data-id="{{ quality_report_defect.id }}"
+                                 data-last="1"
+                                 id="qualityReportDefect-{{ quality_report_defect.id }}"
+                                 onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ quality_report_defect.id }}">
+                                <div class="dict-block__text table-center">{{ quality_report_defect.id }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ quality_report_defect.quality_report.id }}"
+                                     data-name="quality_report">{{ quality_report_defect.quality_report }}</div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id="{{ quality_report_defect.defect.id }}"
+                                     data-name="production_request">{{ quality_report_defect.defect }}</div>
+                                <div class="dict-block__text table-center">{{ quality_report_defect.date_create|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text table-center" data-name="user"
+                                     data-id="{{ quality_report.user.id }}">{{ quality_report.user.last_name }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button"
+                                        onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active production-for-request_adm">
-                        <div class="table-center">Id</div>
-                        <div class="table-center">Пр-во</div>
-                        <div class="table-center">Запрос</div>
-                        <div class="digit">Кол-во</div>
-                        <div class="table-center">Уд.</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content dict-block__content_adm">
-                        <div class="dict-block__row production-for-request_adm dict-block__row_hidden" data-id="0"
-                             id="productForRequest-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text table-center" data-field="id"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="production" data-field="production"></div>
-                            <div class="dict-block__text foreign-key" data-id=""
-                                 data-name="production_request" data-field="production_request"></div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity" data-field="quantity"></div>
-                            <div class="dict-block__text bool-field table-center" data-id=""
-                                 data-name="deleted" data-field="deleted"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
-                        </div>
-                        <div class="dict-block__row production-for-request_adm"
-                             data-id="{{ production_for_request.id }}"
-                             data-last="1"
-                             id="productionForRequest-{{ production_for_request.id }}" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="{{ production_for_request.id }}">
-                            <div class="dict-block__text table-center">{{ production_for_request.id }}</div>
-                            <div class="dict-block__text foreign-key"
-                                 data-id="{{ production_for_request.production.id }}"
-                                 data-name="production">{{ production_for_request.production }}</div>
-                            <div class="dict-block__text foreign-key"
-                                 data-id="{{ production_for_request.production_request.id }}"
-                                 data-name="production_request">{{ production_for_request.production_request }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity">{{ product_report.quantity }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="deleted" data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-close btn_delete" type="button"
-                                    onclick="event.stopPropagation();">
-                                удалить
-                            </button>
-                        </div>
-                    </div>
-                </details><!-- производство <=>  запрос-->
+                    </details><!-- качество <=>  дефекты-->
+                </div>
             </div>
         </div>
-    </div>
-    {#    <div id="technical-data" hidden>#}
-    {#    </div>#}
 
-    <script src="{% static 'production/js/dictionary.js' %}"></script>
-
+        <script src="{% static 'production/js/dictionary.js' %}"></script>
+    {% endif %}
 {% endblock %}

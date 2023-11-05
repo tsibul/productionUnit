@@ -46,6 +46,7 @@ class ProductionRequestStartStop(models.Model):
     date_stop = models.DateTimeField(null=True, blank=True)
     user_stop = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='user_stop', null=True)
     stop_reason = models.CharField(max_length=140, null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return f"{self.production_request} начато {self.date_start} остановлено {self.date_stop}"

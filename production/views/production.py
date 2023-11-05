@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.utils import timezone
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects, \
-    ProductionForRequest, ProductionRequest, QualityForRequest
-from production.classes import QualityCheck, TotalRequest
+    ProductionRequest, QualityForRequest
+from production.classes import QualityCheck
 
 
 def production(request):

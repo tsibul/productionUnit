@@ -11,7 +11,6 @@ def custom_login(request):
             login(request, user)
             return redirect('/production')
         else:
-            # Обработайте неправильные учетные данные, если необходимо
             pass
     return redirect('/production')
 

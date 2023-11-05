@@ -1,9 +1,8 @@
 from datetime import datetime
 
 from django.db.models import Sum
-from django.core import serializers
 
-from production.models import ProductionReport, QualityReport, QualityReportDefects
+from production.models import ProductionReport, QualityReport
 from production.classes import QualityDetail
 
 
@@ -22,9 +21,6 @@ class QualityCheck:
     quantity_approved_defect: int
     defect: int
     defect_percent: float
-    # defect_event: str
-    # defect_types: str
-    # comment: str
     quality_reports: []
 
     def __init__(self, production_id):

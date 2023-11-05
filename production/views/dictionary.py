@@ -1,10 +1,10 @@
 import json
-from datetime import timedelta, date, datetime
+from datetime import datetime
 
 from django.contrib.auth.models import User
 from django.db import models as models_rec
 
-from django.db.models import Max, Q
+from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt

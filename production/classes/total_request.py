@@ -1,6 +1,6 @@
 from django.db.models import Sum, Min
 
-from production.models import DetailInGoods, Color, ProductionRequest, ProductionForRequest, QualityReport, \
+from production.models import DetailInGoods, Color, ProductionRequest, ProductionForRequest,  \
     ProductionRequestStartStop, QualityForRequest
 
 

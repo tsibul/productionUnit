@@ -3,13 +3,11 @@ import json
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from datetime import datetime
-from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
-from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects, \
-    ProductionForRequest, ProductionRequest, QualityForRequest
-from production.classes import QualityCheck, TotalRequest
+from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects
+from production.classes import QualityCheck
 from production.views import defects_create
 
 

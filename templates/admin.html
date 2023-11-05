@@ -261,7 +261,7 @@
                                  data-name="closed" data-id="{% if product_report.closed %}1{% else %}0{% endif %}">
                                 {% if product_report.closed %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center foreign-key" data-name="user_close"
+                            <div class="dict-block__text table-center" data-name="user_close"
                                  data-id="{{ product_report.user_close.id }}">{{ product_report.user_close.last_name }}</div>
                             <div class="dict-block__text bool-field table-center"
                                  data-name="deleted" data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">

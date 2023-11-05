@@ -80,8 +80,8 @@ def dictionary_update(request, dict_type):
     return HttpResponse()
 
 
-def dictionary_json(request, dict_type, id_no, order, search_string):
-    dict_items = dict_additional_filter(dict_type, order, id_no, search_string)
+def dictionary_json(request, dict_type, id_no, order, search_string, show_deleted):
+    dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
     formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
     json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
@@ -101,15 +101,18 @@ def format_datetime_fields(item):
     return formatted_item
 
 
-def dict_additional_filter(dict_type, order, id_no, search_string):  # костыль
+def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted):  # костыль
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
+    if show_deleted:
+        filter_items = dict_model.objects.all().order_by(*order)
+    else:
+        filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
     if search_string == 'default':
-        dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+        dict_items = filter_items
     else:
         search_string = search_string.replace('_', ' ')
-        filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
         dict_items = filter_items.filter(id=0)
         for field in dict_model._meta.get_fields():
             if field.get_internal_type() == 'CharField' or field.get_internal_type() == 'DateTimeField':

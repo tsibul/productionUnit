@@ -14,6 +14,7 @@ const dictList = {
     imm: 'IMM',
     productRequest: 'ProductionRequest',
     productReport: 'ProductionReport',
+    requestStartStop: 'ProductionRequestStartStop',
     defects: 'Defects',
     defectEvent: 'DefectEvent',
 
@@ -29,6 +30,7 @@ const dictList = {
     main_master: 'MasterBatch',
     add_master: 'MasterBatch',
     product_request: 'ProductionRequest',
+    production_request: 'ProductionRequest',
     defect_event: 'DefectEvent',
 };
 
@@ -37,6 +39,7 @@ const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');
 const deleteButtons = document.getElementsByClassName('btn_delete');
 const userGroups = document.getElementById('user-group')
+const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 
 window.onload = function () {
     const summary = document.querySelectorAll('.dict-block__header_block-space');
@@ -352,7 +355,7 @@ async function appendNewRows(rowCurrent, blockContent, searchString) {
     let newRow;
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     const dictType = typeDict(rowCurrent);
-    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}`;
+    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}/${showDeleted}`;
     const jsonData = await fetchJsonData(jsonUrl);
     const nextRecords = JSON.parse(jsonData);
     let i = 0;
@@ -406,8 +409,10 @@ async function fillNewRow(record, i, newRow) {
         } else if (rowElement.classList.contains('bool-field')) {
             rowElement.textContent = record[fieldName] ? 'Да' : 'Нет';
             rowElement.dataset.id = record[fieldName] ? '1' : '0';
-        } else if (fieldName === 'user') {
-            rowElement.textContent = await fetchJsonData(`/production/user_name/${record['user_id']}`);
+        } else if (fieldName.includes('user')) {
+            if (record[`${fieldName}_id`]) {
+                rowElement.textContent = await fetchJsonData(`/production/user_name/${record[`${fieldName}_id`]}`);
+            }
         } else {
             rowElement.textContent = record[fieldName];
         }

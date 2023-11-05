@@ -557,7 +557,7 @@
 }
 
 .production-request {
-  grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 1.7fr 0.4fr 0.8fr;
+  grid-template-columns: 0.18fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 1.7fr 0.4fr 0.8fr;
 }
 .production-request_adm {
   font-size: 14px;

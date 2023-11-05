@@ -51,7 +51,7 @@
                                      data-name="quantity" data-field="quantity"></div>
                                 <div class="dict-block__text digit" data-name="quantity_left"
                                      data-field="quantity_left"></div>
-                                <div class="dict-block__text"
+                                <div class="dict-block__text table-center"
                                      data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
                                 <div class="dict-block__text table-center"
                                      data-field="user">{{ request.user.username }}</div>
@@ -84,7 +84,7 @@
                                      data-name="quantity">{{ product_request.quantity }}</div>
                                 <div class="dict-block__text digit"
                                      data-name="quantity_left">{{ product_request.quantity_left }}</div>
-                                <div class="dict-block__text">{{ product_request.date_create|date:'d.m.y H:i' }}</div>
+                                <div class="dict-block__text table-center">{{ product_request.date_create|date:'d.m.y H:i' }}</div>
                                 <div class="dict-block__text table-center" data-name="user"
                                      data-id="{{ product_request.user.id }}">{{ product_request.user.last_name }}</div>
                                 <div class="dict-block__text bool-field table-center"

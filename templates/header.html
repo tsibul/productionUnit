@@ -43,7 +43,8 @@
                     <div class="menu__item">Производство V1.0.&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="#" class="menu__item mobile__hide">Админ</a>
+                    <a href="{% url 'production:production_admin' %}"
+                       class="menu__item {% if navi == 'admin' %}active{% endif %}">Админ</a>
                 {% endif %}
             </div>
             <nav class="menu__right">

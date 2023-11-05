@@ -299,7 +299,7 @@
 .search-block {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: "flex-end";
   gap: 10px;
 }
 .search-block__form-input {
@@ -388,6 +388,9 @@
 .dict-block_long {
   max-width: 600px;
 }
+.dict-block_adm {
+  max-width: 100%;
+}
 .dict-block:hover {
   transform: scale(1.03);
 }
@@ -440,9 +443,14 @@
   display: none;
 }
 .dict-block__content {
-  overflow-Y: scroll;
+  overflow-y: scroll;
   height: calc(100% - 130px);
   min-height: 160px;
+}
+.dict-block__content_adm {
+  height: calc(100vh - 200px);
+  overflow-y: scroll;
+  min-height: 220px;
 }
 .dict-block__text {
   width: 100%;
@@ -473,7 +481,7 @@
 .dict-block[open] .dict-block__search {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: "flex-end";
   gap: 10px;
 }
 .dict-block[open] .dict-block__header {
@@ -495,6 +503,12 @@
 .dict-block__5[open] {
   max-width: 1600px;
   grid-column: 1/6;
+}
+.dict-block_adm {
+  max-width: 100%;
+}
+.dict-block_adm[open] {
+  max-height: calc(100vh - 120px);
 }
 
 .service-dict {
@@ -539,6 +553,10 @@
 
 .production-request {
   grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 0.4fr 1fr;
+}
+.production-request_adm {
+  font-size: 14px;
+  grid-template-columns: 0.3fr repeat(2, 1fr) repeat(2, 0.6fr) repeat(2, 1fr) repeat(2, 0.4fr) 1fr repeat(2, 0.4fr) 0.6fr;
 }
 
 .production {

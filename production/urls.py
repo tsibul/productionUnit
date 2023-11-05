@@ -37,4 +37,5 @@ urlpatterns = [
     path('defects_left/<int:quality_report_id>', views.rest_defects_list, name='rest_defects_list'),
     path('quality_report_update/', views.quality_report_update, name='quality_report_update'),
 
+    path('production_admin/', views.production_admin, name='production_admin'),
 ]

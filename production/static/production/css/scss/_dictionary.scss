@@ -24,6 +24,10 @@
     max-width: 600px;
   }
 
+  &_adm {
+    max-width: 100%;
+  }
+
   &:hover {
     transform: scale(1.03);
   }
@@ -87,9 +91,14 @@
   }
 
   &__content {
-    overflow-Y: scroll;
+    overflow-y: scroll;
     height: calc(100% - 130px);
     min-height: 160px;
+    &_adm {
+      height: calc(100vh - 200px);
+      overflow-y: scroll;
+      min-height: 220px;
+    }
   }
 
   &__text {
@@ -153,6 +162,14 @@
     max-width: 1600px;
     grid-column: 1 / 6;
   }
+
+  &_adm {
+    max-width: 100%;
+    &[open]{
+      max-height: calc(100vh - 120px);
+      //overflow-y: auto;
+    }
+  }
 }
 
 .service-dict {
@@ -197,6 +214,10 @@
 
 .production-request {
   grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 0.4fr 1fr;
+  &_adm{
+    font-size: 14px;
+    grid-template-columns: 0.3fr repeat(2, 1fr) repeat(2, 0.6fr) repeat(2, 1fr) repeat(2, 0.4fr) 1fr repeat(2, 0.4fr) 0.6fr;
+  }
 }
 
 .production {

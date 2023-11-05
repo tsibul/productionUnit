@@ -1,33 +1,143 @@
 {% extends 'header.html' %}
 {% load static %}
-{% block title %}Импорт{% endblock %}
+{% block title %}Главная{% endblock %}
 {% block content %}
     <div class="full-content">
         <div class="container">
-            <form id="customer_export" method="post" action="{% url 'marketing_report:customer_export' %}">
-                {%  csrf_token %}
-                <div class="form-row__export">
-                <h4 class="active border-title">Экспорт клиентов</h4>
-                    <label for="customer_export">дата последней продажи</label>
-                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>
-                    <button type="submit" class="btn btn-save">экспорт</button>
+            <details class="dict-block dict-block__4 dict-block_adm">
+                <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                    <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки на производство
+                    </div>
+                    <div class="dict-block__search dict-block__search_open">
+                        <i class="fa fa-solid fa-magnifying-glass"></i>
+                        <input type="search" class="form-input dict-block__form-input"
+                               placeholder="искать..." >
+                        <button class="btn btn-save search_submit" type="button">поиск</button>
+                        <button class="btn btn-close search_clear" type="button">очистить</button>
+                    </div>
+                </summary>
+                <div class="dict-block__row dict-block__active production-request_adm">
+                    <div class="table-center">Id</div>
+                    <div>Деталь</div>
+                    <div>Цвет</div>
+                    <div class="digit">Кол-во</div>
+                    <div class="digit">Осталось</div>
+                    <div class="table-center">Создано</div>
+                    <div class="table-center">Создал</div>
+                    <div class="table-center">Заказ</div>
+                    <div class="table-center">Закр.</div>
+                    <div class="table-center">Дата закр.</div>
+                    <div class="table-center">Тех.</div>
+                    <div class="table-center">Удалено</div>
+                    <button class="btn btn-save btn_add">добавить</button>
                 </div>
-            </form>
-            <br>
-            <form id="goods_export" method="post" action="{% url 'marketing_report:goods_export' %}">
-                {%  csrf_token %}
-                <div class="form-row__export">
-                <h4 class="active border-title">Экспорт товаров </h4>
-                    <div>Параметры: </div>
-                    <div>имя, артикул, эко</div>
+                <div class="dict-block__content dict-block__content_adm">
+                    <div class="dict-block__row production-request_adm dict-block__row_hidden" data-id="0"
+                         id="productRequest-0" onclick="editDictionary(this);">
+                        <input class="id-hidden" name="id" value="0">
+                        <div class="dict-block__text table-center" data-field="id"></div>
+                        <div class="dict-block__text foreign-key" data-id=""
+                             data-name="detail" data-field="detail"></div>
+                        <div class="dict-block__text foreign-key" data-id=""
+                             data-name="color" data-field="color" data-filter="detail"></div>
+                        <div class="dict-block__text digit"
+                             data-name="quantity" data-field="quantity"></div>
+                        <div class="dict-block__text digit" data-name="quantity_left"
+                             data-field="quantity_left"></div>
+                        <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
+                        <div class="dict-block__text table-center"
+                             data-field="user">{{ request.user.username }}</div>
+                        <div class="dict-block__text bool-field table-center" data-id=""
+                             data-name="if_order" data-field="if_order"></div>
+                        <div class="dict-block__text bool-field table-center" data-id=""
+                             data-name="closed" data-field="closed"></div>
+                        <div class="dict-block__text table-center" data-field="date_close"></div>
+                        <div class="dict-block__text bool-field table-center" data-id=""
+                             data-name="technical" data-field="technical"></div>
+                        <div class="dict-block__text bool-field table-center" data-id=""
+                             data-name="deleted" data-field="deleted"></div>
+                        <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            удалить
+                        </button>
+                    </div>
+                    {% for item in product_request %}
+                        <div class="dict-block__row production-request_adm" data-id="{{ item.id }}" data-last=""
+                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="{{ item.id }}">
+                            <div class="dict-block__text table-center">{{ item.id }}</div>
+                            <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
+                                 data-name="detail">{{ item.detail }}</div>
+                            <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
+                                 data-name="color" data-filter="detail">{{ item.color }}</div>
+                            <div class="dict-block__text digit"
+                                 data-name="quantity">{{ item.quantity }}</div>
+                            <div class="dict-block__text digit"
+                                 data-name="quantity_left">{{ item.quantity_left }}</div>
+                            <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
+                            <div class="dict-block__text table-center"
+                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
+                                {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="closed" data-id="{% if item.closed %}1{% else %}0{% endif %}">
+                                {% if item.closed %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
+                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="deleted" data-id="{% if item.deleted %}1{% else %}0{% endif %}">
+                                {% if item.deleted %}Да{% else %}Нет{% endif %}</div>
+                            <button class="btn btn-close btn_delete" type="button"
+                                    onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
+                    {% endfor %}
+                    {% for item in product_request_end %}
+                        <div class="dict-block__row production-request_adm" data-id="{{ item.id }}" data-last="12"
+                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="{{ item.id }}">
+                            <div class="dict-block__text table-center">{{ item.id }}</div>
+                            <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
+                                 data-name="detail">{{ item.detail }}</div>
+                            <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
+                                 data-name="color" data-filter="detail">{{ item.color }}</div>
+                            <div class="dict-block__text digit"
+                                 data-name="quantity">{{ item.quantity }}</div>
+                            <div class="dict-block__text digit"
+                                 data-name="quantity_left">{{ item.quantity_left }}</div>
+                            <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
+                            <div class="dict-block__text table-center foreign-key" data-name="user"
+                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
+                                {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="closed" data-id="{% if item.closed %}1{% else %}0{% endif %}">
+                                {% if item.closed %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
+                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
+                            <div class="dict-block__text bool-field table-center"
+                                 data-name="deleted" data-id="{% if item.deleted %}1{% else %}0{% endif %}">
+                                {% if item.deleted %}Да{% else %}Нет{% endif %}</div>
+                            <button class="btn btn-close btn_delete" type="button"
+                                    onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </details><!-- заявки на производство -->
 
-                    <button type="submit" class="btn btn-save">экспорт</button>
-                </div>
-            </form>
         </div>
-
     </div>
+{#    <div id="technical-data" hidden>#}
+{#    </div>#}
 
+    <script src="{% static 'production/js/dictionary.js' %}"></script>
 
-    <script src="{% static 'marketing_report/js/admin.js' %}"></script>
 {% endblock %}

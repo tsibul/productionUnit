@@ -19,6 +19,7 @@ class TotalRequest:
     if_order: str
     first_date: str
     imm_id: int
+    comment: str
 
     def __init__(self, detail_color):
         detail = DetailInGoods.objects.get(id=detail_color[0])
@@ -44,6 +45,7 @@ class TotalRequest:
         checked = 0
         approved = 0
         left = 0
+        comment = " ".join(requests.values_list('comment', flat=True))
         for production_request in requests:
             production_for_request = ProductionForRequest.objects.filter(production_request=production_request)
             quantity_produced = production_for_request.aggregate(quantity_produced=Sum('quantity'))['quantity_produced']
@@ -71,6 +73,7 @@ class TotalRequest:
         self.if_order = 'да' if requests_initial['total_if_order'] else 'нет'
         self.first_date = requests_initial['min_date'].strftime('%Y-%m-%d')
         self.left = left
+        self.comment = comment
 
     def __repr__(self):
         return f"{self.detail} {self.color} {self.quantity}"

@@ -213,7 +213,7 @@
 }
 
 .production-request {
-  grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(3, 1fr) 0.4fr 1fr;
+  grid-template-columns: 0.15fr repeat(3, 1fr) repeat(3, 0.5fr) repeat(2, 1fr) 1.5fr 0.4fr 1fr;
   &_adm{
     font-size: 14px;
     grid-template-columns: 0.3fr repeat(2, 1fr) repeat(2, 0.6fr) repeat(2, 1fr) repeat(2, 0.4fr) 1fr 1fr repeat(2, 0.4fr) 0.6fr;
@@ -221,11 +221,11 @@
 }
 
 .production {
-  grid-template-columns: 0.2fr 1fr 1fr repeat(6, 0.6fr) 2fr 1fr;
+  grid-template-columns: 0.2fr 0.8fr 0.8fr repeat(6, 0.6fr) 1.5fr 1fr 0.6fr;
 }
 
 .in-production {
-  grid-template-columns: 0.4fr 2fr repeat(9, 1fr);
+  grid-template-columns: 0.4fr 2fr repeat(7, 1fr) repeat(2, 0.8fr);
 }
 
 .production-list {

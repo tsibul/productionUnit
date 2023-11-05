@@ -38,6 +38,7 @@ class QualityForRequest(models.Model):
     production_request = models.ForeignKey(ProductionRequest, models.SET_NULL, null=True)
     quantity_checked = models.IntegerField(default=0)
     quantity_approved = models.IntegerField(default=0)
+    deleted = models.BooleanField(default=False)
 
     @staticmethod
     def order_default():

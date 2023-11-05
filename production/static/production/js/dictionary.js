@@ -13,6 +13,7 @@ const dictList = {
     goods: 'Goods',
     imm: 'IMM',
     productRequest: 'ProductionRequest',
+    productReport: 'ProductionReport',
     defects: 'Defects',
     defectEvent: 'DefectEvent',
 

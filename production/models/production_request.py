@@ -28,10 +28,10 @@ class ProductionRequest(models.Model):
         super().save(*args, **kwargs)
 
     def __repr__(self):
-        return f"{self.detail} {self.color} кол-во {self.quantity} осталось {self.quantity_left}"
+        return f"{self.detail} {self.color} кол-во {self.quantity}"
 
     def __str__(self):
-        return f"{self.detail} {self.color} кол-во {self.quantity} осталось {self.quantity_left}"
+        return f"{self.detail} {self.color} кол-во {self.quantity}"
 
     @staticmethod
     def order_default():

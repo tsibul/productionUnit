@@ -428,6 +428,9 @@ async function fillNewRow(record, i, newRow) {
             }
         } else {
             rowElement.textContent = record[fieldName];
+            if (rowElement.dataset.field === 'date_close' && record[fieldName]) {
+                newRow.classList.add('fulfilled');
+            }
         }
     }
 }

@@ -230,8 +230,13 @@
   width: 28px;
 }
 
-.font-normal{
+.font-normal {
   font-size: 16px;
+}
+
+.fulfilled {
+  opacity: 0.6;
+  background-color: $colorNeutral100;
 }
 
 @media (max-width: 767px) {
@@ -242,7 +247,7 @@
     padding: 8px 2px;
     font-size: 14px;
   }
-  .hex{
+  .hex {
     width: 21px;
     height: 21px;
   }

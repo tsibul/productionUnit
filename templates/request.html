@@ -6,7 +6,8 @@
         <div class="container">
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
                 <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                    <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки на производство
+                    <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки на
+                        производство
                     </div>
                     <div class="dict-block__search dict-block__search_open">
                         <i class="fa fa-solid fa-magnifying-glass"></i>
@@ -58,10 +59,12 @@
                         </button>
                     </div>
                     {% for item in product_request %}
-                        <div class="dict-block__row production-request" data-id="{{ item.id }}" data-last=""
+                        <div class="dict-block__row production-request {% if item.date_close %}fulfilled{% endif %}"
+                             data-id="{{ item.id }}" data-last=""
                              id="productRequest-{{ item.id }}" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
-                            <div class="dict-block__text hex" style="background-color: {{ item.color.color_code }};"></div>
+                            <div class="dict-block__text hex"
+                                 style="background-color: {{ item.color.color_code }};"></div>
                             <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>
@@ -74,7 +77,8 @@
                                  data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
                                 {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center" data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
+                            <div class="dict-block__text table-center"
+                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
                             <div class="dict-block__text table-center"
                                  data-name="comment">{{ item.comment }}</div>
                             <div class="dict-block__text bool-field table-center"
@@ -87,10 +91,12 @@
                         </div>
                     {% endfor %}
                     {% for item in product_request_end %}
-                        <div class="dict-block__row production-request data-last" data-id="{{ item.id }}"
+                        <div class="dict-block__row production-request data-last {% if item.date_close %}fulfilled{% endif %}"
+                             data-id="{{ item.id }}"
                              id="productRequest-{{ item.id }}" onclick="editDictionary(this);" data-last="12">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
-                            <div class="dict-block__text hex" style="background-color: {{ item.color.color_code }};"></div>
+                            <div class="dict-block__text hex"
+                                 style="background-color: {{ item.color.color_code }};"></div>
                             <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
                             <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
                                  data-name="detail">{{ item.detail }}</div>
@@ -103,7 +109,8 @@
                                  data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
                                 {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
                             <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center" data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
+                            <div class="dict-block__text table-center"
+                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
                             <div class="dict-block__text table-center"
                                  data-name="comment">{{ item.comment }}</div>
                             <div class="dict-block__text bool-field table-center"
@@ -120,8 +127,8 @@
 
         </div>
     </div>
-{#    <div id="technical-data" hidden>#}
-{#    </div>#}
+    {#    <div id="technical-data" hidden>#}
+    {#    </div>#}
 
     <script src="{% static 'production/js/dictionary.js' %}"></script>
 

@@ -40,7 +40,7 @@
                     <a href="{% url 'production:dictionary' %}"
                        class="menu__item mobile__hide {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                 {% else %}
-                    <div class="menu__item">Производство V1.1.5&nbsp;<strong>Авторизуйтесь</strong></div>
+                    <div class="menu__item">Производство V1.1.6&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if request.user.is_superuser %}
                     <a href="{% url 'production:production_admin' %}"
@@ -60,7 +60,7 @@
                     <div class="menu__item" hidden> выход</div>
                     {#                    <div type="button" class="menu-button" id="login-button"> вход</div>#}
                 {% endif %}
-            <div class="menu__item">ver 1.1.5</div>
+            <div class="menu__item">ver 1.1.6</div>
             </nav>
         </menu>
     </div>

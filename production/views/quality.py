@@ -8,15 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects
 from production.classes import QualityCheck
-from production.views import defects_create
+from production.service_function import defects_create, user_group_list
 
 
 def quality_report(request):
     navi = 'quality'
-    try:
-        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
-    except:
-        user_groups = ''
+    user_groups = user_group_list(request)
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
     now = timezone.now().date()

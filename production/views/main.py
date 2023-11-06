@@ -8,6 +8,7 @@ from django.utils import timezone
 from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
     ProductionRequestStartStop, ProductionReport
 from production.classes import TotalRequest
+from production.service_function import user_group_list
 
 
 def index(request):
@@ -15,10 +16,7 @@ def index(request):
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
-    try:
-        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
-    except:
-        user_groups = ''
+    user_groups = user_group_list(request)
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups}
     return render(request, 'index.html', context)
 

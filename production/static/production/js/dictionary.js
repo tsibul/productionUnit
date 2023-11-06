@@ -217,14 +217,19 @@ function editDictionary(obj) {
             let childInputNode;
             childInputNode = document.createElement('input'); // block for input
             childInputNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
-            childInputNode.type = 'text';
             if (node.dataset.name != null) {
                 childInputNode.name = node.dataset.name;
             } else {
                 childInputNode.readOnly = true;
                 childInputNode.classList.add('form-input__inactive');
             }
-            childInputNode.setAttribute('value', node.textContent);
+            if (node.classList.contains('date-field')) {
+                childInputNode.type = 'datetime-local';
+                childInputNode.value = stringToDateTime(node.textContent);
+            } else {
+                childInputNode.type = 'text';
+                childInputNode.setAttribute('value', node.textContent);
+            }
             newNode.appendChild(childInputNode)
             changes += 1;
         }

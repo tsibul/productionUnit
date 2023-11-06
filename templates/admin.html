@@ -59,7 +59,8 @@
                                      data-name="if_order" data-field="if_order"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="closed" data-field="closed"></div>
-                                <div class="dict-block__text table-center" data-field="date_close"></div>
+                                <div class="dict-block__text table-center date-field" data-field="date_close"
+                                     data-name="date_close"></div>
                                 <div class="dict-block__text table-center" data-name="comment"
                                      data-field="comment"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
@@ -95,7 +96,8 @@
                                      data-name="closed"
                                      data-id="{% if product_request.closed %}1{% else %}0{% endif %}">
                                     {% if product_request.closed %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text table-center">{{ product_request.date_close|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center date-field"
+                                     data-name="date_close">{{ product_request.date_close|date:'d.m.y H:i' }}</div>
                                 <div class="dict-block__text table-center"
                                      data-name="comment">{{ product_request.comment }}</div>
                                 <div class="dict-block__text bool-field table-center"
@@ -150,7 +152,7 @@
                                      data-field="user_start">{{ request.user.username }}</div>
                                 <div class="dict-block__text foreign-key table-center" data-id=""
                                      data-name="imm" data-field="imm"></div>
-                                <div class="dict-block__text table-center"
+                                <div class="dict-block__text table-center date-field" data-name="date_stop"
                                      data-field="date_stop">{{ date_now|date:"d.m.y H:i" }}</div>
                                 <div class="dict-block__text table-center"
                                      data-field="user_stop"></div>
@@ -177,7 +179,8 @@
                                 <div class="dict-block__text foreign-key table-center"
                                      data-id="{{ request_start_stop.imm.id }}"
                                      data-name="imm">{{ request_start_stop.imm }}</div>
-                                <div class="dict-block__text table-center">{{ request_start_stop.date_stop|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center date-field"
+                                     data-name="date_stop">{{ request_start_stop.date_stop|date:'d.m.y H:i' }}</div>
                                 <div class="dict-block__text table-center"
                                      data-id="{{ request_start_stop.user_stop.id }}">{{ request_start_stop.user_stop.last_name }}</div>
                                 <div class="dict-block__text table-center"
@@ -271,7 +274,7 @@
                                 <div class="dict-block__text bool-field table-center"
                                      data-name="closed" data-id="{% if product_report.closed %}1{% else %}0{% endif %}">
                                     {% if product_report.closed %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.Y H:i' }}</div>
+                                <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.y H:i' }}</div>
                                 <div class="dict-block__text table-center" data-name="user_close"
                                      data-id="{{ product_report.user_close.id }}">{{ product_report.user_close.last_name }}</div>
                                 <div class="dict-block__text bool-field table-center"

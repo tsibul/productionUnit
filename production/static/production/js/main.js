@@ -136,3 +136,15 @@ function fillLines(ulContent, dictionaryList) {
         ulContent.appendChild(newLine);
     });
 }
+
+function stringToDateTime(dateString) {
+    const parts = dateString.split(" ");
+    const dateParts = parts[0].split(".");
+    const time = parts[1];
+    // const year = parseInt("20" + dateParts[2], 10); // Преобразование года в четырёхзначный формат
+    // return  new Date(year, dateParts[1] - 1, dateParts[0], timeParts[0], timeParts[1]);
+    const year = '20' + dateParts[2]; // Преобразовать двузначный год в четырёхзначный
+    const month = dateParts[1];
+    const day = dateParts[0];
+    return `${year}-${month}-${day}T${time}`;
+}

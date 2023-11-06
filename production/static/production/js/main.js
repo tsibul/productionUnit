@@ -82,11 +82,11 @@ function filterList(input) {
 
 async function selectFromList(obj) {
     const parentDropdown = obj.closest('.dropdown');
-    const parentForm = parentDropdown.closest('.form-row');
+    const parentForm = parentDropdown.closest('form');
     const inputName = parentDropdown.querySelector('.dropdown__hidden').name;
     const dataFilter = parentForm.querySelector(`[data-filter="${inputName}"]`);
-    parentDropdown.querySelector('.dropdown__input').value = obj.textContent;
-    parentDropdown.querySelector('.dropdown__input').dataset.value = obj.textContent;
+    parentDropdown.querySelector('.dropdown__input').value = obj.textContent.trim().replace(/\s+/g, ' ');
+    parentDropdown.querySelector('.dropdown__input').dataset.value = obj.textContent.trim().replace(/\s+/g, ' ');
     parentDropdown.querySelector('.dropdown__hidden').value = obj.dataset.value;
     obj.parentElement.classList.remove('visible');
     if (dataFilter) {

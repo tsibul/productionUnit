@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
                                MaterialType, MasterBatch, Country, Producer, Recipe, IMM, Defects, DefectEvent)
+from production.service_function import user_group_list
 
 
 def dictionary(request):
@@ -36,10 +37,7 @@ def dictionary(request):
     recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
-    try:
-        user_groups = str(request.user.groups.values_list('name')[0]).replace('(', '').replace(')', '')
-    except:
-        user_groups = ''
+    user_groups = user_group_list(request)
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
@@ -49,7 +47,6 @@ def dictionary(request):
                'add_material_end': add_material_end, 'imm': imm,
                'recipe': recipe, 'recipe_end': recipe_end, 'user_groups': user_groups, 'defects': defects,
                'defect_event': defect_event}
-
     return render(request, 'dictionary.html', context)
 
 

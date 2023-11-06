@@ -19,10 +19,16 @@ class ProductionReport(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.detail} {self.color} {self.user.username} {self.date} {self.quantity}"
+        date = ''
+        if self.date:
+            date = self.date.strftime('%d.%m.%y %H:%M')
+        return f"{self.detail} {self.color} {self.user.username} {date} {self.quantity}"
 
     def __str__(self):
-        return f"{self.detail} {self.color} {self.user.username} {self.date} {self.quantity}"
+        date = ''
+        if self.date:
+            date = self.date.strftime('%d.%m.%y %H:%M')
+        return f"{self.detail} {self.color} {self.user.username} {date} {self.quantity}"
 
     @staticmethod
     def order_default():

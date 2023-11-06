@@ -117,12 +117,17 @@ def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
                 dict_items = dict_items | filter_items.filter(**{field_name: search_string})
             elif field.get_internal_type() == 'ForeignKey':
                 foreign_model = field.related_model
-                for key in foreign_model._meta.get_fields():
-                    if key.get_internal_type() == 'CharField':
-                        field_name = field.name + '__' + key.name + '__icontains'
-                        dict_items = dict_items | filter_items.filter(**{field_name: search_string})
+                foreign_model_objects = foreign_model.objects.all()
+                filtered_foreign = filter(lambda obj: compare_objects(obj, search_string), foreign_model_objects)
+                field_name = field.name + '__in'
+                dict_items = dict_items | filter_items.filter(**{field_name: filtered_foreign})
+                print()
     dict_items = dict_items.distinct()[id_no: id_no + 20]
     return dict_items
+
+
+def compare_objects(obj, search_string):
+    return search_string in str(obj)
 
 
 def dictionary_delete(request, dict_type, id_no):

@@ -11,7 +11,7 @@
                     <div class="dict-block__search dict-block__search_open">
                         <i class="fa fa-solid fa-magnifying-glass"></i>
                         <input type="search" class="form-input dict-block__form-input"
-                               placeholder="искать...">
+                               placeholder="искать..." disabled>
                         <button class="btn btn-save search_submit" type="button">поиск</button>
                         <button class="btn btn-close search_clear" type="button">очистить</button>
                     </div>
@@ -61,7 +61,7 @@
     <!-- Модальное окно для приемки -->
     <div id="qualityModal" class="login">
         <div class="modal__content">
-            <form method="post" id="production-form" action="{%  url 'production:production_acceptance' %}">
+            <form method="post" id="production-form" action="{% url 'production:production_acceptance' %}">
                 {% csrf_token %}
                 <div class="login__header">
                     <p class="active">Приемка продукции</p>
@@ -106,9 +106,10 @@
                         </div>
                     {% endfor %}
                 </div>
-            <div class="modal__row">
-                <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий" required></textarea>
-            </div>
+                <div class="modal__row">
+                    <textarea id="comment" name="comment" class="modal__textarea" placeholder="Комментарий"
+                              required></textarea>
+                </div>
                 <div class="modal__row">
                     <div class="active">решение</div>
                     <div class="dropdown report_dropdown dropdown_dict">

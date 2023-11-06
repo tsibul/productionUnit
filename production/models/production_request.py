@@ -49,10 +49,10 @@ class ProductionRequestStartStop(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.production_request} начато {self.date_start} остановлено {self.date_stop}"
+        return f"{self.production_request} начато {self.date_start.strftime('%d.%m.%y %H:%M')} "
 
     def __str__(self):
-        return f"{self.production_request} начато {self.date_start} остановлено {self.date_stop}"
+        return f"{self.production_request} начато {self.date_start.strftime('%d.%m.%y %H:%M')} "
 
     @staticmethod
     def order_default():

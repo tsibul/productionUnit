@@ -1,8 +1,6 @@
 import json
-from datetime import datetime
 
 from django.contrib.auth.models import User
-from django.db import models as models_rec
 
 from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
@@ -12,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
                                MaterialType, MasterBatch, Country, Producer, Recipe, IMM, Defects, DefectEvent)
-from production.service_function import user_group_list
+from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter
 
 
 def dictionary(request):
@@ -84,52 +82,6 @@ def dictionary_json(request, dict_type, id_no, order, search_string, show_delete
     return JsonResponse(json_dict, safe=False)
 
 
-def format_datetime_fields(item):
-    try:
-        item['hex'] = Color.objects.get(id=item['color_id']).color_code
-    except:
-        pass
-    formatted_item = {}
-    for field_name, field_value in item.items():
-        if isinstance(field_value, datetime):
-            formatted_item[field_name] = field_value.strftime('%d.%m.%y %H:%M')
-        else:
-            formatted_item[field_name] = field_value
-    return formatted_item
-
-
-def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted):  # костыль
-    dict_model = getattr(models, dict_type)
-    if order == 'default':
-        order = dict_model.order_default()
-    if show_deleted:
-        filter_items = dict_model.objects.all().order_by(*order)
-    else:
-        filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
-    if search_string == 'default':
-        dict_items = filter_items
-    else:
-        search_string = search_string.replace('_', ' ')
-        dict_items = filter_items.filter(id=0)
-        for field in dict_model._meta.get_fields():
-            if field.get_internal_type() == 'CharField' or field.get_internal_type() == 'DateTimeField':
-                field_name = field.name + '__icontains'
-                dict_items = dict_items | filter_items.filter(**{field_name: search_string})
-            elif field.get_internal_type() == 'ForeignKey':
-                foreign_model = field.related_model
-                foreign_model_objects = foreign_model.objects.all()
-                filtered_foreign = filter(lambda obj: compare_objects(obj, search_string), foreign_model_objects)
-                field_name = field.name + '__in'
-                dict_items = dict_items | filter_items.filter(**{field_name: filtered_foreign})
-                print()
-    dict_items = dict_items.distinct()[id_no: id_no + 20]
-    return dict_items
-
-
-def compare_objects(obj, search_string):
-    return search_string in str(obj)
-
-
 def dictionary_delete(request, dict_type, id_no):
     dict_model = getattr(models, dict_type)
     dict_element = dict_model.objects.get(id=id_no)
@@ -170,72 +122,3 @@ def dictionary_json_filter(request, dict_type, filter_dictionary, filter_diction
     formatted_dict_items = [{item.id: str(item)} for item in filter_item]
     json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
-
-
-def linking_filter(model1, model2, model2_id):
-    linking = find_linking_model(model1, model2)
-    linking1 = cut_linking_pass(linking[0])
-    linking2 = cut_linking_pass(linking[1])
-    item2 = linking2[0][0].objects.get(id=model2_id)
-    for i in range(len(linking2) - 1):
-        item2 = getattr(item2, linking2[i + 1][1])
-    item1 = [item2]
-    for i in range(len(linking1) - 2, -1, -1):
-        param_name = linking1[i + 1][1]
-        kwargs = {f'{param_name}__in': item1}
-        item1 = list(linking1[i][0].objects.filter(**kwargs).filter(deleted=False))
-    return item1
-
-
-def find_linking_model(model1, model2, field_name1=None, field_name2=None, visited1=None, visited2=None, path1=None,
-                       path2=None):
-    if visited1 is None:
-        visited1 = set()
-    if visited2 is None:
-        visited2 = set()
-    if path1 is None:
-        path1 = []
-    if path2 is None:
-        path2 = []
-
-    visited1.add((model1, field_name1))
-    path1.append((model1, field_name1))
-
-    visited2.add((model2, field_name2))
-    path2.append((model2, field_name2))
-
-    if (model1, field_name1) == (model2, field_name2):
-        return path1, path2
-
-    fields1 = model1._meta.get_fields()
-    fields2 = model2._meta.get_fields()
-
-    for field1 in fields1:
-        if isinstance(field1, models_rec.ForeignKey):
-            related_model = field1.related_model
-            if related_model not in visited1:
-                linking_path1, linking_path2 = find_linking_model(related_model, model2, field1.name, field_name2,
-                                                                  visited1, visited2, path1, path2)
-                if linking_path1:
-                    return linking_path1, linking_path2
-
-    for field2 in fields2:
-        if isinstance(field2, models_rec.ForeignKey):
-            related_model = field2.related_model
-            if related_model not in visited2:
-                linking_path1, linking_path2 = find_linking_model(model1, related_model, field_name1, field2.name,
-                                                                  visited1, visited2, path1, path2)
-                if linking_path2:
-                    return linking_path1, linking_path2
-
-    visited1.remove((model1, field_name1))
-    visited2.remove((model2, field_name2))
-    return None
-
-
-def cut_linking_pass(linking_path):
-    result_path = []
-    for elem in linking_path:
-        if elem not in result_path:
-            result_path.append(elem)
-    return result_path

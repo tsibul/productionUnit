@@ -56,4 +56,4 @@ class ProductionRequestStartStop(models.Model):
 
     @staticmethod
     def order_default():
-        return ['-production_request__date_create', '-date_start']
+        return ['-date_start', '-production_request__date_create']

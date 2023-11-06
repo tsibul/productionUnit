@@ -11,8 +11,8 @@ def production_admin(request):
     navi = 'admin'
     product_request = ProductionRequest.objects.all().order_by('-date_create', 'detail__goods__name').first()
     product_report = ProductionReport.objects.all().order_by('-date', 'detail__goods__name').first()
-    request_start_stop = ProductionRequestStartStop.objects.all().order_by('-production_request__date_create',
-                                                                           '-date_start').first()
+    request_start_stop = ProductionRequestStartStop.objects.all().order_by('-date_start',
+                                                                           '-production_request__date_create').first()
     production_for_request = ProductionForRequest.objects.all().order_by('-production_request__date_create').first()
     quality_for_request = QualityForRequest.objects.all().order_by('-quality_report__date_check').first()
     quality_report = QualityReport.objects.all().order_by('-date_check', '-production__date').first()

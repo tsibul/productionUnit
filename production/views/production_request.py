@@ -1,6 +1,5 @@
-import datetime
-
 from django.shortcuts import render
+from django.utils import timezone
 
 from production.models import ProductionRequest, DetailInGoods, Color
 from production.service_function import user_group_list
@@ -16,5 +15,5 @@ def production_request(request):
     detail = DetailInGoods.objects.filter(deleted=False).order_by('goods', 'position')
     user_groups = user_group_list(request)
     context = {'navi': navi, 'product_request': product_request, 'product_request_end': product_request_end,
-               'color': color, 'detail': detail, 'date_now': datetime.datetime.now(), 'user_groups': user_groups}
+               'color': color, 'detail': detail, 'date_now': timezone.now(), 'user_groups': user_groups}
     return render(request, 'request.html', context)

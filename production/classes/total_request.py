@@ -30,11 +30,10 @@ class TotalRequest:
         self.detail_id = detail.id
         self.color_id = color.id
         requests = ProductionRequest.objects.filter(deleted=False, detail=detail, color=color, closed=False)
-        try:
+        self.imm_id = 0
+        if ProductionRequestStartStop.objects.filter(production_request__in=requests, date_stop=None):
             start_stop = ProductionRequestStartStop.objects.get(production_request__in=requests, date_stop=None)
             self.imm_id = start_stop.imm.id
-        except:
-            self.imm_id = 0
 
         requests_initial = requests.aggregate(
             total_if_order=Sum('if_order'),

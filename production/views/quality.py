@@ -2,7 +2,7 @@ import json
 
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 
@@ -16,7 +16,7 @@ def quality_report(request):
     user_groups = user_group_list(request)
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
-    now = timezone.now().date()
+    now = timezone.now().date() + timedelta(days=1)
     first_day_of_current_month = datetime(now.year, now.month, 1)
     if first_day_of_current_month.month == 1:
         start_date = datetime(now.year - 1, 12, 1)

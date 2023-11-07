@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.utils import timezone
 
 from production.models import ProductionReport, ProductionRequest, QualityForRequest, QualityReport

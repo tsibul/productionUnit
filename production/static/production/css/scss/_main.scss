@@ -237,6 +237,7 @@
 .fulfilled {
   opacity: 0.6;
   background-color: $colorNeutral100;
+  pointer-events: none;
 }
 
 @media (max-width: 767px) {

@@ -51,14 +51,12 @@
                 {% if request.user.is_authenticated %}
                     <div class="menu__item active" id="logout-button">{{ request.user.first_name }}&nbsp;{{ request.user.last_name }}<i
                             class="fa fa-solid fa-arrow-right-from-bracket"></i></div>
-                    {#                    <div class="menu-item" id="logout-button"> выход</div>#}
                     <div class="menu__item" id="login-button" hidden> вход</div>
                 {% else %}
                     <div class="menu__item active" id="login-button"><i
                             class="fa fa-solid fa-arrow-right-to-bracket"></i>&nbsp;вход
                     </div>
                     <div class="menu__item" hidden> выход</div>
-                    {#                    <div type="button" class="menu-button" id="login-button"> вход</div>#}
                 {% endif %}
             <div class="menu__item">ver 1.1.9</div>
             </nav>

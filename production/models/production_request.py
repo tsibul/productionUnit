@@ -23,6 +23,8 @@ class ProductionRequest(models.Model):
     def save(self, *args, **kwargs):
         if self.quantity_left is None:
             self.quantity_left = self.quantity
+        elif self.quantity_left > self.quantity:
+            return
         if self.date_create is None:
             self.date_create = timezone.now()
         super().save(*args, **kwargs)

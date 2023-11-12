@@ -324,6 +324,7 @@ function createButtonBlock() {
 function saveDictionaryRecord(obj) {
     event.preventDefault();
     const updateForm = obj.closest('.form-row');
+    // if(obj.closest('.dict-block__row').classList.contains('fulfilled')) {return};
     const dictionaryType = updateForm.parentElement.id.split('-')[0];
     const fetchPath = '/production/dict_update/' + dictList[dictionaryType];
     const formData = new FormData(updateForm);

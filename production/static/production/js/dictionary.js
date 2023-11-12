@@ -498,7 +498,7 @@ addEventListener('mousedown', (event) => {
 searchButtons.forEach((btn) => {
     btn.addEventListener('mousedown', async (search) => {
         const dictBlock = search.target.closest('.dict-block');
-        const searchString = dictBlock.querySelector('.dict-block__form-input').value;
+        const searchString = dictBlock.querySelector('.form-input').value;
         let searchValue;
         if (searchString === '') {
             searchValue = 'default';

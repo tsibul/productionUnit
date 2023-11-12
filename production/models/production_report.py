@@ -22,13 +22,13 @@ class ProductionReport(models.Model):
         date = ''
         if self.date:
             date = self.date.strftime('%d.%m.%y %H:%M')
-        return f"{self.detail} {self.color} {self.user.username} {date} {self.quantity}"
+        return f"{self.detail} {self.color} {self.user.last_name} {date} {self.quantity}"
 
     def __str__(self):
         date = ''
         if self.date:
             date = self.date.strftime('%d.%m.%y %H:%M')
-        return f"{self.detail} {self.color} {self.user.username} {date} {self.quantity}"
+        return f"{self.detail} {self.color} {self.user.last_name} {date} {self.quantity}"
 
     @staticmethod
     def order_default():

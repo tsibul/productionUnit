@@ -21,10 +21,36 @@ class ProductionRequest(models.Model):
     deleted = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        current_request = ProductionRequest.objects.get(pk=self.pk) if self.pk else None
+        if current_request:
+            quantity_reduce = current_request.quantity - int(self.quantity)
+            if quantity_reduce >= current_request.quantity_left:
+                self.quantity = current_request.quantity - current_request.quantity_left
+                self.quantity_left = 0
+                self.closed = True
+                self.date_close = timezone.now()
+                request_start_stop = ProductionRequestStartStop.objects.filter(production_request_id=self.pk,
+                                                                               date_stop=None, deleted=False).first()
+                if request_start_stop:
+                    if current_request.detail != self.detail or current_request.color != self.color:
+                        return
+                    request_start_stop.date_stop = timezone.now()
+                    request_start_stop.user_stop = self.user
+                    request_start_stop.stop_reason = 'уменьшено количество в заказе'
+                    request_start_stop.save()
+                    next_production_request = ProductionRequest.objects.filter(detail=self.detail, color=self.color,
+                                                                               closed=False, deleted=False).order_by(
+                        '-date_create').exclude(id=self.id).first()
+                    if next_production_request:
+                        next_production_start = ProductionRequestStartStop(production_request=next_production_request,
+                                                                           date_start=timezone.now(),
+                                                                           user_start=self.user,
+                                                                           imm=request_start_stop.imm)
+                        next_production_start.save()
+            else:
+                self.quantity_left = int(self.quantity_left) - quantity_reduce
         if self.quantity_left is None:
             self.quantity_left = self.quantity
-        elif self.quantity_left > self.quantity:
-            return
         if self.date_create is None:
             self.date_create = timezone.now()
         super().save(*args, **kwargs)

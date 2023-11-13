@@ -9,6 +9,7 @@ const startModal = document.getElementById('startModal');
 const stopModal = document.getElementById('stopModal');
 const stopButtons = sectionInProduction.querySelectorAll('.btn-close');
 const productionModal = document.getElementById('productionModal');
+const modalSaveButton = productionModal.querySelector('.btn-save');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 
 const detailsOnImm = fillImmRows();
@@ -107,3 +108,8 @@ function fillProductionModal(btn) {
     productionModal.querySelector('[name="detail"]').value = row.dataset.detail;
     productionModal.querySelector('[name="color"]').value = row.dataset.color;
 }
+
+modalSaveButton.addEventListener('submit', () =>{
+    modalSaveButton.classList.add('form-input__inactive');
+    modalSaveButton.disabled = true;
+})

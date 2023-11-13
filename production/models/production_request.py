@@ -27,8 +27,6 @@ class ProductionRequest(models.Model):
             if quantity_reduce >= current_request.quantity_left:
                 self.quantity = current_request.quantity - current_request.quantity_left
                 self.quantity_left = 0
-                self.closed = True
-                self.date_close = timezone.now()
                 request_start_stop = ProductionRequestStartStop.objects.filter(production_request_id=self.pk,
                                                                                date_stop=None, deleted=False).first()
                 if request_start_stop:
@@ -40,7 +38,7 @@ class ProductionRequest(models.Model):
                     request_start_stop.save()
                     next_production_request = ProductionRequest.objects.filter(detail=self.detail, color=self.color,
                                                                                closed=False, deleted=False).order_by(
-                        '-date_create').exclude(id=self.id).first()
+                        'date_create').exclude(id=self.id).first()
                     if next_production_request:
                         next_production_start = ProductionRequestStartStop(production_request=next_production_request,
                                                                            date_start=timezone.now(),

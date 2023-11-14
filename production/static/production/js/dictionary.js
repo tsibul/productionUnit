@@ -46,7 +46,6 @@ const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');
 const deleteButtons = document.getElementsByClassName('btn_delete');
-const userGroups = document.getElementById('user-group')
 const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 
 window.onload = function () {

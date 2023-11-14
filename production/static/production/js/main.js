@@ -33,6 +33,7 @@ const dropdownCode = `
                 </ul>
             </div>
 `;
+const userGroups = document.getElementById('user-group')
 
 
 document.addEventListener('click', element => {

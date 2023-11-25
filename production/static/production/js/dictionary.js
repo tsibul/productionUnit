@@ -178,7 +178,9 @@ function typeDict(row) {
 }
 
 function editDictionary(obj) {
-    if(obj.classList.contains('fulfilled')) {return}
+    if (obj.classList.contains('fulfilled')) {
+        return
+    }
     const nodeElements = obj.childNodes;
     const objClasses = obj.classList;
     const newNode = document.createElement('form'); // block for new row
@@ -490,9 +492,20 @@ addEventListener('mousedown', (event) => {
         const row = event.target.closest('.dict-block__row');
         const idNo = row.dataset.id;
         const dictType = typeDict(row);
-        row.remove();
         const url = `/production/dict_delete/${dictType}/${idNo}`;
-        await fetch(url);
+        //Костыль для запросов
+        if (row.classList.contains('production-request')) {
+            const quantity = row.querySelector(`[data-name = "quantity"]`);
+            const quantityLeft = quantity.nextElementSibling;
+            if (quantity.textContent === quantityLeft.textContent) {
+                row.remove();
+                await fetch(url);
+            }
+        } // Конец костыля
+        else {
+            row.remove();
+            await fetch(url);
+        }
     });
 });
 // Search

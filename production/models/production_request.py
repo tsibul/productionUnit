@@ -51,6 +51,9 @@ class ProductionRequest(models.Model):
             self.quantity_left = self.quantity
         if self.date_create is None:
             self.date_create = timezone.now()
+        request_produced = ProductionRequestStartStop.objects.filter(production_request_id=self.pk, deleted=False).first()
+        if request_produced and self.deleted:
+            return
         super().save(*args, **kwargs)
 
     def __repr__(self):

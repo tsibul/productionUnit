@@ -30,6 +30,7 @@
                     <div class="table-center">Создал</div>
                     <div class="table-center">Комментарий</div>
                     <div class="table-center">Тех.</div>
+                    <div></div>
                     <button class="btn btn-save btn_add">добавить</button>
                 </div>
                 <div class="dict-block__content">
@@ -47,14 +48,19 @@
                         <div class="dict-block__text digit"
                              data-field="quantity_left"></div>
                         <div class="dict-block__text bool-field table-center" data-id="0"
-                             data-name="if_order" data-field="if_order">Нет</div>
+                             data-name="if_order" data-field="if_order">Нет
+                        </div>
                         <div class="dict-block__text table-center" data-field="date_close"></div>
                         <div class="dict-block__text table-center"
                              data-field="user">{{ request.user.last_name }}</div>
                         <div class="dict-block__text table-center" data-name="comment"
                              data-field="comment"></div>
                         <div class="dict-block__text bool-field table-center" data-id="0"
-                             data-name="technical" data-field="technical">Нет</div>
+                             data-name="technical" data-field="technical">Нет
+                        </div>
+                        <button class="btn btn-save btn_reduce" type="button" onclick="event.stopPropagation();">
+                            закрыть
+                        </button>
                         <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                             удалить
                         </button>
@@ -85,6 +91,9 @@
                             <div class="dict-block__text bool-field table-center"
                                  data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
                                 {% if item.technical %}Да{% else %}Нет{% endif %}</div>
+                            <button class="btn btn-save btn_reduce" type="button" onclick="event.stopPropagation();">
+                                закрыть
+                            </button>
                             <button class="btn btn-close btn_delete" type="button"
                                     onclick="event.stopPropagation();">
                                 удалить
@@ -117,6 +126,9 @@
                             <div class="dict-block__text bool-field table-center"
                                  data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
                                 {% if item.technical %}Да{% else %}Нет{% endif %}</div>
+                            <button class="btn btn-save btn_reduce" type="button" onclick="event.stopPropagation();">
+                                закрыть
+                            </button>
                             <button class="btn btn-close btn_delete" type="button"
                                     onclick="event.stopPropagation();">
                                 удалить

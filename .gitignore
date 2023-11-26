@@ -8,3 +8,11 @@
 /.idea/vcs.xml
 /.idea/dataSources.xml
 /.idea/watcherTasks.xml
+/docs/config.cfg
+/docs/_templates/
+/docs/_static/
+/docs/_build/
+/docs/make.bat
+/docs/Makefile
+/make.bat
+/Makefile

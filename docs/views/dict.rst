@@ -1,6 +1,6 @@
 Справочники
 ===========
 
-.. automodule:: production.views.dict
+.. automodule:: production.views.dictionary
    :members:
    :undoc-members:

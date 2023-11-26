@@ -1,4 +1,4 @@
-Заявка на Производство
+Заявки на Производство
 ======================
 
 .. automodule:: production.models.production_request

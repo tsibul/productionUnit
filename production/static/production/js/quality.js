@@ -115,7 +115,7 @@ async function addProducedRows(dateBegin, dateEnd) {
     });
 
     async function fillProductionListData(row, element, prefix) {
-        fillFields(row, element, prefix);
+        reformatFields(row, element, prefix);
         row.dataset.id = element['production_id'];
     }
 }

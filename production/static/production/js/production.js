@@ -81,7 +81,7 @@ async function addProducedRows(first_record, order) {
     });
 
     async function fillProductionListData(row, element, prefix) {
-        fillFields(row, element, prefix);
+        reformatFields(row, element, prefix);
         const quantity = Number.parseInt(row.querySelector('.req__quantity').textContent.replace(' ', ''));
         const quantityChecked = Number.parseInt(row.querySelector('.req__quantity_checked')
             .textContent.replace(' ', ''));

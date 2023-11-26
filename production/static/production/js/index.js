@@ -81,7 +81,7 @@ async function fillProductionData(row, element, prefix) {
             row.querySelector('.req__queue').textContent = detOnImm[detailName];
         }
     }
-    fillFields(row,element,prefix);
+    reformatFields(row,element,prefix);
     row.dataset.detail = element['detail_id'];
     row.dataset.color = element['color_id'];
     const reqLeft = row.querySelector('.req__left')

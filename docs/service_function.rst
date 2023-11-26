@@ -1,14 +1,14 @@
 Сервисные функции
 ==================
 
-.. automodule:: production.service_function.authentificition
-   :members:
-   :undoc-members:
+.. toctree::
+   :maxdepth: 2
+   :caption: Сервисные функции:
 
-.. automodule:: production.service_function.change_format
-   :members:
-   :undoc-members:
-
-.. automodule:: production.service_function.database_linking
-   :members:
-   :undoc-members:
+   ./service/auth.rst
+   ./service/db_linking.rst
+   ./service/defect.rst
+   ./service/dict_filter.rst
+   ./service/report_manage.rst
+   ./service/request_manage.rst
+   ./service/change_format.rst

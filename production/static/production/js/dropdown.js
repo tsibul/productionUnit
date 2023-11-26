@@ -1,3 +1,8 @@
+// Constants
+/**
+ * html code for boolean dropdown
+ * @type {string}
+ */
 const booleanDropdown = `<div class="dropdown report_dropdown dropdown_dict">
                 <input name="bool" type="text" class="dropdown__hidden"
                        value="1">
@@ -18,6 +23,10 @@ const booleanDropdown = `<div class="dropdown report_dropdown dropdown_dict">
                 </ul>
             </div>
 `;
+/**
+ * html code for dropdown
+ * @type {string}
+ */
 const dropdownCode = `
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="" type="text" class="dropdown__hidden"
@@ -33,7 +42,9 @@ const dropdownCode = `
                 </ul>
             </div>
 `;
+// End of Constants
 
+//Functions
 function filterList(input) {
     let filter, ul, li, a, i;
     filter = input.value.toUpperCase();
@@ -73,6 +84,22 @@ async function selectFromList(obj) {
         fillLines(filterBlockUl, dictionaryList);
     }
 }
+
+function fillLines(ulContent, dictionaryList) {
+    let newLine;
+    dictionaryList.forEach(elem => {
+        newLine = document.createElement('li');
+        newLine.onclick = function (event) {
+            event.stopPropagation();
+            selectFromList(this).then(r => {});
+        };
+        newLine.dataset.value = Object.keys(elem)[0];
+        newLine.textContent = Object.values(elem)[0];
+        ulContent.appendChild(newLine);
+    });
+}
+//End of Functions
+
 
 document.addEventListener('click', element => {
     const dropdown = document.querySelectorAll('.dropdown');

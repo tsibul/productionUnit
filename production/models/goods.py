@@ -4,10 +4,10 @@ from production.models import ColorScheme
 
 class Goods(models.Model):
     """details of item detail# if exist
-        name - name of goods
-        item_name - item code
-        detail_name - name of detail
-        detail_place - if prinring possible"""
+        @name - name of goods
+        @item_name - item code
+        @detail_name - name of detail
+        @detail_place - if printing possible"""
 
     name = models.CharField(max_length=200, null=True, blank=True)
     article = models.CharField(max_length=20, null=True, blank=True)

@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-    <script src="{% static 'production/js/dictionary.js' %}" defer></script>
+    <script src="{% static 'production/js/request.js' %}" defer></script>
     <div class="full-content">
         <div class="container">
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="dict-block__content">
                     <div class="dict-block__row production-request dict-block__row_hidden" data-id="0"
-                         id="productRequest-0" onclick="editDictionary(this);">
+                         id="productRequest-0" onclick="editRecord(this);">
                         <input class="id-hidden" name="id" value="0">
                         <div class="dict-block__text hex"></div>
                         <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y H:i" }}</div>
@@ -68,7 +68,7 @@
                     {% for item in product_request %}
                         <div class="dict-block__row production-request {% if item.date_close %}fulfilled{% endif %}"
                              data-id="{{ item.id }}" data-last=""
-                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);">
+                             id="productRequest-{{ item.id }}" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
                             <div class="dict-block__text hex"
                                  style="background-color: {{ item.color.color_code }};"></div>
@@ -103,7 +103,7 @@
                     {% for item in product_request_end %}
                         <div class="dict-block__row production-request data-last {% if item.date_close %}fulfilled{% endif %}"
                              data-id="{{ item.id }}"
-                             id="productRequest-{{ item.id }}" onclick="editDictionary(this);" data-last="12">
+                             id="productRequest-{{ item.id }}" onclick="editRecord(this);" data-last="12">
                             <input class="id-hidden" name="id" value="{{ item.id }}">
                             <div class="dict-block__text hex"
                                  style="background-color: {{ item.color.color_code }};"></div>
@@ -140,8 +140,5 @@
 
         </div>
     </div>
-    {#    <div id="technical-data" hidden>#}
-    {#    </div>#}
-
 
 {% endblock %}

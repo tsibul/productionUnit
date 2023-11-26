@@ -16,7 +16,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="country-0" onclick="editDictionary(this);">
+                             id="country-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
@@ -26,7 +26,7 @@
                         </div>
                         {% for item in country %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="country-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="country-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="materialType-0" onclick="editDictionary(this);">
+                             id="materialType-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
@@ -59,7 +59,7 @@
                         </div>
                         {% for item in material_type %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="materialType-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="materialType-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="detailName-0" onclick="editDictionary(this);">
+                             id="detailName-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
@@ -92,7 +92,7 @@
                         </div>
                         {% for item in detail %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="detailNameType-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="detailNameType-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="defects-0" onclick="editDictionary(this);">
+                             id="defects-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
@@ -125,7 +125,7 @@
                         </div>
                         {% for item in defects %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="defects-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="defects-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="defectEvent-0" onclick="editDictionary(this);">
+                             id="defectEvent-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
@@ -158,7 +158,7 @@
                         </div>
                         {% for item in defect_event %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="defectEvent-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="defectEvent-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="colorScheme-0" onclick="editDictionary(this);">
+                             id="colorScheme-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="scheme_name"></div>
@@ -191,7 +191,7 @@
                         </div>
                         {% for item in color_group %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="colorScheme-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="colorScheme-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="scheme_name">{{ item.scheme_name }}</div>
@@ -224,7 +224,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row color dict-block__row_hidden" data-id="0"
-                             id="color-0" onclick="editDictionary(this);">
+                             id="color-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="color_id" data-field="color_id"></div>
@@ -243,7 +243,7 @@
                         </div>
                         {% for item in color %}
                             <div class="dict-block__row color" data-id="{{ item.id }}" data-last=""
-                                 id="color-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="color-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="color_id">{{ item.color_id }}</div>
@@ -264,7 +264,7 @@
                         {% endfor %}
                         {% for item in color_end %}
                             <div class="dict-block__row color" data-id="{{ item.id }}"
-                                 id="color-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
+                                 id="color-{{ item.id }}" onclick="editRecord(this);" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="color_id">{{ item.color_id }}</div>
@@ -305,7 +305,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row detail-in-goods dict-block__row_hidden" data-id="0"
-                             id="detailInGoods-0" onclick="editDictionary(this);">
+                             id="detailInGoods-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-field="goods"
                                  data-name="goods" data-id=""></div>
@@ -320,7 +320,7 @@
                         </div>
                         {% for item in detail_in_goods %}
                             <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}"
-                                 id="detailInGoods-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="detailInGoods-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
@@ -336,7 +336,7 @@
                         {% endfor %}
                         {% for item in detail_in_goods_end %}
                             <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}" data-last="20"
-                                 id="detailInGoods-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="detailInGoods-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="good">{{ item.goods.article }}</div>
@@ -373,7 +373,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row goods dict-block__row_hidden" data-id="0"
-                             id="goods-0" onclick="editDictionary(this);">
+                             id="goods-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name" data-field="name"></div>
@@ -390,7 +390,7 @@
                         </div>
                         {% for item in goods %}
                             <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="goods-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -430,7 +430,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row main-material dict-block__row_hidden" data-id="0"
-                             id="mainMaterial-0" onclick="editDictionary(this);">
+                             id="mainMaterial-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
@@ -449,7 +449,7 @@
                         </div>
                         {% for item in main_material %}
                             <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="goods-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -470,7 +470,7 @@
                         {% endfor %}
                         {% for item in main_material_end %}
                             <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                 id="mainMaterial-{{ item.id }}" data-last="20" onclick="editDictionary(this);">
+                                 id="mainMaterial-{{ item.id }}" data-last="20" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -509,7 +509,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row add-material dict-block__row_hidden" data-id="0"
-                             id="addMaterial-0" onclick="editDictionary(this);">
+                             id="addMaterial-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
@@ -521,7 +521,7 @@
                         </div>
                         {% for item in add_material %}
                             <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                 id="addMaterial-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="addMaterial-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -535,7 +535,7 @@
                         {% endfor %}
                         {% for item in add_material_end %}
                             <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                 id="addMaterial-{{ item.id }}" data-last="20" onclick="editDictionary(this);">
+                                 id="addMaterial-{{ item.id }}" data-last="20" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -572,7 +572,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row masterbatch dict-block__row_hidden" data-id="0"
-                             id="masterBatch-0" onclick="editDictionary(this);">
+                             id="masterBatch-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
@@ -593,7 +593,7 @@
                         </div>
                         {% for item in masterbatch %}
                             <div class="dict-block__row masterbatch" data-id="{{ item.id }}"
-                                 id="masterBatch-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="masterBatch-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -639,7 +639,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row producer dict-block__row_hidden" data-id="0"
-                             id="producer-0" onclick="editDictionary(this);">
+                             id="producer-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name" data-field="name"></div>
@@ -662,7 +662,7 @@
                         </div>
                         {% for item in producer %}
                             <div class="dict-block__row producer" data-id="{{ item.id }}"
-                                 id="producer-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="producer-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -709,7 +709,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row imm dict-block__row_hidden" data-id="0"
-                             id="imm-0" onclick="editDictionary(this);">
+                             id="imm-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="plant_code" data-field="plant_code"></div>
@@ -729,7 +729,7 @@
                         </div>
                         {% for item in imm %}
                             <div class="dict-block__row imm" data-id="{{ item.id }}"
-                                 id="imm-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="imm-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="plant_code">{{ item.plant_code }}</div>
@@ -776,7 +776,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
-                             id="recipe-0" onclick="editDictionary(this);">
+                             id="recipe-0" onclick="editRecord(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="goods" data-field="goods"></div>
@@ -802,7 +802,7 @@
                         </div>
                         {% for item in recipe %}
                             <div class="dict-block__row recipe" data-id="{{ item.id }}"
-                                 id="recipe-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="recipe-{{ item.id }}" onclick="editRecord(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
@@ -830,7 +830,7 @@
                         {% endfor %}
                         {% for item in recipe_end %}
                             <div class="dict-block__row recipe" data-id="{{ item.id }}"
-                                 id="recipe-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
+                                 id="recipe-{{ item.id }}" onclick="editRecord(this);" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>

@@ -22,6 +22,7 @@ urlpatterns = [
     path('user_name/<int:user_id>', views.fetch_user_by_id, name='views.fetch_user_by_id'),
 
     path('production_request/', views.production_request, name='production_request'),
+    path('production_request_close/<int:request_id>', views.production_request_close, name='production_request_close'),
 
     path('production_state/<int:in_work>', views.production_state, name='production_state'),
     path('production_start/', views.production_start, name='production_start'),

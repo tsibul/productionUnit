@@ -18,9 +18,9 @@
    :maxdepth: 2
    :caption: Разделы:
 
-   ./views.rst
    ./models.rst
    ./classes.rst
+   ./views.rst
    ./service_function.rst
 
 

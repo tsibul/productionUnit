@@ -1,5 +1,5 @@
-Рецепт
-======
+Рецепты
+=======
 
 .. automodule:: production.models.recipe
    :members:

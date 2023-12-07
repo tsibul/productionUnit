@@ -1,46 +1,3 @@
-const dictList = {
-    country: 'Country',
-    producer: 'Producer',
-    materialType: 'MaterialType',
-    colorScheme: 'ColorScheme',
-    color: 'Color',
-    detailName: 'DetailName',
-    detailInGoods: 'DetailInGoods',
-    mainMaterial: 'MainMaterial',
-    addMaterial: 'AddMaterial',
-    masterBatch: 'MasterBatch',
-    recipe: 'Recipe',
-    goods: 'Goods',
-    imm: 'IMM',
-    productRequest: 'ProductionRequest',
-    productReport: 'ProductionReport',
-    requestStartStop: 'ProductionRequestStartStop',
-    productionForRequest: 'ProductionForRequest',
-    qualityForRequest: 'QualityForRequest',
-    defects: 'Defects',
-    defectEvent: 'DefectEvent',
-    qualityReport: 'QualityReport',
-    qualityReportDefect: 'QualityReportDefects',
-
-    detail: 'DetailInGoods',
-    material_type: 'MaterialType',
-    main_material_type: 'MaterialType',
-    color_scheme: 'ColorScheme',
-    detail_in_goods: 'DetailInGoods',
-    detail_name: 'DetailName',
-    main_material: 'MainMaterial',
-    add_material: 'AddMaterial',
-    masterbatch: 'MasterBatch',
-    main_master: 'MasterBatch',
-    add_master: 'MasterBatch',
-    product_request: 'ProductionRequest',
-    production_request: 'ProductionRequest',
-    defect_event: 'DefectEvent',
-    production_for_request: 'ProductionForRequest',
-    production: 'ProductionReport',
-    quality_report: 'QualityReport',
-    defect: 'Defects',
-};
 
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
@@ -156,13 +113,6 @@ function userRights() {
             });
         }
     });
-    // document.querySelectorAll('.production-list').forEach(row => {
-    //     if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
-    //         row.onclick = '';
-    //         row.querySelector('.btn').disabled = true;
-    //         row.querySelector('.btn').classList.add('form-input__inactive');
-    //     }
-    // });
     document.querySelectorAll('.quality-list').forEach(row => {
         if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
             row.onclick = '';
@@ -177,150 +127,8 @@ function typeDict(row) {
     return dictList[row.id.split('-')[0]];
 }
 
-function editDictionary(obj) {
-    if (obj.classList.contains('fulfilled')) {
-        return
-    }
-    const nodeElements = obj.childNodes;
-    const objClasses = obj.classList;
-    const newNode = document.createElement('form'); // block for new row
-    newNode.classList.add('form-row');
-    objClasses.forEach(function (el) {
-        if (el !== 'dict-block__row') {
-            newNode.classList.add(el);
-        }
-    });
-    newNode.id = 'form-dict';
-    fillFormNode();
-
-    async function fillFormNode() {
-        // let childNode;
-        let changes = 0;
-        for (const node of nodeElements) {
-            if (node.tagName === 'DIV' && !node.hidden) {
-                if (node.classList.contains('foreign-key')) {
-                    await createDropdown(node);
-                } else if (node.classList.contains('bool-field')) {
-                    await createBoolean(node);
-                } else {
-                    await createInput(node);
-                }
-            }
-            node.hidden = true;
-        }
-        if (changes === 0) {
-            return
-        }
-        obj.querySelector('.id-hidden').setAttribute('form', 'form-dict')
-        newNode.appendChild(createButtonBlock());
-        obj.appendChild(newNode);
-
-        async function createInput(node) {
-            let childInputNode;
-            childInputNode = document.createElement('input'); // block for input
-            childInputNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
-            if (node.dataset.name != null) {
-                childInputNode.name = node.dataset.name;
-            } else {
-                childInputNode.readOnly = true;
-                childInputNode.classList.add('form-input__inactive');
-            }
-            if (node.classList.contains('date-field')) {
-                childInputNode.type = 'datetime-local';
-                childInputNode.value = stringToDateTime(node.textContent);
-            } else {
-                childInputNode.type = 'text';
-                childInputNode.setAttribute('value', node.textContent);
-            }
-            newNode.appendChild(childInputNode)
-            changes += 1;
-        }
-
-        async function createDropdown(node) {
-            let childDropdownNode;
-            const parentRow = node.closest('.dict-block__row');
-            const dictType = dictList[node.dataset.name];
-            childDropdownNode = document.createElement('div');
-            childDropdownNode.innerHTML = dropdownCode;
-            childDropdownNode = childDropdownNode.firstElementChild;
-            childDropdownNode.querySelector('.dropdown__hidden').name = node.dataset.name;
-            const filterModel = dictList[node.dataset.filter];
-            const ulContent = childDropdownNode.querySelector('.dropdown__content');
-            let jsonUrl;
-            if (filterModel && parentRow.dataset.id !== 'e') {
-                const filterNo = parentRow.querySelector(`[data-name = "${node.dataset.filter}"]`).dataset.id;
-                jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
-            } else if (!filterModel) {
-                jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
-            } else {
-                childDropdownNode.querySelector('.dropdown__hidden').dataset.filter = node.dataset.filter;
-                jsonUrl = `/production/dictionary_json_filter/default/default/0`;
-            }
-            const jsonData = await fetchJsonData(jsonUrl);
-            const dictionaryList = JSON.parse(jsonData);
-            if (!dictionaryList) {
-                childDropdownNode.querySelector('.dropdown__hidden').value = Object.keys(dictionaryList[0])[0];
-                childDropdownNode.querySelector('.dropdown__input_dict').value = Object.values(dictionaryList[0])[0];
-                childDropdownNode.querySelector('.dropdown__input_dict').dataset.value = Object.values(dictionaryList[0])[0];
-            }
-            fillLines(ulContent, dictionaryList);
-            fillFields(node, childDropdownNode);
-        }
-
-        async function createBoolean(node) {
-            let childBooleanNode
-            childBooleanNode = document.createElement('div');
-            childBooleanNode.innerHTML = booleanDropdown;
-            childBooleanNode = childBooleanNode.firstElementChild;
-            childBooleanNode.querySelector('.dropdown__hidden').name = node.dataset.name;
-            fillFields(node, childBooleanNode);
-        }
-
-        function fillFields(node, childResNode) {
-            childResNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g, ' ');
-            childResNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g, ' ');
-            childResNode.querySelector('.dropdown__hidden').value = node.dataset.id;
-            newNode.appendChild(childResNode);
-            changes += 1;
-        }
-    }
-}
-
-function cancelEditDictionary(obj) {
-    const parentObj = obj.closest('.form-row');
-    const row = obj.closest('.dict-block__row');
-    parentObj.remove();
-    const elementId = row.dataset.id;
-    if (elementId === 'e') {
-        row.remove();
-        return;
-    }
-    row.childNodes.forEach(function (element) {
-        if (element.hidden) {
-            element.hidden = false
-        }
-    });
-    row.querySelector('.id-hidden').setAttribute('form', '');
-}
-
-function createButtonBlock() {
-    /* create button block for buttons submit & cancel */
-    let childNode;
-    const buttonBlock = document.createElement('div');
-    buttonBlock.classList.add('dict__button-block', 'button-block'); // block for buttons submit & cancel
-    childNode = document.createElement('button'); //button cancel
-    childNode.innerHTML = '<i class="fa fa-solid fa-xmark" ></i>';
-    childNode.classList.add('btn', 'btn-close', 'dict__btn');
-    childNode.setAttribute('onclick', 'event.stopPropagation(); cancelEditDictionary(this);');
-    childNode.type = 'button';
-    buttonBlock.appendChild(childNode);
-    childNode = document.createElement('button'); // button submit
-    childNode.innerHTML = '<i class="fa fa-solid fa-check"></i>';
-    childNode.classList.add('btn', 'btn-save', 'dict__btn');
-    childNode.setAttribute('onclick', 'event.stopPropagation(); saveDictionaryRecord(this);');
-    childNode.type = 'submit';
-    buttonBlock.appendChild(childNode);
-    return buttonBlock;
+function editRecord(obj) {
+    createEditForm(obj);
 }
 
 function saveDictionaryRecord(obj) {
@@ -443,7 +251,7 @@ addEventListener('mousedown', function (element) {
         const parentRow = document.querySelector('form').closest('.dict-block__row')
         if (element.target !== parentRow && !parentRow.contains(element.target)) {
             const buttonClose = document.querySelector('form').querySelector('.btn-close');
-            cancelEditDictionary(buttonClose);
+            cancelEditRecord(buttonClose);
         }
     } catch (exception) {
     }
@@ -482,7 +290,7 @@ addEventListener('mousedown', (event) => {
             newRow.dataset.id = 'e';
             copyRow.after(newRow);
             newRow.classList.remove('dict-block__row_hidden');
-            editDictionary(newRow);
+            editRecord(newRow);
         }
     });
 });

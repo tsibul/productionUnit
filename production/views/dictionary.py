@@ -63,11 +63,12 @@ def dictionary_update(request, dict_type):
             model_field = dict_model._meta.get_field(field)
             if model_field.get_internal_type() == 'ForeignKey':
                 setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
-            elif model_field.get_internal_type() == 'Boolean':
+            elif model_field.get_internal_type() == 'BooleanField':
                 setattr(dict_element, field, False)
                 if request.POST[field]:
-                    setattr(dict_element, field, True)
-            else:
+                    setattr(dict_element, field, request.POST[field])
+            elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
+                  model_field.get_internal_type() != 'DateTimeField'):
                 setattr(dict_element, field, request.POST[field])
     if 'user' in field_list:
         setattr(dict_element, 'user', current_user)

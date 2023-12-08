@@ -233,7 +233,7 @@
 }
 
 .production {
-  grid-template-columns: 0.2fr 0.8fr 0.8fr repeat(6, 0.6fr) 1.5fr 1fr 0.6fr;
+  grid-template-columns: 0.2fr 0.8fr 1fr repeat(6, 0.6fr) 1.5fr 0.4fr 0.6fr;
 
   &_adm {
     font-size: 14px;

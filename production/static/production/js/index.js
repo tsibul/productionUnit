@@ -49,7 +49,7 @@ async function fillImmRows() {
     const detailsImm = {};
     productionData.forEach(element => {
         let newRow = inProductionContent.querySelector('[data-id="' + element['imm_id'] + '"]');
-        detailsImm[element['detail'].split(' ')[0]] = newRow.querySelector('.work__name').textContent;
+        detailsImm[element['detail'].split(' ')[0]] = newRow.querySelector('.work__imm').textContent;
         fillProductionData(newRow, element, prefix);
         [...newRow.querySelectorAll('.btn')].forEach(btn => {
             btn.disabled = false;

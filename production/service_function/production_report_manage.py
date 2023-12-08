@@ -24,7 +24,7 @@ def spread_production_for_requests(production, quantity):
             quantity = quantity - quantity_left
             production_start_stop = ProductionRequestStartStop.objects.get(production_request=pr_request,
                                                                            imm=production.imm,
-                                                                           date_stop=None)
+                                                                           date_stop=None, deleted=False)
             production_start_stop.date_stop = production.date
             production_start_stop.user_stop = production.user
             production_start_stop.stop_reason = 'заказ выполнен'

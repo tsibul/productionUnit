@@ -41,10 +41,13 @@ dictBlockContent.addEventListener('mouseover', async e => {
     }
 });
 
-dictBlockContent.addEventListener('click', e => {
+document.addEventListener('click', e =>{
     if (dictBlockContent.querySelector('.form-row') && !e.target.closest('.form-row')) {
         cancelEditRecord(dictBlockContent.querySelector('.form-row').firstElementChild);
     }
+})
+
+dictBlockContent.addEventListener('click', e => {
     if (e.target.classList.contains('btn_delete')) {
         deleteRequest(e.target.closest('.dict-block__row')).then(r => {
         });

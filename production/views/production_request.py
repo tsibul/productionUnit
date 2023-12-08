@@ -27,7 +27,7 @@ def production_request(request):
 def production_request_close(request, request_id):
     product_request = ProductionRequest.objects.get(id=request_id)
     start_stop = ProductionRequestStartStop.objects.filter(production_request=product_request).first()
-    if start_stop is None or start_stop.date_start and not start_stop.date_end:
+    if start_stop is None or start_stop.date_start and not start_stop.date_close:
         current_user = request.user
         current_date = timezone.now()
         product_request.comment = product_request.comment + " закрыто " + current_user.last_name

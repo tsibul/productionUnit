@@ -26,7 +26,7 @@ def production_request(request):
 
 def production_request_close(request, request_id):
     product_request = ProductionRequest.objects.get(id=request_id)
-    start_stop = ProductionRequestStartStop.objects.get(production_request=product_request).first()
+    start_stop = ProductionRequestStartStop.objects.filter(production_request=product_request).first()
     print(start_stop, start_stop.date_start, start_stop.date_stop)
     if start_stop is None or start_stop.date_start and not start_stop.date_stop:
         current_user = request.user

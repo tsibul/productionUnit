@@ -1,7 +1,9 @@
 {% extends 'header.html' %}
 {% load static %}
 {% block title %}Главная{% endblock %}
-{% block content %}
+{% block content %}   
+    <script src="{% static 'production/js/dictionary.js' %}" defer></script>
+
     {% if request.user.is_superuser %}
 
         <div hidden id="showDeleted">showDeleted</div>
@@ -40,7 +42,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row production-request_adm dict-block__row_hidden" data-id="0"
-                                 id="productRequest-0" onclick="editRecord(this);">
+                                 id="productRequest-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -67,14 +69,13 @@
                                      data-name="technical" data-field="technical"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row production-request_adm" data-id="{{ product_request.id }}"
                                  data-last="1"
-                                 id="productRequest-{{ product_request.id }}" onclick="editRecord(this);">
+                                 id="productRequest-{{ product_request.id }}">
                                 <input class="id-hidden" name="id" value="{{ product_request.id }}">
                                 <div class="dict-block__text table-center">{{ product_request.id }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ product_request.detail.id }}"
@@ -108,8 +109,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_request.deleted %}1{% else %}0{% endif %}">
                                     {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row request-start-stop_adm dict-block__row_hidden" data-id="0"
-                                 id="requestStartStop-0" onclick="editRecord(this);">
+                                 id="requestStartStop-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key table-center" data-id=""
@@ -160,14 +160,13 @@
                                      data-field="stop_reason"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row request-start-stop_adm" data-id="{{ request_start_stop.id }}"
                                  data-last="1"
-                                 id="requestStartStop-{{ request_start_stop.id }}" onclick="editRecord(this);">
+                                 id="requestStartStop-{{ request_start_stop.id }}">
                                 <input class="id-hidden" name="id" value="{{ request_start_stop.id }}">
                                 <div class="dict-block__text table-center">{{ request_start_stop.id }}</div>
                                 <div class="dict-block__text foreign-key table-center"
@@ -189,8 +188,7 @@
                                      data-name="deleted"
                                      data-id="{% if request_start_stop.deleted %}1{% else %}0{% endif %}">
                                     {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -225,7 +223,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row production_adm dict-block__row_hidden" data-id="0"
-                                 id="productReport-0" onclick="editRecord(this);">
+                                 id="productReport-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -248,14 +246,13 @@
                                      data-field="user_close">{{ request.user.username }}</div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row production_adm" data-id="{{ product_report.id }}"
                                  data-last="1"
-                                 id="productReport-{{ product_report.id }}" onclick="editRecord(this);">
+                                 id="productReport-{{ product_report.id }}">
                                 <input class="id-hidden" name="id" value="{{ product_report.id }}">
                                 <div class="dict-block__text table-center">{{ product_report.id }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ product_report.detail.id }}"
@@ -281,8 +278,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
                                     {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -310,7 +306,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row production-for-request_adm dict-block__row_hidden" data-id="0"
-                                 id="productionForRequest-0" onclick="editRecord(this);">
+                                 id="productionForRequest-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -321,16 +317,14 @@
                                      data-name="quantity" data-field="quantity"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row production-for-request_adm"
                                  data-id="{{ production_for_request.id }}"
                                  data-last="1"
-                                 id="productionForRequest-{{ production_for_request.id }}"
-                                 onclick="editRecord(this);">
+                                 id="productionForRequest-{{ production_for_request.id }}">
                                 <input class="id-hidden" name="id" value="{{ production_for_request.id }}">
                                 <div class="dict-block__text table-center">{{ production_for_request.id }}</div>
                                 <div class="dict-block__text foreign-key"
@@ -345,8 +339,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
                                     {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -379,7 +372,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row quality-list_adm dict-block__row_hidden" data-id="0"
-                                 id="qualityReport-0" onclick="editRecord(this);">
+                                 id="qualityReport-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -400,14 +393,13 @@
                                      data-field="comment"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row quality-list_adm" data-id="{{ quality_report.id }}"
                                  data-last="1"
-                                 id="qualityReport-{{ quality_report.id }}" onclick="editRecord(this);">
+                                 id="qualityReport-{{ quality_report.id }}">
                                 <input class="id-hidden" name="id" value="{{ quality_report.id }}">
                                 <div class="dict-block__text table-center">{{ quality_report.id }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ quality_report.production.id }}"
@@ -430,8 +422,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
                                     {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -460,7 +451,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row quality-for-request_adm dict-block__row_hidden" data-id="0"
-                                 id="qualityForRequest-0" onclick="editRecord(this);">
+                                 id="qualityForRequest-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -473,15 +464,14 @@
                                      data-name="quantity_approved" data-field="quantity_approved"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row quality-for-request_adm"
                                  data-id="{{ quality_for_request.id }}"
                                  data-last="1"
-                                 id="qualityForRequest-{{ quality_for_request.id }}" onclick="editRecord(this);">
+                                 id="qualityForRequest-{{ quality_for_request.id }}">
                                 <input class="id-hidden" name="id" value="{{ quality_for_request.id }}">
                                 <div class="dict-block__text table-center">{{ quality_for_request.id }}</div>
                                 <div class="dict-block__text foreign-key"
@@ -498,8 +488,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
                                     {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -528,7 +517,7 @@
                         </div>
                         <div class="dict-block__content dict-block__content_adm">
                             <div class="dict-block__row quality-report-defect_adm dict-block__row_hidden" data-id="0"
-                                 id="qualityReportDefect-0" onclick="editRecord(this);">
+                                 id="qualityReportDefect-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text table-center" data-field="id"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -541,16 +530,14 @@
                                      data-field="user">{{ request.user.username }}</div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             <div class="dict-block__row quality-report-defect_adm"
                                  data-id="{{ quality_report_defect.id }}"
                                  data-last="1"
-                                 id="qualityReportDefect-{{ quality_report_defect.id }}"
-                                 onclick="editRecord(this);">
+                                 id="qualityReportDefect-{{ quality_report_defect.id }}">
                                 <input class="id-hidden" name="id" value="{{ quality_report_defect.id }}">
                                 <div class="dict-block__text table-center">{{ quality_report_defect.id }}</div>
                                 <div class="dict-block__text foreign-key"
@@ -566,8 +553,7 @@
                                      data-name="deleted"
                                      data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
                                     {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -577,6 +563,5 @@
             </div>
         </div>
 
-        <script src="{% static 'production/js/dictionary.js' %}"></script>
     {% endif %}
 {% endblock %}

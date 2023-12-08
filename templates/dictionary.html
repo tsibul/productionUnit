@@ -16,22 +16,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="country-0" onclick="editRecord(this);">
+                             id="country-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in country %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="country-{{ item.id }}" onclick="editRecord(this);">
+                                 id="country-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -49,22 +48,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="materialType-0" onclick="editRecord(this);">
+                             id="materialType-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in material_type %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="materialType-{{ item.id }}" onclick="editRecord(this);">
+                                 id="materialType-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -82,22 +80,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="detailName-0" onclick="editRecord(this);">
+                             id="detailName-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in detail %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="detailNameType-{{ item.id }}" onclick="editRecord(this);">
+                                 id="detailNameType-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -115,22 +112,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="defects-0" onclick="editRecord(this);">
+                             id="defects-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in defects %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="defects-{{ item.id }}" onclick="editRecord(this);">
+                                 id="defects-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -148,22 +144,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="defectEvent-0" onclick="editRecord(this);">
+                             id="defectEvent-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in defect_event %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="defectEvent-{{ item.id }}" onclick="editRecord(this);">
+                                 id="defectEvent-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -181,22 +176,21 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="colorScheme-0" onclick="editRecord(this);">
+                             id="colorScheme-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="scheme_name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in color_group %}
                             <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="colorScheme-{{ item.id }}" onclick="editRecord(this);">
+                                 id="colorScheme-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="scheme_name">{{ item.scheme_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -224,7 +218,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row color dict-block__row_hidden" data-id="0"
-                             id="color-0" onclick="editRecord(this);">
+                             id="color-0" >
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="color_id" data-field="color_id"></div>
@@ -237,13 +231,13 @@
                             <div class="dict-block__text foreign-key"
                                  data-name="color_scheme" data-field="color_scheme"
                                  data-id=""></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" >
                                 удалить
                             </button>
                         </div>
                         {% for item in color %}
                             <div class="dict-block__row color" data-id="{{ item.id }}" data-last=""
-                                 id="color-{{ item.id }}" onclick="editRecord(this);">
+                                 id="color-{{ item.id }}" >
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="color_id">{{ item.color_id }}</div>
@@ -257,14 +251,14 @@
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                        >
                                     удалить
                                 </button>
                             </div>
                         {% endfor %}
                         {% for item in color_end %}
                             <div class="dict-block__row color" data-id="{{ item.id }}"
-                                 id="color-{{ item.id }}" onclick="editRecord(this);" data-last="20">
+                                 id="color-{{ item.id }}"  data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="color_id">{{ item.color_id }}</div>
@@ -278,7 +272,7 @@
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                        >
                                     удалить
                                 </button>
                             </div>
@@ -305,7 +299,7 @@
                     </div>
                     <div class="dict-block__content ">
                         <div class="dict-block__row detail-in-goods dict-block__row_hidden" data-id="0"
-                             id="detailInGoods-0" onclick="editRecord(this);">
+                             id="detailInGoods-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-field="goods"
                                  data-name="goods" data-id=""></div>
@@ -314,13 +308,13 @@
                             </div>
                             <div class="dict-block__text foreign-key" data-field="detail_name"
                                  data-name="detail_name" data-id=""></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in detail_in_goods %}
                             <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}"
-                                 id="detailInGoods-{{ item.id }}" onclick="editRecord(this);">
+                                 id="detailInGoods-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
@@ -328,15 +322,14 @@
                                      data-name="position">{{ item.position }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
                                      data-name="detail_name">{{ item.detail_name.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                         {% endfor %}
                         {% for item in detail_in_goods_end %}
                             <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}" data-last="20"
-                                 id="detailInGoods-{{ item.id }}" onclick="editRecord(this);">
+                                 id="detailInGoods-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="good">{{ item.goods.article }}</div>
@@ -344,8 +337,7 @@
                                      data-name="position">{{ item.position }}</div>
                                 <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
                                      data-name="detail_name">{{ item.detail_name.name }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -373,7 +365,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row goods dict-block__row_hidden" data-id="0"
-                             id="goods-0" onclick="editRecord(this);">
+                             id="goods-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name" data-field="name"></div>
@@ -384,13 +376,13 @@
                                  data-id=""></div>
                             <div class="dict-block__text"
                                  data-name="details_quantity" data-field="details_quantity"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in goods %}
                             <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" onclick="editRecord(this);">
+                                 id="goods-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -401,8 +393,7 @@
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <div class="dict-block__text"
                                      data-name="details_quantity">{{ item.details_quantity }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -430,7 +421,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row main-material dict-block__row_hidden" data-id="0"
-                             id="mainMaterial-0" onclick="editRecord(this);">
+                             id="mainMaterial-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
@@ -443,13 +434,13 @@
                                  data-name="brand" data-field="brand"></div>
                             <div class="dict-block__text"
                                  data-name="code" data-field="code"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in main_material %}
                             <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" onclick="editRecord(this);">
+                                 id="goods-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -462,15 +453,14 @@
                                      data-name="brand">{{ item.brand }}</div>
                                 <div class="dict-block__text"
                                      data-name="code">{{ item.code }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                         {% endfor %}
                         {% for item in main_material_end %}
                             <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                 id="mainMaterial-{{ item.id }}" data-last="20" onclick="editRecord(this);">
+                                 id="mainMaterial-{{ item.id }}" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -483,8 +473,7 @@
                                      data-name="brand">{{ item.brand }}</div>
                                 <div class="dict-block__text"
                                      data-name="code">{{ item.code }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -509,40 +498,38 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row add-material dict-block__row_hidden" data-id="0"
-                             id="addMaterial-0" onclick="editRecord(this);">
+                             id="addMaterial-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
                             <div class="dict-block__text"
                                  data-name="color" data-field="color"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in add_material %}
                             <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                 id="addMaterial-{{ item.id }}" onclick="editRecord(this);">
+                                 id="addMaterial-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
                                 <div class="dict-block__text"
                                      data-name="color">{{ item.color }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                         {% endfor %}
                         {% for item in add_material_end %}
                             <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                 id="addMaterial-{{ item.id }}" data-last="20" onclick="editRecord(this);">
+                                 id="addMaterial-{{ item.id }}" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
                                 <div class="dict-block__text"
                                      data-name="color">{{ item.color }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -572,7 +559,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row masterbatch dict-block__row_hidden" data-id="0"
-                             id="masterBatch-0" onclick="editRecord(this);">
+                             id="masterBatch-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="material_type" data-field="material_type"></div>
@@ -587,13 +574,13 @@
                                  data-name="code" data-field="code"></div>
                             <div class="dict-block__text"
                                  data-name="doze" data-field="doze"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in masterbatch %}
                             <div class="dict-block__row masterbatch" data-id="{{ item.id }}"
-                                 id="masterBatch-{{ item.id }}" onclick="editRecord(this);">
+                                 id="masterBatch-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
                                      data-name="material_type">{{ item.material_type }}</div>
@@ -608,8 +595,7 @@
                                      data-name="code">{{ item.code }}</div>
                                 <div class="dict-block__text"
                                      data-name="doze">{{ item.doze }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -639,7 +625,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row producer dict-block__row_hidden" data-id="0"
-                             id="producer-0" onclick="editRecord(this);">
+                             id="producer-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="name" data-field="name"></div>
@@ -656,13 +642,13 @@
                                  data-id=""></div>
                             <div class="dict-block__text"
                                  data-name="comment" data-field="comment"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in producer %}
                             <div class="dict-block__row producer" data-id="{{ item.id }}"
-                                 id="producer-{{ item.id }}" onclick="editRecord(this);">
+                                 id="producer-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>
@@ -679,8 +665,7 @@
                                      data-id="{{ item.country.id }}">{{ item.country.name }}</div>
                                 <div class="dict-block__text"
                                      data-name="comment">{{ item.comment }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -709,7 +694,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row imm dict-block__row_hidden" data-id="0"
-                             id="imm-0" onclick="editRecord(this);">
+                             id="imm-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="plant_code" data-field="plant_code"></div>
@@ -723,13 +708,13 @@
                                  data-name="producer_code" data-field="producer_code"></div>
                             <div class="dict-block__text"
                                  data-name="account_code" data-field="account_code"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in imm %}
                             <div class="dict-block__row imm" data-id="{{ item.id }}"
-                                 id="imm-{{ item.id }}" onclick="editRecord(this);">
+                                 id="imm-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="plant_code">{{ item.plant_code }}</div>
@@ -743,8 +728,7 @@
                                      data-name="producer_code">{{ item.producer_code }}</div>
                                 <div class="dict-block__text"
                                      data-name="accountCode">{{ item.account_code }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
@@ -776,7 +760,7 @@
                     </div>
                     <div class="dict-block__content">
                         <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
-                             id="recipe-0" onclick="editRecord(this);">
+                             id="recipe-0">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text foreign-key" data-id=""
                                  data-name="goods" data-field="goods"></div>
@@ -796,13 +780,13 @@
                                  data-name="add_master_doze" data-field="add_master_doze"></div>
                             <div class="dict-block__text"
                                  data-name="comment" data-field="comment"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button">
                                 удалить
                             </button>
                         </div>
                         {% for item in recipe %}
                             <div class="dict-block__row recipe" data-id="{{ item.id }}"
-                                 id="recipe-{{ item.id }}" onclick="editRecord(this);">
+                                 id="recipe-{{ item.id }}">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
@@ -822,15 +806,14 @@
                                      data-name="add_master_doze">{{ item.add_material_doze }}</div>
                                 <div class="dict-block__text"
                                      data-name="comment">{{ item.comment }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                         {% endfor %}
                         {% for item in recipe_end %}
                             <div class="dict-block__row recipe" data-id="{{ item.id }}"
-                                 id="recipe-{{ item.id }}" onclick="editRecord(this);" data-last="20">
+                                 id="recipe-{{ item.id }}" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                      data-name="goods">{{ item.goods.article }}</div>
@@ -850,8 +833,7 @@
                                      data-name="add_master_doze">{{ item.add_material_doze }}</div>
                                 <div class="dict-block__text"
                                      data-name="comment">{{ item.comment }}</div>
-                                <button class="btn btn-close btn_delete" type="button"
-                                        onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>

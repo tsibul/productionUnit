@@ -21,7 +21,8 @@ def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
             elif field.get_internal_type() == 'ForeignKey':
                 foreign_model = field.related_model
                 foreign_model_objects = foreign_model.objects.all()
-                filtered_foreign = filter(lambda obj: compare_objects(obj, search_string), foreign_model_objects)
+                filtered_foreign = filter(lambda obj: compare_objects(str(obj).lower(), search_string.lower()),
+                                          foreign_model_objects)
                 field_name = field.name + '__in'
                 dict_items = dict_items | filter_items.filter(**{field_name: filtered_foreign})
                 print()

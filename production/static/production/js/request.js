@@ -127,7 +127,7 @@ async function deleteRequest(row) {
  */
 async function reduceRequest(row) {
     const idNo = row.dataset.id;
-    fetch(`production/production_request_close/${idNo}`).then(() => {
+    fetch(`/production/production_request_close/${idNo}`).then(() => {
         row.querySelector('.btn').disabled = true;
         row.querySelector('.btn').classList.add('form-input__inactive');
         row.classList.add('fulfilled');

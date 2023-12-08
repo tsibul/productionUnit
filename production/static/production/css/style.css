@@ -114,6 +114,7 @@
   }
   .menu__item {
     padding: 10px 10px 10px 10px;
+    font-size: 14px;
   }
   .menu__left {
     display: none;
@@ -647,7 +648,7 @@
   }
   .dict-block__header {
     padding: 20px;
-    font-size: 14px;
+    font-size: 12px;
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
@@ -656,16 +657,16 @@
     min-width: 200px;
   }
   .production {
-    grid-template-columns: 0.2fr repeat(6, 1fr);
-    font-size: 14px;
+    grid-template-columns: 0.2fr repeat(5, 1fr);
+    font-size: 13px;
   }
   .in-production {
-    grid-template-columns: repeat(8, 1fr);
-    font-size: 14px;
+    grid-template-columns: 0.4fr repeat(6, 1fr);
+    font-size: 13px;
   }
   .production-list {
     grid-template-columns: 0.2fr repeat(9, 1fr);
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 .form-row__export {

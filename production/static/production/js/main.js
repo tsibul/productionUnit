@@ -432,6 +432,12 @@ async function fillNewRow(record, i, newRow) {
             rowElement.textContent = record[fieldName];
             if (rowElement.dataset.field === 'date_close' && record[fieldName]) {
                 newRow.classList.add('fulfilled');
+                const buttons = newRow.querySelectorAll('.btn');
+                buttons.forEach(btn => {
+                    btn.setAttribute('disabled', true);
+                    btn.classList.add('form-input__inactive')
+                });
+
             }
         }
     }

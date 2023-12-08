@@ -62,6 +62,8 @@ class TotalRequest:
             if quality_report['approved']:
                 approved = quality_report['approved']
             left += quantity_left
+            if quality_report['approved'] and quality_report['checked']:
+                left += checked - approved
 
         self.checked = checked
         self.approved = approved

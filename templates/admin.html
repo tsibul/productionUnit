@@ -187,7 +187,7 @@
                                 <div class="dict-block__text bool-field table-center"
                                      data-name="deleted"
                                      data-id="{% if request_start_stop.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
+                                    {% if request_start_stop.deleted %}Да{% else %}Нет{% endif %}</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
@@ -420,8 +420,8 @@
                                      data-name="comment">{{ quality_report.comment }}</div>
                                 <div class="dict-block__text bool-field table-center"
                                      data-name="deleted"
-                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                     data-id="{% if quality_report.deleted %}1{% else %}0{% endif %}">
+                                    {% if quality_report.deleted %}Да{% else %}Нет{% endif %}</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
@@ -483,11 +483,11 @@
                                 <div class="dict-block__text digit"
                                      data-name="quantity_checked">{{ quality_for_request.quantity_checked }}</div>
                                 <div class="dict-block__text digit"
-                                     data-name="quantity_approved">{{ product_report.quantity_approved }}</div>
+                                     data-name="quantity_approved">{{ quality_for_request.quantity_approved }}</div>
                                 <div class="dict-block__text bool-field table-center"
                                      data-name="deleted"
-                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                     data-id="{% if quality_for_request.deleted %}1{% else %}0{% endif %}">
+                                    {% if quality_for_request.deleted %}Да{% else %}Нет{% endif %}</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
@@ -551,8 +551,8 @@
                                      data-id="{{ quality_report.user.id }}">{{ quality_report.user.last_name }}</div>
                                 <div class="dict-block__text bool-field table-center"
                                      data-name="deleted"
-                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
+                                     data-id="{% if quality_report_defect.deleted %}1{% else %}0{% endif %}">
+                                    {% if quality_report_defect.deleted %}Да{% else %}Нет{% endif %}</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>

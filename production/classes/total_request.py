@@ -1,6 +1,6 @@
 from django.db.models import Sum, Min
 
-from production.models import DetailInGoods, Color, ProductionRequest, ProductionForRequest,  \
+from production.models import DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
     ProductionRequestStartStop, QualityForRequest
 
 
@@ -32,7 +32,8 @@ class TotalRequest:
         requests = ProductionRequest.objects.filter(deleted=False, detail=detail, color=color, closed=False)
         self.imm_id = 0
         if ProductionRequestStartStop.objects.filter(production_request__in=requests, date_stop=None):
-            start_stop = ProductionRequestStartStop.objects.get(production_request__in=requests, date_stop=None)
+            start_stop = ProductionRequestStartStop.objects.get(production_request__in=requests, date_stop=None,
+                                                                deleted=False)
             self.imm_id = start_stop.imm.id
 
         requests_initial = requests.aggregate(

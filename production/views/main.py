@@ -56,7 +56,7 @@ def production_stop(request):
     stop_reason = request.POST['stop_reason']
     current_user = request.user
     date_now = timezone.now()
-    production_start_stop = ProductionRequestStartStop.objects.get(date_stop=None, imm=imm)
+    production_start_stop = ProductionRequestStartStop.objects.get(date_stop=None, imm=imm, deleted=False)
     production_start_stop.date_stop = date_now
     production_start_stop.user_stop = current_user
     production_start_stop.stop_reason = stop_reason

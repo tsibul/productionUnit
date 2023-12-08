@@ -658,7 +658,7 @@
   }
   .production {
     grid-template-columns: 0.2fr repeat(5, 1fr);
-    font-size: 13px;
+    font-size: 12px;
   }
   .in-production {
     grid-template-columns: 0.4fr repeat(6, 1fr);

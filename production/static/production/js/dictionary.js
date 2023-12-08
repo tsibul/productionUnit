@@ -1,9 +1,8 @@
-
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchCloseButtons = document.querySelectorAll('.search_clear');
-const deleteButtons = document.getElementsByClassName('btn_delete');
 const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
+const dictBlockContent = document.querySelectorAll('.dict-block__content')
 
 window.onload = function () {
     const summary = document.querySelectorAll('.dict-block__header_block-space');
@@ -129,6 +128,25 @@ function typeDict(row) {
 
 function editRecord(obj) {
     createEditForm(obj);
+}
+
+async function deleteRecord(row) {
+    const idNo = row.dataset.id;
+    const dictType = typeDict(row);
+    const url = `/production/dict_delete/${dictType}/${idNo}`;
+    //Костыль для запросов
+    if (row.classList.contains('production-request')) {
+        const quantity = row.querySelector(`[data-name = "quantity"]`);
+        const quantityLeft = quantity.nextElementSibling;
+        if (quantity.textContent === quantityLeft.textContent) {
+            row.remove();
+            await fetch(url);
+        }
+    } // Конец костыля
+    else {
+        row.remove();
+        await fetch(url);
+    }
 }
 
 function saveDictionaryRecord(obj) {
@@ -279,6 +297,12 @@ addEventListener('mouseover', async (event) => {
     }
 });
 // Edit dictionary
+
+/**
+ * Listener for new record in dictionary
+ * Catch click on addButtons
+ * add new row then edit
+ */
 addEventListener('mousedown', (event) => {
     addButtons.forEach((btn) => {
         if (event.target === btn) {
@@ -294,28 +318,28 @@ addEventListener('mousedown', (event) => {
         }
     });
 });
-// delete dict
-[...deleteButtons].forEach((btn) => {
-    btn.addEventListener('mousedown', async event => {
-        const row = event.target.closest('.dict-block__row');
-        const idNo = row.dataset.id;
-        const dictType = typeDict(row);
-        const url = `/production/dict_delete/${dictType}/${idNo}`;
-        //Костыль для запросов
-        if (row.classList.contains('production-request')) {
-            const quantity = row.querySelector(`[data-name = "quantity"]`);
-            const quantityLeft = quantity.nextElementSibling;
-            if (quantity.textContent === quantityLeft.textContent) {
-                row.remove();
-                await fetch(url);
+
+
+/**
+ * Listener for '.dict-block__row'
+ * edit for click on all element
+ * delete element for click on button '.btn-delete'
+ */
+dictBlockContent.forEach(block => {
+    addEventListener('click', e => {
+        const dictBlockRow = block.querySelectorAll('.dict-block__row');
+        dictBlockRow.forEach(row => {
+            if (row === e.target.closest('.dict-block__row')) {
+                if(e.target.classList.contains('btn_delete')){
+                    deleteRecord(row).then(r => {});
+                } else{
+                editRecord(e.target.closest('.dict-block__row'));}
             }
-        } // Конец костыля
-        else {
-            row.remove();
-            await fetch(url);
-        }
+        });
     });
 });
+
+
 // Search
 searchButtons.forEach((btn) => {
     btn.addEventListener('mousedown', async (search) => {

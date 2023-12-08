@@ -206,7 +206,9 @@ async function fillFormNode(obj, newNode, nodeElements) {
     if (changes === 0) {
         return
     }
-    obj.querySelector('.id-hidden').setAttribute('form', 'form-dict')
+    if (obj.querySelector('.id-hidden')) {
+        obj.querySelector('.id-hidden').setAttribute('form', 'form-dict');
+    }
     newNode.appendChild(createButtonBlock());
     obj.appendChild(newNode);
 

@@ -139,12 +139,12 @@ async function deleteRecord(row) {
         const quantity = row.querySelector(`[data-name = "quantity"]`);
         const quantityLeft = quantity.nextElementSibling;
         if (quantity.textContent === quantityLeft.textContent) {
-            row.remove();
+            showDeleted ? row.querySelector(`[data-name = "deleted"]`).textContent = 'Да' : row.remove();
             await fetch(url);
         }
     } // Конец костыля
     else {
-        row.remove();
+        showDeleted ? row.querySelector(`[data-name = "deleted"]`).textContent = 'Да' : row.remove();
         await fetch(url);
     }
 }
@@ -330,10 +330,12 @@ dictBlockContent.forEach(block => {
         const dictBlockRow = block.querySelectorAll('.dict-block__row');
         dictBlockRow.forEach(row => {
             if (row === e.target.closest('.dict-block__row')) {
-                if(e.target.classList.contains('btn_delete')){
-                    deleteRecord(row).then(r => {});
-                } else{
-                editRecord(e.target.closest('.dict-block__row'));}
+                if (e.target.classList.contains('btn_delete')) {
+                    deleteRecord(row).then(r => {
+                    });
+                } else {
+                    editRecord(e.target.closest('.dict-block__row'));
+                }
             }
         });
     });

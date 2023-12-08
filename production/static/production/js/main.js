@@ -56,6 +56,16 @@ const userGroups = document.getElementById('user-group')
 // Functions
 
 /**
+ * Take model name from current row id
+ * @param row — row witn id= 'dictionary name'-id
+ * @returns {*} — modelName
+ */
+function typeDict(row) {
+    return dictList[row.id.split('-')[0]];
+}
+
+
+/**
  * fetch data from json
  */
 function fetchJsonData(jsonUrl) {
@@ -121,8 +131,53 @@ function createEditForm(obj) {
     newNode.id = 'form-dict';
     fillFormNode(obj, newNode, nodeElements).then(r => {
     });
-
 }
+
+/**
+ * Updates db from update form (looks like rows of inputs)
+ * @param updateForm — form to save in DB
+ * @param fetchPath — path to url of (dictionary_update in dictionary.py)
+ * @param dictType — name of model to update
+ */
+function saveEditForm(updateForm, fetchPath, dictType) {
+    const formData = new FormData(updateForm);
+    fetch(fetchPath, {
+        method: 'POST',
+        body: formData,
+    })
+        .then(async () => {
+            const formFields = updateForm.querySelectorAll('[name]');
+            const parentRow = updateForm.closest('.dict-block__row');
+            formFields.forEach((field) => {
+                if (!field.classList.contains('dropdown__hidden')) {
+                    parentRow.querySelector(`[data-name = ${field.name}]`).textContent = field.value;
+                } else {
+                    parentRow.querySelector(`[data-name = ${field.name}]`).textContent =
+                        field.parentElement.querySelector('.dropdown__input').value;
+                }
+            });
+            updateForm.remove();
+            parentRow.childNodes.forEach(function (element) {
+                if (element.hidden) {
+                    element.hidden = false
+                }
+            });
+            parentRow.querySelector('.id-hidden').setAttribute('form', '');
+            if (parentRow.dataset.id === 'e') {
+                const dictType = typeDict(parentRow);
+                const jsonUrl = `/production/dictionary_last_id/${dictType}`;
+                const jsonData = await fetchJsonData(jsonUrl);
+                const idRecord = JSON.parse(jsonData)['id__max'];
+                parentRow.dataset.id = idRecord;
+                parentRow.querySelector('.id-hidden').value = idRecord;
+                parentRow.id = parentRow.id.split('-')[0] + '-' + idRecord;
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
 
 /**
  * Fill editable form-row from row
@@ -294,6 +349,124 @@ function cancelEditRecord(obj) {
         }
     });
     row.querySelector('.id-hidden').setAttribute('form', '');
+}
+
+/**
+ * Copy row from hidden row which is template for row
+ * @param copyRow — original row template (hidden first line in dict html code)
+ * @returns {*} — new row for editing
+ */
+function copyRowFromHidden(copyRow) {
+    const newRow = copyRow.cloneNode(true);
+    newRow.id = newRow.id.slice(0, -1) + 'e';
+    newRow.dataset.id = 'e';
+    copyRow.after(newRow);
+    newRow.classList.remove('dict-block__row_hidden');
+    return newRow;
+}
+
+/**
+ * Append 20 rows after current row fetch from db
+ * fetch url of dictionary_json from dictionary.py
+ * @param rowCurrent — current row with last-id != '' after which append records
+ * @param blockContent — content block of current dictionary
+ * @param searchString — string to search
+ * @param shDeleted — parameter if show deleted records
+ * @returns {Promise<void>}
+ */
+async function appendNewRows(rowCurrent, blockContent, searchString, shDeleted) {
+    let newRow;
+    const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
+    const dictType = typeDict(rowCurrent);
+    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}/${shDeleted}`;
+    const jsonData = await fetchJsonData(jsonUrl);
+    const nextRecords = JSON.parse(jsonData);
+    let i = 0;
+    nextRecords.forEach((record) => {
+        i++;
+        newRow = rowCopy.cloneNode(true);
+        fillNewRow(record, i, newRow);
+        newRow.classList.remove('dict-block__row_hidden');
+        if (i === 20) {
+            newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
+        }
+        blockContent.appendChild(newRow);
+    });
+    rowCurrent.dataset.last = '';
+    return nextRecords;
+}
+
+/**
+ * Fills the row with data from object fetched from DB
+ * @param record — object from dictionary DB
+ * @param i — index of record
+ * @param newRow — row to show with fetched data
+ * @returns {Promise<void>}
+ */
+async function fillNewRow(record, i, newRow) {
+    const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
+    newRow.dataset.id = record['id'];
+    newRow.id = newRow.id.slice(0, -1) + record['id'];
+    newRow.querySelector('.id-hidden').value = record['id'];
+    const square = newRow.querySelector('.hex');
+    if (square) {
+        square.style.backgroundColor = record['hex'];
+    }
+
+    for (const rowElement of newRowElements) {
+        let fieldName = rowElement.dataset.field;
+        if (rowElement.classList.contains('foreign-key')) {
+            rowElement.dataset.id = record[fieldName + '_id'];
+            let foreignKeyElement;
+            foreignKeyElement = document.getElementById(fieldName);
+            rowElement.textContent = await fetchJsonData(
+                `/production/dict_name/${dictList[fieldName]}/${record[fieldName + '_id']}`);
+        } else if (rowElement.classList.contains('bool-field')) {
+            rowElement.textContent = record[fieldName] ? 'Да' : 'Нет';
+            rowElement.dataset.id = record[fieldName] ? '1' : '0';
+        } else if (fieldName.includes('user')) {
+            if (record[`${fieldName}_id`]) {
+                rowElement.textContent = await fetchJsonData(`/production/user_name/${record[`${fieldName}_id`]}`);
+            }
+        } else {
+            rowElement.textContent = record[fieldName];
+            if (rowElement.dataset.field === 'date_close' && record[fieldName]) {
+                newRow.classList.add('fulfilled');
+            }
+        }
+    }
+}
+
+/**
+ * if search string empty returns 'default'
+ * @param record — row from which ou catch search window
+ * @returns {string} — returns search sting or 'default'
+ */
+function normalizeSearchString(record) {
+    let searchString = '';
+    if (record.closest('.dict-block').querySelector('.dict-block__form-input')) {
+        searchString = record.closest('.dict-block').querySelector('.dict-block__form-input').value;
+    }
+    if (searchString === '') {
+        searchString = 'default';
+    }
+    return searchString;
+}
+
+/**
+ * function for search button
+ * @param block — block from which ou catch search window
+ * @returns {*} — returns search sting or 'default'
+ */
+function normalizeSearchStringValue(block) {
+    const searchString = block.querySelector('.form-input').value;
+    let searchValue;
+    if (searchString === '') {
+        searchValue = 'default';
+    } else {
+        searchValue = searchString.replaceAll(/  +/g, ' ').replaceAll(' ', '_')
+    }
+    return searchValue;
 }
 
 // end of functions

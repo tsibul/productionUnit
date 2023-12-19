@@ -28,6 +28,8 @@ urlpatterns = [
     path('production_start/', views.production_start, name='production_start'),
     path('production_stop/', views.production_stop, name='production_stop'),
     path('production_report/', views.production_report, name='production_report'),
+    path('shift_approved/', views.shift_approved, name='shift_approved'),
+    path('shift_rejected/', views.shift_rejected, name='shift_rejected'),
 
     path('production/', views.production, name='production'),
     path('production_list/<int:first_record>/<str:order>', views.production_list, name='production_list'),

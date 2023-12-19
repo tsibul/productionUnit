@@ -7,15 +7,18 @@ from django.utils import timezone
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport
 from production.classes import QualityCheck
-from production.service_function import user_group_list, defects_create, review_requests, quality_for_request_create
+from production.service_function import user_group_list, defects_create, review_requests, quality_for_request_create, \
+    if_admin
 
 
 def production(request):
     navi = 'production'
+    admin_state = if_admin(request)
     user_groups = user_group_list(request)
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
-    context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event}
+    context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event,
+               'admin_state': admin_state}
     return render(request, 'production.html', context)
 
 

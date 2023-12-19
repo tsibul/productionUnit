@@ -4,11 +4,12 @@ from django.shortcuts import render
 
 from production.models import ProductionRequest, ProductionRequestStartStop, ProductionReport, ProductionForRequest, \
     QualityForRequest, QualityReport, QualityReportDefects
-from production.service_function import user_group_list
+from production.service_function import user_group_list, if_admin
 
 
 def production_admin(request):
     navi = 'admin'
+    admin_state = if_admin(request)
     product_request = ProductionRequest.objects.all().order_by('-date_create', 'detail__goods__name').first()
     product_report = ProductionReport.objects.all().order_by('-date', 'detail__goods__name').first()
     request_start_stop = ProductionRequestStartStop.objects.all().order_by('-date_start',
@@ -22,5 +23,6 @@ def production_admin(request):
                'request_start_stop': request_start_stop, 'production_for_request': production_for_request,
                'quality_for_request': quality_for_request, 'quality_report': quality_report,
                'quality_report_defect': quality_report_defect,
-               'date_now': datetime.datetime.now(), 'user_groups': user_groups}
+               'date_now': datetime.datetime.now(), 'user_groups': user_groups,
+               'admin_state': admin_state}
     return render(request, 'admin.html', context)

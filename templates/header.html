@@ -41,9 +41,9 @@
                     <a href="{% url 'production:dictionary' %}"
                        class="menu__item mobile__hide {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                 {% else %}
-                    <div class="menu__item">Производство V1.2.5&nbsp;<strong>Авторизуйтесь</strong></div>
+                    <div class="menu__item">Производство V1.2.6&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
-                {% if request.user.is_superuser %}
+                {% if admin_state %}
                     <a href="{% url 'production:production_admin' %}"
                        class="menu__item {% if navi == 'admin' %}active{% endif %}">Админ</a>
                 {% endif %}
@@ -59,7 +59,7 @@
                     </div>
                     <div class="menu__item" hidden> выход</div>
                 {% endif %}
-            <div class="menu__item">ver 1.2.5</div>
+            <div class="menu__item">ver 1.2.6</div>
             </nav>
         </menu>
     </div>

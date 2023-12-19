@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from production.models import ProductionRequest, DetailInGoods, Color, ProductionRequestStartStop
-from production.service_function import user_group_list
+from production.service_function import user_group_list, if_admin
 
 
 def production_request(request):
@@ -12,6 +12,7 @@ def production_request(request):
     :return: first 12 records from db (last will be with last-record=12 in html)
     """
     navi = 'request'
+    admin_state = if_admin(request)
     product_request = ProductionRequest.objects.filter(deleted=False).order_by('-date_create', 'detail__goods__name')[
                       0:11]
     product_request_end = ProductionRequest.objects.filter(deleted=False).order_by('-date_create',
@@ -20,7 +21,8 @@ def production_request(request):
     detail = DetailInGoods.objects.filter(deleted=False).order_by('goods', 'position')
     user_groups = user_group_list(request)
     context = {'navi': navi, 'product_request': product_request, 'product_request_end': product_request_end,
-               'color': color, 'detail': detail, 'date_now': timezone.now(), 'user_groups': user_groups}
+               'color': color, 'detail': detail, 'date_now': timezone.now(), 'user_groups': user_groups,
+               'admin_state': admin_state}
     return render(request, 'request.html', context)
 
 

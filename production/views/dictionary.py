@@ -10,11 +10,13 @@ from django.views.decorators.csrf import csrf_exempt
 from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
                                MaterialType, MasterBatch, Country, Producer, Recipe, IMM, Defects, DefectEvent)
-from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter
+from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter, \
+    if_admin
 
 
 def dictionary(request):
     navi = 'dictionary'
+    admin_state = if_admin(request)
     color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
     color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[0:19]
     color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[19:20]
@@ -44,7 +46,7 @@ def dictionary(request):
                'goods': goods, 'add_material': add_material,
                'add_material_end': add_material_end, 'imm': imm,
                'recipe': recipe, 'recipe_end': recipe_end, 'user_groups': user_groups, 'defects': defects,
-               'defect_event': defect_event}
+               'defect_event': defect_event, 'admin_state': admin_state}
     return render(request, 'dictionary.html', context)
 
 

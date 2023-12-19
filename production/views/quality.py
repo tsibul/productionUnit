@@ -8,11 +8,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects
 from production.classes import QualityCheck
-from production.service_function import defects_create, user_group_list
+from production.service_function import defects_create, user_group_list, if_admin
 
 
 def quality_report(request):
     navi = 'quality'
+    admin_state = if_admin(request)
     user_groups = user_group_list(request)
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
@@ -23,7 +24,7 @@ def quality_report(request):
     else:
         start_date = first_day_of_current_month.replace(month=first_day_of_current_month.month - 1).date()
     context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event, 'now': now,
-               'start_date': start_date}
+               'start_date': start_date, 'admin_state': admin_state}
     return render(request, 'quality.html', context)
 
 

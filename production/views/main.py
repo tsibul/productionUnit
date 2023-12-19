@@ -8,16 +8,18 @@ from django.utils import timezone
 from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
     ProductionRequestStartStop, ProductionReport
 from production.classes import TotalRequest
-from production.service_function import user_group_list, spread_production_for_requests, technical_request_create
+from production.service_function import user_group_list, spread_production_for_requests, technical_request_create, \
+    if_admin
 
 
 def index(request):
     navi = 'main'
+    admin_state = if_admin(request)
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
     user_groups = user_group_list(request)
-    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups}
+    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state}
     return render(request, 'index.html', context)
 
 

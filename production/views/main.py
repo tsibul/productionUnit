@@ -15,11 +15,15 @@ from production.service_function import user_group_list, spread_production_for_r
 def index(request):
     navi = 'main'
     admin_state = if_admin(request)
+    production_to_approve = ProductionReport.objects.filter(deleted=False, shift_rejected=True).order_by('-date')
+    to_approve = production_to_approve.count()
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
     user_groups = user_group_list(request)
-    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state}
+    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
+               'production_to_approve': production_to_approve, 'to_approve': to_approve}
+
     return render(request, 'index.html', context)
 
 
@@ -74,11 +78,29 @@ def production_report(request):
     date_now = timezone.now()
     quantity = int(request.POST['quantity'])
     production = ProductionReport(detail=detail, color=color, date=date_now, imm=imm, user=current_user,
-                                  quantity=quantity)
+                                  quantity=quantity, shift_rejected=True)
     production.save()
+    # quantity_left = spread_production_for_requests(production, quantity)
+    # if quantity_left > 0:
+    #     technical_request_create(quantity_left, production)
+    return HttpResponseRedirect(reverse('production:main'))
+
+
+def shift_approved(request):
+    production = ProductionReport.objects.get(id=request.POST['id'])
+    production.shift_rejected = False
+    production.save()
+    quantity = production.quantity
     quantity_left = spread_production_for_requests(production, quantity)
     if quantity_left > 0:
         technical_request_create(quantity_left, production)
+    return HttpResponseRedirect(reverse('production:main'))
+
+
+def shift_rejected(request):
+    production = ProductionReport.objects.get(id=request.POST['id'])
+    production.deleted = True
+    production.save()
     return HttpResponseRedirect(reverse('production:main'))
 
 

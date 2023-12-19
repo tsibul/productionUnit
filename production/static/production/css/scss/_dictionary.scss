@@ -248,14 +248,16 @@
 .production-list {
   grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
 }
+
 .production-to-approve {
-      grid-template-columns: 1fr 0.4fr repeat(4, 1fr) repeat(2, 0.6fr);
-    }
+  grid-template-columns: 0.2fr 1fr 0.5fr repeat(2, 1.5fr) 1fr 0.6fr 1fr 0.8fr 0.5fr;
+}
 
 
 .quality-list {
   grid-template-columns: 0.8fr 1fr 0.4fr repeat(2, 1fr) repeat(7, 0.6fr);
-  &_adm{
+
+  &_adm {
     font-size: 14px;
     grid-template-columns: 0.4fr 2.5fr repeat(3, 0.6fr) repeat(3, 1fr) 1.5fr 0.6fr 0.8fr;
   }
@@ -268,22 +270,22 @@
   }
 }
 
-.production-for-request{
-  &_adm{
+.production-for-request {
+  &_adm {
     font-size: 14px;
     grid-template-columns: 0.3fr repeat(2, 3fr) 1fr 1fr 0.5fr;
   }
 }
 
-.quality-for-request{
-  &_adm{
+.quality-for-request {
+  &_adm {
     font-size: 14px;
     grid-template-columns: 0.3fr repeat(2, 3fr) repeat(3, 1fr) 0.5fr;
   }
 }
 
-.quality-report-defect{
-  &_adm{
+.quality-report-defect {
+  &_adm {
     font-size: 14px;
     grid-template-columns: 0.3fr 2fr repeat(3, 1fr) 0.5fr 1fr;
   }

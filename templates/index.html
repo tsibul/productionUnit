@@ -8,6 +8,42 @@
         <div class="container">
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
                 <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                    <div class="dict-block__active"><i class=" fa fa-solid fa-bugs"></i>&nbsp;подтверждение выпуска
+                    </div>
+                </div>
+                <div class="dict-block__row dict-block__active production-to-approve">
+                    <div class="digit table-center">дата/время</div>
+                    <div class="">ТПА</div>
+                    <div class="table-center mobile__hide">Название</div>
+                    <div class="table-center">Деталь</div>
+                    <div class="table-center">Цвет</div>
+                    <div class="table-center">Кол-во выпущено</div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="dict-block__content">
+                    {% for item in imm %}
+                        <div class="dict-block__row production-to-approve" data-id="{{ item.id }}" data-last=""
+                             id="imm-{{ item.id }}">
+                            <div class="dict-block__text work__date table-center"></div>
+                            <div class="dict-block__text work__imm">{{ item.plant_code }}</div>
+                            <div class="dict-block__text work__name mobile__hide">{{ item }}</div>
+                            <div class="dict-block__text work__detail"></div>
+                            <div class="dict-block__text work__color"></div>
+                            <div class="dict-block__text work__quantity digit"></div>
+                            <button class="btn btn-save form-input__inactive" type="button" disabled>
+                                подтвердить
+                            </button>
+                            <button class="btn btn-close form-input__inactive" type="button" disabled>
+                                удалить
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section><!-- текущее на подтверждение -->
+
+            <section class="dict-block dict-block__open dict-block__4 dict-block_long">
+                <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
                     <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;В работе
                     </div>
                     <div class="dict-block__search dict-block__search_open">

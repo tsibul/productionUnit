@@ -17,6 +17,7 @@ class ProductionReport(models.Model):
     date_close = models.DateTimeField(default=None, null=True)
     user_close = models.ForeignKey(User, models.SET_NULL, null=True, related_name='user_checked')
     deleted = models.BooleanField(default=False)
+    shift_checked = models.BooleanField(default=False)
 
     def __repr__(self):
         date = ''

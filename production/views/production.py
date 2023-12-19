@@ -26,7 +26,8 @@ def production_list(request, first_record, order):
     if order == 'default':
         order = '-date'
     last_record = first_record + 19
-    prod_list = ProductionReport.objects.filter(deleted=False).order_by(order)[first_record:last_record]
+    prod_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)[
+                first_record:last_record]
     requests = []
     for item in prod_list:
         requests.append(QualityCheck(item.id))
@@ -61,6 +62,3 @@ def production_acceptance(request):
     quality_for_request_create(production_item, quality_report, int(quantity_checked), int(quantity_approved))
     defects_create(request, quality_report)
     return HttpResponseRedirect(reverse('production:production'))
-
-
-

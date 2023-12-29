@@ -6,53 +6,53 @@
     <script src="{% static 'production/js/dictionary.js' %}" defer type="module"></script>
     <div class="full-content">
         <div class="container">
-            <section class="dict-block dict-block__open dict-block__4 dict-block_long" {% if to_approve == 0 %}
-                     style="display: none" {% endif %}>
-                <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
-                    <div class="dict-block__active"><i class=" fa fa-solid fa-bugs"></i>&nbsp;подтверждение выпуска
-                    </div>
-                </div>
-                <div class="dict-block__row dict-block__active production-to-approve">
-                    <div></div>
-                    <div class="digit table-center">дата/время</div>
-                    <div class="table-center">ТПА</div>
-                    <div class="table-center mobile__hide">Название</div>
-                    <div class="">Деталь</div>
-                    <div class="">Цвет</div>
-                    <div class="table-center">Кол-во выпущено</div>
-                    <div class="table-center">Смена</div>
-                    <div></div>
-                </div>
-                <div class="dict-block__content">
-                    {% for item in production_to_approve %}
-                        <div class="dict-block__row production-to-approve" data-id="{{ item.id }}" data-last=""
-                             id="to_approve-{{ item.id }}">
-                            <div class="hex" style="background-color: {{ item.color.color_code }};"></div>
-                            <div class="dict-block__text work__date table-center">{{ item.date|date:"d.m.y H:i" }}</div>
-                            <div class="dict-block__text work__imm table-center">{{ item.imm.plant_code }}</div>
-                            <div class="dict-block__text work__name mobile__hide">{{ item.imm }}</div>
-                            <div class="dict-block__text work__detail">{{ item.detail }}</div>
-                            <div class="dict-block__text work__color">{{ item.color }}</div>
-                            <div class="dict-block__text work__quantity digit">{{ item.quantity }}</div>
-                            <div class="dict-block__text work__user table-center">{{ item.user.last_name }}</div>
-                            <form method="post" action="{%  url 'production:shift_approved' %}">
-                                {%  csrf_token %}
-                                <input type="number" name="id" value="{{ item.id }}" hidden>
-                                <button class="btn btn-save" type="submit">
-                                    подтвердить
-                                </button>
-                            </form>  
-                            <form method="post" action="{%  url 'production:shift_rejected' %}">
-                                {%  csrf_token %}
-                                <input type="number" name="id" value="{{ item.id }}" hidden>
-                                <button class="btn btn-close" type="submit">
-                                    удалить
-                                </button>
-                            </form>
-                        </div>
-                    {% endfor %}
-                </div>
-            </section><!-- текущее на подтверждение -->
+{#            <section class="dict-block dict-block__open dict-block__4 dict-block_long" {% if to_approve == 0 %}#}
+{#                     style="display: none" {% endif %}>#}
+{#                <div class="dict-block__header dict-block__header_open dict-block__header_block-space">#}
+{#                    <div class="dict-block__active"><i class=" fa fa-solid fa-bugs"></i>&nbsp;подтверждение выпуска#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="dict-block__row dict-block__active production-to-approve">#}
+{#                    <div></div>#}
+{#                    <div class="digit table-center">дата/время</div>#}
+{#                    <div class="table-center">ТПА</div>#}
+{#                    <div class="table-center mobile__hide">Название</div>#}
+{#                    <div class="">Деталь</div>#}
+{#                    <div class="">Цвет</div>#}
+{#                    <div class="table-center">Кол-во выпущено</div>#}
+{#                    <div class="table-center">Смена</div>#}
+{#                    <div></div>#}
+{#                </div>#}
+{#                <div class="dict-block__content">#}
+{#                    {% for item in production_to_approve %}#}
+{#                        <div class="dict-block__row production-to-approve" data-id="{{ item.id }}" data-last=""#}
+{#                             id="to_approve-{{ item.id }}">#}
+{#                            <div class="hex" style="background-color: {{ item.color.color_code }};"></div>#}
+{#                            <div class="dict-block__text work__date table-center">{{ item.date|date:"d.m.y H:i" }}</div>#}
+{#                            <div class="dict-block__text work__imm table-center">{{ item.imm.plant_code }}</div>#}
+{#                            <div class="dict-block__text work__name mobile__hide">{{ item.imm }}</div>#}
+{#                            <div class="dict-block__text work__detail">{{ item.detail }}</div>#}
+{#                            <div class="dict-block__text work__color">{{ item.color }}</div>#}
+{#                            <div class="dict-block__text work__quantity digit">{{ item.quantity }}</div>#}
+{#                            <div class="dict-block__text work__user table-center">{{ item.user.last_name }}</div>#}
+{#                            <form method="post" action="{%  url 'production:shift_approved' %}">#}
+{#                                {%  csrf_token %}#}
+{#                                <input type="number" name="id" value="{{ item.id }}" hidden>#}
+{#                                <button class="btn btn-save" type="submit">#}
+{#                                    подтвердить#}
+{#                                </button>#}
+{#                            </form>  #}
+{#                            <form method="post" action="{%  url 'production:shift_rejected' %}">#}
+{#                                {%  csrf_token %}#}
+{#                                <input type="number" name="id" value="{{ item.id }}" hidden>#}
+{#                                <button class="btn btn-close" type="submit">#}
+{#                                    удалить#}
+{#                                </button>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </section><!-- текущее на подтверждение -->#}
 
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
                 <div class="dict-block__header dict-block__header_open dict-block__header_block-space">
@@ -148,6 +148,8 @@
                 начать
             </button>
         </div>
+        <div id="in-work">{{ in_work }}</div>
+        <div id="on-request">{{ on_request }}</div>
     </div>
     <!-- Модальное окно для старта -->
     <div id="startModal" class="login">

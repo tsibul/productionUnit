@@ -3,17 +3,25 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
-from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
-    ProductionRequestStartStop, ProductionReport
+from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionRequestStartStop, ProductionReport
 from production.service_function import user_group_list, spread_production_for_requests, technical_request_create, \
     if_admin, state
 
 
 def index(request):
+    """
+    Prepare the main page
+    :param request:
+    navi: page to make menu item bold
+    admin_state: show menu admin for admin
+    imm: list of IMMs
+    imm_free: list of IMMs free to put the mold (used in start production modal)
+    :return:
+    """
     navi = 'main'
     admin_state = if_admin(request)
-    production_to_approve = ProductionReport.objects.filter(deleted=False, shift_rejected=True).order_by('-date')
-    to_approve = production_to_approve.count()
+    # production_to_approve = ProductionReport.objects.filter(deleted=False, shift_rejected=True).order_by('-date')
+    # to_approve = production_to_approve.count()
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
@@ -21,13 +29,22 @@ def index(request):
     on_request, in_work = state()
     user_groups = user_group_list(request)
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
-               'production_to_approve': production_to_approve, 'to_approve': to_approve, 'on_request': on_request,
-               'in_work': in_work}
+               'on_request': on_request, 'in_work': in_work}
 
     return render(request, 'index.html', context)
 
 
 def production_start(request):
+    """
+    Start production
+    :param request
+    color: detail color
+    detail
+    imm: on which start production
+    current_user: current user
+    date_now: current date and time
+    :return: new record in table ProductionRequestStartStop
+    """
     color, detail, imm, current_user, date_now = request_from_form(request)
     production_request = (ProductionRequest.objects.filter(deleted=False, closed=False, color=color, detail=detail)
                           .order_by('date_create')).first()
@@ -38,6 +55,17 @@ def production_start(request):
 
 
 def production_stop(request):
+    """
+    Stop production
+    :param request
+    imm: on which stop production
+    stop_reason: hy the production stopped
+    current_user: current user
+    date_now: current date and time
+    :return:
+    add date stop to table ProductionRequestStartStop
+    with stop reason
+    """
     imm = IMM.objects.get(id=request.POST['imm'])
     stop_reason = request.POST['stop_reason']
     current_user = request.user
@@ -51,6 +79,20 @@ def production_stop(request):
 
 
 def production_report(request):
+    """
+    Function for report quantity produced
+    :param request
+    color: detail color
+    detail
+    imm: on which stop production
+    stop_reason: hy the production stopped
+    current_user: current user
+    date_now: current date and time
+    quantity: quantity produced
+    :return:
+    add record to table ProductionReport
+    if quantity more than needed make technical request
+    """
     color, detail, imm, current_user, date_now = request_from_form(request)
     quantity = int(request.POST['quantity'])
     production = ProductionReport(detail=detail, color=color, date=date_now, imm=imm, user=current_user,
@@ -81,6 +123,15 @@ def production_report(request):
 
 
 def request_from_form(request):
+    """
+    Take data from request
+    :param request:
+    :return:
+    color: detail color
+    detail
+    imm: on which stop production
+    current_user: current user
+    """
     color = Color.objects.get(id=request.POST['color'])
     detail = DetailInGoods.objects.get(id=request.POST['detail'])
     imm = IMM.objects.get(id=request.POST['imm'])

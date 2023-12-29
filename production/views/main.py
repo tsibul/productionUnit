@@ -1,15 +1,12 @@
-import json
-
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 
 from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionForRequest, \
     ProductionRequestStartStop, ProductionReport
-from production.classes import TotalRequest
 from production.service_function import user_group_list, spread_production_for_requests, technical_request_create, \
-    if_admin
+    if_admin, state
 
 
 def index(request):
@@ -21,30 +18,13 @@ def index(request):
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
 
-    on_request, in_work = state(request)
+    on_request, in_work = state()
     user_groups = user_group_list(request)
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
                'production_to_approve': production_to_approve, 'to_approve': to_approve, 'on_request': on_request,
                'in_work': in_work}
 
     return render(request, 'index.html', context)
-
-
-def state(request):
-    reqs = (ProductionRequest.objects.filter(deleted=False, closed=False).order_by('detail')
-            .values_list('detail', 'color').distinct())
-    in_work = []
-    on_request = []
-    for item in reqs:
-        total_request = TotalRequest(item)
-        if total_request.imm_id:
-            in_work.append(TotalRequest(item))
-        else:
-            on_request.append(TotalRequest(item))
-    ser_on_request = [on_req.__dict__ for on_req in on_request]
-    ser_on_request = sorted(ser_on_request, key=lambda order: (order['first_date'], order['detail']))
-    ser_in_work = [in_wrk.__dict__ for in_wrk in in_work]
-    return json.dumps(ser_on_request), json.dumps(ser_in_work)
 
 
 def production_start(request):

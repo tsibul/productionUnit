@@ -1,4 +1,24 @@
+import json
+
+from production.classes import TotalRequest
 from production.models import ProductionRequest, ProductionForRequest, ProductionRequestStartStop
+
+
+def state():
+    reqs = (ProductionRequest.objects.filter(deleted=False, closed=False).order_by('detail')
+            .values_list('detail', 'color').distinct())
+    in_work = []
+    on_request = []
+    for item in reqs:
+        total_request = TotalRequest(item)
+        if total_request.imm_id:
+            in_work.append(TotalRequest(item))
+        else:
+            on_request.append(TotalRequest(item))
+    ser_on_request = [on_req.__dict__ for on_req in on_request]
+    ser_on_request = sorted(ser_on_request, key=lambda order: (order['first_date'], order['detail']))
+    ser_in_work = [in_wrk.__dict__ for in_wrk in in_work]
+    return json.dumps(ser_on_request), json.dumps(ser_in_work)
 
 
 def spread_production_for_requests(production, quantity):
@@ -57,3 +77,5 @@ def technical_request_create(quantity, production):
     technical_request_production_for_request = ProductionForRequest(production=production, quantity=quantity,
                                                                     production_request=technical_request)
     technical_request_production_for_request.save()
+
+

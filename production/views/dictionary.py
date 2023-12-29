@@ -15,6 +15,11 @@ from production.service_function import user_group_list, linking_filter, format_
 
 
 def dictionary(request):
+    """
+    Return first 20 records of each dictionary, sorted by default (for static page)
+    :param request:
+    :return:
+    """
     navi = 'dictionary'
     admin_state = if_admin(request)
     color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
@@ -52,6 +57,12 @@ def dictionary(request):
 
 @csrf_exempt
 def dictionary_update(request, dict_type):
+    """
+    Update the dictionary
+    :param request:
+    :param dict_type:
+    :return:
+    """
     dict_id = request.POST['id']
     dict_model = getattr(models, dict_type)
     field_list = [f.name for f in dict_model._meta.get_fields()]
@@ -79,6 +90,16 @@ def dictionary_update(request, dict_type):
 
 
 def dictionary_json(request, dict_type, id_no, order, search_string, show_deleted):
+    """
+    Returns table filtered 20 records fron id_no
+    :param request:
+    :param dict_type: table of DB
+    :param id_no: id of record from which start
+    :param order: order of dictionary
+    :param search_string: filtering string
+    :param show_deleted: for admin purpose true default true
+    :return:
+    """
     dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
     formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
     json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
@@ -86,6 +107,13 @@ def dictionary_json(request, dict_type, id_no, order, search_string, show_delete
 
 
 def dictionary_delete(request, dict_type, id_no):
+    """
+    Delete record from table by record id
+    :param request:
+    :param dict_type: name of table
+    :param id_no: id of record to delete
+    :return:
+    """
     dict_model = getattr(models, dict_type)
     dict_element = dict_model.objects.get(id=id_no)
     dict_element.deleted = True
@@ -94,6 +122,12 @@ def dictionary_delete(request, dict_type, id_no):
 
 
 def dictionary_last_id(request, dict_type):
+    """
+    Finding last id in table of DB
+    :param request:
+    :param dict_type: table of DB
+    :return: Json
+    """
     dict_model = getattr(models, dict_type)
     last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
@@ -101,17 +135,39 @@ def dictionary_last_id(request, dict_type):
 
 
 def fetch_user_by_id(request, user_id):
+    """
+    Fetch user by user_id
+    :param request:
+    :param user_id:
+    :return: json with userdata
+    """
     user_name = User.objects.get(id=user_id).last_name
     return JsonResponse(user_name, safe=False)
 
 
 def fetch_dict_str_by_id(request, dict_type, dict_id):
+    """
+    Fetch one record from table
+    :param request:
+    :param dict_type: Table name
+    :param dict_id: id of record
+    :return: json with dictionary data record
+    """
     dict_model = getattr(models, dict_type)
     dict_str = str(dict_model.objects.get(id=dict_id))
     return JsonResponse(dict_str, safe=False)
 
 
 def dictionary_json_filter(request, dict_type, filter_dictionary, filter_dictionary_id):
+    """
+    Using for table connection if we find item in second table in second table
+    filter parent table by it
+    :param request:
+    :param dict_type:
+    :param filter_dictionary:
+    :param filter_dictionary_id:
+    :return:
+    """
     if dict_type == 'default':
         formatted_dict_items = []
         json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)

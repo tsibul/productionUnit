@@ -28,11 +28,7 @@ def index(request):
 
 
 def production_start(request):
-    color = Color.objects.get(id=request.POST['color'])
-    detail = DetailInGoods.objects.get(id=request.POST['detail'])
-    imm = IMM.objects.get(id=request.POST['imm'])
-    current_user = request.user
-    date_now = timezone.now()
+    color, detail, imm, current_user, date_now = request_from_form(request)
     production_request = (ProductionRequest.objects.filter(deleted=False, closed=False, color=color, detail=detail)
                           .order_by('date_create')).first()
     production_start_stop = ProductionRequestStartStop(production_request=production_request, date_start=date_now,
@@ -55,11 +51,7 @@ def production_stop(request):
 
 
 def production_report(request):
-    color = Color.objects.get(id=request.POST['color'])
-    detail = DetailInGoods.objects.get(id=request.POST['detail'])
-    imm = IMM.objects.get(id=request.POST['imm'])
-    current_user = request.user
-    date_now = timezone.now()
+    color, detail, imm, current_user, date_now = request_from_form(request)
     quantity = int(request.POST['quantity'])
     production = ProductionReport(detail=detail, color=color, date=date_now, imm=imm, user=current_user,
                                   quantity=quantity, shift_rejected=False)
@@ -86,3 +78,12 @@ def production_report(request):
 #     production.deleted = True
 #     production.save()
 #     return HttpResponseRedirect(reverse('production:main'))
+
+
+def request_from_form(request):
+    color = Color.objects.get(id=request.POST['color'])
+    detail = DetailInGoods.objects.get(id=request.POST['detail'])
+    imm = IMM.objects.get(id=request.POST['imm'])
+    current_user = request.user
+    date_now = timezone.now()
+    return color, detail, imm, current_user, date_now

@@ -39,8 +39,7 @@ def production_state(request, in_work):
             requests.append(TotalRequest(item))
     serialized_requests = [request.__dict__ for request in requests]
     serialized_requests = sorted(serialized_requests, key=lambda order: (order['first_date'], order['detail']))
-    json_response = json.dumps(serialized_requests, ensure_ascii=False)
-    return JsonResponse(json_response, safe=False)
+    return JsonResponse(serialized_requests, safe=False)
 
 
 def production_start(request):

@@ -12,10 +12,9 @@ const productionModal = document.getElementById('productionModal');
 const modalSaveButton = productionModal.querySelector('.btn-save');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 
-const detailsOnImm = fillImmRows();
 
-addRequestRows().then(r => {
-});
+const detailsOnImm = fillImmRows();
+await addRequestRows();
 
 [...produceButtons].forEach(btn => {
     btn.addEventListener('click', () => {
@@ -43,9 +42,8 @@ productionContent.addEventListener('click', e => {
 
 async function fillImmRows() {
     const prefix = 'work__';
-    const prodData = await fetch('/production/production_state/1')
-        .then(response => response.json());
-    const productionData = JSON.parse(prodData);
+    const prodData = await fetch('/production/production_state/1');
+    const productionData = await prodData.json();
     const detailsImm = {};
     productionData.forEach(element => {
         let newRow = inProductionContent.querySelector('[data-id="' + element['imm_id'] + '"]');
@@ -61,10 +59,8 @@ async function fillImmRows() {
 
 async function addRequestRows() {
     const prefix = 'req__';
-    const prodData = await fetch('/production/production_state/0')
-        .then(response => response.json());
-    // fetchJsonData();
-    const productionData = JSON.parse(prodData);
+    const prodData = await fetch('/production/production_state/0');
+    const productionData = await prodData.json();
     let newRow;
     productionData.forEach(element => {
         newRow = productionRow.cloneNode(true);

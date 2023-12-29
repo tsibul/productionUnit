@@ -11,6 +11,8 @@ const stopButtons = sectionInProduction.querySelectorAll('.btn-close');
 const productionModal = document.getElementById('productionModal');
 const modalSaveButton = productionModal.querySelector('.btn-save');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
+const inWorkLocal = JSON.parse(document.getElementById('in-work').textContent);
+const onRequestLocal = JSON.parse(document.getElementById('on-request').textContent);
 
 
 const detailsOnImm = fillImmRows();
@@ -42,10 +44,8 @@ productionContent.addEventListener('click', e => {
 
 async function fillImmRows() {
     const prefix = 'work__';
-    const prodData = await fetch('/production/production_state/1');
-    const productionData = await prodData.json();
     const detailsImm = {};
-    productionData.forEach(element => {
+    inWorkLocal.forEach(element => {
         let newRow = inProductionContent.querySelector('[data-id="' + element['imm_id'] + '"]');
         detailsImm[element['detail'].split(' ')[0]] = newRow.querySelector('.work__imm').textContent;
         fillProductionData(newRow, element, prefix);
@@ -59,10 +59,8 @@ async function fillImmRows() {
 
 async function addRequestRows() {
     const prefix = 'req__';
-    const prodData = await fetch('/production/production_state/0');
-    const productionData = await prodData.json();
     let newRow;
-    productionData.forEach(element => {
+    onRequestLocal.forEach(element => {
         newRow = productionRow.cloneNode(true);
         fillProductionData(newRow, element, prefix);
         productionContent.appendChild(newRow);
@@ -105,7 +103,13 @@ function fillProductionModal(btn) {
     productionModal.querySelector('[name="color"]').value = row.dataset.color;
 }
 
-modalSaveButton.addEventListener('submit', () =>{
-    modalSaveButton.classList.add('form-input__inactive');
-    modalSaveButton.disabled = true;
+modalSaveButton.addEventListener('mousedown', e =>{
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.disabled = true;
+        btn.classList.add('form-input__inactive');
+    const currentForm = e.target.closest('form');
+    const currentModal = e.target.closest('.login');
+    currentModal.style.display = 'none';
+    currentForm.submit();
+    })
 })

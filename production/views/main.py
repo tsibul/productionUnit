@@ -20,26 +20,31 @@ def index(request):
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
                            productionrequeststartstop__date_start__isnull=False)
+
+    on_request, in_work = state(request)
     user_groups = user_group_list(request)
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
-               'production_to_approve': production_to_approve, 'to_approve': to_approve}
+               'production_to_approve': production_to_approve, 'to_approve': to_approve, 'on_request': on_request,
+               'in_work': in_work}
 
     return render(request, 'index.html', context)
 
 
-def production_state(request, in_work):
-    on_request = (ProductionRequest.objects.filter(deleted=False, closed=False).order_by('detail')
-                  .values_list('detail', 'color').distinct())
-    requests = []
-    for item in on_request:
+def state(request):
+    reqs = (ProductionRequest.objects.filter(deleted=False, closed=False).order_by('detail')
+            .values_list('detail', 'color').distinct())
+    in_work = []
+    on_request = []
+    for item in reqs:
         total_request = TotalRequest(item)
-        if in_work and total_request.imm_id:
-            requests.append(TotalRequest(item))
-        elif not in_work and not total_request.imm_id:
-            requests.append(TotalRequest(item))
-    serialized_requests = [request.__dict__ for request in requests]
-    serialized_requests = sorted(serialized_requests, key=lambda order: (order['first_date'], order['detail']))
-    return JsonResponse(serialized_requests, safe=False)
+        if total_request.imm_id:
+            in_work.append(TotalRequest(item))
+        else:
+            on_request.append(TotalRequest(item))
+    ser_on_request = [on_req.__dict__ for on_req in on_request]
+    ser_on_request = sorted(ser_on_request, key=lambda order: (order['first_date'], order['detail']))
+    ser_in_work = [in_wrk.__dict__ for in_wrk in in_work]
+    return json.dumps(ser_on_request), json.dumps(ser_in_work)
 
 
 def production_start(request):
@@ -77,29 +82,27 @@ def production_report(request):
     date_now = timezone.now()
     quantity = int(request.POST['quantity'])
     production = ProductionReport(detail=detail, color=color, date=date_now, imm=imm, user=current_user,
-                                  quantity=quantity, shift_rejected=True)
+                                  quantity=quantity, shift_rejected=False)
     production.save()
-    # quantity_left = spread_production_for_requests(production, quantity)
-    # if quantity_left > 0:
-    #     technical_request_create(quantity_left, production)
-    return HttpResponseRedirect(reverse('production:main'))
-
-
-def shift_approved(request):
-    production = ProductionReport.objects.get(id=request.POST['id'])
-    production.shift_rejected = False
-    production.save()
-    quantity = production.quantity
     quantity_left = spread_production_for_requests(production, quantity)
     if quantity_left > 0:
         technical_request_create(quantity_left, production)
     return HttpResponseRedirect(reverse('production:main'))
 
 
-def shift_rejected(request):
-    production = ProductionReport.objects.get(id=request.POST['id'])
-    production.deleted = True
-    production.save()
-    return HttpResponseRedirect(reverse('production:main'))
-
-
+# def shift_approved(request):
+#     production = ProductionReport.objects.get(id=request.POST['id'])
+#     production.shift_rejected = False
+#     production.save()
+#     quantity = production.quantity
+#     quantity_left = spread_production_for_requests(production, quantity)
+#     if quantity_left > 0:
+#         technical_request_create(quantity_left, production)
+#     return HttpResponseRedirect(reverse('production:main'))
+#
+#
+# def shift_rejected(request):
+#     production = ProductionReport.objects.get(id=request.POST['id'])
+#     production.deleted = True
+#     production.save()
+#     return HttpResponseRedirect(reverse('production:main'))

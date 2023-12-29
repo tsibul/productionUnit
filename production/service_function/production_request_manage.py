@@ -5,6 +5,13 @@ from production.models import ProductionReport, ProductionRequest, QualityForReq
 
 
 def review_requests(production_item: ProductionReport, quantity_checked_current: int, quantity_approved_current: int):
+    """
+    Change quantity left in requests
+    :param production_item:
+    :param quantity_checked_current:
+    :param quantity_approved_current:
+    :return:
+    """
     production_requests = ProductionRequest.objects.filter(deleted=False, closed=False, detail=production_item.detail,
                                                            color=production_item.color).order_by('-date_create')
     quantity_defect = quantity_checked_current - quantity_approved_current
@@ -15,6 +22,12 @@ def review_requests(production_item: ProductionReport, quantity_checked_current:
 
 
 def review_technical_requests(production_requests, quantity_defect: int):
+    """
+    Changes quantity left non technical requests according to defects quantity
+    :param production_requests: requests aggregated from quality control
+    :param quantity_defect: quantity of production with defects
+    :return:
+    """
     for tech_request in production_requests.filter(technical=True):
         if quantity_defect < tech_request.quantity:
             tech_request.quantity = tech_request.quantity - quantity_defect
@@ -30,6 +43,12 @@ def review_technical_requests(production_requests, quantity_defect: int):
 
 
 def review_nontechnical_requests(production_requests, quantity_defect: int):
+    """
+    Changes quantity left in non technical requests according to defects quantity
+    :param production_requests: requests aggregated from quality control
+    :param quantity_defect: quantity of production with defects
+    :return:
+    """
     for production_request in production_requests.filter(technical=False):
         if quantity_defect < production_request.quantity - production_request.quantity_left:
             production_request.quantity_left = production_request.quantity_left + quantity_defect
@@ -45,6 +64,14 @@ def review_nontechnical_requests(production_requests, quantity_defect: int):
 
 def quality_for_request_create(production_item: ProductionReport, quality_report: QualityReport,
                                quantity_checked_current: int, quantity_approved_current: int):
+    """
+    Unassemble quality report between requests
+    :param production_item: from Production Report
+    :param quality_report: Quality report corresponding to Production Report
+    :param quantity_checked_current: quality check result
+    :param quantity_approved_current: quality check result
+    :return:
+    """
     production_requests = ProductionRequest.objects.filter(deleted=False, closed=False, detail=production_item.detail,
                                                            color=production_item.color).order_by('date_create')
     for production_request in production_requests:

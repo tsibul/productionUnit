@@ -9,5 +9,10 @@ def user_group_list(request):
 
 
 def if_admin(request):
+    """
+    Check if user is admin
+    :param request:
+    :return: true or false
+    """
     return request.user.groups.filter(name='admin').exists()
 

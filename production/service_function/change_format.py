@@ -4,6 +4,12 @@ from production.models import Color
 
 
 def format_datetime_fields(item):
+    """
+    Format date field and return hex color if exists
+    :param item:
+    :return:
+    change datetime param fo js, returns hex color if exists
+    """
     try:
         item['hex'] = Color.objects.get(id=item['color_id']).color_code
     except:

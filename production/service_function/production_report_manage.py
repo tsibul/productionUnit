@@ -5,6 +5,10 @@ from production.models import ProductionRequest, ProductionForRequest, Productio
 
 
 def state():
+    """
+    Filter not closed request and aggregate them
+    :return: on-request — request in the queue in-work — request making in IMMs
+    """
     reqs = (ProductionRequest.objects.filter(deleted=False, closed=False).order_by('detail')
             .values_list('detail', 'color').distinct())
     in_work = []
@@ -22,6 +26,12 @@ def state():
 
 
 def spread_production_for_requests(production, quantity):
+    """
+    Spread production for requests aggregated in mane page
+    :param production: production produced
+    :param quantity: quantity produced
+    :return: quantity left to produce
+    """
     production_request = (
         ProductionRequest.objects.filter(deleted=False, closed=False, color=production.color,
                                          detail=production.detail).exclude(quantity_left=0).order_by('date_create'))
@@ -63,6 +73,12 @@ def spread_production_for_requests(production, quantity):
 
 
 def technical_request_create(quantity, production):
+    """
+    Create a technical request if quantity produced more than ordered
+    :param quantity: quantity exceeded order quantity
+    :param production: production which was produced
+    :return: void (save technical request
+    """
     technical_request = ProductionRequest(detail=production.detail, color=production.color, quantity=quantity,
                                           quantity_left=0,
                                           date_create=production.date, user=production.user, if_order=False,

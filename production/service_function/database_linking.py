@@ -18,6 +18,18 @@ def linking_filter(model1, model2, model2_id):
 
 def find_linking_model(model1, model2, field_name1=None, field_name2=None, visited1=None, visited2=None, path1=None,
                        path2=None):
+    """
+
+    :param model1:start model 1
+    :param model2: start model 2
+    :param field_name1: field of 1 model for connection
+    :param field_name2: field of 2 model for connection
+    :param visited1: set of visited models on road from model1
+    :param visited2: set of visited models on road from model2
+    :param path1: list of models connecting
+    :param path2: list of models connecting
+    :return:
+    """
     if visited1 is None:
         visited1 = set()
     if visited2 is None:
@@ -63,6 +75,11 @@ def find_linking_model(model1, model2, field_name1=None, field_name2=None, visit
 
 
 def cut_linking_pass(linking_path):
+    """
+    Make linking path without repeats
+    :param linking_path:
+    :return:
+    """
     result_path = []
     for elem in linking_path:
         if elem not in result_path:

@@ -4,6 +4,13 @@ from production.models import QualityReportDefects, Defects, QualityReport
 
 
 def defects_create(request, quality_report: QualityReport):
+    """
+    Add list of defects to Quality report
+    :param request:
+    :param quality_report:
+    :return:
+
+    """
     defects = Defects.objects.filter(deleted=False)
     for defect in defects:
         key = str(defect.id)

@@ -2,6 +2,15 @@ from production import models
 
 
 def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted):  # костыль
+    """
+    Return list of 20 objects filtered
+    :param dict_type: table to filter
+    :param order: order of sorting
+    :param id_no: first object in whole list
+    :param search_string: search string for filter
+    :param show_deleted: flag — true for admin (show all records) false — show only undeleted records
+    :return: 20 records filtered
+    """
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
@@ -31,4 +40,10 @@ def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
 
 
 def compare_objects(obj, search_string):
+    """
+    Return true if search_string exists in object repr
+    :param obj:
+    :param search_string:
+    :return:
+    """
     return search_string in str(obj)

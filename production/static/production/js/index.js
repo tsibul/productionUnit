@@ -1,5 +1,16 @@
 'use strict'
 
+/**
+ * Imports
+ */
+import {reformatFields} from "./func/reformatFields.js";
+import {openModal} from "./func/openModal.js";
+import {selectFromList} from "./func/dropdown/selectFromList.js";
+
+/**
+ * constants
+ * @type {HTMLElement}
+ */
 const sectionInProduction = document.querySelector('.in-production').closest('section');
 const sectionProduction = document.querySelector('.production').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
@@ -13,14 +24,18 @@ const modalSaveButton = productionModal.querySelector('.btn-save');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 const inWorkLocal = JSON.parse(document.getElementById('in-work').textContent);
 const onRequestLocal = JSON.parse(document.getElementById('on-request').textContent);
+const startModalLines = startModal.querySelectorAll('li');
 
-
+/**
+ * Scripts
+ * @type {Promise<{}>}
+ */
 const detailsOnImm = fillImmRows();
 await addRequestRows();
 
 [...produceButtons].forEach(btn => {
     btn.addEventListener('click', () => {
-        fillProductionModal(btn);
+        fillProductionModal(btn, productionModal);
         openModal(productionModal);
     });
 });
@@ -42,6 +57,49 @@ productionContent.addEventListener('click', e => {
     });
 })
 
+startModalLines.forEach(line =>{
+    line.addEventListener('click', async e => {
+        e.stopPropagation();
+        await selectFromList(e.target);
+    });
+});
+
+/**
+ * save modal data
+ */
+modalSaveButton.addEventListener('mousedown', e =>{
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.disabled = true;
+        btn.classList.add('form-input__inactive');
+    const currentForm = e.target.closest('form');
+    const currentModal = e.target.closest('.login');
+    currentModal.style.display = 'none';
+    currentForm.submit();
+    })
+})
+
+/**
+ * Functions
+ */
+
+/**
+ *
+ * @returns {Promise<void>}
+ */
+async function addRequestRows() {
+    const prefix = 'req__';
+    let newRow;
+    onRequestLocal.forEach(element => {
+        newRow = productionRow.cloneNode(true);
+        fillProductionData(newRow, element, prefix, detailsOnImm);
+        productionContent.appendChild(newRow);
+    });
+}
+
+/**
+ *
+ * @returns {Promise<{}>}
+ */
 async function fillImmRows() {
     const prefix = 'work__';
     const detailsImm = {};
@@ -57,16 +115,13 @@ async function fillImmRows() {
     return detailsImm;
 }
 
-async function addRequestRows() {
-    const prefix = 'req__';
-    let newRow;
-    onRequestLocal.forEach(element => {
-        newRow = productionRow.cloneNode(true);
-        fillProductionData(newRow, element, prefix);
-        productionContent.appendChild(newRow);
-    });
-}
-
+/**
+ *
+ * @param row
+ * @param element
+ * @param prefix
+ * @returns {Promise<void>}
+ */
 async function fillProductionData(row, element, prefix) {
     if (row.querySelector('.req__queue')) {
         let detailName = element['detail'].split(' ')[0];
@@ -85,17 +140,30 @@ async function fillProductionData(row, element, prefix) {
     }
 }
 
+/**
+ *
+ * @param btn
+ */
+function fillStopModal(btn) {
+    const row = btn.closest('.dict-block__row');
+    stopModal.querySelector('[name="imm"]').value = row.dataset.id;
+}
+
+/**
+ *
+ * @param btn
+ */
 function fillStartModal(btn) {
     const row = btn.closest('.dict-block__row');
     startModal.querySelector('[name="detail"]').value = row.dataset.detail;
     startModal.querySelector('[name="color"]').value = row.dataset.color;
 }
 
-function fillStopModal(btn) {
-    const row = btn.closest('.dict-block__row');
-    stopModal.querySelector('[name="imm"]').value = row.dataset.id;
-}
 
+/**
+ *
+ * @param btn
+ */
 function fillProductionModal(btn) {
     const row = btn.closest('.dict-block__row');
     productionModal.querySelector('[name="imm"]').value = row.dataset.id;
@@ -103,13 +171,3 @@ function fillProductionModal(btn) {
     productionModal.querySelector('[name="color"]').value = row.dataset.color;
 }
 
-modalSaveButton.addEventListener('mousedown', e =>{
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.disabled = true;
-        btn.classList.add('form-input__inactive');
-    const currentForm = e.target.closest('form');
-    const currentModal = e.target.closest('.login');
-    currentModal.style.display = 'none';
-    currentForm.submit();
-    })
-})

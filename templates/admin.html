@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}   
-    <script src="{% static 'production/js/dictionary.js' %}" defer></script>
+    <script src="{% static 'production/js/dictionary.js' %}" defer type="module"></script>
 
     {% if request.user.is_superuser %}
 

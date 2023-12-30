@@ -1,6 +1,14 @@
+import {createEditForm} from "./func/createEditForm.js";
+import {cancelEditRecord} from "./func/cancelEditRecord.js";
+import {normalizeSearchString} from "./func/normalizeSearchString.js";
+import {appendNewRows} from "./func/appendNewRows.js";
+import {copyRowFromHidden} from "./func/copyRowFromHidden.js";
+import {deleteRecord} from "./func/deleteRecord.js";
+import {userRights} from "./func/userRights.js";
+
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
-const searchCloseButtons = document.querySelectorAll('.search_clear');
+// const searchCloseButtons = document.querySelectorAll('.search_clear');
 const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 const dictBlockContent = document.querySelectorAll('.dict-block__content')
 
@@ -18,125 +26,6 @@ window.onload = function () {
 
 userRights();
 
-function userRights() {
-    document.querySelectorAll('.color').forEach(row => {
-        if (userGroups.value.includes('production')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.detail-in-goods').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.goods').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.main-material').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.add-material').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.masterbatch').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.producer').forEach(row => {
-        if (userGroups.value.includes('production')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.recipe').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.imm').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.main-material').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.production-request').forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.production').forEach(row => {
-        if (!userGroups.value.includes('admin') && !userGroups.value.includes('production')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-    document.querySelectorAll('.in-production').forEach(row => {
-        if (!userGroups.value.includes('admin') && !userGroups.value.includes('production')) {
-            row.onclick = '';
-            row.querySelectorAll('.btn').forEach(btn => {
-                btn.disabled = true;
-                btn.classList.add('form-input__inactive');
-            });
-        }
-    });
-    document.querySelectorAll('.quality-list').forEach(row => {
-        if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
-            row.onclick = '';
-            row.querySelector('.btn').disabled = true;
-            row.querySelector('.btn').classList.add('form-input__inactive');
-        }
-    });
-}
-
-
-async function deleteRecord(row) {
-    const idNo = row.dataset.id;
-    const dictType = typeDict(row);
-    const url = `/production/dict_delete/${dictType}/${idNo}`;
-    showDeleted ? row.querySelector(`[data-name = "deleted"]`).textContent = 'Да' : row.remove();
-    await fetch(url);
-}
-
-function saveDictionaryRecord(obj) {
-    event.preventDefault();
-    const updateForm = obj.closest('.form-row');
-    const dictionaryType = updateForm.parentElement.id.split('-')[0];
-    const fetchPath = '/production/dict_update/' + dictList[dictionaryType];
-    saveEditForm(updateForm, fetchPath, dictionaryType)
-}
 
 
 // Cancel Edit Dictionary
@@ -157,7 +46,7 @@ dictBlockContent.forEach(block => {
         const lastRecord = block.querySelector('div[data-last]:not([data-last = ""])')
         if (event.target === lastRecord) {
             const searchString = normalizeSearchString(lastRecord);
-            await appendNewRows(lastRecord, block, searchString, showDeleted);
+            await appendNewRows(lastRecord, block, searchString, showDeleted, 0);
         }
     });
 });
@@ -190,7 +79,7 @@ dictBlockContent.forEach(block => {
         dictBlockRow.forEach(row => {
             if (row === e.target.closest('.dict-block__row')) {
                 if (e.target.classList.contains('btn_delete')) {
-                    deleteRecord(row).then(r => {
+                    deleteRecord(row, showDeleted).then(r => {
                     });
                 } else {
                     createEditForm(e.target.closest('.dict-block__row'));
@@ -216,7 +105,7 @@ searchButtons.forEach((btn) => {
         dictBlockContent.appendChild(temporaryRow);
         dictBlockContent.innerHTML = '';
         dictBlockContent.appendChild(hiddenRow);
-        await appendNewRows(temporaryRow, dictBlockContent, searchValue, showDeleted);
+        await appendNewRows(temporaryRow, dictBlockContent, searchValue, showDeleted, 0);
         temporaryRow.remove();
     });
 });

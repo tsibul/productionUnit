@@ -420,7 +420,9 @@
   display: none;
 }
 .dict-block__search_open {
-  display: block;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 .dict-block__form-input {
   min-width: 390px;

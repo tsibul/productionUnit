@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-    <script src="{% static 'production/js/request.js' %}" defer></script>
+    <script src="{% static 'production/js/request.js' %}"type="module" defer></script>
     <div class="full-content">
         <div class="container">
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
@@ -11,6 +11,10 @@
                         производство
                     </div>
                     <div class="dict-block__search dict-block__search_open">
+                        <div class="modal__check">
+                            <input type="checkbox" id="unclosed" checked>
+                            <label for="unclosed">скрыть закрытые</label>
+                        </div>
                         <i class="fa fa-solid fa-magnifying-glass"></i>
                         <input type="search" class="form-input dict-block__form-input"
                                placeholder="искать...">
@@ -65,74 +69,6 @@
                             удалить
                         </button>
                     </div>
-                    {% for item in product_request %}
-                        <div class="dict-block__row production-request {% if item.date_close %}fulfilled{% endif %}"
-                             data-id="{{ item.id }}" data-last=""
-                             id="productRequest-{{ item.id }}">
-                            <input class="id-hidden" name="id" value="{{ item.id }}">
-                            <div class="dict-block__text hex"
-                                 style="background-color: {{ item.color.color_code }};"></div>
-                            <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
-                                 data-name="detail">{{ item.detail }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                 data-name="color" data-filter="detail">{{ item.color }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity">{{ item.quantity }}</div>
-                            <div class="dict-block__text digit">{{ item.quantity_left }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
-                                {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-name="comment">{{ item.comment }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
-                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-save btn_reduce" type="button">
-                                закрыть
-                            </button>
-                            <button class="btn btn-close btn_delete" type="button">
-                                удалить
-                            </button>
-                        </div>
-                    {% endfor %}
-                    {% for item in product_request_end %}
-                        <div class="dict-block__row production-request data-last {% if item.date_close %}fulfilled{% endif %}"
-                             data-id="{{ item.id }}"
-                             id="productRequest-{{ item.id }}" data-last="12">
-                            <input class="id-hidden" name="id" value="{{ item.id }}">
-                            <div class="dict-block__text hex"
-                                 style="background-color: {{ item.color.color_code }};"></div>
-                            <div class="dict-block__text">{{ item.date_create|date:'d.m.y H:i' }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ item.detail.id }}"
-                                 data-name="detail">{{ item.detail }}</div>
-                            <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                 data-name="color" data-filter="detail">{{ item.color }}</div>
-                            <div class="dict-block__text digit"
-                                 data-name="quantity">{{ item.quantity }}</div>
-                            <div class="dict-block__text digit">{{ item.quantity_left }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="if_order" data-id="{% if item.if_order %}1{% else %}0{% endif %}">
-                                {% if item.if_order %}Да{% else %}Нет{% endif %}</div>
-                            <div class="dict-block__text table-center">{{ item.date_close|date:'d.m.Y H:i' }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-id="{{ item.user.id }}">{{ item.user.last_name }}</div>
-                            <div class="dict-block__text table-center"
-                                 data-name="comment">{{ item.comment }}</div>
-                            <div class="dict-block__text bool-field table-center"
-                                 data-name="technical" data-id="{% if item.technical %}1{% else %}0{% endif %}">
-                                {% if item.technical %}Да{% else %}Нет{% endif %}</div>
-                            <button class="btn btn-save btn_reduce" type="button">
-                                закрыть
-                            </button>
-                            <button class="btn btn-close btn_delete" type="button">
-                                удалить
-                            </button>
-                        </div>
-                    {% endfor %}
                 </div>
             </section><!-- заявки на производство -->
 

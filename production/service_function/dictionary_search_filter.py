@@ -1,9 +1,10 @@
 from production import models
 
 
-def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted):  # костыль
+def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted, unclosed):  # костыль
     """
     Return list of 20 objects filtered
+    :param unclosed:
     :param dict_type: table to filter
     :param order: order of sorting
     :param id_no: first object in whole list
@@ -18,6 +19,8 @@ def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
         filter_items = dict_model.objects.all().order_by(*order)
     else:
         filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
+    if unclosed and any(field.name == 'closed' for field in dict_model._meta.get_fields()):
+        filter_items = filter_items.filter(closed=False)
     if search_string == 'default':
         dict_items = filter_items
     else:

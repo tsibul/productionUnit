@@ -1,6 +1,6 @@
 'use strict'
 
-import {typeDict} from "./typeDict";
+import {typeDict} from "./typeDict.js";
 
 export async function deleteRecord(row, showDeleted) {
     const idNo = row.dataset.id;

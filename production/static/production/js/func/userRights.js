@@ -1,6 +1,6 @@
 'use strict'
 
-import {userGroups} from "../const/userGroups";
+import {userGroups} from "../const/userGroups.js";
 
 export function userRights() {
     document.querySelectorAll('.color').forEach(row => {

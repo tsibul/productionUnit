@@ -1,6 +1,6 @@
 'use strict'
 
-import {saveEditForm} from "./saveEditFile.js";
+import {saveEditForm} from "./saveEditForm.js";
 import {dictList} from "../const/dictList.js";
 
 /**
@@ -12,5 +12,5 @@ export function saveDictionaryRecord(obj) {
     const updateForm = obj.closest('.form-row');
     const dictionaryType = updateForm.parentElement.id.split('-')[0];
     const fetchPath = '/production/dict_update/' + dictList[dictionaryType];
-    saveEditForm(updateForm, fetchPath, dictionaryType)
+    saveEditForm(updateForm, fetchPath)
 }

@@ -9,8 +9,6 @@
     <title>Производство</title>
     <link rel="icon" type="image/x-icon" href="{% static 'production/icon/plant.svg' %}">
 
-{#    <script src="{% static 'production/js/main.js' %}" defer></script>#}
-{#    <script src="{% static 'production/js/dropdown.js' %}" defer type="module"></script>#}
     <script src="{% static 'production/js/login.js' %}" defer type="module"></script>
     <script src="https://kit.fontawesome.com/e2a5b405b2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'production/css/style.css' %}">
@@ -41,7 +39,7 @@
                     <a href="{% url 'production:dictionary' %}"
                        class="menu__item mobile__hide {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                 {% else %}
-                    <div class="menu__item">Производство V1.3.2&nbsp;<strong>Авторизуйтесь</strong></div>
+                    <div class="menu__item">Производство V1.3.3&nbsp;<strong>Авторизуйтесь</strong></div>
                 {% endif %}
                 {% if admin_state %}
                     <a href="{% url 'production:production_admin' %}"
@@ -59,7 +57,7 @@
                     </div>
                     <div class="menu__item" hidden> выход</div>
                 {% endif %}
-            <div class="menu__item">ver 1.3.2</div>
+            <div class="menu__item">ver 1.3.3</div>
             </nav>
         </menu>
     </div>

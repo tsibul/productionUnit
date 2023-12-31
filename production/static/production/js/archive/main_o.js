@@ -248,36 +248,36 @@ async function fillFormNode(obj, newNode, nodeElements) {
      * @param node initial element to convert to dropdown input
      * @returns {Promise<void>}
      */
-    async function createDropdown(node) {
-        let childDropdownNode;
-        const parentRow = node.closest('.dict-block__row');
-        const dictType = dictList[node.dataset.name];
-        childDropdownNode = document.createElement('div');
-        childDropdownNode.innerHTML = dropdownCode;
-        childDropdownNode = childDropdownNode.firstElementChild;
-        childDropdownNode.querySelector('.dropdown__hidden').name = node.dataset.name;
-        const filterModel = dictList[node.dataset.filter];
-        const ulContent = childDropdownNode.querySelector('.dropdown__content');
-        let jsonUrl;
-        if (filterModel && parentRow.dataset.id !== 'e') {
-            const filterNo = parentRow.querySelector(`[data-name = "${node.dataset.filter}"]`).dataset.id;
-            jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
-        } else if (!filterModel) {
-            jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
-        } else {
-            childDropdownNode.querySelector('.dropdown__hidden').dataset.filter = node.dataset.filter;
-            jsonUrl = `/production/dictionary_json_filter/default/default/0`;
-        }
-        const jsonData = await fetchJsonData(jsonUrl);
-        const dictionaryList = JSON.parse(jsonData);
-        if (!dictionaryList) {
-            childDropdownNode.querySelector('.dropdown__hidden').value = Object.keys(dictionaryList[0])[0];
-            childDropdownNode.querySelector('.dropdown__input_dict').value = Object.values(dictionaryList[0])[0];
-            childDropdownNode.querySelector('.dropdown__input_dict').dataset.value = Object.values(dictionaryList[0])[0];
-        }
-        fillLines(ulContent, dictionaryList);
-        fillFields(node, childDropdownNode);
-    }
+    // async function createDropdown(node) {
+    //     let childDropdownNode;
+    //     const parentRow = node.closest('.dict-block__row');
+    //     const dictType = dictList[node.dataset.name];
+    //     childDropdownNode = document.createElement('div');
+    //     childDropdownNode.innerHTML = dropdownCode;
+    //     childDropdownNode = childDropdownNode.firstElementChild;
+    //     childDropdownNode.querySelector('.dropdown__hidden').name = node.dataset.name;
+    //     const filterModel = dictList[node.dataset.filter];
+    //     const ulContent = childDropdownNode.querySelector('.dropdown__content');
+    //     let jsonUrl;
+    //     if (filterModel && parentRow.dataset.id !== 'e') {
+    //         const filterNo = parentRow.querySelector(`[data-name = "${node.dataset.filter}"]`).dataset.id;
+    //         jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
+    //     } else if (!filterModel) {
+    //         jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
+    //     } else {
+    //         childDropdownNode.querySelector('.dropdown__hidden').dataset.filter = node.dataset.filter;
+    //         jsonUrl = `/production/dictionary_json_filter/default/default/0`;
+    //     }
+    //     const jsonData = await fetchJsonData(jsonUrl);
+    //     const dictionaryList = JSON.parse(jsonData);
+    //     if (!dictionaryList) {
+    //         childDropdownNode.querySelector('.dropdown__hidden').value = Object.keys(dictionaryList[0])[0];
+    //         childDropdownNode.querySelector('.dropdown__input_dict').value = Object.values(dictionaryList[0])[0];
+    //         childDropdownNode.querySelector('.dropdown__input_dict').dataset.value = Object.values(dictionaryList[0])[0];
+    //     }
+    //     fillLines(ulContent, dictionaryList);
+    //     fillFields(node, childDropdownNode);
+    // }
 
     /**
      * Create boolean dropdown input field from initial field (marker class 'bool-field')
@@ -376,11 +376,11 @@ function copyRowFromHidden(copyRow) {
  * @param shDeleted — parameter if show deleted records
  * @returns {Promise<void>}
  */
-async function appendNewRows(rowCurrent, blockContent, searchString, shDeleted) {
+async function appendNewRows(rowCurrent, blockContent, searchString, shDeleted, unclosed) {
     let newRow;
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     const dictType = typeDict(rowCurrent);
-    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}/${shDeleted}`;
+    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}/${shDeleted}/${unclosed}`;
     const jsonData = await fetchJsonData(jsonUrl);
     const nextRecords = JSON.parse(jsonData);
     let i = 0;

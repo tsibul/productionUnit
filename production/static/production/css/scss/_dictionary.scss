@@ -54,7 +54,9 @@
     display: none;
 
     &_open {
-      display: block;
+      display: flex;
+      gap: 12px;
+      align-items: center;
     }
   }
 

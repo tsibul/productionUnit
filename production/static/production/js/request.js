@@ -1,24 +1,52 @@
+'use strict'
+
+/**
+Imports block
+ */
+import {userGroups} from "./const/userGroups.js";
+import {copyRowFromHidden} from "./func/copyRowFromHidden.js";
+import {normalizeSearchString} from "./func/normalizeSearchString.js";
+import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
+import {appendNewRows} from "./func/appendNewRows.js";
+import {cancelEditRecord} from "./func/cancelEditRecord.js";
+import {createEditForm} from "./func/createEditForm.js";
+import {saveEditForm} from "./func/saveEditForm.js";
+import {clearSearch} from "./func/clearSearch.js";
+
 /**
  * Constants block
  */
-const requestRows = document.querySelectorAll('.dict-block__row');
+// const requestRows = document.querySelectorAll('.dict-block__row');
 const dictBlockContent = document.querySelector('.dict-block__content');
 const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
 const addButton = document.querySelector('.btn_add');
 const searchButton = document.querySelector('.search_submit');
 const searchCloseButton = document.querySelector('.search_clear');
 const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
+const checkUnclosed = document.getElementById('unclosed');
 
 /**
  * Executable block
  */
+await initialRequests(1);
+// userRightsForRequests(requestRows); // block buttons according user rights
 
-userRightsForRequests(requestRows); // block buttons according user rights
+
+checkUnclosed.addEventListener('change', async e => {
+    dictBlockContent.innerHTML = '';
+    const checkUnclosedValue = e.target.checked ? 1 : 0;
+    clearSearch(e.target);
+    await initialRequests(checkUnclosedValue);
+});
 
 addButton.addEventListener('click', () => {
     const copyRow = dictBlockContent.querySelector('.dict-block__row_hidden');
     const newRow = copyRowFromHidden(copyRow);
-    editRecord(newRow);
+    editRequestRecord(newRow);
+});
+
+searchCloseButton.addEventListener('click', e => {
+    clearSearch(e.target);
 });
 
 searchButton.addEventListener('mousedown', async () => {
@@ -29,7 +57,8 @@ searchButton.addEventListener('mousedown', async () => {
     dictBlockContent.appendChild(temporaryRow);
     dictBlockContent.innerHTML = '';
     dictBlockContent.appendChild(hiddenRow);
-    await appendNewRows(temporaryRow, dictBlockContent, searchValue, 0);
+    const checkUnclosedValue = checkUnclosed.checked ? 1 : 0;
+    await appendNewRows(temporaryRow, dictBlockContent, searchValue, 0, checkUnclosedValue);
     temporaryRow.remove();
 });
 
@@ -37,11 +66,12 @@ dictBlockContent.addEventListener('mouseover', async e => {
     const lastRecord = dictBlockContent.querySelector('div[data-last]:not([data-last = ""])')
     if (e.target === lastRecord) {
         const searchString = normalizeSearchString(lastRecord);
-        await appendNewRows(lastRecord, dictBlockContent, searchString, 0);
+        const checkUnclosedValue = checkUnclosed.checked ? 1 : 0;
+        await appendNewRows(lastRecord, dictBlockContent, searchString, 0, checkUnclosedValue);
     }
 });
 
-document.addEventListener('click', e =>{
+document.addEventListener('click', e => {
     if (dictBlockContent.querySelector('.form-row') && !e.target.closest('.form-row')) {
         cancelEditRecord(dictBlockContent.querySelector('.form-row').firstElementChild);
     }
@@ -55,7 +85,7 @@ dictBlockContent.addEventListener('click', e => {
         reduceRequest(e.target.closest('.dict-block__row')).then(r => {
         });
     } else if (e.target.closest('.dict-block__row')) {
-        editRecord(e.target.closest('.dict-block__row'));
+        editRequestRecord(e.target.closest('.dict-block__row'));
     }
 });
 
@@ -85,7 +115,7 @@ function userRightsForRequests(rows) {
  * !!!! The same name that in dictionary.js
  * @param obj
  */
-function editRecord(obj) {
+function editRequestRecord(obj) {
     if (!obj.classList.contains('fulfilled')) {
         createEditForm(obj);
     }
@@ -99,7 +129,7 @@ function editRecord(obj) {
 function saveDictionaryRecord(obj) {
     event.preventDefault();
     const updateForm = obj.closest('.form-row');
-    saveEditForm(updateForm, '/production/dict_update/ProductionRequest', 'ProductionRequest')
+    saveEditForm(updateForm, '/production/dict_update/ProductionRequest')
 }
 
 /**
@@ -132,6 +162,21 @@ async function reduceRequest(row) {
         row.querySelector('.btn').classList.add('form-input__inactive');
         row.classList.add('fulfilled');
     })
+}
+
+/**
+ *
+ * @returns {Promise<void>}
+ */
+async function initialRequests(checkUnclosedValue) {
+    const searchVal = 'default';
+    const temporaryRow = hiddenRow.cloneNode(true);
+    temporaryRow.setAttribute('data-last', '0');
+    dictBlockContent.appendChild(temporaryRow);
+    dictBlockContent.innerHTML = '';
+    dictBlockContent.appendChild(hiddenRow);
+    await appendNewRows(temporaryRow, dictBlockContent, searchVal, 0, checkUnclosedValue);
+    temporaryRow.remove();
 }
 
 

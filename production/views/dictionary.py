@@ -89,9 +89,10 @@ def dictionary_update(request, dict_type):
     return HttpResponse()
 
 
-def dictionary_json(request, dict_type, id_no, order, search_string, show_deleted):
+def dictionary_json(request, dict_type, id_no, order, search_string, show_deleted, unclosed):
     """
     Returns table filtered 20 records fron id_no
+    :param unclosed:
     :param request:
     :param dict_type: table of DB
     :param id_no: id of record from which start
@@ -100,7 +101,7 @@ def dictionary_json(request, dict_type, id_no, order, search_string, show_delete
     :param show_deleted: for admin purpose true default true
     :return:
     """
-    dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted)
+    dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted, unclosed)
     formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
     json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)

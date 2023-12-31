@@ -25,7 +25,7 @@ def production(request):
 def production_list(request, first_record, order):
     if order == 'default':
         order = '-date'
-    last_record = first_record + 19
+    last_record = first_record + 20
     prod_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)[
                 first_record:last_record]
     requests = []

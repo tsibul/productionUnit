@@ -5,6 +5,8 @@
  */
 import {userGroups} from "./const/userGroups.js";
 import {reformatFields} from "./func/reformatFields.js";
+import {closeModal} from "./func/closeModal.js";
+import {openModal} from "./func/openModal.js";
 
 const sectionProduction = document.querySelector('.production-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');

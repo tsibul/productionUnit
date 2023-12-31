@@ -7,6 +7,7 @@ import {userGroups} from "./const/userGroups.js";
 import {reformatFields} from "./func/reformatFields.js";
 import {closeModal} from "./func/closeModal.js";
 import {openModal} from "./func/openModal.js";
+import {clearSearch} from "./func/clearSearch.js";
 
 /**
  * constants
@@ -17,12 +18,17 @@ const productionContent = sectionProduction.querySelector('.dict-block__content'
 const productionRow = document.querySelector('#technical-data').querySelector('.production-list');
 const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
-const quantityApproved = qualityModal.querySelector('#quantity_approved')
-const quantityChecked = qualityModal.querySelector('#quantity_checked')
-const quantityApprovedDefect = qualityModal.querySelector('#quantity_approved_defect')
+const quantityApproved = qualityModal.querySelector('#quantity_approved');
+const quantityChecked = qualityModal.querySelector('#quantity_checked');
+const quantityApprovedDefect = qualityModal.querySelector('#quantity_approved_defect');
+const unclosed = document.getElementById('unclosed');
+const searchButton = document.querySelector('.search_submit');
+const searchCloseButton = document.querySelector('.search_clear');
 
 
-await addProducedRows(0, 'default');
+
+
+await addProducedRows(0, 'default', 1);
 //     .then(r => {
 //     productionContent.querySelectorAll('.btn').forEach(btn => {
 //         if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
@@ -38,6 +44,14 @@ await addProducedRows(0, 'default');
 //         openModal(qualityModal);
 //     }
 // });
+
+unclosed.addEventListener('change', async e => {
+    productionContent.innerHTML = '';
+    const unclosedValue = unclosed.checked === true ? 1 : 0;
+    clearSearch(e.target);
+    await addProducedRows(0, 'default', unclosedValue);
+});
+
 
 quantityChecked.addEventListener('change', () => {
     if (Number.parseInt(quantityChecked.value) > Number.parseInt(quantityChecked.max)) {
@@ -94,9 +108,9 @@ function fillQualityModal(btn) {
  * @param order
  * @returns {Promise<void>}
  */
-async function addProducedRows(first_record, order) {
+async function addProducedRows(first_record, order, unclosed) {
     const prefix = 'req__';
-    const prodData = await fetch(`/production/production_list/${first_record}/${order}`)
+    const prodData = await fetch(`/production/production_list/${first_record}/${order}/${unclosed}`)
         .then(response => response.json());
     const productionData = JSON.parse(prodData);
     let newRow;
@@ -110,8 +124,8 @@ async function addProducedRows(first_record, order) {
         lastRecord.dataset.last = first_record + 20;
         lastRecord.addEventListener('mouseover', async e => {
             const newFirstRecord = parseInt(lastRecord.dataset.last);
-            lastRecord.dataset.last = null;
-            await addProducedRows(newFirstRecord, 'default');
+            delete lastRecord.dataset.last;
+            await addProducedRows(newFirstRecord, 'default', unclosed);
         }, {once: true});
     }
 

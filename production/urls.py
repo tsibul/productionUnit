@@ -31,7 +31,7 @@ urlpatterns = [
     # path('shift_rejected/', views.shift_rejected, name='shift_rejected'),
 
     path('production/', views.production, name='production'),
-    path('production_list/<int:first_record>/<str:order>', views.production_list, name='production_list'),
+    path('production_list/<int:first_record>/<str:order>/<int:unclosed>', views.production_list, name='production_list'),
     path('production_acceptance/', views.production_acceptance, name='production_acceptance'),
 
     path('quality_report/', views.quality_report, name='quality_report'),

@@ -22,12 +22,14 @@ def production(request):
     return render(request, 'production.html', context)
 
 
-def production_list(request, first_record, order):
+def production_list(request, first_record, order, unclosed):
     if order == 'default':
         order = '-date'
     last_record = first_record + 20
-    prod_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)[
-                first_record:last_record]
+    prod_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)
+    if unclosed:
+        prod_list = prod_list.filter(closed=False)
+    prod_list = prod_list[first_record:last_record]
     requests = []
     for item in prod_list:
         requests.append(QualityCheck(item.id))

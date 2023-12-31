@@ -1,5 +1,9 @@
 'use strict'
 
+import {reformatFields} from "./func/reformatFields.js";
+import {openModal} from "./func/openModal.js";
+import {closeModal} from "./func/closeModal.js";
+
 const sectionProduction = document.querySelector('.quality-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
 // const qualityDetails = sectionProduction.querySelectorAll('.qual__row');

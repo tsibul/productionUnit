@@ -3,7 +3,6 @@
 /**
  * Imports
  */
-import {userGroups} from "./const/userGroups.js";
 import {reformatFields} from "./func/reformatFields.js";
 import {closeModal} from "./func/closeModal.js";
 import {openModal} from "./func/openModal.js";
@@ -25,8 +24,9 @@ const unclosed = document.getElementById('unclosed');
 const searchButton = document.querySelector('.search_submit');
 const searchCloseButton = document.querySelector('.search_clear');
 
-
-
+/**
+ * Main code
+ */
 
 await addProducedRows(0, 'default', 1);
 
@@ -45,6 +45,10 @@ unclosed.addEventListener('change', async e => {
     await addProducedRows(0, 'default', unclosedValue);
 });
 
+
+/**
+ * Modal code
+ */
 
 quantityChecked.addEventListener('change', () => {
     if (Number.parseInt(quantityChecked.value) > Number.parseInt(quantityChecked.max)) {
@@ -98,6 +102,7 @@ function fillQualityModal(btn) {
  *
  * @param first_record
  * @param order
+ * @param unclosed
  * @returns {Promise<void>}
  */
 async function addProducedRows(first_record, order, unclosed) {

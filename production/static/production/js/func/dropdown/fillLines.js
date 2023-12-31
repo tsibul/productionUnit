@@ -11,9 +11,9 @@ export function fillLines(ulContent, dictionaryList) {
     let newLine;
     dictionaryList.forEach(elem => {
         newLine = document.createElement('li');
-        newLine.onclick = function (event) {
+        newLine.onclick = async function (event) {
             event.stopPropagation();
-            selectFromList(this).then(r => {});
+            await selectFromList(event.target);
         };
         newLine.dataset.value = Object.keys(elem)[0];
         newLine.textContent = Object.values(elem)[0];

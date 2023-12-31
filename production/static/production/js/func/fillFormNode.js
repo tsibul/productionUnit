@@ -2,11 +2,15 @@
 
 import {createButtonBlock} from "./createButtonBlock.js";
 import {dictList} from "../const/dictList.js";
-import {dropdownCode} from "../const/dropdownCode.js";
-import {booleanDropdown} from "../const/booleanDropdown.js";
+import {dropdownCode} from "./dropdown/dropdownCode.js";
+import {booleanDropdown} from "./dropdown/booleanDropdown.js";
 import {fetchJsonData} from "./fetchJsonData.js";
 import {fillLines} from "./dropdown/fillLines.js";
 import {filterList} from "./dropdown/filterList.js";
+import {stringToDateTime} from "./stringToDateTime.js";
+import {selectFromList} from "./dropdown/selectFromList.js";
+import {dropdownListenerHide} from "./dropdown/dropdownListenerHide.js";
+import {dropDownListenerVisible} from "./dropdown/dropDownListenerVisible.js";
 
 /**
  * Fill editable form-row from row
@@ -82,11 +86,17 @@ export async function fillFormNode(obj, newNode, nodeElements) {
         const parentRow = node.closest('.dict-block__row');
         const dictType = dictList[node.dataset.name];
         childDropdownNode = document.createElement('div');
-        childDropdownNode.innerHTML = dropdownCode;
-        childDropdownNode.querySelector('.dropdown__input').addEventListener('keyup', e =>{
+        childDropdownNode.insertAdjacentHTML('beforeend', dropdownCode);
+        childDropdownNode.querySelector('.dropdown__input').addEventListener('keyup', e => {
             filterList(e.target);
         });
         childDropdownNode = childDropdownNode.firstElementChild;
+        childDropdownNode.addEventListener('click', e => {
+            dropdownListenerHide(childDropdownNode, e);
+        });
+        childDropdownNode.addEventListener('click', e =>{
+            dropDownListenerVisible(childDropdownNode, e);
+        });
         childDropdownNode.querySelector('.dropdown__hidden').name = node.dataset.name;
         const filterModel = dictList[node.dataset.filter];
         const ulContent = childDropdownNode.querySelector('.dropdown__content');
@@ -119,8 +129,14 @@ export async function fillFormNode(obj, newNode, nodeElements) {
     async function createBoolean(node) {
         let childBooleanNode
         childBooleanNode = document.createElement('div');
-        childBooleanNode.innerHTML = booleanDropdown;
+        childBooleanNode.insertAdjacentHTML('beforeend', booleanDropdown);
         childBooleanNode = childBooleanNode.firstElementChild;
+        childBooleanNode.querySelectorAll('li').forEach(line => {
+            line.addEventListener('click', e => {
+                e.stopPropagation();
+                selectFromList(e.target);
+            });
+        });
         childBooleanNode.querySelector('.dropdown__hidden').name = node.dataset.name;
         fillFields(node, childBooleanNode);
     }

@@ -16,9 +16,6 @@ document.addEventListener('click', element => {
         if (element.querySelector('ul').classList.contains('visible')) {
             obj = element;
         }
-        // if (element.contains(element.target)) {
-        //     element.querySelector('ul').classList.add('visible');
-        // }
     });
     if (obj != null && !obj.contains(element.target)) {
         obj.querySelector('ul').classList.remove('visible');

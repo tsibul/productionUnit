@@ -5,6 +5,7 @@ import {appendNewRows} from "./func/appendNewRows.js";
 import {copyRowFromHidden} from "./func/copyRowFromHidden.js";
 import {deleteRecord} from "./func/deleteRecord.js";
 import {userRights} from "./func/userRights.js";
+import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');

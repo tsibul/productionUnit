@@ -37,7 +37,6 @@ def dict_additional_filter(dict_type, order, id_no, search_string, show_deleted,
                                           foreign_model_objects)
                 field_name = field.name + '__in'
                 dict_items = dict_items | filter_items.filter(**{field_name: filtered_foreign})
-                print()
     dict_items = dict_items.distinct()[id_no: id_no + 20]
     return dict_items
 

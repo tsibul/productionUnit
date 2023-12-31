@@ -29,21 +29,14 @@ const searchCloseButton = document.querySelector('.search_clear');
 
 
 await addProducedRows(0, 'default', 1);
-//     .then(r => {
-//     productionContent.querySelectorAll('.btn').forEach(btn => {
-//         if (!userGroups.value.includes('admin') && !userGroups.value.includes('logistic')) {
-//             btn.disabled = true;
-//             btn.classList.add('form-input__inactive')
-//         }
-//     });
-// });
 
-// productionContent.addEventListener('click', (event) => {
-//     if (event.target.classList.contains('btn')) {
-//         fillQualityModal(event.target);
-//         openModal(qualityModal);
-//     }
-// });
+searchButton.addEventListener('click', e => {
+
+});
+
+searchCloseButton.addEventListener('click', e => {
+    clearSearch(e.target);
+});
 
 unclosed.addEventListener('change', async e => {
     productionContent.innerHTML = '';
@@ -71,7 +64,6 @@ quantityApprovedDefect.addEventListener('change', () => {
         quantityApprovedDefect.value = quantityApproved.value;
     }
 });
-
 
 modalCloseButton.addEventListener('click', () => {
     closeModal(modalCloseButton);

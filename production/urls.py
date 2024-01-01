@@ -13,8 +13,9 @@ urlpatterns = [
     path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),
     path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
     path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
-    path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>/<int:show_deleted>/<int:unclosed>',
-         views.dictionary_json, name='dictionary_json'),
+    path(
+        'json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>/<int:show_deleted>/<int:unclosed>',
+        views.dictionary_json, name='dictionary_json'),
     path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
          views.dictionary_json_filter, name='dictionary_json_filter'),
     path('dict_name/<str:dict_type>/<int:dict_id>', views.fetch_dict_str_by_id, name='fetch_dict_str_by_id'),
@@ -31,7 +32,8 @@ urlpatterns = [
     # path('shift_rejected/', views.shift_rejected, name='shift_rejected'),
 
     path('production/', views.production, name='production'),
-    path('production_list/<int:first_record>/<str:order>/<int:unclosed>', views.production_list, name='production_list'),
+    path('production_list/<int:first_record>/<str:order>/<int:unclosed>/<str:search_string>', views.production_list,
+         name='production_list'),
     path('production_acceptance/', views.production_acceptance, name='production_acceptance'),
 
     path('quality_report/', views.quality_report, name='quality_report'),

@@ -7,6 +7,7 @@ import {reformatFields} from "./func/reformatFields.js";
 import {closeModal} from "./func/closeModal.js";
 import {openModal} from "./func/openModal.js";
 import {clearSearch} from "./func/clearSearch.js";
+import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 
 /**
  * constants
@@ -23,15 +24,19 @@ const quantityApprovedDefect = qualityModal.querySelector('#quantity_approved_de
 const unclosed = document.getElementById('unclosed');
 const searchButton = document.querySelector('.search_submit');
 const searchCloseButton = document.querySelector('.search_clear');
+const searchBlock = document.querySelector('.dict-block__search');
 
 /**
  * Main code
  */
 
-await addProducedRows(0, 'default', 1);
+await addProducedRows(0, 'default', 1, 'default');
 
-searchButton.addEventListener('click', e => {
-
+searchButton.addEventListener('click', async e => {
+    const searchString = normalizeSearchStringValue(searchBlock);
+    const unclosedValue = unclosed.checked === true ? 1 : 0;
+    productionContent.innerHTML = '';
+    await addProducedRows(0, 'default', unclosedValue, searchString);
 });
 
 searchCloseButton.addEventListener('click', e => {
@@ -42,7 +47,7 @@ unclosed.addEventListener('change', async e => {
     productionContent.innerHTML = '';
     const unclosedValue = unclosed.checked === true ? 1 : 0;
     clearSearch(e.target);
-    await addProducedRows(0, 'default', unclosedValue);
+    await addProducedRows(0, 'default', unclosedValue, 'default');
 });
 
 
@@ -103,11 +108,12 @@ function fillQualityModal(btn) {
  * @param first_record
  * @param order
  * @param unclosed
+ * @param searchString
  * @returns {Promise<void>}
  */
-async function addProducedRows(first_record, order, unclosed) {
+async function addProducedRows(first_record, order, unclosed, searchString) {
     const prefix = 'req__';
-    const prodData = await fetch(`/production/production_list/${first_record}/${order}/${unclosed}`)
+    const prodData = await fetch(`/production/production_list/${first_record}/${order}/${unclosed}/${searchString}`)
         .then(response => response.json());
     const productionData = JSON.parse(prodData);
     let newRow;
@@ -122,7 +128,7 @@ async function addProducedRows(first_record, order, unclosed) {
         lastRecord.addEventListener('mouseover', async e => {
             const newFirstRecord = parseInt(lastRecord.dataset.last);
             delete lastRecord.dataset.last;
-            await addProducedRows(newFirstRecord, 'default', unclosed);
+            await addProducedRows(newFirstRecord, 'default', unclosed, searchString);
         }, {once: true});
     }
 

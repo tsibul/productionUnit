@@ -3,14 +3,12 @@
 /**
 Imports block
  */
-import {userGroups} from "./const/userGroups.js";
 import {copyRowFromHidden} from "./func/copyRowFromHidden.js";
 import {normalizeSearchString} from "./func/normalizeSearchString.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {appendNewRows} from "./func/appendNewRows.js";
 import {cancelEditRecord} from "./func/cancelEditRecord.js";
 import {createEditForm} from "./func/createEditForm.js";
-import {saveEditForm} from "./func/saveEditForm.js";
 import {clearSearch} from "./func/clearSearch.js";
 
 /**
@@ -29,8 +27,6 @@ const checkUnclosed = document.getElementById('unclosed');
  * Executable block
  */
 await initialRequests(1);
-// userRightsForRequests(requestRows); // block buttons according user rights
-
 
 checkUnclosed.addEventListener('change', async e => {
     dictBlockContent.innerHTML = '';
@@ -89,26 +85,25 @@ dictBlockContent.addEventListener('click', e => {
     }
 });
 
-
 /**
  * Functions block
  */
 
-/**
- * check user rights using userGroups var
- */
-function userRightsForRequests(rows) {
-    rows.forEach(row => {
-        if (userGroups.value.includes('production') || userGroups.value.includes('accounts')
-            || row.classList.contains('fulfilled')) {
-            const buttons = row.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                btn.setAttribute('disabled', true);
-                btn.classList.add('form-input__inactive')
-            });
-        }
-    });
-}
+// /**
+//  * check user rights using userGroups var
+//  */
+// function userRightsForRequests(rows) {
+//     rows.forEach(row => {
+//         if (userGroups.value.includes('production') || userGroups.value.includes('accounts')
+//             || row.classList.contains('fulfilled')) {
+//             const buttons = row.querySelectorAll('.btn');
+//             buttons.forEach(btn => {
+//                 btn.setAttribute('disabled', true);
+//                 btn.classList.add('form-input__inactive')
+//             });
+//         }
+//     });
+// }
 
 /**
  * Converts text row to editable
@@ -119,17 +114,6 @@ function editRequestRecord(obj) {
     if (!obj.classList.contains('fulfilled')) {
         createEditForm(obj);
     }
-}
-
-/**
- * saves record to ProductionRequest
- * !!!! The same name that in dictionary.js
- * @param obj - save button of form
- */
-function saveDictionaryRecord(obj) {
-    event.preventDefault();
-    const updateForm = obj.closest('.form-row');
-    saveEditForm(updateForm, '/production/dict_update/ProductionRequest')
 }
 
 /**

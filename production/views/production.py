@@ -8,7 +8,7 @@ from django.utils import timezone
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport
 from production.classes import QualityCheck
 from production.service_function import user_group_list, defects_create, review_requests, quality_for_request_create, \
-    if_admin
+    if_admin, compare_objects
 
 
 def production(request):
@@ -22,12 +22,30 @@ def production(request):
     return render(request, 'production.html', context)
 
 
-def production_list(request, first_record, order):
+def production_list(request, first_record, order, unclosed, search_string):
     if order == 'default':
         order = '-date'
-    last_record = first_record + 19
-    prod_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)[
-                first_record:last_record]
+    last_record = first_record + 20
+    filter_list = ProductionReport.objects.filter(deleted=False, shift_rejected=False).order_by(order)
+    if unclosed:
+        filter_list = filter_list.filter(closed=False)
+    if search_string != 'default':
+        search_string = search_string.replace('_', ' ')
+        prod_list = filter_list.filter(id=0)
+        for field in ProductionReport._meta.get_fields():
+            if field.get_internal_type() == 'CharField' or field.get_internal_type() == 'DateTimeField':
+                field_name = field.name + '__icontains'
+                prod_list = prod_list | filter_list.filter(**{field_name: search_string})
+            elif field.get_internal_type() == 'ForeignKey':
+                foreign_model = field.related_model
+                foreign_model_objects = foreign_model.objects.all()
+                filtered_foreign = filter(lambda obj: compare_objects(str(obj).lower(), search_string.lower()),
+                                          foreign_model_objects)
+                field_name = field.name + '__in'
+                prod_list = prod_list | filter_list.filter(**{field_name: filtered_foreign})
+    else:
+        prod_list = filter_list
+    prod_list = prod_list.distinct()[first_record:last_record]
     requests = []
     for item in prod_list:
         requests.append(QualityCheck(item.id))

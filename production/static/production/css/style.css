@@ -482,9 +482,6 @@
 .dict-block__open:hover {
   transform: scale(1);
 }
-.dict-block__open_production {
-  max-height: 100%;
-}
 .dict-block[open] .dict-block__search {
   display: flex;
   align-items: center;

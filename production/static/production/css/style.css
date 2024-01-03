@@ -389,7 +389,7 @@
   transition: scale 2s ease, max-height 0.6s ease-in-out, max-width 0.4s ease-in-out;
   overflow: hidden;
   box-shadow: 6px 6px 12px #293D32;
-  cursor: pointer;
+  cursor: move;
 }
 .dict-block_long {
   max-width: 600px;
@@ -411,6 +411,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .dict-block__header_open {
   padding: 20px;
@@ -440,6 +441,7 @@
   gap: 10px;
   padding: 8px 8px;
   border-radius: 10px;
+  cursor: pointer;
 }
 .dict-block__row_right-margin {
   margin-right: 19px;
@@ -634,6 +636,10 @@
 
 .dropdown__input_dict {
   font-size: inherit;
+}
+
+.over {
+  background-color: #EFE7DC;
 }
 
 @media (max-width: 1600px) {

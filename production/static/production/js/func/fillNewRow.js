@@ -44,7 +44,6 @@ export async function fillNewRow(record, i, newRow) {
                     btn.setAttribute('disabled', true);
                     btn.classList.add('form-input__inactive')
                 });
-
             }
         }
     }

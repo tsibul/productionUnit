@@ -11,7 +11,8 @@ import {fillNewRow} from "./fillNewRow.js";
  * @param blockContent — content block of current dictionary
  * @param searchString — string to search
  * @param shDeleted — parameter if show deleted records
- * @returns {Promise<void>}
+ * @param unclosed — parameter show closed/unclosed records
+ * @returns {Promise<void>} array of Html elements added
  */
 export async function appendNewRows(rowCurrent, blockContent, searchString, shDeleted, unclosed) {
     let newRow;
@@ -21,6 +22,7 @@ export async function appendNewRows(rowCurrent, blockContent, searchString, shDe
     const jsonData = await fetchJsonData(jsonUrl);
     const nextRecords = JSON.parse(jsonData);
     let i = 0;
+    const newRows = [];
     nextRecords.forEach((record) => {
         i++;
         newRow = rowCopy.cloneNode(true);
@@ -30,7 +32,8 @@ export async function appendNewRows(rowCurrent, blockContent, searchString, shDe
             newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
         }
         blockContent.appendChild(newRow);
+        newRows.push(newRow);
     });
-    rowCurrent.dataset.last = '';
-    return nextRecords;
+    delete rowCurrent.dataset.last;
+    return newRows;
 }

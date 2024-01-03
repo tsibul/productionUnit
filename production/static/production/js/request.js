@@ -1,7 +1,7 @@
 'use strict'
 
 /**
-Imports block
+ Imports block
  */
 import {copyRowFromHidden} from "./func/copyRowFromHidden.js";
 import {normalizeSearchString} from "./func/normalizeSearchString.js";
@@ -38,7 +38,7 @@ checkUnclosed.addEventListener('change', async e => {
 addButton.addEventListener('click', () => {
     const copyRow = dictBlockContent.querySelector('.dict-block__row_hidden');
     const newRow = copyRowFromHidden(copyRow);
-    editRequestRecord(newRow);
+    createEditForm(newRow);
 });
 
 searchCloseButton.addEventListener('click', e => {
@@ -81,7 +81,10 @@ dictBlockContent.addEventListener('click', e => {
         reduceRequest(e.target.closest('.dict-block__row')).then(r => {
         });
     } else if (e.target.closest('.dict-block__row')) {
-        editRequestRecord(e.target.closest('.dict-block__row'));
+        const row = e.target.closest('.dict-block__row');
+        if (!row.classList.contains('fulfilled')) {
+            createEditForm(row);
+        }
     }
 });
 
@@ -104,17 +107,6 @@ dictBlockContent.addEventListener('click', e => {
 //         }
 //     });
 // }
-
-/**
- * Converts text row to editable
- * !!!! The same name that in dictionary.js
- * @param obj
- */
-function editRequestRecord(obj) {
-    if (!obj.classList.contains('fulfilled')) {
-        createEditForm(obj);
-    }
-}
 
 /**
  * Function for deleting production request

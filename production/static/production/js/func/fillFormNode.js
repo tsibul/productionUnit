@@ -138,6 +138,9 @@ export async function fillFormNode(obj, newNode, nodeElements) {
             });
         });
         childBooleanNode.querySelector('.dropdown__hidden').name = node.dataset.name;
+        childBooleanNode.addEventListener('click', e =>{
+            dropDownListenerVisible(childBooleanNode, e);
+        });
         fillFields(node, childBooleanNode);
     }
 

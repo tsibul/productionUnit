@@ -8,6 +8,7 @@ import {closeModal} from "./func/closeModal.js";
 import {openModal} from "./func/openModal.js";
 import {clearSearch} from "./func/clearSearch.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
+import {dropDownListenerVisible} from "./func/dropdown/dropDownListenerVisible.js";
 
 /**
  * constants
@@ -54,6 +55,10 @@ unclosed.addEventListener('change', async e => {
 /**
  * Modal code
  */
+
+qualityModal.querySelector('.dropdown').addEventListener('click', e => {
+    dropDownListenerVisible(qualityModal.querySelector('.dropdown'), e);
+});
 
 quantityChecked.addEventListener('change', () => {
     if (Number.parseInt(quantityChecked.value) > Number.parseInt(quantityChecked.max)) {

@@ -6,6 +6,7 @@
 import {reformatFields} from "./func/reformatFields.js";
 import {openModal} from "./func/openModal.js";
 import {selectFromList} from "./func/dropdown/selectFromList.js";
+import {dropDownListenerVisible} from "./func/dropdown/dropDownListenerVisible.js";
 
 /**
  * constants
@@ -56,6 +57,10 @@ productionContent.addEventListener('click', e => {
         }
     });
 })
+
+startModal.querySelector('.dropdown').addEventListener('click', e => {
+    dropDownListenerVisible(startModal.querySelector('.dropdown'), e);
+});
 
 startModalLines.forEach(line =>{
     line.addEventListener('click', async e => {

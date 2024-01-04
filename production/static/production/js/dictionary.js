@@ -26,14 +26,28 @@ dictStartChecks.forEach(chck => {
     chck.addEventListener('change', e => {
         const dictToFind = e.target.id + '-0';
         const dictToCopy = document.getElementById(dictToFind).closest('.dict-block');
+        const dictDetails = e.target.closest('.dict-menu__details');
+        const dictHeader = dictDetails.querySelector('.dict-menu__header');
         if (chck.checked) {
             dictToCopy.open = true;
             rightField.appendChild(dictToCopy);
             e.target.nextElementSibling.classList.add('active');
+            if (!dictHeader.classList.contains('active')){
+                dictHeader.classList.add('active');
+            }
         } else {
             dictToCopy.open = false
             hiddenBlock.appendChild(dictToCopy);
             e.target.nextElementSibling.classList.remove('active');
+            let i = true
+            dictDetails.querySelectorAll('input').forEach(item => {
+                if (item.checked) {
+                    i = false;
+                }
+            });
+            if (i) {
+                dictHeader.classList.remove('active');
+            }
         }
     });
 });
@@ -140,7 +154,7 @@ searchButtons.forEach((btn) => {
 /**
  * listener for clear search input
  */
-searchClearButtons.forEach(btn =>{
+searchClearButtons.forEach(btn => {
     btn.addEventListener('click', e => {
         clearSearch(btn);
     });

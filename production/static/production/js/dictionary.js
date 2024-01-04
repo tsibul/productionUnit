@@ -1,3 +1,5 @@
+'use strict'
+
 import {createEditForm} from "./func/createEditForm.js";
 import {cancelEditRecord} from "./func/cancelEditRecord.js";
 import {normalizeSearchString} from "./func/normalizeSearchString.js";
@@ -7,153 +9,38 @@ import {deleteRecord} from "./func/deleteRecord.js";
 import {userRights} from "./func/userRights.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {clearSearch} from "./func/clearSearch.js";
+import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
 
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
+const searchClearButtons = document.querySelectorAll('.search_clear')
 const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 const dictBlockContent = document.querySelectorAll('.dict-block__content');
 const dictBlockList = document.querySelectorAll('.dict-block');
+const dictStartChecks = document.querySelectorAll('.checkbox-out');
+const rightField = document.querySelector('.dict-right');
+const hiddenBlock = document.querySelector('.dict');
 let dragSrcEl = null;
 
-/**
- *
- * @param event
- */
-function handleDragStart(event) {
-    dragSrcEl = this;
-    event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData('text/html', this.innerHTML);
-}
-
-/**
- *
- * @param event
- */
-function handleDragOver(event) {
-    event.preventDefault();
-}
-
-/**
- *
- * @param event
- */
-function handleDragEnter(event) {
-    const header = event.target.closest('.dict-block__header');
-    if (header) {
-        header.classList.add('over')
-    }
-}
-
-/**
- *
- * @param event
- */
-function handleDragLeave(event) {
-    const header = event.target.closest('.dict-block__header');
-    if (header) {
-        header.classList.remove('over')
-    }
-}
-
-/**
- *
- * @param event
- * @returns {boolean}
- */
-function handleDrop(event) {
-    if (dragSrcEl !== this) {
-        const sourceClasses = dragSrcEl.className;
-        dragSrcEl.className = this.className;
-        this.className = sourceClasses;
-
-        dragSrcEl.innerHTML = this.innerHTML;
-        this.innerHTML = event.dataTransfer.getData('text/html');
-
-        const thisSearchSubmit = this.querySelector('.search_submit');
-        const thisBlock = this.querySelector('.dict-block__content');
-        thisBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', e => {
-                editDeleteRow(e, row);
-            });
-        });
-        this.querySelector('.btn_add').addEventListener('click', e => {
-            addButtonEvent(e, this.querySelector('.btn_add'));
-        });
-        if (thisSearchSubmit) {
-            thisSearchSubmit.addEventListener('click', async e => {
-                const btnEvent = searchButtonEvent(thisSearchSubmit, e);
-                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
-                btnEvent[0].remove();
-            });
-            thisSearchSubmit.nextElementSibling.addEventListener('click', e => {
-                clearSearch(e.target);
-            });
+dictStartChecks.forEach(chck => {
+    chck.addEventListener('change', e => {
+        const dictToFind = e.target.id + '-0';
+        const dictToCopy = document.getElementById(dictToFind).closest('.dict-block');
+        if (chck.checked) {
+            dictToCopy.open = true;
+            rightField.appendChild(dictToCopy);
+            e.target.nextElementSibling.classList.add('active');
+        } else {
+            dictToCopy.open = false
+            hiddenBlock.appendChild(dictToCopy);
+            e.target.nextElementSibling.classList.remove('active');
         }
-        thisBlock.addEventListener('mouseover', async e => {
-            const lastRecord = thisBlock.querySelector('div[data-last]:not([data-last = ""])')
-            if (e.target === lastRecord) {
-                let searchString = normalizeSearchString(lastRecord);
-                if (!searchString) {
-                    searchString = '';
-                }
-                const nextRecords = await appendNewRows(lastRecord, thisBlock, searchString, 0, 0);
-                for (let i = 0; i < nextRecords.length; i++) {
-                    nextRecords[i].addEventListener('click', e => {
-                        editDeleteRow(e, nextRecords[i]);
-                    });
-                }
-            }
-        });
-        const srcSearchSubmit = dragSrcEl.querySelector('.search_submit');
-        const dragBlock = dragSrcEl.querySelector('.dict-block__content');
-        dragBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', e => {
-                editDeleteRow(e, row);
-            });
-        });
-        dragSrcEl.querySelector('.btn_add').addEventListener('click', e => {
-            addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
-        });
-        if (srcSearchSubmit) {
-            srcSearchSubmit.addEventListener('click', async e => {
-                const btnEvent = searchButtonEvent(srcSearchSubmit, e);
-                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
-                btnEvent[0].remove();
-            });
-            srcSearchSubmit.nextElementSibling.addEventListener('click', e => {
-                clearSearch(e.target);
-            });
-        }
-        dragBlock.addEventListener('mouseover', async e => {
-            const lastRecord = dragBlock.querySelector('div[data-last]:not([data-last = ""])')
-            if (e.target === lastRecord) {
-                let searchString = normalizeSearchString(lastRecord);
-                if (!searchString) {
-                    searchString = '';
-                }
-                const nextRecords = await appendNewRows(lastRecord, dragBlock, searchString, 0, 0);
-                for (let i = 0; i < nextRecords.length; i++) {
-                    nextRecords[i].addEventListener('click', e => {
-                        editDeleteRow(e, nextRecords[i]);
-                    });
-                }
-            }
-        });
-    }
-    return false;
-}
-
-/**
- *
- * @param event
- */
-function handleDragEnd(event) {
-    dictBlockList.forEach(block => {
-        block.querySelector('.dict-block__header').classList.remove('over')
     });
-}
+});
 
-
+/**
+ * prevent open close details on 'space'
+ */
 window.onload = function () {
     const summary = document.querySelectorAll('.dict-block__header_block-space');
     const fn = function (e) {
@@ -168,6 +55,9 @@ window.onload = function () {
 
 userRights();
 
+/**
+ * listener for DnD
+ */
 dictBlockList.forEach(block => {
     block.addEventListener('dragstart', handleDragStart, false);
     block.addEventListener('dragover', handleDragOver, false);
@@ -177,7 +67,9 @@ dictBlockList.forEach(block => {
     block.addEventListener('dragend', handleDragEnd);
 });
 
-// Cancel Edit Dictionary
+/**
+ * listener if your click outside the form — close form
+ */
 addEventListener('mousedown', function (element) {
     try {
         const parentRow = document.querySelector('form').closest('.dict-block__row')
@@ -189,6 +81,9 @@ addEventListener('mousedown', function (element) {
     }
 });
 
+/**
+ * listener to append new records to dictionary when you over the last showed
+ */
 dictBlockContent.forEach(block => {
     block.addEventListener('mouseover', async e => {
         const lastRecord = block.querySelector('div[data-last]:not([data-last = ""])')
@@ -232,7 +127,7 @@ dictBlockContent.forEach(block => {
 
 // Search
 /**
- *
+ * renew dict records according to search conditions
  */
 searchButtons.forEach((btn) => {
     btn.addEventListener('mousedown', async (search) => {
@@ -242,6 +137,14 @@ searchButtons.forEach((btn) => {
     });
 });
 
+/**
+ * listener for clear search input
+ */
+searchClearButtons.forEach(btn =>{
+    btn.addEventListener('click', e => {
+        clearSearch(btn);
+    });
+});
 
 /**
  *
@@ -292,3 +195,126 @@ function addButtonEvent(event, btn) {
     }
 }
 
+/**
+ * DnD handler functions
+ */
+
+/**
+ * handle drag start function
+ * obtain data from dragged element
+ * @param event
+ */
+function handleDragStart(event) {
+    dragSrcEl = this;
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+
+/**
+ * handle drag drop functions
+ * exchange inner HTML's between blocks
+ * then return event listeners to elements
+ * @param event
+ * @returns {boolean}
+ */
+function handleDrop(event) {
+    if (dragSrcEl !== this) {
+        const sourceClasses = dragSrcEl.className;
+        dragSrcEl.className = this.className;
+        this.className = sourceClasses;
+
+        dragSrcEl.innerHTML = this.innerHTML;
+        this.innerHTML = event.dataTransfer.getData('text/html');
+
+        /**
+         * return listeners for target block
+         */
+        const thisSearchSubmit = this.querySelector('.search_submit');
+        const thisBlock = this.querySelector('.dict-block__content');
+        thisBlock.querySelectorAll('div').forEach(row => {
+            row.addEventListener('click', e => {
+                editDeleteRow(e, row);
+            });
+        });
+        this.querySelector('.btn_add').addEventListener('click', e => {
+            addButtonEvent(e, this.querySelector('.btn_add'));
+        });
+        if (thisSearchSubmit) {
+            thisSearchSubmit.addEventListener('click', async e => {
+                const btnEvent = searchButtonEvent(thisSearchSubmit, e);
+                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
+                btnEvent[0].remove();
+            });
+            thisSearchSubmit.nextElementSibling.addEventListener('click', e => {
+                clearSearch(e.target);
+            });
+        }
+        thisBlock.addEventListener('mouseover', async e => {
+            const lastRecord = thisBlock.querySelector('div[data-last]:not([data-last = ""])')
+            if (e.target === lastRecord) {
+                let searchString = normalizeSearchString(lastRecord);
+                if (!searchString) {
+                    searchString = '';
+                }
+                const nextRecords = await appendNewRows(lastRecord, thisBlock, searchString, 0, 0);
+                for (let i = 0; i < nextRecords.length; i++) {
+                    nextRecords[i].addEventListener('click', e => {
+                        editDeleteRow(e, nextRecords[i]);
+                    });
+                }
+            }
+        });
+        /**
+         * return listeners for source block
+         */
+        const srcSearchSubmit = dragSrcEl.querySelector('.search_submit');
+        const dragBlock = dragSrcEl.querySelector('.dict-block__content');
+        dragBlock.querySelectorAll('div').forEach(row => {
+            row.addEventListener('click', e => {
+                editDeleteRow(e, row);
+            });
+        });
+        dragSrcEl.querySelector('.btn_add').addEventListener('click', e => {
+            addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
+        });
+        if (srcSearchSubmit) {
+            srcSearchSubmit.addEventListener('click', async e => {
+                const btnEvent = searchButtonEvent(srcSearchSubmit, e);
+                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
+                btnEvent[0].remove();
+            });
+            srcSearchSubmit.nextElementSibling.addEventListener('click', e => {
+                clearSearch(e.target);
+            });
+        }
+        dragBlock.addEventListener('mouseover', async e => {
+            const lastRecord = dragBlock.querySelector('div[data-last]:not([data-last = ""])')
+            if (e.target === lastRecord) {
+                let searchString = normalizeSearchString(lastRecord);
+                if (!searchString) {
+                    searchString = '';
+                }
+                const nextRecords = await appendNewRows(lastRecord, dragBlock, searchString, 0, 0);
+                for (let i = 0; i < nextRecords.length; i++) {
+                    nextRecords[i].addEventListener('click', e => {
+                        editDeleteRow(e, nextRecords[i]);
+                    });
+                }
+            }
+        });
+    }
+    return false;
+}
+
+/**
+ * handle drag function
+ * remove class 'over' from draggable elements
+ * when dropped
+ * @param event
+ */
+function handleDragEnd(event) {
+    dictBlockList.forEach(block => {
+        block.querySelector('.dict-block__header').classList.remove('over')
+    });
+}

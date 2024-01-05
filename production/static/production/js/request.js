@@ -11,10 +11,10 @@ import {cancelEditRecord} from "./func/cancelEditRecord.js";
 import {createEditForm} from "./func/createEditForm.js";
 import {clearSearch} from "./func/clearSearch.js";
 
+
 /**
  * Constants block
  */
-// const requestRows = document.querySelectorAll('.dict-block__row');
 const dictBlockContent = document.querySelector('.dict-block__content');
 const hiddenRow = dictBlockContent.querySelector('.dict-block__row_hidden');
 const addButton = document.querySelector('.btn_add');

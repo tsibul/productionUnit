@@ -6,7 +6,7 @@ import {fillFormNode} from "./fillFormNode.js";
  * Create form for edit from row
  * @param obj clickable row
  */
-export function createEditForm(obj) {
+export async function createEditForm(obj) {
     const nodeElements = obj.childNodes;
     const objClasses = obj.classList;
     const newNode = document.createElement('form'); // block for new row
@@ -17,6 +17,5 @@ export function createEditForm(obj) {
         }
     });
     newNode.id = 'form-dict';
-    fillFormNode(obj, newNode, nodeElements).then(r => {
-    });
+    await fillFormNode(obj, newNode, nodeElements);
 }

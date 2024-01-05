@@ -2,8 +2,8 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-<script src="{% static 'production/js/dist/production.bundle.js' %}" type="module" defer></script>
-{#<script src="{% static 'production/js/production.js' %}" type="module" defer></script>#}
+{#<script src="{% static 'production/js/dist/production.bundle.js' %}" type="module" defer></script>#}
+<script src="{% static 'production/js/production.js' %}" type="module" defer></script>
     <div class="full-content">
         <div class="container">
             <section class="dict-block dict-block__open dict-block__4 dict-block_long">
@@ -131,8 +131,7 @@
                         </div>
                         <ul class="dropdown__content">
                             {% for report in defect_event %}
-                                <li data-value="{{ report.id }}"
-                                    onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                                <li data-value="{{ report.id }}">{{ report.name }} </li>
                             {% endfor %}
                         </ul>
                     </div>

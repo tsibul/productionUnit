@@ -15,25 +15,26 @@ import {fillNewRow} from "./fillNewRow.js";
  * @returns {Promise<void>} array of Html elements added
  */
 export async function appendNewRows(rowCurrent, blockContent, searchString, shDeleted, unclosed) {
+    const lastRecord = rowCurrent.dataset.last
+    delete rowCurrent.dataset.last;
     let newRow;
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     const dictType = typeDict(rowCurrent);
-    const jsonUrl = `/production/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default/${searchString}/${shDeleted}/${unclosed}`;
+    const jsonUrl = `/production/json_dict_next_20/${dictType}/${lastRecord}/default/${searchString}/${shDeleted}/${unclosed}`;
     const jsonData = await fetchJsonData(jsonUrl);
     const nextRecords = JSON.parse(jsonData);
     let i = 0;
     const newRows = [];
-    nextRecords.forEach((record) => {
+    for (const record of nextRecords) {
         i++;
         newRow = rowCopy.cloneNode(true);
-        fillNewRow(record, i, newRow);
+        await fillNewRow(record, i, newRow);
         newRow.classList.remove('dict-block__row_hidden');
         if (i === 20) {
-            newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
+            newRow.dataset.last = Number.parseInt(lastRecord) + 20;
         }
         blockContent.appendChild(newRow);
         newRows.push(newRow);
-    });
-    delete rowCurrent.dataset.last;
+    }
     return newRows;
 }

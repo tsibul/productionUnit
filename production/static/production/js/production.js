@@ -9,6 +9,7 @@ import {openModal} from "./func/openModal.js";
 import {clearSearch} from "./func/clearSearch.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {dropDownListenerVisible} from "./func/dropdown/dropDownListenerVisible.js";
+import {fetchJsonData} from "./func/fetchJsonData.js";
 
 /**
  * constants
@@ -118,8 +119,7 @@ function fillQualityModal(btn) {
  */
 async function addProducedRows(first_record, order, unclosed, searchString) {
     const prefix = 'req__';
-    const prodData = await fetch(`/production/production_list/${first_record}/${order}/${unclosed}/${searchString}`)
-        .then(response => response.json());
+    const prodData = await fetchJsonData(`/production/production_list/${first_record}/${order}/${unclosed}/${searchString}`);
     const productionData = JSON.parse(prodData);
     let newRow;
     productionData.forEach(element => {

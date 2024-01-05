@@ -6,7 +6,6 @@ import {closeModal} from "./func/closeModal.js";
 
 const sectionProduction = document.querySelector('.quality-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
-// const qualityDetails = sectionProduction.querySelectorAll('.qual__row');
 const productionRow = document.querySelector('#technical-data').querySelector('.quality-list');
 const qualityDetailsRow = document.querySelector('#technical-data').querySelector('.qual__row');
 const reportButton = sectionProduction.querySelector('.dict-block__search').querySelector('.btn');
@@ -15,7 +14,6 @@ const endDate = document.getElementById('date-end');
 const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
 const modalSaveButton = qualityModal.querySelector('.btn-save');
-
 
 reportButton.addEventListener('click', async e => {
     e.preventDefault();

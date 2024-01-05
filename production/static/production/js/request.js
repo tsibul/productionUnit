@@ -35,10 +35,10 @@ checkUnclosed.addEventListener('change', async e => {
     await initialRequests(checkUnclosedValue);
 });
 
-addButton.addEventListener('click', () => {
+addButton.addEventListener('click', async () => {
     const copyRow = dictBlockContent.querySelector('.dict-block__row_hidden');
     const newRow = copyRowFromHidden(copyRow);
-    createEditForm(newRow);
+    await createEditForm(newRow);
 });
 
 searchCloseButton.addEventListener('click', e => {
@@ -61,9 +61,9 @@ searchButton.addEventListener('mousedown', async () => {
 dictBlockContent.addEventListener('mouseover', async e => {
     const lastRecord = dictBlockContent.querySelector('div[data-last]:not([data-last = ""])')
     if (e.target === lastRecord) {
-        const searchString = normalizeSearchString(lastRecord);
+        const searchString = normalizeSearchString(e.target);
         const checkUnclosedValue = checkUnclosed.checked ? 1 : 0;
-        await appendNewRows(lastRecord, dictBlockContent, searchString, 0, checkUnclosedValue);
+        await appendNewRows(e.target, dictBlockContent, searchString, 0, checkUnclosedValue);
     }
 });
 
@@ -73,17 +73,15 @@ document.addEventListener('click', e => {
     }
 })
 
-dictBlockContent.addEventListener('click', e => {
+dictBlockContent.addEventListener('click', async e => {
     if (e.target.classList.contains('btn_delete')) {
-        deleteRequest(e.target.closest('.dict-block__row')).then(r => {
-        });
+        await deleteRequest(e.target.closest('.dict-block__row'));
     } else if (e.target.classList.contains('btn_reduce')) {
-        reduceRequest(e.target.closest('.dict-block__row')).then(r => {
-        });
+        await reduceRequest(e.target.closest('.dict-block__row'));
     } else if (e.target.closest('.dict-block__row')) {
         const row = e.target.closest('.dict-block__row');
         if (!row.classList.contains('fulfilled')) {
-            createEditForm(row);
+            await createEditForm(row);
         }
     }
 });
@@ -133,11 +131,10 @@ async function deleteRequest(row) {
  */
 async function reduceRequest(row) {
     const idNo = row.dataset.id;
-    fetch(`/production/production_request_close/${idNo}`).then(() => {
-        row.querySelector('.btn').disabled = true;
-        row.querySelector('.btn').classList.add('form-input__inactive');
-        row.classList.add('fulfilled');
-    })
+    await fetch(`/production/production_request_close/${idNo}`);
+    row.querySelector('.btn').disabled = true;
+    row.querySelector('.btn').classList.add('form-input__inactive');
+    row.classList.add('fulfilled');
 }
 
 /**

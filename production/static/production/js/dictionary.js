@@ -118,9 +118,9 @@ dictBlockContent.forEach(block => {
  * add new row then edit
  */
 addButtons.forEach(btn => {
-    btn.addEventListener('click', event => {
+    btn.addEventListener('click', async event => {
         event.preventDefault();
-        addButtonEvent(event, btn);
+        await addButtonEvent(event, btn);
     });
 });
 
@@ -130,11 +130,11 @@ addButtons.forEach(btn => {
  * delete element for click on button '.btn-delete'
  */
 dictBlockContent.forEach(block => {
-    block.addEventListener('click', e => {
+    block.addEventListener('click', async e => {
         const dictBlockRow = block.querySelectorAll('.dict-block__row');
-        dictBlockRow.forEach(row => {
-            editDeleteRow(e, row);
-        });
+        for (const row of dictBlockRow) {
+            await editDeleteRow(e, row);
+        }
     });
 });
 
@@ -165,13 +165,12 @@ searchClearButtons.forEach(btn => {
  * @param e
  * @param row
  */
-function editDeleteRow(e, row) {
+async function editDeleteRow(e, row) {
     if (row === e.target.closest('.dict-block__row')) {
         if (e.target.classList.contains('btn_delete')) {
-            deleteRecord(row, showDeleted).then(r => {
-            });
+            await deleteRecord(row, showDeleted);
         } else {
-            createEditForm(e.target.closest('.dict-block__row'));
+            await createEditForm(e.target.closest('.dict-block__row'));
         }
     }
 }
@@ -200,12 +199,12 @@ function searchButtonEvent(btn, search) {
  * @param event
  * @param btn
  */
-function addButtonEvent(event, btn) {
+async function addButtonEvent(event, btn) {
     if (event.target === btn) {
         const dictBlock = btn.closest('.dict-block');
         const copyRow = dictBlock.querySelector('.dict-block__row_hidden');
         const newRow = copyRowFromHidden(copyRow);
-        createEditForm(newRow);
+        await createEditForm(newRow);
     }
 }
 
@@ -247,12 +246,12 @@ function handleDrop(event) {
         const thisSearchSubmit = this.querySelector('.search_submit');
         const thisBlock = this.querySelector('.dict-block__content');
         thisBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', e => {
-                editDeleteRow(e, row);
+            row.addEventListener('click', async e => {
+                await editDeleteRow(e, row);
             });
         });
-        this.querySelector('.btn_add').addEventListener('click', e => {
-            addButtonEvent(e, this.querySelector('.btn_add'));
+        this.querySelector('.btn_add').addEventListener('click', async e => {
+            await addButtonEvent(e, this.querySelector('.btn_add'));
         });
         if (thisSearchSubmit) {
             thisSearchSubmit.addEventListener('click', async e => {
@@ -285,12 +284,12 @@ function handleDrop(event) {
         const srcSearchSubmit = dragSrcEl.querySelector('.search_submit');
         const dragBlock = dragSrcEl.querySelector('.dict-block__content');
         dragBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', e => {
-                editDeleteRow(e, row);
+            row.addEventListener('click', async e => {
+                await editDeleteRow(e, row);
             });
         });
-        dragSrcEl.querySelector('.btn_add').addEventListener('click', e => {
-            addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
+        dragSrcEl.querySelector('.btn_add').addEventListener('click', async e => {
+            await addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
         });
         if (srcSearchSubmit) {
             srcSearchSubmit.addEventListener('click', async e => {
@@ -305,6 +304,7 @@ function handleDrop(event) {
         dragBlock.addEventListener('mouseover', async e => {
             const lastRecord = dragBlock.querySelector('div[data-last]:not([data-last = ""])')
             if (e.target === lastRecord) {
+                e.preventDefault();
                 let searchString = normalizeSearchString(lastRecord);
                 if (!searchString) {
                     searchString = '';

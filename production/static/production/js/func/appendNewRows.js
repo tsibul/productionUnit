@@ -21,8 +21,7 @@ export async function appendNewRows(rowCurrent, blockContent, searchString, shDe
     const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     const dictType = typeDict(rowCurrent);
     const jsonUrl = `/production/json_dict_next_20/${dictType}/${lastRecord}/default/${searchString}/${shDeleted}/${unclosed}`;
-    const jsonData = await fetchJsonData(jsonUrl);
-    const nextRecords = JSON.parse(jsonData);
+    const nextRecords = await fetchJsonData(jsonUrl);
     let i = 0;
     const newRows = [];
     for (const record of nextRecords) {

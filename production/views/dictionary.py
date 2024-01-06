@@ -103,8 +103,7 @@ def dictionary_json(request, dict_type, id_no, order, search_string, show_delete
     """
     dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted, unclosed)
     formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
-    json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
-    return JsonResponse(json_dict, safe=False)
+    return JsonResponse(formatted_dict_items, safe=False)
 
 
 def dictionary_delete(request, dict_type, id_no):

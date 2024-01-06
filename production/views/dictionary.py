@@ -102,7 +102,7 @@ def dictionary_json(request, dict_type, id_no, order, search_string, show_delete
     :return:
     """
     dict_items = dict_additional_filter(dict_type, order, id_no, search_string, show_deleted, unclosed)
-    formatted_dict_items = [format_datetime_fields(item) for item in dict_items.values()]
+    formatted_dict_items = [format_datetime_fields(item) for item in dict_items]
     return JsonResponse(formatted_dict_items, safe=False)
 
 
@@ -132,30 +132,6 @@ def dictionary_last_id(request, dict_type):
     last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
-
-
-def fetch_user_by_id(request, user_id):
-    """
-    Fetch user by user_id
-    :param request:
-    :param user_id:
-    :return: json with userdata
-    """
-    user_name = User.objects.get(id=user_id).last_name
-    return JsonResponse(user_name, safe=False)
-
-
-def fetch_dict_str_by_id(request, dict_type, dict_id):
-    """
-    Fetch one record from table
-    :param request:
-    :param dict_type: Table name
-    :param dict_id: id of record
-    :return: json with dictionary data record
-    """
-    dict_model = getattr(models, dict_type)
-    dict_str = str(dict_model.objects.get(id=dict_id))
-    return JsonResponse(dict_str, safe=False)
 
 
 def dictionary_json_filter(request, dict_type, filter_dictionary, filter_dictionary_id):

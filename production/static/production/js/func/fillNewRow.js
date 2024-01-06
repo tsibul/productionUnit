@@ -19,29 +19,24 @@ export async function fillNewRow(record, i, newRow) {
     if (square) {
         square.style.backgroundColor = record['hex'];
     }
+    if (record['date_close']) {
+        newRow.classList.add('fulfilled');
+        const buttons = newRow.querySelectorAll('.btn');
+        buttons.forEach(btn => {
+            btn.setAttribute('disabled', true);
+            btn.classList.add('form-input__inactive')
+        });
+    }
 
     for (const rowElement of newRowElements) {
-        let fieldName = rowElement.dataset.field;
-        if (rowElement.classList.contains('foreign-key')) {
-            rowElement.dataset.id = record[fieldName + '_id'];
-            rowElement.textContent = await fetchJsonData(
-                `/production/dict_name/${dictList[fieldName]}/${record[fieldName + '_id']}`);
-        } else if (rowElement.classList.contains('bool-field')) {
+        const fieldName = rowElement.dataset.field;
+        if (rowElement.classList.contains('bool-field')) {
             rowElement.textContent = record[fieldName] ? 'Да' : 'Нет';
             rowElement.dataset.id = record[fieldName] ? '1' : '0';
-        } else if (fieldName.includes('user')) {
-            if (record[`${fieldName}_id`]) {
-                rowElement.textContent = await fetchJsonData(`/production/user_name/${record[`${fieldName}_id`]}`);
-            }
         } else {
             rowElement.textContent = record[fieldName];
-            if (rowElement.dataset.field === 'date_close' && record[fieldName]) {
-                newRow.classList.add('fulfilled');
-                const buttons = newRow.querySelectorAll('.btn');
-                buttons.forEach(btn => {
-                    btn.setAttribute('disabled', true);
-                    btn.classList.add('form-input__inactive')
-                });
+            if (rowElement.classList.contains('foreign-key')) {
+                rowElement.dataset.id = record[fieldName + '_id'];
             }
         }
     }

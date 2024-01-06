@@ -18,9 +18,6 @@ urlpatterns = [
         views.dictionary_json, name='dictionary_json'),
     path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
          views.dictionary_json_filter, name='dictionary_json_filter'),
-    path('dict_name/<str:dict_type>/<int:dict_id>', views.fetch_dict_str_by_id, name='fetch_dict_str_by_id'),
-
-    path('user_name/<int:user_id>', views.fetch_user_by_id, name='views.fetch_user_by_id'),
 
     path('production_request/', views.production_request, name='production_request'),
     path('production_request_close/<int:request_id>', views.production_request_close, name='production_request_close'),
@@ -28,8 +25,6 @@ urlpatterns = [
     path('production_start/', views.production_start, name='production_start'),
     path('production_stop/', views.production_stop, name='production_stop'),
     path('production_report/', views.production_report, name='production_report'),
-    # path('shift_approved/', views.shift_approved, name='shift_approved'),
-    # path('shift_rejected/', views.shift_rejected, name='shift_rejected'),
 
     path('production/', views.production, name='production'),
     path('production_list/<int:first_record>/<str:order>/<int:unclosed>/<str:search_string>', views.production_list,

@@ -316,7 +316,7 @@
                                  id="color-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text"
-                                     data-name="color_id" data-field="color_id"></div>
+                                     data-name="code" data-field="code"></div>
                                 <div class="dict-block__text"
                                      data-name="color_name" data-field="color_name"></div>
                                 <div class="dict-block__text"
@@ -335,7 +335,7 @@
                                      id="color-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
-                                         data-name="color_id">{{ item.color_id }}</div>
+                                         data-name="code">{{ item.code }}</div>
                                     <div class="dict-block__text"
                                          data-name="color_name">{{ item.color_name }}</div>
                                     <div class="dict-block__text"
@@ -356,7 +356,7 @@
                                      id="color-{{ item.id }}" data-last="20">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
-                                         data-name="color_id">{{ item.color_id }}</div>
+                                         data-name="code">{{ item.code }}</div>
                                     <div class="dict-block__text"
                                          data-name="color_name">{{ item.color_name }}</div>
                                     <div class="dict-block__text"
@@ -889,7 +889,7 @@
                                     <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                          data-name="goods">{{ item.goods.article }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                         data-name="color" data-filter="goods">{{ item.color.color_id }}</div>
+                                         data-name="color" data-filter="goods">{{ item.color.code }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                          data-name="main_material_type">{{ item.main_material_type.name }}</div>
                                     <div class="dict-block__text"
@@ -916,7 +916,7 @@
                                     <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
                                          data-name="goods">{{ item.goods.article }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                         data-name="color" data-filter="goods">{{ item.color.color_id }}</div>
+                                         data-name="color" data-filter="goods">{{ item.color.code }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                          data-name="main_material_type">{{ item.main_material_type.name }}</div>
                                     <div class="dict-block__text"

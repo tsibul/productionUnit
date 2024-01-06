@@ -23,8 +23,8 @@ def dictionary(request):
     navi = 'dictionary'
     admin_state = if_admin(request)
     color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
-    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[0:19]
-    color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[19:20]
+    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')[0:19]
+    color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')[19:20]
     country = Country.objects.filter(deleted=False).order_by('name')
     producer = Producer.objects.filter(deleted=False).order_by('name')
     defects = Defects.objects.filter(deleted=False).order_by('name')

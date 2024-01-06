@@ -131,8 +131,7 @@
                         </div>
                         <ul class="dropdown__content">
                             {% for report in defect_event %}
-                                <li data-value="{{ report.id }}"
-                                    onclick="event.stopPropagation(); selectFromList(this);">{{ report.name }} </li>
+                                <li data-value="{{ report.id }}">{{ report.name }} </li>
                             {% endfor %}
                         </ul>
                     </div>

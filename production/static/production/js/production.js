@@ -10,6 +10,7 @@ import {clearSearch} from "./func/clearSearch.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {dropDownListenerVisible} from "./func/dropdown/dropDownListenerVisible.js";
 import {fetchJsonData} from "./func/fetchJsonData.js";
+import {selectFromList} from "./func/dropdown/selectFromList.js";
 
 /**
  * constants
@@ -19,6 +20,7 @@ const sectionProduction = document.querySelector('.production-list').closest('se
 const productionContent = sectionProduction.querySelector('.dict-block__content');
 const productionRow = document.querySelector('#technical-data').querySelector('.production-list');
 const qualityModal = document.getElementById('qualityModal');
+const defectEvents = qualityModal.querySelectorAll('li');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
 const quantityApproved = qualityModal.querySelector('#quantity_approved');
 const quantityChecked = qualityModal.querySelector('#quantity_checked');
@@ -82,6 +84,13 @@ quantityApprovedDefect.addEventListener('change', () => {
 
 modalCloseButton.addEventListener('click', () => {
     closeModal(modalCloseButton);
+});
+
+defectEvents.forEach(defect => {
+    defect.addEventListener('click', async e => {
+        e.stopPropagation();
+        await selectFromList(defect);
+    });
 });
 
 /**

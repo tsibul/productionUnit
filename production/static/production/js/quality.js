@@ -6,7 +6,6 @@ import {closeModal} from "./func/closeModal.js";
 
 const sectionProduction = document.querySelector('.quality-list').closest('section');
 const productionContent = sectionProduction.querySelector('.dict-block__content');
-// const qualityDetails = sectionProduction.querySelectorAll('.qual__row');
 const productionRow = document.querySelector('#technical-data').querySelector('.quality-list');
 const qualityDetailsRow = document.querySelector('#technical-data').querySelector('.qual__row');
 const reportButton = sectionProduction.querySelector('.dict-block__search').querySelector('.btn');
@@ -16,18 +15,16 @@ const qualityModal = document.getElementById('qualityModal');
 const modalCloseButton = qualityModal.querySelector('.btn-close');
 const modalSaveButton = qualityModal.querySelector('.btn-save');
 
-
-reportButton.addEventListener('click', e => {
+reportButton.addEventListener('click', async e => {
     e.preventDefault();
     productionContent.innerHTML = '';
-    addProducedRows(startDate.value, endDate.value).then(r => {
-        sectionProduction.querySelectorAll('.qual__row').forEach(row => {
-            row.addEventListener('click', (event) => {
-                if (event.target.classList.contains('btn')) {
-                    fillQualityModal(event.target);
-                    openModal(qualityModal);
-                }
-            });
+    await addProducedRows(startDate.value, endDate.value);
+    sectionProduction.querySelectorAll('.qual__row').forEach(row => {
+        row.addEventListener('click', async (event) => {
+            if (event.target.classList.contains('btn')) {
+                await fillQualityModal(event.target);
+                openModal(qualityModal);
+            }
         });
     });
 })
@@ -57,7 +54,7 @@ modalSaveButton.addEventListener('click', e => {
     fetch(fetchPath, {
         method: 'POST',
         body: formData,
-    }).then(r =>   closeModal(modalCloseButton));
+    }).then(r => closeModal(modalCloseButton));
 });
 
 modalCloseButton.addEventListener('click', () => {
@@ -86,9 +83,7 @@ async function fillQualityModal(btn) {
         rowCur.querySelector('.qual__comment').textContent;
     const defectBlock = qualityModal.querySelector('.modal__block');
     defectBlock.innerHTML = '';
-    const defectData = await fetch(`/production/defects_left/${rowCur.dataset.id}`)
-        .then(response => response.json());
-
+    const defectData = await fetch(`/production/defects_left/${rowCur.dataset.id}`);
     const defectList = JSON.parse(defectData);
     defectList.forEach(defect => {
         defectBlock.insertAdjacentHTML("afterbegin",

@@ -11,7 +11,7 @@ import {dictList} from "../const/dictList.js";
  * @returns {Promise<void>}
  */
 export async function fillNewRow(record, i, newRow) {
-    const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
+    const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])');
     newRow.dataset.id = record['id'];
     newRow.id = newRow.id.slice(0, -1) + record['id'];
     newRow.querySelector('.id-hidden').value = record['id'];
@@ -24,8 +24,6 @@ export async function fillNewRow(record, i, newRow) {
         let fieldName = rowElement.dataset.field;
         if (rowElement.classList.contains('foreign-key')) {
             rowElement.dataset.id = record[fieldName + '_id'];
-            let foreignKeyElement;
-            foreignKeyElement = document.getElementById(fieldName);
             rowElement.textContent = await fetchJsonData(
                 `/production/dict_name/${dictList[fieldName]}/${record[fieldName + '_id']}`);
         } else if (rowElement.classList.contains('bool-field')) {

@@ -17,7 +17,7 @@ def production_request(request):
                       0:11]
     product_request_end = ProductionRequest.objects.filter(deleted=False).order_by('-date_create',
                                                                                    'detail__goods__name')[11:12]
-    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')
+    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')
     detail = DetailInGoods.objects.filter(deleted=False).order_by('goods', 'position')
     user_groups = user_group_list(request)
     context = {'navi': navi, 'product_request': product_request, 'product_request_end': product_request_end,

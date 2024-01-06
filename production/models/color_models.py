@@ -21,11 +21,11 @@ class ColorScheme(models.Model):
 
 
 class Color(models.Model):
-    """ id - (07)
-        name - name
+    """ code - (07)
+        colr_name - name
         pantone - pantone color
-        code - HEX"""
-    color_id = models.CharField(max_length=10)
+        color_code - HEX"""
+    code = models.CharField(max_length=10)
     pantone = models.CharField(max_length=20, default='')
     color_name = models.CharField(max_length=60)
     color_code = models.CharField(max_length=7)
@@ -33,14 +33,14 @@ class Color(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
-        return f"{self.color_id} {self.color_name}"
+        return f"{self.code} {self.color_name}"
 
     def __str__(self):
-        return f"{self.color_id} {self.color_name}"
+        return f"{self.code} {self.color_name}"
 
     class Meta:
-        ordering = ['color_scheme', 'color_id']
+        ordering = ['color_scheme', 'code']
 
     @staticmethod
     def order_default():
-        return ['color_scheme', 'color_id']
+        return ['color_scheme', 'code']

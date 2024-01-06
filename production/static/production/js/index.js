@@ -137,7 +137,7 @@ async function fillProductionData(row, element, prefix) {
     }
     reformatFields(row,element,prefix);
     row.dataset.detail = element['detail_id'];
-    row.dataset.color = element['color_id'];
+    row.dataset.color = element['code'];
     const reqLeft = row.querySelector('.req__left')
     if(reqLeft && reqLeft.textContent === '0'){
         row.querySelector('.btn').classList.add('form-input__inactive');

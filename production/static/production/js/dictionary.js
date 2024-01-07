@@ -10,6 +10,9 @@ import {userRights} from "./func/userRights.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {clearSearch} from "./func/clearSearch.js";
 import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
+import {hideDict} from "./func/dictionary/hideDict.js";
+import {showDict} from "./func/dictionary/showDict.js";
+
 
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
@@ -29,25 +32,9 @@ dictStartChecks.forEach(chck => {
         const dictDetails = e.target.closest('.dict-menu__details');
         const dictHeader = dictDetails.querySelector('.dict-menu__header');
         if (chck.checked) {
-            dictToCopy.open = true;
-            rightField.appendChild(dictToCopy);
-            e.target.nextElementSibling.classList.add('active');
-            if (!dictHeader.classList.contains('active')){
-                dictHeader.classList.add('active');
-            }
+            showDict(rightField, dictToCopy, dictHeader, e.target);
         } else {
-            dictToCopy.open = false
-            hiddenBlock.appendChild(dictToCopy);
-            e.target.nextElementSibling.classList.remove('active');
-            let i = true
-            dictDetails.querySelectorAll('input').forEach(item => {
-                if (item.checked) {
-                    i = false;
-                }
-            });
-            if (i) {
-                dictHeader.classList.remove('active');
-            }
+            hideDict(hiddenBlock, dictToCopy, dictHeader, dictDetails, e.target);
         }
     });
 });

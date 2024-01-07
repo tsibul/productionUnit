@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
-                               MaterialType, MasterBatch, Country, Producer, Recipe, IMM, Defects, DefectEvent)
+                               MaterialType, MasterBatch, Country, Producer, Defects, DefectEvent)
 from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter, \
     if_admin, badges
 

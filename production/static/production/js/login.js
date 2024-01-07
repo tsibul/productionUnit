@@ -6,7 +6,9 @@ const authModal = document.getElementById('authModal');
 const closeButtons = document.querySelectorAll('.login__close');
 const loginForm = document.getElementById('login-form');
 const logoutForm = document.getElementById('logout-form');
+const badges = document.querySelectorAll('.menu__item_badge');
 
+fillBadges(badges);
 
 closeButtons.forEach(row => {
     row.addEventListener("click", (e) => {
@@ -27,3 +29,17 @@ document.getElementById('logout-button').addEventListener('click', function () {
     loginForm.style.display = 'none';
     openModal(authModal);
 });
+
+function fillBadges(badges) {
+    const badgeImport = document.querySelector('.badges').value;
+    if(badgeImport) {
+        const badgeData = JSON.parse(badgeImport);
+        let i = 0;
+        badges.forEach(badge => {
+            if (badgeData[i]) {
+                badge.setAttribute('data-badge', badgeData[i]);
+            }
+            i++;
+        });
+    }
+}

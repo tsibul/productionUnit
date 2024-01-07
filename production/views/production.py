@@ -8,7 +8,7 @@ from django.utils import timezone
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport
 from production.classes import QualityCheck
 from production.service_function import user_group_list, defects_create, review_requests, quality_for_request_create, \
-    if_admin, compare_objects
+    if_admin, compare_objects, badges
 
 
 def production(request):
@@ -17,8 +17,10 @@ def production(request):
     user_groups = user_group_list(request)
     defects = Defects.objects.filter(deleted=False).order_by('name')
     defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
+    badge_count = badges()
+
     context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event,
-               'admin_state': admin_state}
+               'admin_state': admin_state, 'badge_count': badge_count}
     return render(request, 'production.html', context)
 
 

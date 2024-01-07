@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from production.models import ProductionRequest, DetailInGoods, Color, ProductionRequestStartStop
-from production.service_function import user_group_list, if_admin
+from production.service_function import user_group_list, if_admin, badges
 
 
 def production_request(request):
@@ -20,9 +20,10 @@ def production_request(request):
     color = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')
     detail = DetailInGoods.objects.filter(deleted=False).order_by('goods', 'position')
     user_groups = user_group_list(request)
+    badge_count = badges()
     context = {'navi': navi, 'product_request': product_request, 'product_request_end': product_request_end,
                'color': color, 'detail': detail, 'date_now': timezone.now(), 'user_groups': user_groups,
-               'admin_state': admin_state}
+               'admin_state': admin_state, 'badge_count': badge_count}
     return render(request, 'request.html', context)
 
 

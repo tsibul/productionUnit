@@ -37,9 +37,6 @@ def dictionary(request):
     add_material_end = AddMaterial.objects.filter(deleted=False).order_by('material_type__name')[19:20]
     masterbatch = MasterBatch.objects.filter(deleted=False).order_by('brand')
     goods = Goods.objects.filter(deleted=False).order_by('article')
-    recipe = Recipe.objects.filter(deleted=False).order_by('goods__article')[0:19]
-    recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
-    imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     user_groups = user_group_list(request)
     badge_count = badges()
 
@@ -49,8 +46,7 @@ def dictionary(request):
                'main_material': main_material, 'badge_count': badge_count,
                'main_material_end': main_material_end,
                'goods': goods, 'add_material': add_material,
-               'add_material_end': add_material_end, 'imm': imm,
-               'recipe': recipe, 'recipe_end': recipe_end, 'user_groups': user_groups, 'defects': defects,
+               'add_material_end': add_material_end,'user_groups': user_groups, 'defects': defects,
                'defect_event': defect_event, 'admin_state': admin_state}
     return render(request, 'dictionary.html', context)
 

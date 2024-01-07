@@ -1,7 +1,5 @@
 import json
 
-from django.contrib.auth.models import User
-
 from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -11,7 +9,7 @@ from production import models
 from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
                                MaterialType, MasterBatch, Country, Producer, Recipe, IMM, Defects, DefectEvent)
 from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter, \
-    if_admin
+    if_admin, badges
 
 
 def dictionary(request):
@@ -43,10 +41,12 @@ def dictionary(request):
     recipe_end = Recipe.objects.filter(deleted=False).order_by('goods__article')[19:20]
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
     user_groups = user_group_list(request)
+    badge_count = badges()
+
     context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
                'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
                'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
-               'main_material': main_material,
+               'main_material': main_material, 'badge_count': badge_count,
                'main_material_end': main_material_end,
                'goods': goods, 'add_material': add_material,
                'add_material_end': add_material_end, 'imm': imm,
@@ -72,16 +72,17 @@ def dictionary_update(request, dict_type):
     else:
         dict_element = dict_model()
     for field in field_list:
-        if field in request.POST.keys() and field != 'id':
+        if field in request.POST.keys() and field != 'id' and request.POST[field] != '':
             model_field = dict_model._meta.get_field(field)
             if model_field.get_internal_type() == 'ForeignKey':
                 setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
             elif model_field.get_internal_type() == 'BooleanField':
                 setattr(dict_element, field, False)
-                if request.POST[field]:
-                    setattr(dict_element, field, request.POST[field])
-            elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
-                  model_field.get_internal_type() != 'DateTimeField'):
+                # if request.POST[field]:
+                #     setattr(dict_element, field, request.POST[field])
+            else:
+            # elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
+            #       model_field.get_internal_type() != 'DateTimeField'):
                 setattr(dict_element, field, request.POST[field])
     if 'user' in field_list:
         setattr(dict_element, 'user', current_user)

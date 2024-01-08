@@ -11,5 +11,6 @@ from production.models.production_request import ProductionRequest, ProductionRe
 from production.models.production_report import ProductionReport, ProductionForRequest
 from production.models.quality_report import QualityReport, QualityReportDefects, QualityForRequest
 from production.models.recipe import Recipe, RecipeDetail
+from production.models.detail_weight import DetailBaseWeight, DetailActualWeight
 
 

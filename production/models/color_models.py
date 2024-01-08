@@ -30,6 +30,7 @@ class Color(models.Model):
     color_name = models.CharField(max_length=60)
     color_code = models.CharField(max_length=7)
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
+    standard = models.BooleanField(default=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Настройки{% endblock %}
 {% block content %}
-{#    <script src="{% static 'production/js/dist/dictionary.bundle.js' %}" defer type="module"></script>#}
+    {#    <script src="{% static 'production/js/dist/dictionary.bundle.js' %}" defer type="module"></script>#}
     <script src="{% static 'production/js/dictionary.js' %}" defer type="module"></script>
     <div class="full-content">
         <div class="container">
@@ -24,7 +24,8 @@
                         </summary>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="colorScheme">
-                            <label for="colorScheme"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цветовая группа</label>
+                            <label for="colorScheme"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цветовая
+                                группа</label>
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="color">
@@ -36,7 +37,8 @@
                         </summary>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="detailInGoods">
-                            <label for="detailInGoods"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали</label>
+                            <label for="detailInGoods"><i
+                                    class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали</label>
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="goods">
@@ -56,7 +58,8 @@
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="masterBatch">
-                            <label for="masterBatch"><i class="fa fa-solid fa-sack-xmark"></i>&nbsp;Суперконцентрат</label>
+                            <label for="masterBatch"><i
+                                    class="fa fa-solid fa-sack-xmark"></i>&nbsp;Суперконцентрат</label>
                         </div>
                     </details>
                     <details class="dict-menu__details">
@@ -71,11 +74,13 @@
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="materialType">
-                            <label for="materialType"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Тип материала</label>
+                            <label for="materialType"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Тип
+                                материала</label>
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="detailName">
-                            <label for="detailName"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Названия деталей</label>
+                            <label for="detailName"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Названия
+                                деталей</label>
                         </div>
                     </details>
                 </div>
@@ -294,6 +299,7 @@
                             <div>Pantone</div>
                             <div>#HEX</div>
                             <div>Группа</div>
+                            <div>Станд.</div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content">
@@ -311,6 +317,9 @@
                                 <div class="dict-block__text foreign-key"
                                      data-name="color_scheme" data-field="color_scheme"
                                      data-id=""></div>
+                                <div class="dict-block__text bool-field"
+                                     data-name="standard" data-field="standard"
+                                     data-id="1">Да</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
@@ -330,10 +339,11 @@
                                     <div class="dict-block__text foreign-key"
                                          data-name="color_scheme"
                                          data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button"
-                                    >
-                                        удалить
-                                    </button>
+                                    <div class="dict-block__text bool-field"
+                                         data-name="standard" data-field="standard"
+                                         data-id="{{ item.standard }}">{% if item.standard %}Да{% else %}
+                                        Нет{% endif %}</div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
                             {% for item in color_end %}
@@ -351,10 +361,11 @@
                                     <div class="dict-block__text foreign-key"
                                          data-name="color_scheme"
                                          data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button"
-                                    >
-                                        удалить
-                                    </button>
+                                    <div class="dict-block__text bool-field"
+                                         data-name="standard" data-field="standard"
+                                         data-id="{{ item.standard }}">{% if item.standard %}Да{% else %}
+                                        Нет{% endif %}</div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
                         </div>

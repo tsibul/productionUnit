@@ -48,7 +48,7 @@
 
                 </div>
                 <div class="dict" style="display: none">
-                    <details class="dict-block dict-block__4">
+                    <details class="dict-block dict-block__3">
                         <summary class="dict-block__header">
                             <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали
                             </div>
@@ -66,7 +66,7 @@
                             <div>Поз.</div>
                             <div>Название</div>
                             <div>Схема рецептуры</div>
-                            <div></div>
+{#                            <div></div>#}
                             {#                            <button class="btn btn-save btn_add">добавить</button>#}
                         </div>
                         <div class="dict-block__content ">
@@ -79,9 +79,9 @@
                                 <div class="dict-block__text" data-field="detail_name" data-id=""></div>
                                 <div class="dict-block__text foreign-key" data-field="recipe_color_scheme"
                                      data-name="recipe_color_scheme" data-id=""></div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
+{#                                <button class="btn btn-close btn_delete" type="button">#}
+{#                                    удалить#}
+{#                                </button>#}
                             </div>
                             {% for item in detail_in_goods %}
                                 <div class="dict-block__row detail-in-goods_tech" data-id="{{ item.id }}"
@@ -96,9 +96,9 @@
                                     <div class="dict-block__text foreign-key"
                                          data-id="{{ item.recipe_color_scheme.id }}"
                                          data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
+{#                                    <button class="btn btn-close btn_delete" type="button">#}
+{#                                        удалить#}
+{#                                    </button>#}
                                 </div>
                             {% endfor %}
                             {% for item in detail_in_goods_end %}
@@ -114,9 +114,9 @@
                                     <div class="dict-block__text foreign-key"
                                          data-id="{{ item.recipe_color_scheme.id }}"
                                          data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
+{#                                    <button class="btn btn-close btn_delete" type="button">#}
+{#                                        удалить#}
+{#                                    </button>#}
                                 </div>
                             {% endfor %}
                         </div>

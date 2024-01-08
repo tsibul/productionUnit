@@ -31,13 +31,28 @@
                             <label for="recipeDetail"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы текущие</label>
                         </div>
                         <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="detailInGoods">
-                            <label for="detailInGoods"><i class="fa fa-solid fa-flask"></i>&nbsp;Детали</label>
-                        </div>
-                        <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="recipeColorScheme">
                             <label for="recipeColorScheme"><i class="fa fa-solid fa-flask"></i>&nbsp;Cхема
                                 рецептуры</label>
+                        </div>
+                    </details>
+                    <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Продукция
+                        </summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="detailInGoods">
+                            <label for="detailInGoods"><i
+                                    class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="detailBaseWeight">
+                            <label for="detailBaseWeight"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовый
+                                вес детали</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="detailActualWeight">
+                            <label for="detailActualWeight"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальный
+                                вес детали</label>
                         </div>
                     </details>
                     <details class="dict-menu__details">
@@ -66,7 +81,7 @@
                             <div>Поз.</div>
                             <div>Название</div>
                             <div>Схема рецептуры</div>
-{#                            <div></div>#}
+                            {#                            <div></div>#}
                             {#                            <button class="btn btn-save btn_add">добавить</button>#}
                         </div>
                         <div class="dict-block__content ">
@@ -79,9 +94,9 @@
                                 <div class="dict-block__text" data-field="detail_name" data-id=""></div>
                                 <div class="dict-block__text foreign-key" data-field="recipe_color_scheme"
                                      data-name="recipe_color_scheme" data-id=""></div>
-{#                                <button class="btn btn-close btn_delete" type="button">#}
-{#                                    удалить#}
-{#                                </button>#}
+                                {#                                <button class="btn btn-close btn_delete" type="button">#}
+                                {#                                    удалить#}
+                                {#                                </button>#}
                             </div>
                             {% for item in detail_in_goods %}
                                 <div class="dict-block__row detail-in-goods_tech" data-id="{{ item.id }}"
@@ -96,9 +111,9 @@
                                     <div class="dict-block__text foreign-key"
                                          data-id="{{ item.recipe_color_scheme.id }}"
                                          data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
-{#                                    <button class="btn btn-close btn_delete" type="button">#}
-{#                                        удалить#}
-{#                                    </button>#}
+                                    {#                                    <button class="btn btn-close btn_delete" type="button">#}
+                                    {#                                        удалить#}
+                                    {#                                    </button>#}
                                 </div>
                             {% endfor %}
                             {% for item in detail_in_goods_end %}
@@ -114,13 +129,141 @@
                                     <div class="dict-block__text foreign-key"
                                          data-id="{{ item.recipe_color_scheme.id }}"
                                          data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
-{#                                    <button class="btn btn-close btn_delete" type="button">#}
-{#                                        удалить#}
-{#                                    </button>#}
+                                    {#                                    <button class="btn btn-close btn_delete" type="button">#}
+                                    {#                                        удалить#}
+                                    {#                                    </button>#}
                                 </div>
                             {% endfor %}
                         </div>
                     </details><!-- деталь в продукции -->
+                    <details class="dict-block dict-block__3">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+
+                        </summary>
+                        <div class="dict-block__row dict-block__active detail-base-weight">
+                            <div>Дата</div>
+                            <div>Деталь</div>
+                            <div>Вес,&nbsp;г</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row detail-base-weight dict-block__row_hidden" data-id="0"
+                                 id="detailBaseWeight-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
+                                <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                     data-name="detail_in_goods" data-id=""></div>
+                                <div class="dict-block__text" data-field="weight_g" data-name="weight_g"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                            {% for item in detail_base_weight %}
+                                <div class="dict-block__row detail-base-weight" data-id="{{ item.id }}"
+                                     id="detailBaseWeight-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                         data-name="detail_in_goods"
+                                         data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
+                                    <div class="dict-block__text" data-field="weight_g"
+                                         data-name="weight_g">{{ item.weight_g }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                            {% for item in detail_actual_weight_end %}
+                                <div class="dict-block__row detail-base-weight" data-id="{{ item.id }}" data-last="20"
+                                     id="detailBaseWeight-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                         data-name="detail_in_goods"
+                                         data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
+                                    <div class="dict-block__text" data-field="weight_g"
+                                         data-name="weight_g">{{ item.weight_g }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- базовый вес детали -->
+                    <details class="dict-block dict-block__3">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+
+                        </summary>
+                        <div class="dict-block__row dict-block__active detail-actual-weight">
+                            <div>Дата</div>
+                            <div>Деталь</div>
+                            <div>Вес,&nbsp;г</div>
+                            <div>Cмена</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row detail-actual-weight dict-block__row_hidden" data-id="0"
+                                 id="detailActualWeight-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
+                                <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                     data-name="detail_in_goods" data-id=""></div>
+                                <div class="dict-block__text" data-field="weight_g" data-name="weight_g"></div>
+                                <div class="dict-block__text foreign-key" data-field="production"
+                                     data-filter="detail_in_goods"
+                                     data-name="production" data-id=""></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                            {% for item in detail_actual_weight %}
+                                <div class="dict-block__row detail-actual-weight" data-id="{{ item.id }}"
+                                     id="detailActualWeight-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                         data-name="detail_in_goods"
+                                         data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
+                                    <div class="dict-block__text" data-field="weight_g"
+                                         data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="production"
+                                         data-filter="detail_in_goods"
+                                         data-name="production" data-id="{{ item.production.id }}"></div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                            {% for item in detail_actual_weight_end %}
+                                <div class="dict-block__row detail-actual-weight" data-id="{{ item.id }}" data-last="20"
+                                     id="detailActualWeight-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="detail_in_goods"
+                                         data-name="detail_in_goods"
+                                         data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
+                                    <div class="dict-block__text" data-field="weight_g"
+                                         data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="production"
+                                         data-filter="detail_in_goods"
+                                         data-name="production" data-id="{{ item.production.id }}"></div>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- актуальный вес детали -->
                     <details class="dict-block dict-block__4">
                         <summary class="dict-block__header dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;ТПА</div>
@@ -215,7 +358,7 @@
                             <div class="dict-block__row recipe-detail dict-block__row_hidden" data-id="0"
                                  id="recipeDetail-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y" }}</div>
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
                                 <div class="dict-block__text foreign-key" data-id=""
                                      data-name="recipe_color_scheme" data-field="recipe_color_scheme"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -244,7 +387,7 @@
                             </div>
                             {% for item in recipe_detail %}
                                 <div class="dict-block__row recipe-detail" data-id="{{ item.id }}"
-                                     id="recipe-{{ item.id }}">
+                                     id="recipeDetail-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
@@ -279,7 +422,7 @@
                             {% endfor %}
                             {% for item in recipe_detail_end %}
                                 <div class="dict-block__row recipe-detail" data-id="{{ item.id }}"
-                                     id="recipe-{{ item.id }}" data-last="20">
+                                     id="recipeDetail-{{ item.id }}" data-last="20">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
@@ -340,7 +483,7 @@
                             <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
                                  id="recipe-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y" }}</div>
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
                                 <div class="dict-block__text foreign-key" data-id=""
                                      data-name="recipe_color_scheme" data-field="recipe_color_scheme"></div>
                                 <div class="dict-block__text foreign-key" data-id=""

@@ -275,6 +275,15 @@
   }
 }
 
+.detail-base-weight{
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.detail-actual-weight{
+  grid-template-columns: repeat(3, 1fr) 4fr 1fr;
+}
+
+
 .goods {
   grid-template-columns: 2fr 1fr 2fr 1fr 1fr;
 }
@@ -310,7 +319,6 @@
     font-size: 12px;
   }
 }
-
 
 .imm {
   grid-template-columns: 1fr repeat(6, 2fr);

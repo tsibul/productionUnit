@@ -16,6 +16,7 @@ export const dictList = {
     addMaterial: 'AddMaterial',
     masterBatch: 'MasterBatch',
     recipe: 'Recipe',
+    recipeDetail: 'RecipeDetail',
     goods: 'Goods',
     imm: 'IMM',
     productRequest: 'ProductionRequest',
@@ -27,6 +28,9 @@ export const dictList = {
     defectEvent: 'DefectEvent',
     qualityReport: 'QualityReport',
     qualityReportDefect: 'QualityReportDefects',
+    recipeColorScheme: 'RecipeColorScheme',
+    detailBaseWeight: 'DetailBaseWeight',
+    detailActualWeight: 'DetailActualWeight',
 
     detail: 'DetailInGoods',
     material_type: 'MaterialType',
@@ -46,4 +50,8 @@ export const dictList = {
     production: 'ProductionReport',
     quality_report: 'QualityReport',
     defect: 'Defects',
+    recipe_detail: 'RecipeDetail',
+    recipe_color_scheme: 'RecipeColorScheme',
+    detail_base_weight: 'DetailBaseWeight',
+    detail_actual_weight: 'DetailActualWeight',
 };

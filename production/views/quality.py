@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from production.models import ProductionReport, Defects, DefectEvent, QualityReport, QualityReportDefects
 from production.classes import QualityCheck
-from production.service_function import defects_create, user_group_list, if_admin
+from production.service_function import defects_create, user_group_list, if_admin, badges
 
 
 def quality_report(request):
@@ -23,8 +23,9 @@ def quality_report(request):
         start_date = datetime(now.year - 1, 12, 1)
     else:
         start_date = first_day_of_current_month.replace(month=first_day_of_current_month.month - 1).date()
+    badge_count = badges()
     context = {'navi': navi, 'user_groups': user_groups, 'defects': defects, 'defect_event': defect_event, 'now': now,
-               'start_date': start_date, 'admin_state': admin_state}
+               'start_date': start_date, 'admin_state': admin_state, 'badge_count': badge_count}
     return render(request, 'quality.html', context)
 
 

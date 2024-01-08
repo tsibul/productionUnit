@@ -8,6 +8,7 @@ module.exports = {
     request: './production/static/production/js/request.js',
     quality: './production/static/production/js/quality.js',
     dictionary: './production/static/production/js/dictionary.js',
+    tech_dictionary: './production/static/production/js/tech_dictionary.js',
     admin: './production/static/production/js/admin.js',
   },
   output: {

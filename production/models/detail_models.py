@@ -1,5 +1,5 @@
 from django.db import models
-from production.models import Goods
+from production.models import Goods, RecipeColorScheme
 
 
 class DetailName(models.Model):
@@ -24,6 +24,8 @@ class DetailInGoods(models.Model):
     goods = models.ForeignKey(Goods, models.SET_NULL, null=True)
     detail_name = models.ForeignKey(DetailName, models.SET_NULL, null=True, blank=True)
     position = models.SmallIntegerField(default=1)
+    recipe_color_scheme = models.ForeignKey(RecipeColorScheme, on_delete=models.SET_NULL, null=True, blank=True,
+                                            default=None)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

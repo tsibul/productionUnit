@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from production.models import IMM, DetailInGoods, Color, ProductionRequest, ProductionRequestStartStop, ProductionReport
 from production.service_function import user_group_list, spread_production_for_requests, technical_request_create, \
-    if_admin, state
+    if_admin, state, badges
 
 
 def index(request):
@@ -28,8 +28,10 @@ def index(request):
 
     on_request, in_work = state()
     user_groups = user_group_list(request)
+    badge_count = badges()
+
     context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
-               'on_request': on_request, 'in_work': in_work}
+               'on_request': on_request, 'in_work': in_work, 'badge_count': badge_count}
 
     return render(request, 'index.html', context)
 

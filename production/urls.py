@@ -19,6 +19,8 @@ urlpatterns = [
     path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
          views.dictionary_json_filter, name='dictionary_json_filter'),
 
+    path('tech_dictionary/', views.tech_dictionary, name='tech_dictionary'),
+
     path('production_request/', views.production_request, name='production_request'),
     path('production_request_close/<int:request_id>', views.production_request_close, name='production_request_close'),
 

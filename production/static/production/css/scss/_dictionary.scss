@@ -270,6 +270,9 @@
 
 .detail-in-goods {
   grid-template-columns: 1fr 1fr 2fr 1fr;
+  &_tech{
+    grid-template-columns: 1fr 1fr 2fr 2fr 1fr;
+  }
 }
 
 .goods {
@@ -293,9 +296,21 @@
 }
 
 .recipe {
-  grid-template-columns: repeat(2, 1fr) 2fr 1fr repeat(2, 4fr 1fr)  3fr 1.5fr;
-  //grid-template-columns: repeat(10, auto);
+  grid-template-columns: 1.5fr repeat(2, 3fr) 1.5fr 3fr 1fr 3fr 1.5fr 1.5fr;
 }
+
+.recipe-detail {
+  grid-template-columns: 1.5fr 1.5fr repeat(2, 3fr) 2fr 3fr 1fr 3fr 1fr 3fr 1fr 3fr 1.5fr 1.5fr;
+  font-size: 14px;
+  gap: 4px;
+  & .btn{
+    font-size: 14px;
+  }
+  & form *{
+    font-size: 12px;
+  }
+}
+
 
 .imm {
   grid-template-columns: 1fr repeat(6, 2fr);
@@ -378,6 +393,10 @@
   &__row {
     grid-template-columns: 0.5fr repeat(7, 1fr)  2fr repeat(2, 1fr);
   }
+}
+
+.recipe-color-scheme{
+    grid-template-columns: 2fr 2fr 1fr;
 }
 
 

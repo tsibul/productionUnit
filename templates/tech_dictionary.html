@@ -2,22 +2,14 @@
 {% load static %}
 {% block title %}Настройки{% endblock %}
 {% block content %}
-{#    <script src="{% static 'production/js/dist/dictionary.bundle.js' %}" defer type="module"></script>#}
+    {#    <script src="{% static 'production/js/dist/dictionary.bundle.js' %}" defer type="module"></script>#}
     <script src="{% static 'production/js/tech_dictionary.js' %}" defer type="module"></script>
     <div class="full-content">
         <div class="container">
             <div class="dict-main">
                 <div class="dict-menu">
                     <details class="dict-menu__details">
-                        <summary class="dict-menu__header">Продукция
-                        </summary>
-                        <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="detailInGoods">
-                            <label for="detailInGoods"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали</label>
-                        </div>
-                    </details>
-                    <details class="dict-menu__details">
-                        <summary class="dict-menu__header">Оборудование
+                        <summary class="dict-menu__header">ТПА
                         </summary>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="imm">
@@ -25,30 +17,31 @@
                         </div>
                     </details>
                     <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Пресс-формы
+                        </summary>
+                    </details>
+                    <details class="dict-menu__details">
                         <summary class="dict-menu__header">Рецептуры</summary>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="recipe">
-                            <label for="recipe"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы</label>
+                            <label for="recipe"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы базовые</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="recipeDetail">
+                            <label for="recipeDetail"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы текущие</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="detailInGoods">
+                            <label for="detailInGoods"><i class="fa fa-solid fa-flask"></i>&nbsp;Детали</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="recipeColorScheme">
+                            <label for="recipeColorScheme"><i class="fa fa-solid fa-flask"></i>&nbsp;Cхема
+                                рецептуры</label>
                         </div>
                     </details>
                     <details class="dict-menu__details">
                         <summary class="dict-menu__header">Прочие справочники</summary>
-                        <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="country">
-                            <label for="country"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Страна</label>
-                        </div>
-                        <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="producer">
-                            <label for="producer"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Производитель</label>
-                        </div>
-                        <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="materialType">
-                            <label for="materialType"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Тип материала</label>
-                        </div>
-                        <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="detailName">
-                            <label for="detailName"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Названия деталей</label>
-                        </div>
                     </details>
                 </div>
                 <div class="dict-right">
@@ -68,52 +61,59 @@
                             </div>
 
                         </summary>
-                        <div class="dict-block__row dict-block__active detail-in-goods ">
+                        <div class="dict-block__row dict-block__active detail-in-goods_tech ">
                             <div>Продукция</div>
                             <div>Поз.</div>
                             <div>Название</div>
-                            <button class="btn btn-save btn_add">добавить</button>
+                            <div>Схема рецептуры</div>
+                            <div></div>
+                            {#                            <button class="btn btn-save btn_add">добавить</button>#}
                         </div>
                         <div class="dict-block__content ">
-                            <div class="dict-block__row detail-in-goods dict-block__row_hidden" data-id="0"
+                            <div class="dict-block__row detail-in-goods_tech dict-block__row_hidden" data-id="0"
                                  id="detailInGoods-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text foreign-key" data-field="goods"
-                                     data-name="goods" data-id=""></div>
-                                <div class="dict-block__text" data-field="position"
-                                     data-name="position">1
-                                </div>
-                                <div class="dict-block__text foreign-key" data-field="detail_name"
-                                     data-name="detail_name" data-id=""></div>
+                                <div class="dict-block__text" data-field="goods"
+                                     data-id=""></div>
+                                <div class="dict-block__text" data-field="position"></div>
+                                <div class="dict-block__text" data-field="detail_name" data-id=""></div>
+                                <div class="dict-block__text foreign-key" data-field="recipe_color_scheme"
+                                     data-name="recipe_color_scheme" data-id=""></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
                             {% for item in detail_in_goods %}
-                                <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}"
+                                <div class="dict-block__row detail-in-goods_tech" data-id="{{ item.id }}"
                                      id="detailInGoods-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="goods">{{ item.goods.article }}</div>
+                                    <div class="dict-block__text" data-id="{{ item.goods.id }}"
+                                         data-field="goods">{{ item.goods }}</div>
                                     <div class="dict-block__text"
-                                         data-name="position">{{ item.position }}</div>
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
-                                         data-name="detail_name">{{ item.detail_name.name }}</div>
+                                         data-field="position">{{ item.position }}</div>
+                                    <div class="dict-block__text" data-id="{{ item.detail_name.id }}"
+                                         data-field="detail_name">{{ item.detail_name.name }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
                                     <button class="btn btn-close btn_delete" type="button">
                                         удалить
                                     </button>
                                 </div>
                             {% endfor %}
                             {% for item in detail_in_goods_end %}
-                                <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}" data-last="20"
+                                <div class="dict-block__row detail-in-goods_tech" data-id="{{ item.id }}" data-last="20"
                                      id="detailInGoods-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="good">{{ item.goods.article }}</div>
+                                    <div class="dict-block__text" data-id="{{ item.goods.id }}"
+                                         data-field="good">{{ item.goods.article }}</div>
                                     <div class="dict-block__text"
-                                         data-name="position">{{ item.position }}</div>
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
-                                         data-name="detail_name">{{ item.detail_name.name }}</div>
+                                         data-field="position">{{ item.position }}</div>
+                                    <div class="dict-block__text" data-id="{{ item.detail_name.id }}"
+                                         data-field="detail_name">{{ item.detail_name.name }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
                                     <button class="btn btn-close btn_delete" type="button">
                                         удалить
                                     </button>
@@ -195,9 +195,12 @@
                                 <button class="btn btn-close search_clear" type="button">очистить</button>
                             </div>
                         </summary>
-                        <div class="dict-block__row dict-block__active recipe ">
-                            <div>Арт.</div>
+                        <div class="dict-block__row dict-block__active recipe-detail ">
+                            <div>Дата</div>
+                            <div>Схема</div>
                             <div>Цвет</div>
+                            <div>Смена</div>
+                            <div>Тип мат.</div>
                             <div>Материал</div>
                             <div>Доза дробл.</div>
                             <div>Краситель</div>
@@ -205,18 +208,25 @@
                             <div>Доп. краситель</div>
                             <div>Доза</div>
                             <div>Комментарий</div>
+                            <div></div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content">
-                            <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
-                                 id="recipe-0">
+                            <div class="dict-block__row recipe-detail dict-block__row_hidden" data-id="0"
+                                 id="recipeDetail-0">
                                 <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y" }}</div>
                                 <div class="dict-block__text foreign-key" data-id=""
-                                     data-name="goods" data-field="goods"></div>
+                                     data-name="recipe_color_scheme" data-field="recipe_color_scheme"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
-                                     data-name="color" data-field="color" data-filter="goods"></div>
+                                     data-name="color" data-field="color" data-filter="recipe_color_scheme"></div>
+                                <div class="dict-block__text foreign-key" data-id="" data-filter="color"
+                                     data-name="production" data-field="production"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
                                      data-name="main_material_type" data-field="main_material_type"></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-id=""
+                                     data-name="main_material"></div>
                                 <div class="dict-block__text"
                                      data-name="add_material_doze" data-field="add_material_doze"></div>
                                 <div class="dict-block__text foreign-key" data-id=""
@@ -229,20 +239,28 @@
                                      data-name="add_master_doze" data-field="add_master_doze"></div>
                                 <div class="dict-block__text"
                                      data-name="comment" data-field="comment"></div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
+                                <button class="btn btn-save btn_add">в&nbsp;архив</button>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
-                            {% for item in recipe %}
-                                <div class="dict-block__row recipe" data-id="{{ item.id }}"
+                            {% for item in recipe_detail %}
+                                <div class="dict-block__row recipe-detail" data-id="{{ item.id }}"
                                      id="recipe-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="goods">{{ item.goods.article }}</div>
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
-                                         data-name="color" data-filter="goods">{{ item.color.code }}</div>
+                                         data-name="color" data-filter="recipe_color_scheme">{{ item.color.code }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="" data-filter="color"
+                                         data-id="{{ item.production.id }}"
+                                         data-name="production" data-field="production">{{ item.production }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                          data-name="main_material_type">{{ item.main_material_type.name }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.main_material.id }}"
+                                         data-name="main_material">{{ item.main_material }}</div>
                                     <div class="dict-block__text"
                                          data-name="add_material_doze">{{ item.add_material_doze }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_master.id }}"
@@ -255,6 +273,111 @@
                                          data-name="add_master_doze">{{ item.add_material_doze }}</div>
                                     <div class="dict-block__text"
                                          data-name="comment">{{ item.comment }}</div>
+                                    <button class="btn btn-save btn_add">в&nbsp;архив</button>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                            {% for item in recipe_detail_end %}
+                                <div class="dict-block__row recipe-detail" data-id="{{ item.id }}"
+                                     id="recipe-{{ item.id }}" data-last="20">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
+                                         data-name="color" data-filter="recipe-color-filter">{{ item.color.code }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="" data-filter="color"
+                                         data-id="{{ item.production.id }}"
+                                         data-name="production" data-field="production">{{ item.production }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
+                                         data-name="main_material_type">{{ item.main_material_type.name }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.main_material.id }}"
+                                         data-name="main_material">{{ item.main_material }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="add_material_doze">{{ item.add_material_doze }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.main_master.id }}"
+                                         data-name="main_master">{{ item.main_master }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="main_master_doze">{{ item.main_master_doze }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.add_master.id }}"
+                                         data-name="add_master">{{ item.add_master }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="add_master_doze">{{ item.add_material_doze }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="comment">{{ item.comment }}</div>
+                                    <button class="btn btn-save btn_add">в&nbsp;архив</button>
+                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- дозы текущие -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-flask"></i>&nbsp;Дозы</div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active recipe ">
+                            <div>Дата</div>
+                            <div>Схема</div>
+                            <div>Цвет</div>
+                            <div>Материал</div>
+                            <div>Краситель</div>
+                            <div>Доза</div>
+                            <div>Комментарий</div>
+                            <div></div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content">
+                            <div class="dict-block__row recipe dict-block__row_hidden" data-id="0"
+                                 id="recipe-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.y" }}</div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="recipe_color_scheme" data-field="recipe_color_scheme"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="color" data-field="color" data-filter="recipe_color_scheme"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="main_material_type" data-field="main_material_type"></div>
+                                <div class="dict-block__text foreign-key" data-id=""
+                                     data-name="main_master" data-field="main_master"></div>
+                                <div class="dict-block__text"
+                                     data-name="main_master_doze" data-field="main_master_doze"></div>
+                                <div class="dict-block__text"
+                                     data-name="comment" data-field="comment"></div>
+                                <button class="btn btn-save btn_add">в&nbsp;архив</button>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            {% for item in recipe %}
+                                <div class="dict-block__row recipe" data-id="{{ item.id }}"
+                                     id="recipe-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
+                                         data-name="color" data-filter="recipe_color_scheme">{{ item.color.code }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
+                                         data-name="main_material_type">{{ item.main_material_type.name }}</div>
+                                    <div class="dict-block__text foreign-key" data-id="{{ item.main_master.id }}"
+                                         data-name="main_master">{{ item.main_master }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="main_master_doze">{{ item.main_master_doze }}</div>
+                                    <div class="dict-block__text"
+                                         data-name="comment">{{ item.comment }}</div>
+                                    <button class="btn btn-save btn_add">в&nbsp;архив</button>
                                     <button class="btn btn-close btn_delete" type="button">
                                         удалить
                                     </button>
@@ -264,31 +387,78 @@
                                 <div class="dict-block__row recipe" data-id="{{ item.id }}"
                                      id="recipe-{{ item.id }}" data-last="20">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="goods">{{ item.goods.article }}</div>
+                                    <div class="dict-block__text"
+                                         data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.recipe_color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.recipe_color_scheme }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.color.id }}"
                                          data-name="color" data-filter="goods">{{ item.color.code }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_material_type.id }}"
                                          data-name="main_material_type">{{ item.main_material_type.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="add_material_doze">{{ item.add_material_doze }}</div>
                                     <div class="dict-block__text foreign-key" data-id="{{ item.main_master.id }}"
                                          data-name="main_master">{{ item.main_master }}</div>
                                     <div class="dict-block__text"
                                          data-name="main_master_doze">{{ item.main_master_doze }}</div>
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.add_master.id }}"
-                                         data-name="add_master">{{ item.add_master }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="add_master_doze">{{ item.add_material_doze }}</div>
                                     <div class="dict-block__text"
                                          data-name="comment">{{ item.comment }}</div>
+                                    <button class="btn btn-save btn_add">в&nbsp;архив</button>
                                     <button class="btn btn-close btn_delete" type="button">
                                         удалить
                                     </button>
                                 </div>
                             {% endfor %}
                         </div>
-                    </details><!-- дозы -->
+                    </details><!-- дозы базовые -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Схема
+                                рецептуры
+                            </div>
+                            <div class="dict-block__search">
+                                {#                                <i class="fa fa-solid fa-magnifying-glass"></i>#}
+                                {#                                <input type="search" class="form-input dict-block__form-input"#}
+                                {#                                       placeholder="искать...">#}
+                                {#                                <button class="btn btn-save search_submit" type="button">поиск</button>#}
+                                {#                                <button class="btn btn-close search_clear" type="button">очистить</button>#}
+                            </div>
+
+                        </summary>
+                        <div class="dict-block__row dict-block__active recipe-color-scheme ">
+                            <div>Название</div>
+                            <div>Цветовая схема</div>
+                            {#                            <div></div>#}
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row recipe-color-scheme dict-block__row_hidden" data-id="0"
+                                 id="recipeColorScheme-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name" data-name="name"
+                                     data-id=""></div>
+                                <div class="dict-block__text foreign-key" data-field="color_scheme"
+                                     data-name="color_scheme" data-id=""></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            {% for item in recipe_color_scheme %}
+                                <div class="dict-block__row recipe-color-scheme" data-id="{{ item.id }}"
+                                     id="recipeColorScheme-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text" data-id="{{ item.goods.id }}"
+                                         data-name="name">{{ item.name }}</div>
+                                    <div class="dict-block__text foreign-key"
+                                         data-id="{{ item.color_scheme.id }}"
+                                         data-name="recipe_color_scheme">{{ item.color_scheme }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- схема рецептуры -->
+
                 </div>
             </div>
         </div>

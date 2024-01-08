@@ -14,9 +14,9 @@ class RecipeColorScheme(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['color_scheme']
+        ordering = ['color_scheme', 'name']
 
     @staticmethod
     def order_default():
-        return ['color_scheme']
+        return ['color_scheme', 'name']
 

@@ -45,13 +45,13 @@
                                     class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали</label>
                         </div>
                         <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="detailBaseWeight">
-                            <label for="detailBaseWeight"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовый
+                            <input type="checkbox" class="checkbox-out" id="detailBaseData">
+                            <label for="detailBaseData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовый
                                 вес детали</label>
                         </div>
                         <div class="dict-menu__item">
-                            <input type="checkbox" class="checkbox-out" id="detailActualWeight">
-                            <label for="detailActualWeight"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальный
+                            <input type="checkbox" class="checkbox-out" id="detailActualData">
+                            <label for="detailActualData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальный
                                 вес детали</label>
                         </div>
                     </details>
@@ -149,15 +149,15 @@
                             </div>
 
                         </summary>
-                        <div class="dict-block__row dict-block__active detail-base-weight">
+                        <div class="dict-block__row dict-block__active detail-base-data">
                             <div>Дата</div>
                             <div>Деталь</div>
                             <div>Вес,&nbsp;г</div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content ">
-                            <div class="dict-block__row detail-base-weight dict-block__row_hidden" data-id="0"
-                                 id="detailBaseWeight-0">
+                            <div class="dict-block__row detail-base-data dict-block__row_hidden" data-id="0"
+                                 id="detailBaseData-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
                                 <div class="dict-block__text foreign-key" data-field="detail_in_goods"
@@ -165,9 +165,9 @@
                                 <div class="dict-block__text" data-field="weight_g" data-name="weight_g"></div>
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
-                            {% for item in detail_base_weight %}
-                                <div class="dict-block__row detail-base-weight" data-id="{{ item.id }}"
-                                     id="detailBaseWeight-{{ item.id }}">
+                            {% for item in detail_base_data %}
+                                <div class="dict-block__row detail-base-data" data-id="{{ item.id }}"
+                                     id="detailBaseData-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
@@ -179,9 +179,9 @@
                                     <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
-                            {% for item in detail_actual_weight_end %}
-                                <div class="dict-block__row detail-base-weight" data-id="{{ item.id }}" data-last="20"
-                                     id="detailBaseWeight-{{ item.id }}">
+                            {% for item in detail_actual_data_end %}
+                                <div class="dict-block__row detail-base-data" data-id="{{ item.id }}" data-last="20"
+                                     id="detailBaseData-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
@@ -208,7 +208,7 @@
                             </div>
 
                         </summary>
-                        <div class="dict-block__row dict-block__active detail-actual-weight">
+                        <div class="dict-block__row dict-block__active detail-actual-data">
                             <div>Дата</div>
                             <div>Деталь</div>
                             <div>Вес,&nbsp;г</div>
@@ -216,8 +216,8 @@
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content ">
-                            <div class="dict-block__row detail-actual-weight dict-block__row_hidden" data-id="0"
-                                 id="detailActualWeight-0">
+                            <div class="dict-block__row detail-actual-data dict-block__row_hidden" data-id="0"
+                                 id="detailActualData-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text" data-field="date_create">{{ date_now|date:"d.m.Y" }}</div>
                                 <div class="dict-block__text foreign-key" data-field="detail_in_goods"
@@ -228,9 +228,9 @@
                                      data-name="production" data-id=""></div>
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
-                            {% for item in detail_actual_weight %}
-                                <div class="dict-block__row detail-actual-weight" data-id="{{ item.id }}"
-                                     id="detailActualWeight-{{ item.id }}">
+                            {% for item in detail_actual_data %}
+                                <div class="dict-block__row detail-actual-data" data-id="{{ item.id }}"
+                                     id="detailActualData-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>
@@ -245,9 +245,9 @@
                                     <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
-                            {% for item in detail_actual_weight_end %}
-                                <div class="dict-block__row detail-actual-weight" data-id="{{ item.id }}" data-last="20"
-                                     id="detailActualWeight-{{ item.id }}">
+                            {% for item in detail_actual_data_end %}
+                                <div class="dict-block__row detail-actual-data" data-id="{{ item.id }}" data-last="20"
+                                     id="detailActualData-{{ item.id }}">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-block__text"
                                          data-field="date_create">{{ item.date_create|date:"d.m.Y" }}</div>

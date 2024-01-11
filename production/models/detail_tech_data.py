@@ -1,10 +1,12 @@
 from django.db import models
-from production.models import DetailInGoods, ProductionReport
+from production.models import DetailInGoods, ProductionReport, MoldInsert
 
 
-class DetailBaseWeight(models.Model):
+class DetailBaseData(models.Model):
     detail_in_goods = models.ForeignKey(DetailInGoods, on_delete=models.CASCADE)
+    mold_insert = models.ForeignKey(MoldInsert, models.SET_NULL, null=True)
     weight_g = models.DecimalField(default=0, decimal_places=3, max_digits=9)
+    cycle_time_seconds = models.IntegerField(default=0)
     date_create = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
 
@@ -22,5 +24,6 @@ class DetailBaseWeight(models.Model):
         return ['detail_in_goods', '-date_create']
 
 
-class DetailActualWeight(DetailBaseWeight):
+class DetailActualData(DetailBaseData):
     production = models.ForeignKey(ProductionReport, on_delete=models.CASCADE)
+    cavities_quantity_working = models.IntegerField()

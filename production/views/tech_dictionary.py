@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
 
-from production.models import DetailInGoods, Recipe, RecipeDetail, IMM, RecipeColorScheme, DetailBaseWeight, \
-    DetailActualWeight
+from production.models import DetailInGoods, Recipe, RecipeDetail, IMM, RecipeColorScheme, DetailBaseData, \
+    DetailActualData
 from production.service_function import user_group_list, if_admin, badges
 
 
@@ -23,13 +23,13 @@ def tech_dictionary(request):
     recipe_detail = RecipeDetail.objects.filter(deleted=False).order_by('recipe_color_scheme', 'color')[0:19]
     recipe_detail_end = RecipeDetail.objects.filter(deleted=False).order_by('recipe_color_scheme', 'color')[19:20]
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
-    detail_base_weight = DetailBaseWeight.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
+    detail_base_data = DetailBaseData.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
                          0:19]
-    detail_base_weight_end = DetailBaseWeight.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
+    detail_base_data_end = DetailBaseData.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
                              19:20]
-    detail_actual_weight = DetailActualWeight.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
+    detail_actual_data = DetailActualData.objects.filter(deleted=False).order_by('detail_in_goods', '-date_create')[
                            0:19]
-    detail_actual_weight_end = DetailActualWeight.objects.filter(deleted=False).order_by('detail_in_goods',
+    detail_actual_data_end = DetailActualData.objects.filter(deleted=False).order_by('detail_in_goods',
                                                                                          '-date_create')[19:20]
 
     user_groups = user_group_list(request)
@@ -38,6 +38,6 @@ def tech_dictionary(request):
                'imm': imm, 'recipe': recipe, 'recipe_end': recipe_end, 'user_groups': user_groups,
                'admin_state': admin_state, 'badge_count': badge_count, 'recipe_color_scheme': recipe_color_scheme,
                'recipe_detail': recipe_detail, 'date_now': date_now, 'recipe_detail_end': recipe_detail_end,
-               'detail_base_weight': detail_base_weight, 'detail_base_weight_end': detail_base_weight_end,
-               'detail_actual_weight': detail_actual_weight, 'detail_actual_weight_end': detail_actual_weight_end}
+               'detail_base_data': detail_base_data, 'detail_base_data_end': detail_base_data_end,
+               'detail_data_weight': detail_actual_data, 'detail_actual_data_end': detail_actual_data_end}
     return render(request, 'tech_dictionary.html', context)

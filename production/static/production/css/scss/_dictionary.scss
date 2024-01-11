@@ -275,14 +275,13 @@
   }
 }
 
-.detail-base-weight{
+.detail-base-data{
   grid-template-columns: repeat(4, 1fr);
 }
 
-.detail-actual-weight{
+.detail-actual-data{
   grid-template-columns: repeat(3, 1fr) 4fr 1fr;
 }
-
 
 .goods {
   grid-template-columns: 2fr 1fr 2fr 1fr 1fr;

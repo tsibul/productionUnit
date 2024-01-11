@@ -625,11 +625,11 @@
   grid-template-columns: 2fr 0.6fr 2fr 2fr 0.6fr;
 }
 
-.detail-base-weight {
+.detail-base-data {
   grid-template-columns: repeat(4, 1fr);
 }
 
-.detail-actual-weight {
+.detail-actual-data {
   grid-template-columns: repeat(3, 1fr) 4fr 1fr;
 }
 

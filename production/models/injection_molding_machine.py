@@ -117,7 +117,7 @@ class InjectionUnit(models.Model):
 
 class ImmGeneralData(models.Model):
     imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
-    imm_type = models.ForeignKey('ImmType', models.SET_NULL, null=True, blank=True)
+    imm_type = models.ForeignKey(ImmType, models.SET_NULL, null=True, blank=True)
     oil_tank_volume_l = models.IntegerField(null=True, blank=True)
     pump_electric_capacity_kW = models.IntegerField(null=True, blank=True)
     heating_electric_capacity_kW = models.IntegerField(null=True, blank=True)

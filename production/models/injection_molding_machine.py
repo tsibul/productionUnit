@@ -25,6 +25,16 @@ class IMM (models.Model):
         return ['plant_code']
 
 
+class ImmType(models.Model):
+    type = models.CharField(max_length=140, blank=True, null=True, unique=True)
+
+    def __repr__(self):
+        return f"{self.type}"
+
+    def __str__(self):
+        return f"{self.type}"
+
+
 class EjectorType(models.Model):
     type = models.CharField(max_length=140, blank=True, null=True, unique=True)
 
@@ -87,8 +97,55 @@ class Ejector(models.Model):
 
 class InjectionUnit(models.Model):
     imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
+    heat_insulation = models.BooleanField(default=False)
     screw_type = models.ForeignKey(ScrewType, models.SET_NULL, null=True, blank=True)
     screw_diameter_mm = models.IntegerField(null=True, blank=True)
+    l_d_ratio = models.IntegerField(null=True, blank=True)
+    injection_pressure_bar = models.IntegerField(null=True, blank=True)
+    max_injection_volume_cm3 = models.IntegerField(null=True, blank=True)
+    max_injection_weight_g = models.IntegerField(null=True, blank=True)
+    injection_speed_cm3_sec = models.IntegerField(null=True, blank=True)
+    plasticization_speed_g_sec = models.IntegerField(null=True, blank=True)
+    max_screw_stroke_mm = models.IntegerField(null=True, blank=True)
+    max_nozzle_stroke_mm = models.IntegerField(null=True, blank=True)
+    nozzle_immersion_depth_mm = models.IntegerField(null=True, blank=True)
+    nozzle_contact_force_kN = models.IntegerField(null=True, blank=True)
+    heating_zones_quantity = models.IntegerField(null=True, blank=True)
+    material_hopper = models.BooleanField(default=True)
+    material_hopper_volume_l = models.IntegerField(null=True, blank=True)
+
+
+class ImmGeneralData(models.Model):
+    imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
+    imm_type = models.ForeignKey('ImmType', models.SET_NULL, null=True, blank=True)
+    oil_tank_volume_l = models.IntegerField(null=True, blank=True)
+    pump_electric_capacity_kW = models.IntegerField(null=True, blank=True)
+    heating_electric_capacity_kW = models.IntegerField(null=True, blank=True)
+    euromap_dry_cycle_time_sec = models.IntegerField(null=True, blank=True)
+    euromap_dry_cycle_stroke_mm = models.IntegerField(null=True, blank=True)
+    machine_weight_kg = models.IntegerField(null=True, blank=True)
+    machine_length_mm = models.IntegerField(null=True, blank=True)
+    machine_width_mm = models.IntegerField(null=True, blank=True)
+    machine_height_mm = models.IntegerField(null=True, blank=True)
+
+
+class ImmAdditionalOptions(models.Model):
+    imm = models.OneToOneField(IMM, on_delete=models.CASCADE)
+    rotameter_quantity = models.IntegerField(null=True, blank=True)
+    euromap_interface = models.BooleanField(default=False)
+    in_out_programming_interface = models.BooleanField(default=False)
+    in_out_production_interface_quantity = models.IntegerField(null=True, blank=True)
+    hydraulic_cylinder_moving_plate = models.BooleanField(default=False)
+    hydraulic_cylinder_moving_plate_quantity = models.IntegerField(null=True, blank=True)
+    hydraulic_cylinder_fixed_plate = models.BooleanField(default=False)
+    hydraulic_cylinder_fixed_plate_quantity = models.IntegerField(null=True, blank=True)
+    air_valve_moving_plate = models.BooleanField(default=False)
+    air_valve_moving_plate_quantity = models.IntegerField(null=True, blank=True)
+    air_valve_fixed_plate = models.BooleanField(default=False)
+    air_valve_fixed_plate_quantity = models.IntegerField(null=True, blank=True)
+    hot_runnel_control = models.BooleanField(default=False)
+    hot_runnel_control_zones = models.IntegerField(null=True, blank=True)
+
 
 
 

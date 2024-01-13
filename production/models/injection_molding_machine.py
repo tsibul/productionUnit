@@ -2,7 +2,7 @@ from django.db import models
 from production.models import Producer
 
 
-class IMM (models.Model):
+class IMM(models.Model):
     plant_code = models.CharField(max_length=2)
     producer = models.ForeignKey(Producer, on_delete=models.SET_NULL, null=True)
     producer_code = models.CharField(max_length=20)
@@ -35,6 +35,13 @@ class ImmType(models.Model):
     def __str__(self):
         return f"{self.type}"
 
+    class Meta:
+        ordering = ['type']
+
+    @staticmethod
+    def order_default():
+        return ['type']
+
 
 class EjectorType(models.Model):
     type = models.CharField(max_length=140, blank=True, null=True, unique=True)
@@ -45,6 +52,13 @@ class EjectorType(models.Model):
 
     def __str__(self):
         return f"{self.type}"
+
+    class Meta:
+        ordering = ['type']
+
+    @staticmethod
+    def order_default():
+        return ['type']
 
 
 class ScrewType(models.Model):
@@ -71,6 +85,13 @@ class ScrewType(models.Model):
             resistance = self.resistance
         return f"геометрия: {self.geometry} {resistance} {bimetallic}"
 
+    class Meta:
+        ordering = ['geometry']
+
+    @staticmethod
+    def order_default():
+        return ['geometry']
+
 
 class ClampingUnit(models.Model):
     imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
@@ -87,6 +108,13 @@ class ClampingUnit(models.Model):
     opening_positions_quantity = models.IntegerField(null=True, blank=True)
     closing_positions_quantity = models.IntegerField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['imm']
+
+    @staticmethod
+    def order_default():
+        return ['imm']
+
 
 class Ejector(models.Model):
     imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
@@ -96,6 +124,13 @@ class Ejector(models.Model):
     ejector_backward_kN = models.IntegerField(null=True, blank=True)
     forward_positions_quantity = models.IntegerField(null=True, blank=True)
     backward_positions_quantity = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['imm']
+
+    @staticmethod
+    def order_default():
+        return ['imm']
 
 
 class InjectionUnit(models.Model):
@@ -117,6 +152,13 @@ class InjectionUnit(models.Model):
     material_hopper = models.BooleanField(default=True)
     material_hopper_volume_l = models.IntegerField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['imm']
+
+    @staticmethod
+    def order_default():
+        return ['imm']
+
 
 class ImmGeneralData(models.Model):
     imm = models.OneToOneField(IMM, on_delete=models.CASCADE, primary_key=True)
@@ -130,6 +172,13 @@ class ImmGeneralData(models.Model):
     machine_length_mm = models.IntegerField(null=True, blank=True)
     machine_width_mm = models.IntegerField(null=True, blank=True)
     machine_height_mm = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['imm']
+
+    @staticmethod
+    def order_default():
+        return ['imm']
 
 
 class ImmAdditionalOptions(models.Model):
@@ -149,8 +198,9 @@ class ImmAdditionalOptions(models.Model):
     hot_runnel_control = models.BooleanField(default=False)
     hot_runnel_control_zones = models.IntegerField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['imm']
 
-
-
-
-
+    @staticmethod
+    def order_default():
+        return ['imm']

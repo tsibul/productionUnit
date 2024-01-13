@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils import timezone
 
 from production.models import DetailInGoods, Recipe, RecipeDetail, IMM, RecipeColorScheme, DetailBaseData, \
-    DetailActualData
+    DetailActualData, ImmType, ScrewType, EjectorType
 from production.service_function import user_group_list, if_admin, badges
 
 
@@ -32,6 +32,9 @@ def tech_dictionary(request):
     detail_actual_data_end = DetailActualData.objects.filter(deleted=False).order_by('detail_in_goods',
                                                                                          '-date_create')[19:20]
 
+    imm_type = ImmType.objects.filter(deleted=False).order_by('type')
+    ejector_type = EjectorType.objects.filter(deleted=False).order_by('type')
+    screw_type = ScrewType.objects.filter(deleted=False).order_by('geometry')
     user_groups = user_group_list(request)
     badge_count = badges()
     context = {'navi': navi, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
@@ -39,5 +42,6 @@ def tech_dictionary(request):
                'admin_state': admin_state, 'badge_count': badge_count, 'recipe_color_scheme': recipe_color_scheme,
                'recipe_detail': recipe_detail, 'date_now': date_now, 'recipe_detail_end': recipe_detail_end,
                'detail_base_data': detail_base_data, 'detail_base_data_end': detail_base_data_end,
-               'detail_data_weight': detail_actual_data, 'detail_actual_data_end': detail_actual_data_end}
+               'detail_data_weight': detail_actual_data, 'detail_actual_data_end': detail_actual_data_end,
+               'imm_type': imm_type, 'screw_type': screw_type, 'ejector_type': ejector_type}
     return render(request, 'tech_dictionary.html', context)

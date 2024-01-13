@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %}Настройки{% endblock %}
 {% block content %}
-{#        <script src="{% static 'production/js/dist/tech_dictionary.bundle.js' %}" defer type="module"></script>#}
+    {#        <script src="{% static 'production/js/dist/tech_dictionary.bundle.js' %}" defer type="module"></script>#}
     <script src="{% static 'production/js/tech_dictionary.js' %}" defer type="module"></script>
     <div class="full-content">
         <div class="container">
@@ -46,17 +46,30 @@
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="detailBaseData">
-                            <label for="detailBaseData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовый
-                                вес детали</label>
+                            <label for="detailBaseData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовые
+                                характеристики</label>
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="detailActualData">
-                            <label for="detailActualData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальный
-                                вес детали</label>
+                            <label for="detailActualData"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальные
+                                харктеристики</label>
                         </div>
                     </details>
                     <details class="dict-menu__details">
                         <summary class="dict-menu__header">Прочие справочники</summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="immType">
+                            <label for="immType"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип ТПА</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="screwType">
+                            <label for="screwType"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип шнека</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="ejectorType">
+                            <label for="ejectorType"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип
+                                толкателя</label>
+                        </div>
                     </details>
                 </div>
                 <div class="dict-right">
@@ -136,9 +149,10 @@
                             {% endfor %}
                         </div>
                     </details><!-- деталь в продукции -->
-                    <details class="dict-block dict-block__3">
+                    <details class="dict-block dict-block__4">
                         <summary class="dict-block__header">
-                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали
+                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Базовые
+                                характеристики детали
                             </div>
                             <div class="dict-block__search">
                                 <i class="fa fa-solid fa-magnifying-glass"></i>
@@ -153,6 +167,8 @@
                             <div>Дата</div>
                             <div>Деталь</div>
                             <div>Вес,&nbsp;г</div>
+                            <div>Время цикла, сек</div>
+                            <div>Пресс-форма</div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content ">
@@ -163,6 +179,11 @@
                                 <div class="dict-block__text foreign-key" data-field="detail_in_goods"
                                      data-name="detail_in_goods" data-id=""></div>
                                 <div class="dict-block__text" data-field="weight_g" data-name="weight_g"></div>
+                                <div class="dict-block__text" data-field="cycle_time_seconds"
+                                     data-name="cycle_time_seconds"></div>
+                                <div class="dict-block__text foreign-key" data-field="mold-insert"
+                                     data-filter="mold-insert"
+                                     data-name="production" data-id=""></div>
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
                             {% for item in detail_base_data %}
@@ -176,6 +197,12 @@
                                          data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
                                     <div class="dict-block__text" data-field="weight_g"
                                          data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text" data-field="cycle_time_seconds"
+                                         data-name="cycle_time_seconds">{{ item.cycle_time_seconds }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="mold_insert"
+                                         data-filter="mold_insert"
+                                         data-name="production"
+                                         data-id="{{ item.mold_insert.id }}">{{ item.mold_insert }}</div>
                                     <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
@@ -190,14 +217,21 @@
                                          data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
                                     <div class="dict-block__text" data-field="weight_g"
                                          data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text" data-field="cycle_time_seconds"
+                                         data-name="cycle_time_seconds">{{ item.cycle_time_seconds }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="mold_insert"
+                                         data-filter="mold_insert"
+                                         data-name="production"
+                                         data-id="{{ item.mold_insert.id }}">{{ item.mold_insert }}</div>
                                     <button class="btn btn-close btn_delete" type="button">удалить</button>
                                 </div>
                             {% endfor %}
                         </div>
-                    </details><!-- базовый вес детали -->
-                    <details class="dict-block dict-block__3">
+                    </details><!-- базовые характеристики -->
+                    <details class="dict-block dict-block__4">
                         <summary class="dict-block__header">
-                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Детали
+                            <div class="dict-block__active"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Актуальные
+                                характеристики детали
                             </div>
                             <div class="dict-block__search">
                                 <i class="fa fa-solid fa-magnifying-glass"></i>
@@ -212,6 +246,9 @@
                             <div>Дата</div>
                             <div>Деталь</div>
                             <div>Вес,&nbsp;г</div>
+                            <div>Время цикла, сек</div>
+                            <div>Пресс-форма</div>
+                            <div>Рабочих гнезд</div>
                             <div>Cмена</div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
@@ -223,6 +260,13 @@
                                 <div class="dict-block__text foreign-key" data-field="detail_in_goods"
                                      data-name="detail_in_goods" data-id=""></div>
                                 <div class="dict-block__text" data-field="weight_g" data-name="weight_g"></div>
+                                <div class="dict-block__text" data-field="cycle_time_seconds"
+                                     data-name="cycle_time_seconds"></div>
+                                <div class="dict-block__text foreign-key" data-field="mold-insert"
+                                     data-filter="mold-insert"
+                                     data-name="production" data-id=""></div>
+                                <div class="dict-block__text" data-field="cavities_quantity_working"
+                                     data-name="cavities_quantity_workings"></div>
                                 <div class="dict-block__text foreign-key" data-field="production"
                                      data-filter="detail_in_goods"
                                      data-name="production" data-id=""></div>
@@ -239,6 +283,14 @@
                                          data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
                                     <div class="dict-block__text" data-field="weight_g"
                                          data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text" data-field="cycle_time_seconds"
+                                         data-name="cycle_time_seconds">{{ item.cycle_time_seconds }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="mold_insert"
+                                         data-filter="mold_insert"
+                                         data-name="production"
+                                         data-id="{{ item.mold_insert.id }}">{{ item.mold_insert }}</div>
+                                    <div class="dict-block__text" data-field="cavities_quantity_working"
+                                         data-name="cavities_quantity_workings">{{ item.cavities_quantity_workings }}</div>
                                     <div class="dict-block__text foreign-key" data-field="production"
                                          data-filter="detail_in_goods"
                                          data-name="production" data-id="{{ item.production.id }}"></div>
@@ -256,6 +308,14 @@
                                          data-id="{{ item.detail_in_goods.id }}">{{ item.detail_in_goods }}</div>
                                     <div class="dict-block__text" data-field="weight_g"
                                          data-name="weight_g">{{ item.weight_g }}</div>
+                                    <div class="dict-block__text" data-field="cycle_time_seconds"
+                                         data-name="cycle_time_seconds">{{ item.cycle_time_seconds }}</div>
+                                    <div class="dict-block__text foreign-key" data-field="mold_insert"
+                                         data-filter="mold_insert"
+                                         data-name="production"
+                                         data-id="{{ item.mold_insert.id }}">{{ item.mold_insert }}</div>
+                                    <div class="dict-block__text" data-field="cavities_quantity_working"
+                                         data-name="cavities_quantity_workings">{{ item.cavities_quantity_workings }}</div>
                                     <div class="dict-block__text foreign-key" data-field="production"
                                          data-filter="detail_in_goods"
                                          data-name="production" data-id="{{ item.production.id }}"></div>
@@ -263,7 +323,7 @@
                                 </div>
                             {% endfor %}
                         </div>
-                    </details><!-- актуальный вес детали -->
+                    </details><!-- актуальные характеристики -->
                     <details class="dict-block dict-block__4">
                         <summary class="dict-block__header dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;ТПА</div>
@@ -601,6 +661,113 @@
                             {% endfor %}
                         </div>
                     </details><!-- схема рецептуры -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип ТПА
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict ">
+                            <div>Тип</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="immType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text"
+                                     data-name="type"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            {% for item in imm_type %}
+                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                     id="immType-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-name="name">{{ item.type }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- тип ТПА -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип толкателя
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict ">
+                            <div>Тип</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="ejectorType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text"
+                                     data-name="type"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            {% for item in ejector_type %}
+                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                     id="ejectorType-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-block__text"
+                                         data-name="name">{{ item.type }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- тип толкателя -->
+                    <details class="dict-block dict-block__3">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип шнека
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active screw-type ">
+                            <div>Геометрия</div>
+                            <div>Защита</div>
+                            <div>Материал</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row screw-type dict-block__row_hidden" data-id="0"
+                                 id="screwType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text"
+                                     data-name="geometry"></div>
+                                <div class="dict-block__text"
+                                     data-name="resistance"></div>
+                                <div class="dict-block__text"
+                                     data-name="bimetallic"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            {% for item in screw_type %}
+                                <div class="dict-block__row screw-type" data-id="{{ item.id }}"
+                                     id="screwType-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-block__text"
+                                     data-name="geometry">{{ item.geometry }}</div>
+                                <div class="dict-block__text"
+                                     data-name="resistance">{{ item.resistance }}</div>
+                                <div class="dict-block__text"
+                                     data-name="bimetallic">{{ item.bimetallic }}</div>
+                                    <button class="btn btn-close btn_delete" type="button">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details><!-- тип шнека -->
+
 
                 </div>
             </div>

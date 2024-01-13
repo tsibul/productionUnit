@@ -8,7 +8,7 @@ from production.models.recipe_color_scheme import RecipeColorScheme
 from production.models.goods import Goods
 from production.models.detail_models import DetailInGoods, DetailName
 from production.models.material import AddMaterial, MaterialType, MainMaterial, MasterBatch
-from production.models.injection_molding_machine import IMM
+from production.models.injection_molding_machine import *
 from production.models.defects import Defects, DefectEvent
 from production.models.production_request import ProductionRequest, ProductionRequestStartStop
 from production.models.production_report import ProductionReport, ProductionForRequest

@@ -31,6 +31,9 @@ export const dictList = {
     recipeColorScheme: 'RecipeColorScheme',
     detailBaseData: 'DetailBaseData',
     detailActualData: 'DetailActualData',
+    immType: 'ImmType',
+    screwType: 'ScrewType',
+    ejectorType: 'EjectorType',
 
     detail: 'DetailInGoods',
     material_type: 'MaterialType',
@@ -54,4 +57,7 @@ export const dictList = {
     recipe_color_scheme: 'RecipeColorScheme',
     detail_base_data: 'DetailBaseData',
     detail_actual_data: 'DetailActualData',
+    imm_type: 'ImmType',
+    screw_type: 'ScrewType',
+    ejector_type: 'EjectorType',
 };

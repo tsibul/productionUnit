@@ -3,6 +3,23 @@ from django.db import models
 from production.models import Equipment
 
 
+class EjectorConnectorType(models.Model):
+    name = models.CharField(max_length=140, unique=True, null=True, blank=True)
+
+    def __repr__(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+    @staticmethod
+    def order_default():
+        return ['name']
+
+
 class Mold(Equipment):
     class Meta:
         abstract = True
@@ -25,6 +42,7 @@ class Mold(Equipment):
 
 
 class MoldBase(Equipment):
+    ejector_connector_type = models.ForeignKey(EjectorConnectorType, models.SET_NULL, null=True, blank=True)
     length_mm = models.IntegerField()
     width_mm = models.IntegerField()
     if_hot_runner = models.BooleanField(default=False)

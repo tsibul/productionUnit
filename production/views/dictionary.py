@@ -20,34 +20,11 @@ def dictionary(request):
     """
     navi = 'dictionary'
     admin_state = if_admin(request)
-    color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
-    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')[0:19]
-    color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'code')[19:20]
-    country = Country.objects.filter(deleted=False).order_by('name')
-    producer = Producer.objects.filter(deleted=False).order_by('name')
-    defects = Defects.objects.filter(deleted=False).order_by('name')
-    defect_event = DefectEvent.objects.filter(deleted=False).order_by('name')
-    detail = DetailName.objects.filter(deleted=False).order_by('name')
-    detail_in_goods = DetailInGoods.objects.filter(deleted=False).order_by('goods__article', 'position')[0:19]
-    detail_in_goods_end = DetailInGoods.objects.filter(deleted=False).order_by('goods__article', 'position')[19:20]
-    material_type = MaterialType.objects.filter(deleted=False).order_by('name')
-    main_material = MainMaterial.objects.filter(deleted=False).order_by('brand')[0:19]
-    main_material_end = MainMaterial.objects.filter(deleted=False).order_by('brand')[19:20]
-    add_material = AddMaterial.objects.filter(deleted=False).order_by('material_type__name')[0:19]
-    add_material_end = AddMaterial.objects.filter(deleted=False).order_by('material_type__name')[19:20]
-    masterbatch = MasterBatch.objects.filter(deleted=False).order_by('brand')
-    goods = Goods.objects.filter(deleted=False).order_by('article')
     user_groups = user_group_list(request)
     badge_count = badges()
 
-    context = {'navi': navi, 'color_group': color_group, 'country': country, 'producer': producer, 'detail': detail,
-               'color': color, 'detail_in_goods': detail_in_goods, 'detail_in_goods_end': detail_in_goods_end,
-               'color_end': color_end, 'material_type': material_type, 'masterbatch': masterbatch,
-               'main_material': main_material, 'badge_count': badge_count,
-               'main_material_end': main_material_end,
-               'goods': goods, 'add_material': add_material,
-               'add_material_end': add_material_end,'user_groups': user_groups, 'defects': defects,
-               'defect_event': defect_event, 'admin_state': admin_state}
+    context = {'navi': navi, 'badge_count': badge_count,
+               'user_groups': user_groups, 'admin_state': admin_state}
     return render(request, 'dictionary.html', context)
 
 
@@ -77,8 +54,8 @@ def dictionary_update(request, dict_type):
                 # if request.POST[field]:
                 #     setattr(dict_element, field, request.POST[field])
             else:
-            # elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
-            #       model_field.get_internal_type() != 'DateTimeField'):
+                # elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
+                #       model_field.get_internal_type() != 'DateTimeField'):
                 setattr(dict_element, field, request.POST[field])
     if 'user' in field_list:
         setattr(dict_element, 'user', current_user)

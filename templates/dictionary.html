@@ -101,23 +101,23 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="country-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="name"
                                      data-name="name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in country %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="country-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
+{#                            {% for item in country %}#}
+{#                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"#}
+{#                                     id="country-{{ item.id }}">#}
+{#                                    <input class="id-hidden" name="id" value="{{ item.id }}">#}
+{#                                    <div class="dict-block__text"#}
+{#                                         data-name="name">{{ item.name }}</div>#}
+{#                                    <button class="btn btn-close btn_delete" type="button">#}
+{#                                        удалить#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
                         </div>
                     </details><!-- страна -->
                     <details draggable="true" class="dict-block">
@@ -133,23 +133,23 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="materialType-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="name"
                                      data-name="name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in material_type %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="materialType-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
+{#                            {% for item in material_type %}#}
+{#                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"#}
+{#                                     id="materialType-{{ item.id }}">#}
+{#                                    <input class="id-hidden" name="id" value="{{ item.id }}">#}
+{#                                    <div class="dict-block__text"#}
+{#                                         data-name="name">{{ item.name }}</div>#}
+{#                                    <button class="btn btn-close btn_delete" type="button">#}
+{#                                        удалить#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
                         </div>
                     </details><!-- тип материала -->
                     <details draggable="true" class="dict-block">
@@ -166,23 +166,23 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="detailName-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="name"
                                      data-name="name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in detail %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="detailNameType-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
+{#                            {% for item in detail %}#}
+{#                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"#}
+{#                                     id="detailNameType-{{ item.id }}">#}
+{#                                    <input class="id-hidden" name="id" value="{{ item.id }}">#}
+{#                                    <div class="dict-block__text"#}
+{#                                         data-name="name">{{ item.name }}</div>#}
+{#                                    <button class="btn btn-close btn_delete" type="button">#}
+{#                                        удалить#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                            {% endfor %}#}
                         </div>
                     </details><!-- названия деталей -->
                     <details draggable="true" class="dict-block">
@@ -198,23 +198,12 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="defects-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="name"
                                      data-name="name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in defects %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="defects-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- брак -->
                     <details draggable="true" class="dict-block">
@@ -230,23 +219,12 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="defectEvent-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="name"
                                      data-name="name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in defect_event %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="defectEvent-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- устранение брака -->
                     <details draggable="true" class="dict-block">
@@ -263,23 +241,12 @@
                             <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
                                  id="colorScheme-0">
                                 <input class="id-hidden" name="id" value="0">
-                                <div class="dict-block__text"
+                                <div class="dict-block__text" data-field="scheme_name"
                                      data-name="scheme_name"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
                             </div>
-                            {% for item in color_group %}
-                                <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                     id="colorScheme-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="scheme_name">{{ item.scheme_name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- цветовая группа -->
                     <details draggable="true" class="dict-block dict-block__3">
@@ -324,50 +291,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in color %}
-                                <div class="dict-block__row color" data-id="{{ item.id }}" data-last=""
-                                     id="color-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="code">{{ item.code }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color_name">{{ item.color_name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="pantone">{{ item.pantone }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color_code">{{ item.color_code }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="color_scheme"
-                                         data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                    <div class="dict-block__text bool-field"
-                                         data-name="standard" data-field="standard"
-                                         data-id="{{ item.standard }}">{% if item.standard %}Да{% else %}
-                                        Нет{% endif %}</div>
-                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
-                                </div>
-                            {% endfor %}
-                            {% for item in color_end %}
-                                <div class="dict-block__row color" data-id="{{ item.id }}"
-                                     id="color-{{ item.id }}" data-last="20">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="code">{{ item.code }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color_name">{{ item.color_name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="pantone">{{ item.pantone }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color_code">{{ item.color_code }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="color_scheme"
-                                         data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                    <div class="dict-block__text bool-field"
-                                         data-name="standard" data-field="standard"
-                                         data-id="{{ item.standard }}">{% if item.standard %}Да{% else %}
-                                        Нет{% endif %}</div>
-                                    <button class="btn btn-close btn_delete" type="button">удалить</button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- цвета -->
                     <details draggable="true" class="dict-block dict-block__3">
@@ -404,36 +327,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in detail_in_goods %}
-                                <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}"
-                                     id="detailInGoods-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="goods">{{ item.goods.article }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="position">{{ item.position }}</div>
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
-                                         data-name="detail_name">{{ item.detail_name.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
-                            {% for item in detail_in_goods_end %}
-                                <div class="dict-block__row detail-in-goods" data-id="{{ item.id }}" data-last="20"
-                                     id="detailInGoods-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.goods.id }}"
-                                         data-name="good">{{ item.goods.article }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="position">{{ item.position }}</div>
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.detail_name.id }}"
-                                         data-name="detail_name">{{ item.detail_name.name }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- деталь в продукции -->
                     <details draggable="true" class="dict-block dict-block__3">
@@ -472,24 +365,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in goods %}
-                                <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                     id="goods-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="article">{{ item.article }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="color_scheme"
-                                         data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="details_quantity">{{ item.details_quantity }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- продукция -->
                     <details draggable="true" class="dict-block dict-block__3">
@@ -530,46 +405,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in main_material %}
-                                <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                     id="goods-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                         data-name="material_type">{{ item.material_type }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color">{{ item.color }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="producer"
-                                         data-id="{{ item.producer.id }}">{{ item.producer.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="brand">{{ item.brand }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="code">{{ item.code }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
-                            {% for item in main_material_end %}
-                                <div class="dict-block__row main-material" data-id="{{ item.id }}"
-                                     id="mainMaterial-{{ item.id }}" data-last="20">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                         data-name="material_type">{{ item.material_type }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color">{{ item.color }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="producer"
-                                         data-id="{{ item.producer.id }}">{{ item.producer.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="brand">{{ item.brand }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="code">{{ item.code }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- основной материал -->
                     <details draggable="true" class="dict-block dict-block__2">
@@ -601,32 +436,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in add_material %}
-                                <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                     id="addMaterial-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                         data-name="material_type">{{ item.material_type }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color">{{ item.color }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
-                            {% for item in add_material_end %}
-                                <div class="dict-block__row add-material" data-id="{{ item.id }}"
-                                     id="addMaterial-{{ item.id }}" data-last="20">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                         data-name="material_type">{{ item.material_type }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color">{{ item.color }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- дополнительный материал -->
                     <details draggable="true" class="dict-block dict-block__3">
@@ -671,28 +480,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in masterbatch %}
-                                <div class="dict-block__row masterbatch" data-id="{{ item.id }}"
-                                     id="masterBatch-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text foreign-key" data-id="{{ item.material_type.id }}"
-                                         data-name="material_type">{{ item.material_type }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="color">{{ item.color }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="producer"
-                                         data-id="{{ item.producer.id }}">{{ item.producer.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="brand">{{ item.brand }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="code">{{ item.code }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="doze">{{ item.doze }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- суперконцентрат -->
                     <details draggable="true" class="dict-block dict-block__4">
@@ -740,30 +527,6 @@
                                     удалить
                                 </button>
                             </div>
-                            {% for item in producer %}
-                                <div class="dict-block__row producer" data-id="{{ item.id }}"
-                                     id="producer-{{ item.id }}">
-                                    <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-block__text"
-                                         data-name="name">{{ item.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="stock_address">{{ item.stock_address }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="phone">{{ item.phone }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="mail">{{ item.mail }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="contact">{{ item.contact }}</div>
-                                    <div class="dict-block__text foreign-key"
-                                         data-name="country"
-                                         data-id="{{ item.country.id }}">{{ item.country.name }}</div>
-                                    <div class="dict-block__text"
-                                         data-name="comment">{{ item.comment }}</div>
-                                    <button class="btn btn-close btn_delete" type="button">
-                                        удалить
-                                    </button>
-                                </div>
-                            {% endfor %}
                         </div>
                     </details><!-- производитель -->
                 </div>

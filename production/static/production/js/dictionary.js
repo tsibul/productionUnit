@@ -12,6 +12,7 @@ import {clearSearch} from "./func/clearSearch.js";
 import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
 import {hideDict} from "./func/dictionary/hideDict.js";
 import {showDict} from "./func/dictionary/showDict.js";
+import {initDictionary} from "./func/dictionary/initDictionary.js";
 
 
 const addButtons = document.querySelectorAll('.btn_add');
@@ -37,6 +38,10 @@ dictStartChecks.forEach(chck => {
             hideDict(hiddenBlock, dictToCopy, dictHeader, dictDetails, e.target);
         }
     });
+    chck.addEventListener('click', async e => {
+        await initDictionary(e.target);
+    }, {once: true});
+
 });
 
 /**

@@ -104,6 +104,7 @@ export async function fillFormNode(obj, newNode, nodeElements) {
         if (filterModel && parentRow.dataset.id !== 'e') {
             const filterNo = parentRow.querySelector(`[data-name = "${node.dataset.filter}"]`).dataset.id;
             jsonUrl = `/production/dictionary_json_filter/${dictType}/${filterModel}/${Number.parseInt(filterNo)}`;
+            childDropdownNode.querySelector('.dropdown__hidden').dataset.filter = node.dataset.filter;
         } else if (!filterModel) {
             jsonUrl = `/production/dictionary_json_filter/${dictType}/default/0`;
         } else {

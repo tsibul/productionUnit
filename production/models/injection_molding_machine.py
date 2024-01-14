@@ -71,7 +71,7 @@ class ScrewType(models.Model):
         bimetallic = ''
         resistance = ''
         if self.bimetallic:
-            bimetallic = "биметаллический"
+            bimetallic = self.bimetallic
         if self.resistance:
             resistance = self.resistance
         return f"геометрия: {self.geometry} {resistance} {bimetallic}"

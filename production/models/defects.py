@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Defects(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, unique=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):
@@ -20,7 +20,7 @@ class Defects(models.Model):
 
 
 class DefectEvent(models.Model):
-    name = models.CharField(max_length=120)
+    name = models.CharField(max_length=120, unique=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

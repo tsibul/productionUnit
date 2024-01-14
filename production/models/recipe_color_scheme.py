@@ -3,7 +3,7 @@ from production.models import ColorScheme
 
 
 class RecipeColorScheme(models.Model):
-    name = models.CharField(max_length=140)
+    name = models.CharField(max_length=140, unique=True)
     color_scheme = models.ForeignKey(ColorScheme, on_delete=models.SET_NULL, null=True)
     deleted = models.BooleanField(default=False)
 

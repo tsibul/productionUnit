@@ -10,7 +10,7 @@ class Goods(models.Model):
         @detail_place - if printing possible"""
 
     name = models.CharField(max_length=200, null=True, blank=True)
-    article = models.CharField(max_length=20, null=True, blank=True)
+    article = models.CharField(max_length=20, null=True, blank=True, unique=True)
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
     details_quantity = models.SmallIntegerField(default=1)
     deleted = models.BooleanField(default=False)

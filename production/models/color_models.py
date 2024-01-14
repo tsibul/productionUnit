@@ -3,7 +3,7 @@ from django.db import models
 
 class ColorScheme(models.Model):
     """ color scheme IV, Grant, Eco """
-    scheme_name = models.CharField(max_length=13)
+    scheme_name = models.CharField(max_length=13, unique=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

@@ -3,7 +3,7 @@ from production.models import Goods, RecipeColorScheme
 
 
 class DetailName(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

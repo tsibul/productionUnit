@@ -171,7 +171,7 @@ class ImmGeneralData(models.Model):
     oil_tank_volume_l = models.IntegerField(null=True, blank=True)
     pump_electric_capacity_kW = models.IntegerField(null=True, blank=True)
     heating_electric_capacity_kW = models.IntegerField(null=True, blank=True)
-    euromap_dry_cycle_time_sec = models.IntegerField(null=True, blank=True)
+    euromap_dry_cycle_time_sec = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
     euromap_dry_cycle_stroke_mm = models.IntegerField(null=True, blank=True)
     machine_weight_kg = models.IntegerField(null=True, blank=True)
     machine_length_mm = models.IntegerField(null=True, blank=True)

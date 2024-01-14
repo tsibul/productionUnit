@@ -109,6 +109,7 @@ class ClampingUnit(models.Model):
     closing_positions_quantity = models.IntegerField(null=True, blank=True)
     flange_moving_mm = models.IntegerField(null=True, blank=True)
     flange_fixed_mm = models.IntegerField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['imm']
@@ -126,6 +127,7 @@ class Ejector(models.Model):
     ejector_backward_kN = models.IntegerField(null=True, blank=True)
     forward_positions_quantity = models.IntegerField(null=True, blank=True)
     backward_positions_quantity = models.IntegerField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['imm']
@@ -153,6 +155,7 @@ class InjectionUnit(models.Model):
     heating_zones_quantity = models.IntegerField(null=True, blank=True)
     material_hopper = models.BooleanField(default=True)
     material_hopper_volume_l = models.IntegerField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['imm']
@@ -174,6 +177,7 @@ class ImmGeneralData(models.Model):
     machine_length_mm = models.IntegerField(null=True, blank=True)
     machine_width_mm = models.IntegerField(null=True, blank=True)
     machine_height_mm = models.IntegerField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['imm']
@@ -199,6 +203,7 @@ class ImmAdditionalOptions(models.Model):
     air_valve_fixed_plate_quantity = models.IntegerField(null=True, blank=True)
     hot_runner_control = models.BooleanField(default=False)
     hot_runner_control_zones = models.IntegerField(null=True, blank=True)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['imm']

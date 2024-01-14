@@ -34,6 +34,10 @@ export const dictList = {
     immType: 'ImmType',
     screwType: 'ScrewType',
     ejectorType: 'EjectorType',
+    moldBase: 'MoldBase',
+    moldModifier: 'MoldModifier',
+    moldInsert: 'MoldInsert',
+    ejectorConnectorType: 'EjectorConnectorType',
 
     detail: 'DetailInGoods',
     material_type: 'MaterialType',
@@ -60,4 +64,8 @@ export const dictList = {
     imm_type: 'ImmType',
     screw_type: 'ScrewType',
     ejector_type: 'EjectorType',
+    mold_base: 'MoldBase',
+    mold_modifier: 'MoldModifier',
+    mold_insert: 'MoldInsert',
+    ejector_connector_type: 'EjectorConnectorType',
 };

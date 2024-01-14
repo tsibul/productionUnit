@@ -68,6 +68,7 @@
 }
 
 .dict-right {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   grid-auto-flow: dense;
@@ -237,8 +238,12 @@
   }
 
   &__5[open] {
+    position: absolute;
     max-width: 1600px;
     grid-column: 1 / 6;
+    z-index: 10;
+    left: -226px;
+    background-color: $colorSecondary100;
   }
 
   &__adm {
@@ -260,6 +265,23 @@
   }
 }
 
+.production {
+  grid-template-columns: 0.2fr 0.8fr 1fr repeat(6, 0.6fr) 1.5fr 0.4fr 0.6fr;
+
+  &_adm {
+    font-size: 14px;
+    grid-template-columns: 0.3fr repeat(12, 1fr);
+  }
+}
+
+.in-production {
+  grid-template-columns: 0.4fr 2fr repeat(7, 1fr) repeat(2, 0.8fr);
+}
+
+.production-list {
+  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
+}
+
 
 .quality-content {
   border: 1px solid transparent;
@@ -270,10 +292,6 @@
   &__row {
     grid-template-columns: 0.5fr repeat(7, 1fr)  2fr repeat(2, 1fr);
   }
-}
-
-.recipe-color-scheme{
-    grid-template-columns: 2fr 2fr 1fr;
 }
 
 

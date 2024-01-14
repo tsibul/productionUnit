@@ -15,6 +15,28 @@
                             <input type="checkbox" class="checkbox-out" id="imm">
                             <label for="imm"><i class="fa fa-solid fa-industry"></i>&nbsp;ТПА</label>
                         </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="immGeneralData">
+                            <label for="immGeneralData"><i class="fa fa-solid fa-industry"></i>&nbsp;Общие
+                                данные</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="clampingUnit">
+                            <label for="clampingUnit"><i class="fa fa-solid fa-industry"></i>&nbsp;Узел смыкания</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="injectionUnit">
+                            <label for="injectionUnit"><i class="fa fa-solid fa-industry"></i>&nbsp;Узел впрыска</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="ejector">
+                            <label for="ejector"><i class="fa fa-solid fa-industry"></i>&nbsp;Толкатель</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="immAdditionalOptions">
+                            <label for="immAdditionalOptions"><i class="fa fa-solid fa-industry"></i>&nbsp;Дополнительные
+                                опции</label>
+                        </div>
                     </details>
                     <details class="dict-menu__details">
                         <summary class="dict-menu__header">Пресс-формы
@@ -646,7 +668,7 @@
                             <div>Демонтаж мин.</div>
                             <div></div>
                             <div>Клапан неподв. плита</div>
-                            <div>Смен. вставка</div>
+                            <div>Единственная вставка</div>
                             <div></div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
@@ -688,6 +710,122 @@
                             </div>
                         </div>
                     </details><!-- пресс-форма вставка -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;Узел смыкания
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active clamping-unit">
+                            <div>ТПА</div>
+                            <div>Усилие смыкания, кН</div>
+                            <div>Макс ход плит, мм</div>
+                            <div>Мин высота формы, мм</div>
+                            <div>Плита по горизонтали, мм</div>
+                            <div>Между колоннами по горизонтали, мм</div>
+                            <div>Позиций открытия</div>
+                            <div>Фланец подвижной плиты, мм</div>
+                            <div></div>
+                            <div></div>
+                            <div>Усилие удержания кН</div>
+                            <div>Макс растояние между плитами, мм</div>
+                            <div>Макс высота формы, мм</div>
+                            <div>Плита по вертикали, мм</div>
+                            <div>Между колоннами по вертикали, мм</div>
+                            <div>Позиций закрытия</div>
+                            <div>Фланец неподвижной плиты, мм</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row clamping-unit dict-block__row_hidden" data-id="0"
+                                 id="clampingUnit-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text foreign-key" data-field="imm"
+                                     data-name="imm" data-id=""></div>
+                                <div class="dict-block__text active" data-field="clamping_force_kN"
+                                     data-name="clamping_force_kN"></div>
+                                <div class="dict-block__text" data-field="max_plate_stroke_mm"
+                                     data-name="max_plate_stroke_mm"></div>
+                                <div class="dict-block__text" data-field="min_mold_height_mm"
+                                     data-name="min_mold_height_mm"></div>
+                                <div class="dict-block__text" data-field="plate_horizontal_mm"
+                                     data-name="plate_horizontal_mm"></div>
+                                <div class="dict-block__text" data-field="bars_horizontal_mm"
+                                     data-name="bars_horizontal_mm"></div>
+                                <div class="dict-block__text" data-field="opening_positions_quantity"
+                                     data-name="opening_positions_quantity"></div>
+                                <div class="dict-block__text" data-field="flange_moving_mm"
+                                     data-name="flange_moving_mm"></div>
+                            <div></div>
+                            <div></div>
+                                <div class="dict-block__text active" data-field="locking_force_kN"
+                                     data-name="locking_force_kN"></div>
+                                <div class="dict-block__text" data-field="max_plate_distance_mm"
+                                     data-name="max_plate_distance_mm"></div>
+                                <div class="dict-block__text" data-field="max_mold_height_mm"
+                                     data-name="max_mold_height_mm"></div>
+                                <div class="dict-block__text" data-field="plate_vertical_mm"
+                                     data-name="plate_vertical_mm"></div>
+                                <div class="dict-block__text" data-field="bars_vertical_mm"
+                                     data-name="bars_vertical_mm"></div>
+                                <div class="dict-block__text" data-field="closing_positions_quantity"
+                                     data-name="closing_positions_quantity"></div>
+                                <div class="dict-block__text" data-field="flange_fixed_mm"
+                                     data-name="flange_fixed_mm"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- узел смыкания -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;Толкатель
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active ejector">
+                            <div>ТПА</div>
+                            <div>Тип толкателя</div>
+                            <div>Ход толкателя, мм</div>
+                            <div>Усилие толкателя, кН</div>
+                            <div>Сила обратного хода толкателя, кН</div>
+                            <div>Позиций вперед</div>
+                            <div>Позиций назад</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row ejector dict-block__row_hidden" data-id="0"
+                                 id="ejector-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text foreign-key" data-field="imm"
+                                     data-name="imm" data-id=""></div>
+                                <div class="dict-block__text foreign-key" data-field="ejector_type"
+                                     data-name="ejector_type" data-id=""></div>
+                                <div class="dict-block__text active" data-field="ejector_stoke_mm"
+                                     data-name="ejector_stoke_mm"></div>
+                                <div class="dict-block__text active" data-field="ejector_force_kN"
+                                     data-name="ejector_force_kN"></div>
+                                <div class="dict-block__text active" data-field="ejector_backward_kN"
+                                     data-name="ejector_backward_kN"></div>
+                                <div class="dict-block__text active" data-field="forward_positions_quantity"
+                                     data-name="forward_positions_quantity"></div>
+                                <div class="dict-block__text active" data-field="backward_positions_quantity"
+                                     data-name="backward_positions_quantity"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- Толкатель -->
 
 
                 </div>

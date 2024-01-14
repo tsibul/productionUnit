@@ -24,6 +24,13 @@ class MoldTemperature(models.Model):
     core_temperature = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
     cavity_temperature = models.DecimalField(max_digits=5, decimal_places=1, null=True, blank=True)
 
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
+
 
 class ImmZonesTemperature(models.Model):
     mold_temperature = models.ForeignKey(MoldTemperature, on_delete=models.CASCADE)
@@ -60,6 +67,13 @@ class MaterialLoading(models.Model):
     back_pressure_bar = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
     decompression_mm = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
 
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
+
 
 class MaterialInjection(models.Model):
     detail_producing_parameters = models.OneToOneField(DetailProducingParameters, on_delete=models.CASCADE, null=True)
@@ -67,6 +81,13 @@ class MaterialInjection(models.Model):
     pressure_bar = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
     injection_time_sec = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
     position_before_switch_mm = models.DecimalField(max_digits=4, decimal_places=1, default=0.0, null=True, blank=True)
+
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
 
 
 class MaterialInjectionPosition(models.Model):
@@ -92,11 +113,25 @@ class MoldHolding(models.Model):
     start_pressure_bar = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
     end_pressure_bar = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
 
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
+
 
 class ClampingUnitParameters(models.Model):
     detail_producing_parameters = models.OneToOneField(DetailProducingParameters, on_delete=models.CASCADE, null=True)
     imm_page = models.IntegerField(null=True, blank=True)
     clamping_force_kN = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
+
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
 
 
 class ClampingUnitMoving(models.Model):
@@ -122,10 +157,24 @@ class MoldProtectionParameters(models.Model):
     mold_protection_force_kN = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
     mold_protection_time_sec = models.DecimalField(max_digits=6, decimal_places=1, default=0.0, null=True, blank=True)
 
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
+
 
 class HydraulicCoresParameters(models.Model):
     detail_producing_parameters = models.OneToOneField(DetailProducingParameters, on_delete=models.CASCADE, null=True)
     imm_page = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
 
 
 class HydraulicCoresMoving(models.Model):
@@ -157,6 +206,13 @@ class EjectorParameters(models.Model):
     position_forward_mm = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
     position_backward_mm = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
 
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']
+
 
 class CoolingParameters(models.Model):
     detail_producing_parameters = models.OneToOneField(DetailProducingParameters, on_delete=models.CASCADE, null=True)
@@ -164,3 +220,10 @@ class CoolingParameters(models.Model):
     timeout_loading_sec = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
     cooling_time_sec = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
     imm_time_sec = models.DecimalField(max_digits=5, decimal_places=1, default=0.0, null=True, blank=True)
+
+    class Meta:
+        ordering = ['detail_producing_parameters']
+
+    @staticmethod
+    def order_default():
+        return ['detail_producing_parameters']

@@ -12,9 +12,16 @@ import {dictList} from "../const/dictList.js";
  */
 export async function fillNewRow(record, i, newRow) {
     const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])');
-    newRow.dataset.id = record['id'];
-    newRow.id = newRow.id.slice(0, -1) + record['id'];
-    newRow.querySelector('.id-hidden').value = record['id'];
+    if (record['id']) {
+        newRow.dataset.id = record['id'];
+        newRow.id = newRow.id.slice(0, -1) + record['id'];
+        newRow.querySelector('.id-hidden').value = record['id'];
+// temporary fix for imm data for OneToOne key
+    } else if (record['imm_id']){
+        newRow.dataset.id = record['imm_id'];
+        newRow.id = newRow.id.slice(0, -1) + record['imm_id'];
+        newRow.querySelector('.id-hidden').value = record['imm_id'];
+    }
     const square = newRow.querySelector('.hex');
     if (square) {
         square.style.backgroundColor = record['hex'];

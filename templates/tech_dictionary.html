@@ -34,7 +34,7 @@
                         </div>
                         <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="immAdditionalOptions">
-                            <label for="immAdditionalOptions"><i class="fa fa-solid fa-industry"></i>&nbsp;Дополнительные
+                            <label for="immAdditionalOptions"><i class="fa fa-solid fa-industry"></i>&nbsp;Доп.
                                 опции</label>
                         </div>
                     </details>
@@ -762,8 +762,8 @@
                                      data-name="opening_positions_quantity"></div>
                                 <div class="dict-block__text" data-field="flange_moving_mm"
                                      data-name="flange_moving_mm"></div>
-                            <div></div>
-                            <div></div>
+                                <div></div>
+                                <div></div>
                                 <div class="dict-block__text active" data-field="locking_force_kN"
                                      data-name="locking_force_kN"></div>
                                 <div class="dict-block__text" data-field="max_plate_distance_mm"
@@ -825,7 +825,223 @@
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
                         </div>
-                    </details><!-- Толкатель -->
+                    </details><!-- толкатель -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;Узел впрыска
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active injection-unit">
+                            <div>ТПА</div>
+                            <div>Тип шнека</div>
+                            <div>L/D</div>
+                            <div>Давление впрыска бар</div>
+                            <div>Макс объем впрыска, см3</div>
+                            <div>Скорость пластикации, г/с</div>
+                            <div>Макс ход шнека, мм</div>
+                            <div>Глубина погружения сопла, мм</div>
+                            <div>Бункер</div>
+                            <div></div>
+                            <div></div>
+                            <div>Диаметр шнека, мм</div>
+                            <div>Изоляция</div>
+                            <div>Скорость впрыска, см3/с</div>
+                            <div>Макс вес впрыска, г</div>
+                            <div>Кол-во зон нагрева</div>
+                            <div>Макс ход сопла, мм</div>
+                            <div>Сила прижатия сопла, кН</div>
+                            <div>Объем бункера, л</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row injection-unit dict-block__row_hidden" data-id="0"
+                                 id="injectionUnit-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text foreign-key active" data-field="imm"
+                                     data-name="imm" data-id=""></div>
+                                <div class="dict-block__text foreign-key" data-field="screw_type"
+                                     data-name="screw_type" data-id=""></div>
+                                <div class="dict-block__text" data-field="l_d_ratio"
+                                     data-name="l_d_ratio"></div>
+                                <div class="dict-block__text" data-field="injection_pressure_bar"
+                                     data-name="injection_pressure_bar"></div>
+                                <div class="dict-block__text" data-field="max_injection_volume_cm3"
+                                     data-name="max_injection_volume_cm3"></div>
+                                <div class="dict-block__text" data-field="plasticization_speed_g_sec"
+                                     data-name="plasticization_speed_g_sec"></div>
+                                <div class="dict-block__text" data-field="max_screw_stroke_mm"
+                                     data-name="max_screw_stroke_mm"></div>
+                                <div class="dict-block__text" data-field="nozzle_immersion_depth_mm"
+                                     data-name="nozzle_immersion_depth_mm"></div>
+                                <div class="dict-block__text bool-field" data-field="material_hopper"
+                                     data-name="material_hopper" data-id=""></div>
+                                <div></div>
+                                <div></div>
+                                <div class="dict-block__text active" data-field="screw_diameter_mm"
+                                     data-name="screw_diameter_mm"></div>
+                                <div class="dict-block__text bool-field" data-field="heat_insulation"
+                                     data-name="heat_insulation" data-id=""></div>
+                                <div class="dict-block__text" data-field="injection_speed_cm3_sec"
+                                     data-name="injection_speed_cm3_sec"></div>
+                                <div class="dict-block__text" data-field="max_injection_weight_g"
+                                     data-name="max_injection_weight_g"></div>
+                                <div class="dict-block__text" data-field="heating_zones_quantity"
+                                     data-name="heating_zones_quantity"></div>
+                                <div class="dict-block__text" data-field="max_nozzle_stroke_mm"
+                                     data-name="max_nozzle_stroke_mm"></div>
+                                <div class="dict-block__text" data-field="nozzle_contact_force_kN"
+                                     data-name="nozzle_contact_force_kN"></div>
+                                <div class="dict-block__text" data-field="material_hopper_volume_l"
+                                     data-name="material_hopper_volume_l"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- узел впрыска -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;ТПА общие
+                                данные
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active imm-general">
+                            <div>ТПА</div>
+                            <div>Тип ТПА</div>
+                            <div>Эл. мощность насоса, кВт</div>
+                            <div>Сухой цикл по EUROMAP, с</div>
+                            <div>Длина, мм</div>
+                            <div>Высота, мм</div>
+                            <div>Вес, кг</div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div>Эл. мощность нагрева, кВт</div>
+                            <div>Сухой цикл по EUROMAP, мм</div>
+                            <div>Ширина, мм</div>
+                            <div></div>
+                            <div>Объем масляного бака, л</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row imm-general dict-block__row_hidden" data-id="0"
+                                 id="immGeneralData-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text foreign-key active" data-field="imm"
+                                     data-name="imm" data-id=""></div>
+                                <div class="dict-block__text foreign-key" data-field="imm_type"
+                                     data-name="imm_type" data-id=""></div>
+                                <div class="dict-block__text" data-field="pump_electric_capacity_kW"
+                                     data-name="pump_electric_capacity_kW"></div>
+                                <div class="dict-block__text" data-field="euromap_dry_cycle_time_sec"
+                                     data-name="euromap_dry_cycle_time_sec"></div>
+                                <div class="dict-block__text" data-field="machine_length_mm"
+                                     data-name="machine_length_mm"></div>
+                                <div class="dict-block__text" data-field="machine_height_mm"
+                                     data-name="machine_height_mm"></div>
+                                <div class="dict-block__text" data-field="machine_weight_kg"
+                                     data-name="machine_weight_kg"></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div class="dict-block__text active" data-field="heating_electric_capacity_kW"
+                                     data-name="heating_electric_capacity_kW"></div>
+                                <div class="dict-block__text" data-field="euromap_dry_cycle_stroke_mm"
+                                     data-name="euromap_dry_cycle_stroke_mm"></div>
+                                <div class="dict-block__text" data-field="machine_width_mm"
+                                     data-name="machine_width_mm"></div>
+                                <div></div>
+                                <div class="dict-block__text" data-field="oil_tank_volume_l"
+                                     data-name="oil_tank_volume_l"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- ТПА общие данные -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-industry"></i>&nbsp;Дополнительные
+                                опции
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active clamping-unit">
+                            <div>ТПА</div>
+                            <div>Кол-во ротаметров</div>
+                            <div>Свободно программируемый вход/выход</div>
+                            <div>Гидравлический цилиндр на подвижной плите</div>
+                            <div>Гидравлический цилиндр на неподвижной плите</div>
+                            <div>Воздух на подвижной плите</div>
+                            <div>Воздух на неподвижной плите</div>
+                            <div>Контроллер горячих каналов</div>
+                            <div></div>
+                            <div></div>
+                            <div>Интерфейс EUROMAP</div>
+                            <div>Кол-во</div>
+                            <div>Кол-во</div>
+                            <div>Кол-во</div>
+                            <div>Кол-во</div>
+                            <div>Кол-во</div>
+                            <div>Кол-во</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row clamping-unit dict-block__row_hidden" data-id="0"
+                                 id="immAdditionalOptions-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text foreign-key" data-field="imm"
+                                     data-name="imm" data-id=""></div>                                
+                                <div class="dict-block__text active" data-field="rotameter_quantity"
+                                     data-name="rotameter_quantity"></div>                                
+                                <div class="dict-block__text bool-field" data-field="in_out_programming_interface"
+                                     data-name="in_out_programming_interface"></div>
+                                <div class="dict-block__text bool-field" data-field="hydraulic_cylinder_moving_plate"
+                                     data-name="hydraulic_cylinder_moving_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="hydraulic_cylinder_fixed_plate"
+                                     data-name="hydraulic_cylinder_fixed_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="air_valve_moving_plate"
+                                     data-name="air_valve_moving_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="air_valve_fixed_plate"
+                                     data-name="air_valve_fixed_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="hot_runner_control"
+                                     data-name="hot_runner_control"></div>
+                                <div></div>
+                                <div></div>
+                                <div class="dict-block__text active" data-field="euromap_interface"
+                                     data-name="euromap_interface"></div>
+                                <div class="dict-block__text" data-field="in_out_production_interface_quantity"
+                                     data-name="in_out_production_interface_quantity"></div>
+                                <div class="dict-block__text" data-field="hydraulic_cylinder_moving_plate_quantity"
+                                     data-name="hydraulic_cylinder_moving_plate_quantity"></div>
+                                <div class="dict-block__text" data-field="hydraulic_cylinder_fixed_plate_quantity"
+                                     data-name="hydraulic_cylinder_fixed_plate_quantity"></div>
+                                <div class="dict-block__text" data-field="air_valve_moving_plate_quantity"
+                                     data-name="air_valve_moving_plate_quantity"></div>
+                                <div class="dict-block__text" data-field="air_valve_fixed_plate_quantity"
+                                     data-name="air_valve_fixed_plate_quantity"></div>
+                                <div class="dict-block__text" data-field="hot_runner_control_zones"
+                                     data-name="hot_runner_control_zones"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- доп опции -->
 
 
                 </div>

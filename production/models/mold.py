@@ -41,7 +41,7 @@ class Mold(Equipment):
         return ['account_code', 'name']
 
 
-class MoldBase(Equipment):
+class MoldBase(Mold):
     ejector_connector_type = models.ForeignKey(EjectorConnectorType, models.SET_NULL, null=True, blank=True)
     length_mm = models.IntegerField()
     width_mm = models.IntegerField()

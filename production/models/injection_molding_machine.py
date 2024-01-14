@@ -63,8 +63,8 @@ class EjectorType(models.Model):
 
 class ScrewType(models.Model):
     geometry = models.CharField(max_length=140, blank=True, null=True)
-    resistance = models.CharField(max_length=140, blank=True, null=True, unique=True)
-    bimetallic = models.BooleanField(default=False)
+    resistance = models.CharField(max_length=140, blank=True, null=True)
+    bimetallic = models.CharField(max_length=140, blank=True, null=True)
     deleted = models.BooleanField(default=False)
 
     def __repr__(self):

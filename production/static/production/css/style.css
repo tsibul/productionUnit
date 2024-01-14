@@ -889,6 +889,61 @@
   font-size: 12px;
 }
 
+.mold-insert {
+  font-size: 14px;
+  grid-template-columns: repeat(3, 2fr) repeat(4, 1fr) 2fr 1fr;
+}
+.mold-insert .btn {
+  font-size: 14px;
+}
+.mold-insert form * {
+  font-size: 14px;
+}
+
+.clamping-unit {
+  font-size: 14px;
+  grid-template-columns: 2fr repeat(8, 1fr);
+}
+.clamping-unit .btn {
+  font-size: 14px;
+}
+.clamping-unit form * {
+  font-size: 12px;
+}
+
+.ejector {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(5, 1fr) 0.8fr;
+}
+.ejector .btn {
+  font-size: 14px;
+}
+.ejector form * {
+  font-size: 12px;
+}
+
+.injection-unit {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(8, 1fr);
+}
+.injection-unit .btn {
+  font-size: 14px;
+}
+.injection-unit form * {
+  font-size: 12px;
+}
+
+.imm-general {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(6, 1fr);
+}
+.imm-general .btn {
+  font-size: 14px;
+}
+.imm-general form * {
+  font-size: 12px;
+}
+
 .recipe-color-scheme {
   grid-template-columns: 2fr 2fr 1fr;
 }

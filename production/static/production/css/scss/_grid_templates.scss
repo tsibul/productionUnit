@@ -124,17 +124,84 @@
   }
 }
 
-.mold-base{
+.mold-base {
   font-size: 14px;
   grid-template-columns: repeat(3, 2fr) repeat(5, 1fr) 2fr 1fr;
-  & .btn{
+
+  & .btn {
     font-size: 14px;
   }
-  & form *{
+
+  & form * {
     font-size: 12px;
   }
 }
 
-.recipe-color-scheme{
-    grid-template-columns: 2fr 2fr 1fr;
+.mold-insert {
+  font-size: 14px;
+  grid-template-columns: repeat(3, 2fr) repeat(4, 1fr) 2fr 1fr;
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 14px;
+  }
+}
+
+.clamping-unit {
+  font-size: 14px;
+  grid-template-columns: 2fr repeat(8, 1fr);
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 12px;
+  }
+}
+
+.ejector {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(5, 1fr) 0.8fr;
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 12px;
+  }
+}
+
+.injection-unit {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(8, 1fr);
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 12px;
+  }
+}
+
+.imm-general {
+  font-size: 14px;
+  grid-template-columns: repeat(2, 2fr) repeat(6, 1fr);
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 12px;
+  }
+}
+
+.recipe-color-scheme {
+  grid-template-columns: 2fr 2fr 1fr;
 }

@@ -64,8 +64,6 @@ class MoldModifier(Mold):
 
 class MoldInsert(Mold):
     cavities_quantity = models.IntegerField()
-    air_valves_quantity_moving_plate = models.IntegerField(default=0)
-    air_valves_quantity_fixed_plate = models.IntegerField(default=0)
     if_hydraulic = models.BooleanField(default=False)
     hydraulic_quantity_moving_plate = models.IntegerField(default=0)
     hydraulic_quantity_fixed_plate = models.IntegerField(default=0)

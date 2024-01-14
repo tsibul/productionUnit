@@ -38,6 +38,11 @@ export const dictList = {
     moldModifier: 'MoldModifier',
     moldInsert: 'MoldInsert',
     ejectorConnectorType: 'EjectorConnectorType',
+    clampingUnit: 'ClampingUnit',
+    ejector: 'Ejector',
+    injectionUnit: 'InjectionUnit',
+    immGeneralData: 'ImmGeneralData',
+    immAdditionalOptions: 'ImmAdditionalOptions',
 
     detail: 'DetailInGoods',
     material_type: 'MaterialType',
@@ -68,4 +73,8 @@ export const dictList = {
     mold_modifier: 'MoldModifier',
     mold_insert: 'MoldInsert',
     ejector_connector_type: 'EjectorConnectorType',
+    clamping_unit: 'ClampingUnit',
+    injection_unit: 'InjectionUnit',
+    imm_general_data: 'ImmGeneralData',
+    imm_additional_options: 'ImmAdditionalOptions',
 };

@@ -889,6 +889,17 @@
   font-size: 12px;
 }
 
+.mold-modifier {
+  font-size: 14px;
+  grid-template-columns: repeat(3, 2fr) repeat(5, 1fr) 2fr 1fr;
+}
+.mold-modifier .btn {
+  font-size: 14px;
+}
+.mold-modifier form * {
+  font-size: 12px;
+}
+
 .recipe-color-scheme {
   grid-template-columns: 2fr 2fr 1fr;
 }

@@ -23,6 +23,14 @@
                             <input type="checkbox" class="checkbox-out" id="moldBase">
                             <label for="moldBase"><i class="fa fa-solid fa-pause"></i>&nbsp;Адаптер</label>
                         </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="moldModifier">
+                            <label for="moldModifier"><i class="fa fa-solid fa-pause"></i>&nbsp;Модуль</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="moldInsert">
+                            <label for="moldInsert"><i class="fa fa-solid fa-pause"></i>&nbsp;Вставка</label>
+                        </div>
                     </details>
                     <details class="dict-menu__details">
                         <summary class="dict-menu__header">Рецептуры</summary>
@@ -533,6 +541,85 @@
                             </div>
                         </div>
                     </details><!-- пресс-форма адаптер -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-pause"></i></i>&nbsp;Модуль
+                                пресс-формы
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+
+                        </summary>
+                        <div class="dict-block__row dict-block__active mold-modifier">
+                            <div>Инв. номер</div>
+                            <div>Название</div>
+                            <div>Производитель</div>
+                            <div>Высота, мм</div>
+                            <div>Монтаж мин.</div>
+                            <div>Воздух</div>
+                            <div>Клапан подв. плита</div>
+                            <div>Модульная</div>
+                            <div>Внутр. код</div>
+                            <div></div>
+                            <div></div>
+                            <div>Модель</div>
+                            <div>Зав. номер</div>
+                            <div>Вес. кг</div>
+                            <div>Демонтаж мин.</div>
+                            <div></div>
+                            <div>Клапан неподв. плита</div>
+                            <div>Смен. вставка</div>
+                            <div></div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row mold-modifier dict-block__row_hidden" data-id="0"
+                                 id="moldModifier-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text active" data-field="account_code"
+                                     data-name="account_code"></div>
+                                <div class="dict-block__text active" data-field="name"
+                                     data-name="name"></div>
+                                <div class="dict-block__text foreign-key" data-field="producer"
+                                     data-name="producer" data-id=""></div>
+                                <div class="dict-block__text" data-field="height_mm"
+                                     data-name="height_mm"></div>
+                                <div class="dict-block__text" data-field="mount_time_min"
+                                     data-name="mount_time_min"></div>
+                                <div class="dict-block__text bool-field" data-field="if_air"
+                                     data-name="if_air" data-id=""></div>
+                                <div class="dict-block__text" data-field="air_valves_quantity_moving_plate"
+                                     data-name="air_valves_quantity_moving_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="if_modular"
+                                     data-name="if_modular" data-id=""></div>
+                                <div class="dict-block__text" data-field="plant_no"
+                                     data-name="plant_no"></div>
+                                <div></div>
+                                <div></div>
+                                <div class="dict-block__text active" data-field="producer_model"
+                                     data-name="producer_model"></div>
+                                <div class="dict-block__text" data-field="producer_code"
+                                     data-name="producer_code"></div>
+                                <div class="dict-block__text" data-field="weight_kg"
+                                     data-name="weight_g"></div>
+                                <div class="dict-block__text" data-field="release_time_min"
+                                     data-name="release_time_min"></div>
+                                <div></div>
+                                <div class="dict-block__text" data-field="air_valves_quantity_fixed_plate"
+                                     data-name="air_valves_quantity_fixed_plate"></div>
+                                <div class="dict-block__text bool-field" data-field="changeable_modifier"
+                                     data-name="changeable_modifier" data-id=""></div>
+                                <div></div>
+
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- пресс-форма модуль -->
 
 
                 </div>

@@ -197,8 +197,8 @@ class ImmAdditionalOptions(models.Model):
     air_valve_moving_plate_quantity = models.IntegerField(null=True, blank=True)
     air_valve_fixed_plate = models.BooleanField(default=False)
     air_valve_fixed_plate_quantity = models.IntegerField(null=True, blank=True)
-    hot_runnel_control = models.BooleanField(default=False)
-    hot_runnel_control_zones = models.IntegerField(null=True, blank=True)
+    hot_runner_control = models.BooleanField(default=False)
+    hot_runner_control_zones = models.IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['imm']

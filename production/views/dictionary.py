@@ -6,8 +6,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from production import models
-from production.models import (ColorScheme, Color, Goods, DetailName, DetailInGoods, MainMaterial, AddMaterial,
-                               MaterialType, MasterBatch, Country, Producer, Defects, DefectEvent)
+
 from production.service_function import user_group_list, linking_filter, format_datetime_fields, dict_additional_filter, \
     if_admin, badges
 
@@ -41,18 +40,19 @@ def dictionary_update(request, dict_type):
     field_list = [f.name for f in dict_model._meta.get_fields()]
     current_user = request.user
     if dict_id != '0':
-        dict_element = dict_model.objects.get(id=dict_id)
+        dict_element = dict_model.objects.get(pk=dict_id)
     else:
         dict_element = dict_model()
     for field in field_list:
         if field in request.POST.keys() and field != 'id' and request.POST[field] != '':
             model_field = dict_model._meta.get_field(field)
             if model_field.get_internal_type() == 'ForeignKey':
-                setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
+                if request.POST[field] != 'null':
+                    setattr(dict_element, field, model_field.related_model.objects.get(pk=request.POST[field]))
             elif model_field.get_internal_type() == 'BooleanField':
                 setattr(dict_element, field, False)
-                # if request.POST[field]:
-                #     setattr(dict_element, field, request.POST[field])
+                if request.POST[field]:
+                    setattr(dict_element, field, request.POST[field])
             else:
                 # elif (model_field.get_internal_type() == 'DateTimeField' and request.POST[field] != '' or
                 #       model_field.get_internal_type() != 'DateTimeField'):
@@ -89,7 +89,7 @@ def dictionary_delete(request, dict_type, id_no):
     :return:
     """
     dict_model = getattr(models, dict_type)
-    dict_element = dict_model.objects.get(id=id_no)
+    dict_element = dict_model.objects.get(pk=id_no)
     dict_element.deleted = True
     dict_element.save()
     return HttpResponse()
@@ -103,7 +103,7 @@ def dictionary_last_id(request, dict_type):
     :return: Json
     """
     dict_model = getattr(models, dict_type)
-    last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
+    last_id = dict_model.objects.filter(deleted=False).aggregate(Max('pk'))
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 

@@ -8,6 +8,9 @@
 
 .screw-type {
   grid-template-columns: repeat(3, 3fr) 2fr;
+  &_adm{
+    grid-template-columns: 1fr repeat(3, 3fr) 2fr 2fr;
+  }
 }
 
 

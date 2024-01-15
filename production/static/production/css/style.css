@@ -595,11 +595,8 @@
   grid-column: 1/5;
 }
 .dict-block__5[open] {
-  position: absolute;
   max-width: 1600px;
   grid-column: 1/6;
-  z-index: 10;
-  left: -226px;
   background-color: #EFE7DC;
 }
 .dict-block__adm {
@@ -777,6 +774,9 @@
 
 .screw-type {
   grid-template-columns: repeat(3, 3fr) 2fr;
+}
+.screw-type_adm {
+  grid-template-columns: 1fr repeat(3, 3fr) 2fr 2fr;
 }
 
 .color {

@@ -1,9 +1,9 @@
 {% extends 'header.html' %}
 {% load static %}
 {% block title %}Главная{% endblock %}
-{% block content %}   
-{#    <script src="{% static 'production/js/dist/dictionary.bundle.js' %}" defer type="module"></script>#}
-    <script src="{% static 'production/js/dist/admin.bundle.js' %}" defer type="module"></script>
+{% block content %}
+<script src="{% static 'production/js/dictionary.js' %}" defer type="module"></script>
+{#    <script src="{% static 'production/js/dist/dictonary.bundle.js' %}" defer type="module"></script>#}
 
     {% if request.user.is_superuser %}
 
@@ -560,6 +560,111 @@
                             </div>
                         </div>
                     </details><!-- качество <=>  дефекты-->
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип толкателя
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active screw-type">
+                            <div>id</div>
+                            <div>Тип</div>
+                            <div>Удалено</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content dict-block__content_adm">
+                            <div class="dict-block__row screw-type dict-block__row_hidden" data-id="0"
+                                 id="ejectorType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="id"></div>
+                                <div class="dict-block__text" data-field="type"
+                                     data-name="type"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row screw-type"
+                                 data-id="{{ ejector_type.id }}"
+                                 id="ejectorType-{{ ejector_type.id }}" data-last="1">
+                                <input class="id-hidden" name="id" value="{{ ejector_type.id }}">
+                                <div class="dict-block__text">{{ ejector_type.id }}</div>
+                                <div class="dict-block__text" data-field="type"
+                                     data-name="type">{{ ejector_type.type }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if ejector_type.deleted %}1{% else %}0{% endif %}">
+                                    {% if ejector_type.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- тип толкателя -->
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                        <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип шнека
+                            </div>
+                            <div class="dict-block__search dict-block__search_open">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active screw-type_adm">
+                            <div>id</div>
+                            <div>Геометрия</div>
+                            <div>Защита</div>
+                            <div>Материал</div>
+                            <div>Удалено</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row screw-type_adm dict-block__row_hidden" data-id="0"
+                                 id="screwType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="id"></div>
+                                <div class="dict-block__text" data-field="geometry"
+                                     data-name="geometry"></div>
+                                <div class="dict-block__text" data-field="resistance"
+                                     data-name="resistance"></div>
+                                <div class="dict-block__text" data-field="bimetallic"
+                                     data-name="bimetallic"></div>
+                                <div class="dict-block__text bool-field table-center" data-id=""
+                                     data-name="deleted" data-field="deleted"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                            <div class="dict-block__row screw-type_adm" data-id="{{ screw_type.id }}"
+                                 id="screwType-{{ screw_type.id }}" data-last="1">
+                                <input class="id-hidden" name="id" value="{{ screw_type.id }}">
+                                <div class="dict-block__text" data-field="id">{{ screw_type.id }}</div>
+                                <div class="dict-block__text" data-field="geometry"
+                                     data-name="geometry">{{ screw_type.geometry }}</div>
+                                <div class="dict-block__text" data-field="resistance"
+                                     data-name="resistance">{{ screw_type.resistance }}</div>
+                                <div class="dict-block__text" data-field="bimetallic"
+                                     data-name="bimetallic">{{ screw_type.bimetallic }}</div>
+                                <div class="dict-block__text bool-field table-center"
+                                     data-name="deleted"
+                                     data-id="{% if screw_type.deleted %}1{% else %}0{% endif %}">
+                                    {% if screw_type.deleted %}Да{% else %}Нет{% endif %}</div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- тип шнека -->
                 </div>
             </div>
         </div>

@@ -2,8 +2,8 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-<script src="{% static 'production/js/dictionary.js' %}" defer type="module"></script>
-{#    <script src="{% static 'production/js/dist/dictonary.bundle.js' %}" defer type="module"></script>#}
+<script src="{% static 'production/js/admin.js' %}" defer type="module"></script>
+{#    <script src="{% static 'production/js/dist/admin.bundle.js' %}" defer type="module"></script>#}
 
     {% if request.user.is_superuser %}
 
@@ -11,7 +11,7 @@
         <div class="full-content">
             <div class="container">
                 <div class="admin-report">
-                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
+                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full " id="productRequest">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки
                                 на
@@ -74,49 +74,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row production-request_adm" data-id="{{ product_request.id }}"
-                                 data-last="1"
-                                 id="productRequest-{{ product_request.id }}">
-                                <input class="id-hidden" name="id" value="{{ product_request.id }}">
-                                <div class="dict-block__text table-center">{{ product_request.id }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ product_request.detail.id }}"
-                                     data-name="detail">{{ product_request.detail }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ product_request.color.id }}"
-                                     data-name="color" data-filter="detail">{{ product_request.color }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity">{{ product_request.quantity }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_left">{{ product_request.quantity_left }}</div>
-                                <div class="dict-block__text table-center">{{ product_request.date_create|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center" data-name="user"
-                                     data-id="{{ product_request.user.id }}">{{ product_request.user.last_name }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="if_order"
-                                     data-id="{% if product_request.if_order %}1{% else %}0{% endif %}">
-                                    {% if product_request.if_order %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="closed"
-                                     data-id="{% if product_request.closed %}1{% else %}0{% endif %}">
-                                    {% if product_request.closed %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text table-center date-field"
-                                     data-name="date_close">{{ product_request.date_close|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center"
-                                     data-name="comment">{{ product_request.comment }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="technical"
-                                     data-id="{% if product_request.technical %}1{% else %}0{% endif %}">
-                                    {% if product_request.technical %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if product_request.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- заявки на производство -->
-                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full ">
+                    <details class="dict-block dict-block__5 dict-block__adm dict-block__adm_full " id="requestStartStop">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-hands-asl-interpreting"></i>&nbsp;Заявки&nbsp;старт/стоп
                             </div>
@@ -165,37 +125,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row request-start-stop_adm" data-id="{{ request_start_stop.id }}"
-                                 data-last="1"
-                                 id="requestStartStop-{{ request_start_stop.id }}">
-                                <input class="id-hidden" name="id" value="{{ request_start_stop.id }}">
-                                <div class="dict-block__text table-center">{{ request_start_stop.id }}</div>
-                                <div class="dict-block__text foreign-key table-center"
-                                     data-id="{{ request_start_stop.production_request.id }}"
-                                     data-name="production_request">{{ request_start_stop.production_request }}</div>
-                                <div class="dict-block__text table-center">{{ request_start_stop.date_start|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center"
-                                     data-id="{{ request_start_stop.user_start.id }}">{{ request_start_stop.user_start.last_name }}</div>
-                                <div class="dict-block__text foreign-key table-center"
-                                     data-id="{{ request_start_stop.imm.id }}"
-                                     data-name="imm">{{ request_start_stop.imm }}</div>
-                                <div class="dict-block__text table-center date-field"
-                                     data-name="date_stop">{{ request_start_stop.date_stop|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center"
-                                     data-id="{{ request_start_stop.user_stop.id }}">{{ request_start_stop.user_stop.last_name }}</div>
-                                <div class="dict-block__text table-center"
-                                     data-name="stop_reason">{{ request_start_stop.stop_reason }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if request_start_stop.deleted %}1{% else %}0{% endif %}">
-                                    {% if request_start_stop.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- заявки на производство start/stop-->
-                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full">
+                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full" id="productReport">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class=" fa fa-solid fa-person-digging"></i>&nbsp;Производство
                             </div>
@@ -251,41 +183,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row production_adm" data-id="{{ product_report.id }}"
-                                 data-last="1"
-                                 id="productReport-{{ product_report.id }}">
-                                <input class="id-hidden" name="id" value="{{ product_report.id }}">
-                                <div class="dict-block__text table-center">{{ product_report.id }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ product_report.detail.id }}"
-                                     data-name="detail">{{ product_report.detail }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ product_report.color.id }}"
-                                     data-name="color" data-filter="detail">{{ product_report.color }}</div>
-                                <div class="dict-block__text">{{ product_report.date|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ product_report.imm.id }}"
-                                     data-name="imm">{{ product_report.imm }}</div>
-                                <div class="dict-block__text table-center" data-name="user"
-                                     data-id="{{ product_report.user.id }}">{{ product_report.user.last_name }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity">{{ product_report.quantity }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="defect">{{ product_report.defect }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="closed" data-id="{% if product_report.closed %}1{% else %}0{% endif %}">
-                                    {% if product_report.closed %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text table-center">{{ product_report.date_close|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center" data-name="user_close"
-                                     data-id="{{ product_report.user_close.id }}">{{ product_report.user_close.last_name }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- отчеты производства -->
-                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half" id="productionForRequest">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-left-right"></i>&nbsp;Производство&nbsp;<>&nbsp;Запрос
                             </div>
@@ -322,31 +222,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row production-for-request_adm"
-                                 data-id="{{ production_for_request.id }}"
-                                 data-last="1"
-                                 id="productionForRequest-{{ production_for_request.id }}">
-                                <input class="id-hidden" name="id" value="{{ production_for_request.id }}">
-                                <div class="dict-block__text table-center">{{ production_for_request.id }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ production_for_request.production.id }}"
-                                     data-name="production">{{ production_for_request.production }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ production_for_request.production_request.id }}"
-                                     data-name="production_request">{{ production_for_request.production_request }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity">{{ product_report.quantity }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if product_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if product_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- производство <=>  запрос-->
-                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full">
+                    <details class="dict-block dict-block__5 dict-block_adm dict-block__adm_full" id="qualityReport">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-microscope"></i>&nbsp;Качество
                             </div>
@@ -398,38 +276,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row quality-list_adm" data-id="{{ quality_report.id }}"
-                                 data-last="1"
-                                 id="qualityReport-{{ quality_report.id }}">
-                                <input class="id-hidden" name="id" value="{{ quality_report.id }}">
-                                <div class="dict-block__text table-center">{{ quality_report.id }}</div>
-                                <div class="dict-block__text foreign-key" data-id="{{ quality_report.production.id }}"
-                                     data-name="production">{{ quality_report.production }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_checked">{{ quality_report.quantity_checked }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_approved">{{ quality_report.quantity_approved }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_approved_defect">{{ quality_report.quantity_approved_defect }}</div>
-                                <div class="dict-block__text table-center">{{ quality_report.date_check|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center" data-name="user"
-                                     data-id="{{ quality_report.user.id }}">{{ quality_report.user.last_name }}</div>
-                                <div class="dict-block__text foreign-key table-center"
-                                     data-id="{{ quality_report.defect_event.id }}"
-                                     data-name="defect_event">{{ quality_report.defect_event }}</div>
-                                <div class="dict-block__text table-center"
-                                     data-name="comment">{{ quality_report.comment }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if quality_report.deleted %}1{% else %}0{% endif %}">
-                                    {% if quality_report.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- отчеты качества -->
-                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half" id="qualityForRequest">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-people-arrows"></i>&nbsp;Качество&nbsp;<>&nbsp;Запрос
                             </div>
@@ -469,33 +318,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row quality-for-request_adm"
-                                 data-id="{{ quality_for_request.id }}"
-                                 data-last="1"
-                                 id="qualityForRequest-{{ quality_for_request.id }}">
-                                <input class="id-hidden" name="id" value="{{ quality_for_request.id }}">
-                                <div class="dict-block__text table-center">{{ quality_for_request.id }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ quality_for_request.quality_report.id }}"
-                                     data-name="quality_report">{{ quality_for_request.quality_report }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ quality_for_request.production_request.id }}"
-                                     data-name="production_request">{{ quality_for_request.production_request }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_checked">{{ quality_for_request.quantity_checked }}</div>
-                                <div class="dict-block__text digit"
-                                     data-name="quantity_approved">{{ quality_for_request.quantity_approved }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if quality_for_request.deleted %}1{% else %}0{% endif %}">
-                                    {% if quality_for_request.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- качество <=>  запрос-->
-                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half" id="qualityReportDefect">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-solid fa-magnifying-glass"></i>&nbsp;Качество&nbsp;<>&nbsp;Дефекты
                             </div>
@@ -535,32 +360,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row quality-report-defect_adm"
-                                 data-id="{{ quality_report_defect.id }}"
-                                 data-last="1"
-                                 id="qualityReportDefect-{{ quality_report_defect.id }}">
-                                <input class="id-hidden" name="id" value="{{ quality_report_defect.id }}">
-                                <div class="dict-block__text table-center">{{ quality_report_defect.id }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ quality_report_defect.quality_report.id }}"
-                                     data-name="quality_report">{{ quality_report_defect.quality_report }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-id="{{ quality_report_defect.defect.id }}"
-                                     data-name="production_request">{{ quality_report_defect.defect }}</div>
-                                <div class="dict-block__text table-center">{{ quality_report_defect.date_create|date:'d.m.y H:i' }}</div>
-                                <div class="dict-block__text table-center" data-name="user"
-                                     data-id="{{ quality_report.user.id }}">{{ quality_report.user.last_name }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if quality_report_defect.deleted %}1{% else %}0{% endif %}">
-                                    {% if quality_report_defect.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- качество <=>  дефекты-->
-                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half" id="ejectorType">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип толкателя
                             </div>
@@ -591,24 +393,9 @@
                                     удалить
                                 </button>
                             </div>
-                            <div class="dict-block__row screw-type"
-                                 data-id="{{ ejector_type.id }}"
-                                 id="ejectorType-{{ ejector_type.id }}" data-last="1">
-                                <input class="id-hidden" name="id" value="{{ ejector_type.id }}">
-                                <div class="dict-block__text">{{ ejector_type.id }}</div>
-                                <div class="dict-block__text" data-field="type"
-                                     data-name="type">{{ ejector_type.type }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if ejector_type.deleted %}1{% else %}0{% endif %}">
-                                    {% if ejector_type.deleted %}Да{% else %}Нет{% endif %}</div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
                         </div>
                     </details><!-- тип толкателя -->
-                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half">
+                    <details class="dict-block dict-block__2 dict-block_adm dict-block__adm_half" id="screwType">
                         <summary class="dict-block__header dict-block__header_open dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-regular fa-bookmark"></i>&nbsp;Тип шнека
                             </div>
@@ -641,24 +428,6 @@
                                      data-name="bimetallic"></div>
                                 <div class="dict-block__text bool-field table-center" data-id=""
                                      data-name="deleted" data-field="deleted"></div>
-                                <button class="btn btn-close btn_delete" type="button">
-                                    удалить
-                                </button>
-                            </div>
-                            <div class="dict-block__row screw-type_adm" data-id="{{ screw_type.id }}"
-                                 id="screwType-{{ screw_type.id }}" data-last="1">
-                                <input class="id-hidden" name="id" value="{{ screw_type.id }}">
-                                <div class="dict-block__text" data-field="id">{{ screw_type.id }}</div>
-                                <div class="dict-block__text" data-field="geometry"
-                                     data-name="geometry">{{ screw_type.geometry }}</div>
-                                <div class="dict-block__text" data-field="resistance"
-                                     data-name="resistance">{{ screw_type.resistance }}</div>
-                                <div class="dict-block__text" data-field="bimetallic"
-                                     data-name="bimetallic">{{ screw_type.bimetallic }}</div>
-                                <div class="dict-block__text bool-field table-center"
-                                     data-name="deleted"
-                                     data-id="{% if screw_type.deleted %}1{% else %}0{% endif %}">
-                                    {% if screw_type.deleted %}Да{% else %}Нет{% endif %}</div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>

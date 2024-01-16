@@ -902,7 +902,7 @@
 
 .clamping-unit {
   font-size: 14px;
-  grid-template-columns: 2fr repeat(8, 1fr);
+  grid-template-columns: 2fr repeat(9, 1fr);
 }
 .clamping-unit .btn {
   font-size: 14px;

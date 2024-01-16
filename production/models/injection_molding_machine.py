@@ -107,6 +107,8 @@ class ClampingUnit(models.Model):
     bars_vertical_mm = models.IntegerField(null=True, blank=True)
     opening_positions_quantity = models.IntegerField(null=True, blank=True)
     closing_positions_quantity = models.IntegerField(null=True, blank=True)
+    max_mold_weight_kg = models.IntegerField(null=True, blank=True)
+    max_mold_weight_per_plate_kg = models.IntegerField(null=True, blank=True)
     flange_moving_mm = models.IntegerField(null=True, blank=True)
     flange_fixed_mm = models.IntegerField(null=True, blank=True)
     deleted = models.BooleanField(default=False)

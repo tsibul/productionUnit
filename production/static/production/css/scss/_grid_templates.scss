@@ -8,7 +8,8 @@
 
 .screw-type {
   grid-template-columns: repeat(3, 3fr) 2fr;
-  &_adm{
+
+  &_adm {
     grid-template-columns: 1fr repeat(3, 3fr) 2fr 2fr;
   }
 }
@@ -51,7 +52,16 @@
 }
 
 .producer {
+  font-size: 14px;
   grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr  2fr 1fr;
+
+  & .btn {
+    font-size: 14px;
+  }
+
+  & form * {
+    font-size: 12px;
+  }
 }
 
 .recipe {

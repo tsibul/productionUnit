@@ -815,7 +815,14 @@
 }
 
 .producer {
+  font-size: 14px;
   grid-template-columns: 1fr 2fr 2fr 2fr 2fr 1fr 2fr 1fr;
+}
+.producer .btn {
+  font-size: 14px;
+}
+.producer form * {
+  font-size: 12px;
 }
 
 .recipe {

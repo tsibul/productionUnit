@@ -2,8 +2,8 @@
 {% load static %}
 {% block title %}Главная{% endblock %}
 {% block content %}
-{#<script src="{% static 'production/js/admin.js' %}" defer type="module"></script>#}
-<script src="{% static 'production/js/dist/admin.bundle.js' %}" defer type="module"></script>
+<script src="{% static 'production/js/admin.js' %}" defer type="module"></script>
+{#<script src="{% static 'production/js/dist/admin.bundle.js' %}" defer type="module"></script>#}
 
     {% if request.user.is_superuser %}
 

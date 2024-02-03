@@ -39,7 +39,7 @@ dictStartChecks.forEach(chck => {
         }
     });
     chck.addEventListener('click', async e => {
-        await initDictionary(e.target);
+        await initDictionary(e.target, showDeleted);
     }, {once: true});
 
 });

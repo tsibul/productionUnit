@@ -39,4 +39,6 @@ urlpatterns = [
     path('quality_report_update/', views.quality_report_update, name='quality_report_update'),
 
     path('production_admin/', views.production_admin, name='production_admin'),
+    path('imm_free/', views.imm_free_list, name='imm_free'),
+
 ]

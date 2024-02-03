@@ -22,7 +22,7 @@ const detailsList = document.querySelectorAll('summary');
 detailsList.forEach(detail =>{
     detail.addEventListener('click', async e => {
         const nodeWithId = e.target.closest('details')
-        await initDictionary(nodeWithId);
+        await initDictionary(nodeWithId, showDeleted);
     }, {once: true});
 });
 

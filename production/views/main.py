@@ -1,4 +1,6 @@
-from django.http import HttpResponseRedirect
+import json
+
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -23,14 +25,14 @@ def index(request):
     # production_to_approve = ProductionReport.objects.filter(deleted=False, shift_rejected=True).order_by('-date')
     # to_approve = production_to_approve.count()
     imm = IMM.objects.filter(deleted=False).order_by('plant_code')
-    imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
-                           productionrequeststartstop__date_start__isnull=False)
+    # imm_free = imm.exclude(productionrequeststartstop__date_stop__isnull=True,
+    #                        productionrequeststartstop__date_start__isnull=False)
 
     on_request, in_work = state()
     user_groups = user_group_list(request)
     badge_count = badges()
 
-    context = {'navi': navi, 'imm': imm, 'imm_free': imm_free, 'user_groups': user_groups, 'admin_state': admin_state,
+    context = {'navi': navi, 'imm': imm, 'user_groups': user_groups, 'admin_state': admin_state,
                'on_request': on_request, 'in_work': in_work, 'badge_count': badge_count}
 
     return render(request, 'index.html', context)
@@ -140,3 +142,17 @@ def request_from_form(request):
     current_user = request.user
     date_now = timezone.now()
     return color, detail, imm, current_user, date_now
+
+
+def imm_free_list(request):
+    imm = IMM.objects.filter(deleted=False).order_by('plant_code')
+    imm_free = (imm.exclude(productionrequeststartstop__date_stop__isnull=True,
+                            productionrequeststartstop__date_start__isnull=False)
+                .values('id', 'plant_code', 'producer__name', 'name', 'imm_model'))
+    imm_list = list(map(transform_item, imm_free))
+    return JsonResponse(imm_list, safe=False)
+
+
+def transform_item(item):
+    producer_name = item['producer__name'] + ' ' + item['name'] + ' ' + item['imm_model']
+    return {'id': item['id'], 'plant_code': item['plant_code'], 'name': producer_name}

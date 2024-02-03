@@ -7,6 +7,7 @@ import {reformatFields} from "./func/reformatFields.js";
 import {openModal} from "./func/openModal.js";
 import {selectFromList} from "./func/dropdown/selectFromList.js";
 import {dropDownListenerVisible} from "./func/dropdown/dropDownListenerVisible.js";
+import {fetchJsonData} from "./func/fetchJsonData.js";
 
 /**
  * constants
@@ -25,7 +26,6 @@ const modalSaveButton = productionModal.querySelector('.btn-save');
 const produceButtons = sectionInProduction.querySelectorAll('.btn-save');
 const inWorkLocal = JSON.parse(document.getElementById('in-work').textContent);
 const onRequestLocal = JSON.parse(document.getElementById('on-request').textContent);
-const startModalLines = startModal.querySelectorAll('li');
 
 /**
  * Scripts
@@ -48,38 +48,31 @@ await addRequestRows();
     });
 });
 
-productionContent.addEventListener('click', e => {
+productionContent.addEventListener('click', async e => {
     const startButtons = productionContent.querySelectorAll('.btn-close');
-    startButtons.forEach(btn => {
+    for (const btn of startButtons) {
         if (btn === e.target) {
-            fillStartModal(btn);
+            await fillStartModal(btn);
             openModal(startModal);
         }
-    });
+    }
 })
 
 startModal.querySelector('.dropdown').addEventListener('click', e => {
     dropDownListenerVisible(startModal.querySelector('.dropdown'), e);
 });
 
-startModalLines.forEach(line =>{
-    line.addEventListener('click', async e => {
-        e.stopPropagation();
-        await selectFromList(e.target);
-    });
-});
-
 /**
  * save modal data
  */
-modalSaveButton.addEventListener('mousedown', e =>{
+modalSaveButton.addEventListener('mousedown', e => {
     document.querySelectorAll('.btn').forEach(btn => {
         btn.disabled = true;
         btn.classList.add('form-input__inactive');
-    const currentForm = e.target.closest('form');
-    const currentModal = e.target.closest('.login');
-    currentModal.style.display = 'none';
-    currentForm.submit();
+        const currentForm = e.target.closest('form');
+        const currentModal = e.target.closest('.login');
+        currentModal.style.display = 'none';
+        currentForm.submit();
     })
 })
 
@@ -135,11 +128,11 @@ async function fillProductionData(row, element, prefix) {
             row.querySelector('.req__queue').textContent = detOnImm[detailName];
         }
     }
-    reformatFields(row,element,prefix);
+    reformatFields(row, element, prefix);
     row.dataset.detail = element['detail_id'];
     row.dataset.color = element['color_id'];
     const reqLeft = row.querySelector('.req__left')
-    if(reqLeft && reqLeft.textContent === '0'){
+    if (reqLeft && reqLeft.textContent === '0') {
         row.querySelector('.btn').classList.add('form-input__inactive');
         row.querySelector('.btn').disabled = true;
     }
@@ -158,10 +151,23 @@ function fillStopModal(btn) {
  *
  * @param btn
  */
-function fillStartModal(btn) {
+async function fillStartModal(btn) {
     const row = btn.closest('.dict-block__row');
     startModal.querySelector('[name="detail"]').value = row.dataset.detail;
     startModal.querySelector('[name="color"]').value = row.dataset.color;
+    const ul = startModal.querySelector('.dropdown__content');
+    const immList = await fetchJsonData('imm_free');
+    immList.forEach(imm => {
+        let liCode = `<li data-value="${imm.id}">
+                                <span class="active font-normal">${imm.plant_code}</span>&nbsp;${imm.name}
+                            </li>`
+        ul.insertAdjacentHTML('beforeend', liCode)
+        const li = ul.lastElementChild
+        li.addEventListener('click', async e => {
+            e.stopPropagation();
+            await selectFromList(e.target);
+        });
+    });
 }
 
 

@@ -19,6 +19,8 @@ const productionContent = sectionProduction.querySelector('.dict-block__content'
 const inProductionContent = sectionInProduction.querySelector('.dict-block__content');
 const productionRow = document.querySelector('#technical-data').querySelector('.production');
 const startModal = document.getElementById('startModal');
+const startModalButton = startModal.querySelector('.btn')
+const startForm = startModal.querySelector('#production-start-form')
 const stopModal = document.getElementById('stopModal');
 const stopButtons = sectionInProduction.querySelectorAll('.btn-close');
 const productionModal = document.getElementById('productionModal');
@@ -60,6 +62,11 @@ productionContent.addEventListener('click', async e => {
 
 startModal.querySelector('.dropdown').addEventListener('click', e => {
     dropDownListenerVisible(startModal.querySelector('.dropdown'), e);
+});
+
+startModalButton.addEventListener('mousedown', e => {
+    startModalButton.disabled = true;
+    startForm.submit()
 });
 
 /**

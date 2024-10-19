@@ -66,7 +66,7 @@ startModal.querySelector('.dropdown').addEventListener('click', e => {
 
 startModalButton.addEventListener('mousedown', e => {
     startModalButton.disabled = true;
-    startForm.submit()
+    startForm.submit();
 });
 
 /**

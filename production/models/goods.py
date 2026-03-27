@@ -9,8 +9,8 @@ class Goods(models.Model):
         @detail_name - name of detail
         @detail_place - if printing possible"""
 
-    name = models.CharField(max_length=200, null=True, blank=True)
-    article = models.CharField(max_length=20, null=True, blank=True, unique=True)
+    name = models.CharField(max_length=200)
+    article = models.CharField(max_length=20, unique=True)
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
     details_quantity = models.SmallIntegerField(default=1)
     deleted = models.BooleanField(default=False)
@@ -20,6 +20,10 @@ class Goods(models.Model):
 
     def __str__(self):
         return f"{self.article} {self.name}"
+
+    def save(self, *args, **kwargs):
+        if self.name != '' and self.article != '' and self.name is not None and self.article is not None:
+            super().save (*args, **kwargs)
 
     class Meta:
         ordering = ['article']
